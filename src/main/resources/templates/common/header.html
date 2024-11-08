@@ -1,0 +1,102 @@
+<header>
+  <div class="header-container">
+    <h1 class="logo">
+      <a href="#">화사 :: 愛 :: 화풍</a>
+      <span class="sub-title">고품격 경매와 예술을 위한 공동</span>
+    </h1>
+    <nav class="main-nav">
+      <ul>
+        <li class="nav-item">
+          <a href="#">Gallery</a>
+          <ul class="dropdown">
+            <li><a href="#">전체 작품</a></li>
+            <li><a href="#">신규 작품</a></li>
+            <li><a href="#">인기 작품</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#">Artists</a>
+          <ul class="dropdown">
+            <li><a href="#">작가 목록</a></li>
+            <li><a href="#">신진 작가</a></li>
+            <li><a href="#">이달의 작가</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#">Auctions</a>
+          <ul class="dropdown">
+            <li><a href="#">진행중인 경매</a></li>
+            <li><a href="#">예정 경매</a></li>
+            <li><a href="#">종료된 경매</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#">How To</a>
+          <ul class="dropdown">
+            <li><a href="#">이용 가이드</a></li>
+            <li><a href="#">자주 묻는 질문</a></li>
+            <li><a href="#">문의하기</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <div class="user-menu">
+      <a href="#">SignUp</a>
+      <a href="#">Login</a>
+    </div>
+  </div>
+</header>
+
+<script>
+  // 선택적으로 사용할 수 있는 JavaScript 코드
+  document.addEventListener('DOMContentLoaded', function () {
+    const navItems = document.querySelectorAll('.nav-item');
+    const overlay = document.createElement('div');
+    overlay.className = 'nav-overlay';
+    document.body.appendChild(overlay);
+
+    // 드롭다운 메뉴 표시 시 오버레이 표시
+    navItems.forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        overlay.classList.add('active');
+      });
+
+      item.addEventListener('mouseleave', () => {
+        overlay.classList.remove('active');
+      });
+    });
+
+    // 드롭다운 메뉴 접근성 개선
+    navItems.forEach(item => {
+      const link = item.querySelector('a');
+      const dropdown = item.querySelector('.dropdown');
+
+      if (link && dropdown) {
+        link.addEventListener('focus', () => {
+          closeAllDropdowns();
+          dropdown.style.opacity = '1';
+          dropdown.style.visibility = 'visible';
+          dropdown.style.transform = 'translateY(0)';
+        });
+      }
+    });
+
+    // 모든 드롭다운 메뉴 닫기
+    function closeAllDropdowns() {
+      const dropdowns = document.querySelectorAll('.dropdown');
+      dropdowns.forEach(dropdown => {
+        dropdown.style.opacity = '0';
+        dropdown.style.visibility = 'hidden';
+        dropdown.style.transform = 'translateY(10px)';
+      });
+    }
+
+    // 포커스가 메뉴를 벗어났을 때 드롭다운 닫기
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.nav-item')) {
+        closeAllDropdowns();
+      }
+    });
+  });
+
+</script>
