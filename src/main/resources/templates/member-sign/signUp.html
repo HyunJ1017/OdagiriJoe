@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <th:block th:replace= "~{/common/common.html}"></th:block>
+  <link rel="stylesheet" href="/css/member-sign/signUp.css">
+</head>
+<body>
+  <th:block th:replace= "~{/common/header.html}"></th:block>
+
+  <main id="member-main">
+
+    <h3>회원가입</h3>
+
+    <!-- 이름 -->
+    <div class="signUp-sec">
+      <div>이름</div>
+      <label for="inputName">
+        <input type="text" id="inputName" placeholder="이름 입력">
+      </label>
+      <div id="nameMessage"></div>
+    </div>
+
+    <!-- 아이디 -->
+    <div class="signUp-sec">
+      <div>아이디</div>
+      <label for="inputId">
+        <input type="text" id="inputId" placeholder="아이디를 입력해 주세요.">
+        <div class="member-hov" id="idCheck">중복검사</div>
+      </label>
+      <div id="idMessage"></div>
+    </div>
+
+    <!-- 이메일 -->
+    <div class="signUp-sec">
+      <div>이메일</div>
+      <label for="inputEmail">
+        <input type="text" id="inputEmail" placeholder="이메일을 입력해 주세요.">
+      </label>
+      <div id="emailMessage"></div>
+    </div>
+
+    <!-- 비밀번호 -->
+    <div class="signUp-sec">
+      <div>비밀번호</div>
+      <label for="inputPw">
+        <input type="password" id="inputPw" placeholder="비밀번호 입력">
+      </label>
+      <div id="pwMessage"></div>
+    </div>
+
+    <!-- 비밀번호 확인 -->
+    <div class="signUp-sec">
+      <div>비밀번호 확인</div>
+      <label for="inputPwC">
+        <input type="password" id="inputPwC" placeholder="비밀번호를 확인해 주세요.">
+      </label>
+    </div>
+
+    <!-- 전화전호 -->
+    <div class="signUp-sec">
+      <div>전화번호</div>
+      <label for="inputPh">
+        <input type="text" id="inputPh" placeholder="'-'빼고 숫자만 입력">
+        <div class="member-hov" id="phCheck">인증번호</div>
+      </label>
+      <div id="phMessage"></div>
+    </div>
+
+    <!-- 전화전호 인증 확인 -->
+    <div class="signUp-sec">
+      <div>전화번호 인증 확인</div>
+      <label for="inputPhC">
+        <input type="text" id="inputPhC" placeholder="인증번호를 입력해 주세요.">
+        <div id="signUp-count">04:59</div>
+        <div class="member-hov">인증확인</div>
+      </label>
+    </div>
+
+    <div class="member-hov" id="signUp-btn">가입하기</div>
+
+  </main>
+
+  <th:block th:replace= "~{/common/footer.html}"></th:block>
+  <script src="/js/member-sign/signUp.js"></script>
+  <script src="https://kit.fontawesome.com/8695e357e4.js" crossorigin="anonymous"></script>
+</body>
+</html>

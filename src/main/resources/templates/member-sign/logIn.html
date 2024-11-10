@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <th:block th:replace= "~{/common/common.html}"></th:block>
+  <link rel="stylesheet" href="/css/member-sign/signUp.css">
+</head>
+<body>
+
+  <th:block th:replace= "~{/common/header.html}"></th:block>
+
+  <main id="logIn-main">
+    <h3>로그인</h3>
+
+    <!-- 아이디 -->
+    <div class="logIn-sec">
+      <h4>아이디</h4>
+      <label for="inputId">
+        <input type="text" id="inputId" placeholder="아이디를 입력해 주세요.">
+      </label>
+    </div>
+
+    <!-- 비밀번호 -->
+    <div class="logIn-sec">
+      <h4>비밀번호</h4>
+      <label for="inputPw">
+        <input type="password" id="inputPw" placeholder="비밀번호 입력">
+      </label>
+    </div>
+
+    <div class="member-hov" id="logIn-btn">로그인</div>
+
+    <div>
+      <a href="/logIn/findingId">아이디 찾기</a>
+      |
+      <a href="/logIn/findingPasswords">비밀번호 찾기</a>
+      |
+      <a href="/signUp">회원가입</a>
+    </div>
+
+    <div style="display: flex; flex-direction: row;">
+      <form action="#" style="margin-left: 10px;"><button class="member-hov" style="width: 50px;">1</button></form>
+      <form action="#" style="margin-left: 10px;"><button class="member-hov" style="width: 50px;">2</button></form>
+      <form action="#" style="margin-left: 10px;"><button class="member-hov" style="width: 50px;">3</button></form>
+    </div>
+  </main>
+
+  <th:block th:replace= "~{/common/footer.html}"></th:block>
+  
+  <script src="/js/member-sign/logIn.js"></script>
+
+</body>
+</html>
