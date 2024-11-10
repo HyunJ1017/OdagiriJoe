@@ -131,7 +131,7 @@ idCheckBtn?.addEventListener("click", ()=>{
     return;
   }
 
-  fetch("/signUp/idCheck?inputId=" + inputIdV)
+  fetch("/member/signUp/idCheck?inputId=" + inputIdV)
   .then(response => {
     if (response.ok) return response.text();
     throw new Error("AJAX 통신 실패");
@@ -397,7 +397,7 @@ phoneCheckBtn?.addEventListener("click", ()=>{
     return;
   }
 
-  fetch("/signUp/sendSms?inputPhone=" + inputPhoneV)
+  fetch("/member/signUp/sendSms?inputPhone=" + inputPhoneV)
   .then(response => {
     if (response.ok) return response.json();
     throw new Error("AJAX 통신 실패");
@@ -435,31 +435,48 @@ signUpBtn.addEventListener("click", ()=>{
   //   alert("전화번호 인증을 해 주십시오");
   //   return;
   // }
+
+  const signUpObj = {
+    "memberName" : inputName.value,
+    "memberId" : inputId.value,
+    "memberEmail" : inputEmail.value,
+    "inputPw" : inputPw.value,
+    "memberPhone" : inputPh.value
+  }
+
+  fetch("/member/signUp", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(signUpObj)
+  })
+  .then(response => {
+    if (response.ok) return response.text();
+    throw new Error("AJAX 통신 실패");
+  })
+  .then(result => {
+    if(result < 1){
+      alert("회원가입 실패");
+    } else {
+      logIn(signUpObj);
+    }
+  })
+  .catch(err => console.error(err));
+  
+});
+
+const logIn = (obj) => {
   const form = document.createElement("form");
-  form.action="/signUp";
+  form.action="/member/login";
   form.method="POST";
   const input1 = document.createElement("input");
   input1.type = "hidden";
-  input1.value = inputName.value;
-  input1.name = "memberName";
+  input1.value = obj.memberId;
+  input1.name = "memberId";
   const input2 = document.createElement("input");
   input2.type = "hidden";
-  input2.value = inputId.value;
-  input2.name = "memberId";
-  const input3 = document.createElement("input");
-  input3.type = "hidden";
-  input3.value = inputEmail.value;
-  input3.name = "memberEmail";
-  const input4 = document.createElement("input");
-  input4.type = "hidden";
-  input4.value = inputPw.value;
-  input4.name = "inputPw";
-  const input5 = document.createElement("input");
-  input5.type = "hidden";
-  input5.value = inputPh.value;
-  input5.name = "memberPhone";
-  form.append(input1,input2,input3,input4,input5);
+  input2.value = obj.inputPw;
+  input2.name = "memberPw";
+  form.append(input1,input2);
   document.querySelector("body").append(form);
   form.submit();
-  
-});
+}

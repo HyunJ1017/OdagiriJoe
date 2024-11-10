@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 /* 회원가입
  */
 
-@RequestMapping("signUp")
+@RequestMapping("member/signUp")
 @Controller
 @RequiredArgsConstructor
 public class SignUpController {
@@ -42,17 +42,21 @@ public class SignUpController {
 	}
 	
 	
+	/** 회원가입
+	 * @param member
+	 * @param inputPw
+	 * @return
+	 */
 	@PostMapping("")
-	public String signUp(
+	@ResponseBody
+	public int signUp(
 			@ModelAttribute Member member,
 			@RequestParam("inputPw") String inputPw) {
 		
 		int result = service.signUp(member, inputPw);
 		
-		if(result > 0)	return "redirect:/";
-		else {
-			return "/signUp";
-		}
+		if(result > 0) return member.getMemberNo();
+		else return 0;
 	}
 
 }

@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class ManageServiceImpl {
+public class ManageServiceImpl implements ManageService {
 	private final ManageMapper mapper;
 
 }

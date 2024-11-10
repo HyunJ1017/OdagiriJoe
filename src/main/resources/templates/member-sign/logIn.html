@@ -33,17 +33,17 @@
     <div class="member-hov" id="logIn-btn">로그인</div>
 
     <div>
-      <a href="/logIn/findingId">아이디 찾기</a>
+      <a href="member/login/findingId">아이디 찾기</a>
       |
-      <a href="/logIn/findingPasswords">비밀번호 찾기</a>
+      <a href="member/login/findingPasswords">비밀번호 찾기</a>
       |
-      <a href="/signUp">회원가입</a>
+      <a href="/member/signUp">회원가입</a>
     </div>
 
     <div style="display: flex; flex-direction: row;">
-      <form action="#" style="margin-left: 10px;"><button class="member-hov" style="width: 50px;">1</button></form>
-      <form action="#" style="margin-left: 10px;"><button class="member-hov" style="width: 50px;">2</button></form>
-      <form action="#" style="margin-left: 10px;"><button class="member-hov" style="width: 50px;">3</button></form>
+      <form action="/member/login" method="post" style="margin-left: 10px;"><input type="hidden" name="memberId" value="memberId"><input type="hidden" name="memberPw" value="memberPw"><button class="member-hov" style="width: 50px;">1</button></form>
+      <form action="/member/login" method="post" style="margin-left: 10px;"><input type="hidden" name="memberId" value="memberId"><input type="hidden" name="memberPw" value="memberPw"><button class="member-hov" style="width: 50px;">2</button></form>
+      <form action="/member/login" method="post" style="margin-left: 10px;"><input type="hidden" name="memberId" value="memberId"><input type="hidden" name="memberPw" value="memberPw"><button class="member-hov" style="width: 50px;">3</button></form>
     </div>
   </main>
 
