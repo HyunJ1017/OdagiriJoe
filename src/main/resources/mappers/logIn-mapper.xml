@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "edu.kh.plklj.member.mapper.LogInMapper">
+
+	<!-- 로그인 -->
+	<select id="signUp" resultType="Member">
+		SELECT
+			MEMBER_NO,
+			MEMBER_ID,
+			MEMBER_PW,
+			MEMBER_NAME,
+			MEMBER_EMAIL,
+			MEMBER_PHONE,
+			ARTIST_REG,
+			MEMBER_PENALTY
+		FROM "MEMBER"
+		WHERE MEMBER_ID = #{memberId}
+		AND MEMBER_DEL_FL = 'N'
+	</select>
+	
+</mapper>

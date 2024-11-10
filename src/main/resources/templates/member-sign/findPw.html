@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <th:block th:replace= "~{/common/common.html}"></th:block>
+  <link rel="stylesheet" href="/css/member-sign/signUp.css">
+</head>
+<body>
+  <th:block th:replace= "~{/common/header.html}"></th:block>
+
+  <main id="member-main">
+
+    <h3 style="margin-top: 100px;">비밀번호 찾기</h3>
+
+    <!-- 이름 -->
+    <div class="signUp-sec">
+      <div>이름</div>
+      <label for="">
+        <input type="text" id="" placeholder="이름 입력">
+      </label>
+    </div>
+
+    <!-- 아이디 -->
+    <div class="signUp-sec">
+      <div>아이디</div>
+      <label for="">
+        <input type="text" id="" placeholder="아이디를 입력해 주세요.">
+      </label>
+    </div>
+
+    <!-- 전화전호 -->
+    <div class="signUp-sec">
+      <div>전화번호</div>
+      <label for="">
+        <input type="text" id="" placeholder="'-'빼고 숫자만 입력">
+        <div class="member-hov">인증번호</div>
+      </label>
+    </div>
+    
+    <!-- 전화전호 인증 확인 -->
+    <div class="signUp-sec">
+      <div>전화번호 인증 확인</div>
+      <label for="">
+        <input type="text" id="" placeholder="인증번호를 입력해 주세요.">
+        <div id="signUp-count">04:59</div>
+        <div class="member-hov">인증확인</div>
+      </label>
+    </div>
+    
+    
+    <!-- 새 비밀번호 -->
+    <div class="signUp-sec">
+      <div>새 비밀번호</div>
+      <label for="">
+        <input type="text" id="" placeholder="사용할 비밀번호를 입력해 주세요.">
+      </label>
+    </div>
+    
+    
+    <!-- 전화전호 -->
+    <div class="signUp-sec">
+      <div>새 비밀번호 확인</div>
+      <label for="">
+        <input type="text" id="" placeholder="비밀번호를 다시한번 입력해 주세요.">
+        <div class="member-hov">변경하기</div>
+      </label>
+    </div>
+
+    <section>
+      <a href="/logIn" class="member-hov member-btnA">로그인</a>
+    </section>
+
+  </main>
+
+  <th:block th:replace= "~{/common/footer.html}"></th:block>
+  <script src="/js/member-sign/signUp.js"></script>
+</body>
+</html>
