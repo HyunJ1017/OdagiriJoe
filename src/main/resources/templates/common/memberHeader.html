@@ -48,11 +48,24 @@
     </nav>
 
     <!-- 오른쪽 사용자 액션 영역 -->
+    <!-- 검색 바와 네비게이션 메뉴 영역 -->
+    <div class="header-search-nav-container">
+
+      <!-- 검색 바 영역 -->
+      <div class="header-search-bar">
+        <input type="text" id="search-bar" placeholder="Search" class="header-search-input"
+          oninput="this.nextElementSibling.style.display = this.value ? 'block' : 'none';">
+        <button class="header-clear-button"
+          onclick="document.querySelector('.header-search-input').value = ''; 
+          this.style.display = 'none';" style="display: none;">X</button>
+        <button class="header-search-button"><i class="fa fa-search"></i></button>
+      </div>
+    </div>
+
     <div class="header-actions">
-      <a href="/member/SignUp" class="header-item">SignUp</a>
-      <a href="/member/login" class="header-item">Login</a>
-      <i class="fa-solid fa-bell"></i>
-      <i class="fa-solid fa-search"></i>
+      <a href="/main" class="header-item">Logout</a>
+      <i class="fa-solid fa-bell" onclick="toggleMenu()"></i>
+      <i class="fa-solid fa-search" onclick="toggleMenu()"></i>
       <i class="fa-solid fa-bars menu-icon" onclick="toggleMenu()">〓</i>
     </div>
   </header>
@@ -70,22 +83,22 @@
   <!-- 사이드 메뉴 항목 -->
   <nav>
       <div class="header-nav-item-wrapper">
-          <a href="/login" class="header-item">login</a>
+          <a href="/member/myPage" class="header-item">My Page</a>
       </div>
       <div class="header-nav-item-wrapper">
-          <a href="/login" class="header-item">구매 내역</a>
+          <a href="/member/" class="header-item">구매 내역</a>
       </div>
       <div class="header-nav-item-wrapper">
-          <a href="/login" class="header-item">진행 경매</a>
+          <a href="/member/" class="header-item">진행 경매</a>
       </div>
       <div class="header-nav-item-wrapper">
-          <a href="/login" class="header-item">팔로우 및 위시</a>
+          <a href="/member/" class="header-item">팔로우 및 위시</a>
       </div>
       <div class="header-nav-item-wrapper">
-          <a href="/login" class="header-item">작가 신청</a>
+          <a href="/member/" class="header-item">작가 신청</a>
       </div>
       <div class="header-nav-item-wrapper">
-          <a href="/login" class="header-item">1 : 1 문의</a>
+          <a href="/member/" class="header-item">1 : 1 문의</a>
       </div>
   </nav>
 </div>
