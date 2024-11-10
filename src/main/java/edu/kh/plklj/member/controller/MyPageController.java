@@ -8,7 +8,7 @@ import edu.kh.plklj.member.service.MyPageService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("myPage")
+@RequestMapping("member/myPage")
 @RequiredArgsConstructor
 public class MyPageController {
 

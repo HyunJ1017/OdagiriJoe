@@ -23,7 +23,7 @@ inputPw.addEventListener("keyup", (e)=> {
 const goLogIn = () => {
 
   const form = document.createElement("form");
-  form.action="/logIn";
+  form.action="/member/login";
   form.method="POST";
   const input1 = document.createElement("input");
   input1.type = "hidden";
