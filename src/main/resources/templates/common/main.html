@@ -3,106 +3,88 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  
-  <link rel="stylesheet" href="/css/common/main.css">
-  
+  <title>화사 :: 愛 :: 화공</title>
+  <link rel="stylesheet" href="/css/common/main.css">  
   <th:block th:replace= "~{/common/common.html}"></th:block>
 </head>
 <body>
-
-  <th:block th:replace= "~{/common/header.html}"></th:block>
-
-
-  <main>
-    <section class="main-slider">
-      <div class="slider-container">
-        <div class="slide active">
-          <div class="slide-content">
-            <h2>Online Viewing</h2>
-            <p class="date">Online Viewing : 11월 5일(수) ~ 11월 11일(월)</p>
-            <p class="time">각일 낮시 : 12월 6일 14:00</p>
-            <button class="view-btn">보러가기</button>
-          </div>
-          <div class="slide-image">
-            <img src="path/to/floral-image.jpg" alt="수채화 꽃">
+  <div class="slider-container">
+    <div class="slider">
+      <div class="slide">
+        <img src="path/to/image1.png" alt="Image 1">
+      </div>
+      <div class="slide">
+        <img src="path/to/image2.png" alt="Image 2">
+    </section>
+  
+      </div>
+      <!-- 슬라이드 추가 가능 -->
+    </div>
+    <div class="navigation">
+      <button class="nav prev">&#10094;</button>
+      <button class="nav next">&#10095;</button>
+    </div>
+  </div>
+  
+  <!-- 온라인 갤러리 섹션 -->
+  <section class="online-gallery">
+    <div class="section-header">
+      <h2>Online Gallery</h2>
+      <a href="#" class="more">작품 더보기 +</a>
+    </div>
+    <div class="gallery-grid">
+      <article class="gallery-item">
+        <div class="artwork-image">
+          <img src="path/to/artwork1.jpg" alt="수묵화">
+        </div>
+        <div class="artwork-info">
+          <h3>박현준</h3>
+          <p class="artwork-title">작품 : 힐링넷</p>
+          <div class="artwork-details">
+            <p class="size">22 x 22</p>
+            <p class="price">현재가 (KRW)</p>
+            <p class="amount">300,000</p>
           </div>
         </div>
-        <!-- 슬라이더 네비게이션 -->
-        <div class="slider-nav">
-          <button class="prev">이전</button>
-          <div class="slider-dots">
-            <span class="dot active"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-          </div>
-          <button class="next">다음</button>
+      </article>
+      <!-- 추가 갤러리 아이템들 -->
+      <article class="gallery-item">
+        <div class="artwork-image">
+          <img src="path/to/artwork2.jpg" alt="현대미술">
         </div>
-      </div>
-    </section>
-  
-    <!-- 온라인 갤러리 섹션 -->
-    <section class="online-gallery">
-      <div class="section-header">
-        <h2>Online Gallery</h2>
-        <a href="/main/online" class="more">작품 더보기 +</a>
-      </div>
-      <div class="gallery-grid">
-        <article class="gallery-item">
-          <div class="artwork-image">
-            <img src="path/to/artwork1.jpg" alt="수묵화">
+        <div class="artwork-info">
+          <h3>이동현</h3>
+          <p class="artwork-title">작품 : 풍운이</p>
+          <div class="artwork-details">
+            <p class="size">22 x 22</p>
+            <p class="price">현재가 (KRW)</p>
+            <p class="amount">450,000</p>
           </div>
-          <div class="artwork-info">
-            <h3>박현준</h3>
-            <p class="artwork-title">작품 : 힐링넷</p>
-            <div class="artwork-details">
-              <p class="size">22 x 22</p>
-              <p class="price">현재가 (KRW)</p>
-              <p class="amount">300,000</p>
-            </div>
-          </div>
-        </article>
-        <!-- 추가 갤러리 아이템들 -->
-        <article class="gallery-item">
-          <div class="artwork-image">
-            <img src="path/to/artwork2.jpg" alt="현대미술">
-          </div>
-          <div class="artwork-info">
-            <h3>이동현</h3>
-            <p class="artwork-title">작품 : 풍운이</p>
-            <div class="artwork-details">
-              <p class="size">22 x 22</p>
-              <p class="price">현재가 (KRW)</p>
-              <p class="amount">450,000</p>
-            </div>
-          </div>
-        </article>
-        <!-- 추가 갤러리 아이템들 -->
-      </div>
-    </section>
-  
-    <!-- 온라인 경매 섹션 -->
-    <section class="online-auctions">
-      <div class="section-header">
-        <h2>Online Auctions</h2>
-        <a href="#" class="more">경매 더보기 +</a>
-      </div>
-      <div class="auction-grid">
-        <article class="auction-item">
-          <div class="artwork-image">
-            <img src="path/to/auction1.jpg" alt="경매 작품">
-          </div>
-          <div class="auction-info">
-            <h3>힐링넷</h3>
-            <p class="artist">작품 설명</p>
-          </div>
-        </article>
-        <!-- 추가 경매 아이템들 -->
-      </div>
-    </section>
-  </main>
-  
-  <th:block th:replace= "~{/common/footer.html}"></th:block>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 온라인 경매 섹션 -->
+  <section class="online-auctions">
+    <div class="section-header">
+      <h2>Online Auctions</h2>
+      <a href="#" class="more">경매 더보기 +</a>
+    </div>
+    <div class="auction-grid">
+      <article class="auction-item">
+        <div class="artwork-image">
+          <img src="path/to/auction1.jpg" alt="경매 작품">
+        </div>
+        <div class="auction-info">
+          <h3>힐링넷</h3>
+          <p class="artist">작품 설명</p>
+        </div>
+      </article>
+      <!-- 추가 경매 아이템들 -->
+    </div>
+  </section>
   
 </body>
+<th:block th:replace= "~{/common/footer.html}"></th:block>
 </html>
