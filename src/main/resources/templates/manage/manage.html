@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 페이지</title>
+    <link rel="stylesheet" href="/css/manage/manage.css">
+</head>
+
+<body>
+
+    <!-- 헤더 -->
+    <header class="main-header">
+        <button class="exit-btn" onclick="">나가기</button>
+    </header>
+
+    <div class="container">
+        <!-- 사이드바 -->
+        <div class="sidebar">
+            <nav>
+                <ul>
+                    <li><a href="#" class="nav-item" data-tab="board">대시보드</a></li>
+                    <li><a href="#" class="nav-item" data-tab="visitor">회원 관리</a></li>
+                    <li><a href="#" class="nav-item" data-tab="charge">진행중 관리</a></li>
+                    <li><a href="#" class="nav-item" data-tab="distance">중인 요구 내역</a></li>
+                    <li><a href="#" class="nav-item" data-tab="work">자주 묻는 질문(FAQ)</a></li>
+                    <li><a href="#" class="nav-item" data-tab="faq">공지사항</a></li>
+                    <li><a href="#" class="nav-item" data-tab="notice">포인트 및 환전</a></li>
+                    <li><a href="#" class="nav-item" data-tab="support">1:1 문의</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="main-content">
+            <div class="tab-buttons">
+                <button class="tab-btn active" data-tab="visitor">방문자</button>
+                <button class="tab-btn" data-tab="charge">충전 현황</button>
+                <button class="tab-btn" data-tab="distance">거리현황</button>
+                <button class="tab-btn" data-tab="work">작품 현황</button>
+            </div>
+
+            <!-- 콘텐츠를 가로로 정렬할 컨테이너 -->
+            <h2>대시보드</h2>
+            <div class="content-row">
+                <!-- 방문자 현황 박스 -->
+                <div class="tab-content current" id="visitor">
+                    <div class="chart-container">
+                        <h3>방문자 현황</h3>
+                        <canvas id="visitorChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- 일자별 요약 박스 -->
+                <div class="tab-content" id="distance">
+                    <div class="data-table">
+                        <h3>일자별 요약</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>일자</th>
+                                    <th>주문수</th>
+                                    <th>매출액</th>
+                                    <th>방문자</th>
+                                    <th>가입</th>
+                                    <th>문의</th>
+                                </tr>
+                            </thead>
+                            <tbody id="statsTableBody">
+                                <!-- 데이터 들어갈 자리 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 작가 및 회원 관리 섹션 -->
+            <div class="main-content">
+                <h2>작가 및 회원 관리</h2>
+
+                <div class="artist-content">
+                    <!-- 왼쪽 섹션: 작가 리스트 -->
+                    <div class="artist-list">
+                        <div class="artist-item">
+                            <img src="artist1.jpg" alt="작가 이미지">
+                            <div class="artist-info">
+                                <h3>박현준 | 작가</h3>
+                                <p>경매 금액: ₩20,000,000</p>
+                                <p>판매 금액: ₩980,000,000</p>
+                            </div>
+                            <div class="artist-actions">
+                                <button class="btn suspend-btn">정지</button>
+                                <button class="btn withdraw-btn">탈퇴</button>
+                            </div>
+                        </div>
+
+                        <!-- 반복되는 작가 항목들 -->
+                        <div class="artist-item">
+                            <img src="artist2.jpg" alt="작가 이미지">
+                            <div class="artist-info">
+                                <h3>이동혁 | 작가</h3>
+                                <p>경매 금액: ₩20,000,000</p>
+                                <p>판매 금액: ₩980,000,000</p>
+                            </div>
+                            <div class="artist-actions">
+                                <button class="btn suspend-btn">정지</button>
+                                <button class="btn withdraw-btn">탈퇴</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 오른쪽 섹션: 회원 요약 -->
+                    <div class="artist-summary">
+                        <div class="summary-item">
+                            <h3>박현준 | 회원</h3>
+                            <p>경매 금액: ₩1,890,000,000</p>
+                            <div class="summary-actions">
+                                <button class="btn suspend-btn">정지</button>
+                                <button class="btn withdraw-btn">탈퇴</button>
+                            </div>
+                        </div>
+
+                        <!-- 반복되는 요약 항목들 -->
+                        <div class="summary-item">
+                            <h3>이동혁 | 회원</h3>
+                            <p>경매 금액: ₩1,890,000,000</p>
+                            <div class="summary-actions">
+                                <button class="btn suspend-btn">정지</button>
+                                <button class="btn withdraw-btn">탈퇴</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- css -->
+         <style>
+     
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-header {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            background-color: #526D64;
+            padding: 20px 40px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .exit-btn {
+            background-color: #f5f5f5;
+            color: #526D64;
+            padding: 8px 16px;
+            border: 1px solid #526D64;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #526D64;
+            color: white;
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background-color: #3A4F48;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .tab-buttons {
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            background-color: #526D64;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .tab-btn.active {
+            background-color: #3A4F48;
+        }
+
+        .content-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .tab-content {
+            flex: 1;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            min-width: 300px;
+        }
+
+        .chart-container {
+            height: 400px;
+        }
+
+        .data-table {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #717a77c2;
+            color: white;
+        }
+
+        /* 작가 및 회원 관리 스타일 */
+        h2 {
+            color: #3A4F48;
+            font-size: 20px;
+            margin: 20px 0;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .artist-content {
+            display: flex;
+            gap: 20px;
+        }
+
+        .artist-list, .artist-summary {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* 왼쪽 섹션: 작가 리스트 스타일 */
+        .artist-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: white;
+            border: 2px solid #3A4F48;
+            border-radius: 8px;
+            height: 130px;
+        }
+
+        .artist-item img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .artist-info h3 {
+            color: #3A4F48;
+            font-size: 18px;
+        }
+
+        .artist-info p {
+            color: #555;
+        }
+
+        .artist-actions {
+            margin-left: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            border: 1px solid #3A4F48;
+            border-radius: 5px;
+            background-color: white;
+            color: #3A4F48;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #3A4F48;
+            color: white;
+        }
+
+        /* 오른쪽 섹션: 회원 요약 스타일 */
+        .summary-item {
+            padding: 10px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            height: 130px;
+            position: relative;
+        }
+
+        .summary-item h3 {
+            color: #3A4F48;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .summary-item p {
+            color: #555;
+        }
+
+        .summary-actions {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        
+    </style>
