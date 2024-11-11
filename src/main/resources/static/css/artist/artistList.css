@@ -1,0 +1,80 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 2em;
+}
+
+.artist-category {
+  margin: 40px 0;
+}
+
+.artist-category h2 {
+  font-size: 1.5em;
+  color: #444;
+  margin-bottom: 15px;
+  padding-left: 10px;
+}
+
+.artist-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.artist-card {
+  flex: 1 1 calc(20% - 20px); /* 5개씩 나열을 위한 설정 */
+  text-align: center;
+}
+
+.artist-card img {
+  width: 100%;
+  height: 200px;
+  border-radius: 5px;
+}
+
+.artist-card p {
+  margin-top: 10px;
+  font-size: 1em;
+  color: #555;
+  text-align: left;
+}
+
+.highlighted {
+  border: 2px solid #00f;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.pagination {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.pagination a {
+  color: #555;
+  padding: 8px 12px;
+  margin: 0 5px;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.pagination a:hover {
+  background-color: #ddd;
+}
