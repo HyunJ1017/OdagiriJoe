@@ -10,7 +10,7 @@
 <body>
   <th:block th:replace= "~{/common/header.html}"></th:block>
 
-  <main id="member-main">
+  <main id="member-main" class="member-main">
 
     <h3>회원가입</h3>
 
@@ -74,8 +74,8 @@
       <div>전화번호 인증 확인</div>
       <label for="inputPhC">
         <input type="text" id="inputPhC" placeholder="인증번호를 입력해 주세요.">
-        <div id="signUp-count">04:59</div>
-        <div class="member-hov">인증확인</div>
+        <div id="signUp-count"></div>
+        <div class="member-hov" id="keyCheck">인증확인</div>
       </label>
     </div>
 

@@ -1,3 +1,6 @@
+.myPage-main *{
+  color: black;
+}
 #myPage-main{
   display: flex;
   flex-direction: column;
@@ -19,6 +22,7 @@ main>h3{
 }
 #myPage-main>.myPage-sec>div:first-child{
   color: #4a6741;
+  margin-bottom: 5px;
 }
 #myPage-main>.myPage-sec>.common-box{
   width: 100%;
@@ -28,6 +32,8 @@ main>h3{
   padding: 5px;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  cursor: pointer;
 }
 #myPage-main>.myPage-sec .signUp-count{
 color: red;
@@ -37,19 +43,40 @@ justify-content: center;
 align-items: center;
 margin: 0 10px 0;
 }
-#myPage-main>section>.member-hov{
+#myPage-main>.myPage-sec label{
+  width: 100%;
+  border: 2px solid black;
+  border-radius: 3px;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+}
+#myPage-main>.myPage-sec label>input{
+  border: none;
+  flex-grow: 1;
+}
+#myPage-main>.myPage-sec label>input:focus {
+  outline: none;
+}
+#myPage-main>.myPage-sec label>div:last-child{
+  width: 90px;
+  border-radius: 3px;
+}
+#myPage-main>section>.myPage-hov{
+  width: 380px;
+  height: 45px;
+  border-radius: 8px;
+  margin: 15px;
+}
+.member-hov{
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 380px;
-  height: 45px;
-  border-radius: 8px;
   background-color: #4a6741;
   color: white;
-  margin: 15px;
 }
-.member-hov:hover {
+.myPage-hov:hover {
   cursor: pointer;
   background: white;
   border: 2px solid #4a6741;

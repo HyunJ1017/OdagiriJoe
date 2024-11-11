@@ -398,7 +398,7 @@ phoneCheckBtn?.addEventListener("click", ()=>{
     return;
   }
 
-  fetch("/sms/sendSms?phoneNumber=" + inputPhoneV)
+  fetch("/sms/sendSms?phoneNumber=" + inputPhoneV + "&typeCode=1")
   .then(response => {
     if (response.ok) return response.text();
     throw new Error("AJAX 통신 실패");
