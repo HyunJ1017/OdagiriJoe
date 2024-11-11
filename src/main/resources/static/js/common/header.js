@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
+ 
+  // 사이드 메뉴 기능을 위한 요소 가져오기
+  const sideMenu = document.getElementById('side-menu');
+  const menuBtn = document.querySelector('#menu-icon');
+  const closeBtn = document.querySelector('.close-icon');
+
+  // 드롭다운 기능 요소
   const navItems = document.querySelectorAll('.nav-item');
   const overlay = document.createElement('div');
   overlay.className = 'nav-overlay';
@@ -7,10 +14,10 @@ document.addEventListener('DOMContentLoaded', function () {
   // 드롭다운 메뉴 표시 시 오버레이 활성화
   navItems.forEach(item => {
     item.addEventListener('mouseenter', () => {
-      overlay.classList.add('active');
+      overlay.add('active');
     });
     item.addEventListener('mouseleave', () => {
-      overlay.classList.remove('active');
+      overlay.remove('active');
     });
   });
 
@@ -42,37 +49,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // 오버레이 클릭 시 모든 드롭다운 닫기
   overlay.addEventListener('click', closeAllDropdowns);
-});
 
-// 사이드 메뉴 열기/닫기 함수
-function toggleMenu() {
-  const sideMenu = document.getElementById('side-menu');
-  if (sideMenu) {
-    sideMenu.classList.toggle('open');
+  // 사이드 메뉴 가시성 토글 함수
+  function toggleMenu() {
+    console.log("$");
+    console.log(sideMenu);
+
+    if(sideMenu.classList.contains('open')) sideMenu.classList.remove('open');
+    else sideMenu.classList.add('open');
   }
-}
 
-// 햄버거 아이콘 클릭 시 메뉴 열기/닫기
-const menuIcon = document.querySelector('.menu-icon');
-if (menuIcon) {
-  menuIcon.addEventListener('click', toggleMenu);
-}
+  menuBtn.addEventListener("click", toggleMenu);
+  closeBtn.addEventListener("click", toggleMenu);
 
-// 메뉴 외부 클릭 시 메뉴 닫기
-window.addEventListener('click', function (event) {
-  const sideMenu = document.getElementById('side-menu');
-  const menuIcon = document.querySelector('.menu-icon');
-  if (sideMenu && menuIcon && !sideMenu.contains(event.target) && event.target !== menuIcon) {
-    sideMenu.classList.remove('open');
-  }
-});
-
-// ESC 키로 메뉴 닫기
-window.addEventListener('keydown', function (event) {
-  if (event.key === 'Escape') {
-    const sideMenu = document.getElementById('side-menu');
-    if (sideMenu) {
-      sideMenu.classList.remove('open');
+  // 문서의 다른 부분 클릭 시 사이드 메뉴 닫기
+  document.addEventListener('click', (event) => {
+    if (sideMenu.classList.contains('open')) {
+      const clickedInsideMenu = sideMenu.contains(event.target);
+      const clickedMenuBtn = menuBtn && menuBtn.contains(event.target);
+      if (!clickedInsideMenu && !clickedMenuBtn) {
+        sideMenu.classList.remove('open');
+      }
     }
-  }
+  });
 });
