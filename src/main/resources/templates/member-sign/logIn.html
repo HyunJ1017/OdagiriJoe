@@ -11,7 +11,7 @@
 
   <th:block th:replace= "~{/common/common.html :: headerLinks}"></th:block>
 
-  <main id="logIn-main">
+  <main id="logIn-main" class="member-main">
     <h3>로그인</h3>
 
     <!-- 아이디 -->
@@ -33,15 +33,15 @@
     <div class="member-hov" id="logIn-btn">로그인</div>
 
     <div>
-      <a href="member/login/findingId">아이디 찾기</a>
+      <a href="/member/login/findingId">아이디 찾기</a>
       |
-      <a href="member/login/findingPasswords">비밀번호 찾기</a>
+      <a href="/member/login/findingPasswords">비밀번호 찾기</a>
       |
       <a href="/member/signUp">회원가입</a>
     </div>
 
     <div style="display: flex; flex-direction: row;">
-      <form action="/member/login" method="post" style="margin-left: 10px;"><input type="hidden" name="memberId" value="memberId"><input type="hidden" name="memberPw" value="memberPw"><button class="member-hov" style="width: 50px;">1</button></form>
+      <form action="/member/login" method="post" style="margin-left: 10px;"><input type="hidden" name="memberId" value="user01"><input type="hidden" name="memberPw" value="pass01!"><button class="member-hov" style="width: 50px;">1</button></form>
       <form action="/member/login" method="post" style="margin-left: 10px;"><input type="hidden" name="memberId" value="memberId"><input type="hidden" name="memberPw" value="memberPw"><button class="member-hov" style="width: 50px;">2</button></form>
       <form action="/member/login" method="post" style="margin-left: 10px;"><input type="hidden" name="memberId" value="memberId"><input type="hidden" name="memberPw" value="memberPw"><button class="member-hov" style="width: 50px;">3</button></form>
     </div>

@@ -6,9 +6,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import edu.kh.plklj.main.dto.Member;
 import edu.kh.plklj.member.service.LogInService;
@@ -20,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequestMapping("member/login")
 @RequiredArgsConstructor
-@SessionAttributes({"loginMember"})
+@SessionAttributes({"memberLogin", "artistLogin"})
 public class LogInController {
 
 	private final LogInService service;
@@ -59,11 +62,48 @@ public class LogInController {
 		
 		Member result = service.logIn(member);
 		
-		if(result != null ) {
-			model.addAttribute("loginMember", result);
+		if(result == null ) {
+			return "redirect:/logIn";
+		} else if (result.getArtistReg().equals("N")) {
+			model.addAttribute("memberLogin", result);
 			return "redirect:/";
 		} else {
-			return "redirect:/logIn";
+			model.addAttribute("artistLogin", result);
+			return "redirect:/";
 		}
 	}
+	
+	/** 아이디, 전화번호 확인
+	 * @param inputPhone
+	 * @param inputId
+	 * @return
+	 */
+	@GetMapping("searchIdPh")
+	@ResponseBody
+	public int searchIdPh(
+			@RequestParam("inputPhone") String inputPhone,
+			@RequestParam("inputId") String inputId	) {
+		return service.searchIdPh(inputPhone, inputId);
+	}
+	
+	/** 비밀번호 변경
+	 * @param member
+	 * @return
+	 */
+	@PostMapping("changePw")
+	@ResponseBody
+	public int changePw(
+			@RequestBody Member member) {
+		return service.changePw(member);
+	}
+	
+	
+	@GetMapping("logout")
+	public String logout(SessionStatus status) {
+		
+		status.setComplete();
+		
+		return "redirect:/";
+	}
+	
 }

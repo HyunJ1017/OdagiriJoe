@@ -1,10 +1,12 @@
+.member-main *{
+  color: black;
+}
 /* 로그인 */
 #logIn-main{
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding-top: 100px;
 }
 #logIn-main>*{
   margin: 10px 0 10px;
@@ -21,7 +23,7 @@
   margin: 10px 0 10px;
 }
 #logIn-main>.logIn-sec>label{
-  height: 80px;
+  height: 52px;
 }
 #logIn-main>.logIn-sec>label>input{
   text-align: center;
@@ -33,7 +35,8 @@
   margin-bottom: 40px;
 }
 #logIn-main>div>a{
-  margin: 0 15px 0;
+  margin: 0 5px 0;
+  padding: 0;
   color: #4a6741;
 }
 
@@ -55,7 +58,7 @@
   width: 820px;
 }
 #member-main>.signUp-sec>label{
-  height: 50px;
+  height: 32px;
 }
 #member-main>.signUp-sec>label>#signUp-count{
 color: red;
@@ -126,3 +129,4 @@ main>div>label>div:last-child{
 
 
 .confirm-red{color: red;}
+.sign-displayNone{display: none !important;}

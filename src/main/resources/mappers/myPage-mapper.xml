@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace = "edu.kh.plklj.member.mapper.MyPageMapper">
 
-
+	<update id="updateName">
+		UPDATE "MEMBER"
+		SET MEMBER_NAME = #{memberName}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
 	
 </mapper>
