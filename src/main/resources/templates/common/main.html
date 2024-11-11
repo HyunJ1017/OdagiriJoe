@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>화사 :: 愛 :: 화공</title>
   <link rel="stylesheet" href="/css/common/main.css">  
-  <th:block th:replace= "~{/common/common.html}"></th:block>
+  <th:block th:replace= "~{/common/common.html :: cssLinks}"></th:block>
 </head>
 <body>
+  <th:block th:replace= "~{/common/common.html :: headerLinks}"></th:block>
+  
   <div class="slider-container">
     <div class="slider">
       <div class="slide">
@@ -30,7 +32,7 @@
   <section class="online-gallery">
     <div class="section-header">
       <h2>Online Gallery</h2>
-      <a href="#" class="more">작품 더보기 +</a>
+      <a href="/piece/online" class="more">작품 더보기 +</a>
     </div>
     <div class="gallery-grid">
       <article class="gallery-item">

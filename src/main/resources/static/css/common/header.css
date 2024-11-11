@@ -10,28 +10,36 @@
 /* 헤더 영역 */
 .header-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
   position: fixed;
-  padding: 1% 2%;
+  padding: 0% 5%;
   width: 100%;
   z-index: 1000;
   height: 15vh; /* 뷰포트 높이에 비례한 헤더 높이 */
   background-color: #ffffff;
   box-sizing: border-box;
+  margin-bottom: 10%;
+}
+
+.header-main-menu{
+  justify-content: space-between;
+  width: 100%;
+  padding: 0% 5% 0% 0%;
+  display: flex;
+  flex-wrap: nowrap; /* 한 줄로 나오게 변경 */
 }
 
 /* 로고 스타일 */
 .header-logo {
-  text-align: left;
   font-style: italic;
-  font-size: 1.3rem; /* 로고 크기 조정 */
-  flex-grow: 1;
+  font-size: 1.5rem; /* 로고 크기 조정 */
   color: #5e7c71;
 }
 
 .header-text {
-  font-size: 0.7rem; /* 서브 텍스트 크기 조정 */
+  font-size: 0.8rem; /* 서브 텍스트 크기 조정 */
   margin-top: 0.3rem;
   color: #5e7c71;
 }
@@ -47,25 +55,25 @@
   gap: 4vw; /* 메뉴 간 간격을 뷰포트 너비에 따라 조정 */
   justify-content: center;
   align-items: flex-end;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 20%);
-  bottom: 5%; /* 헤더의 하단에 위치 */
-  width: 100%;
+  transform: translate(5%, 20%);
   color: #5e7c71;
+  flex-wrap: wrap;
+  position: relative;
+  width: 500px;
 }
 
 .header-menu ul {
   list-style: none;
   display: flex;
-  gap: 4vw; /* 메뉴 아이템 간 간격을 뷰포트 너비에 따라 조정 */
   padding: 0;
   margin: 0;
+  width: 100%;
 }
 
 .header-menu .nav-item {
   position: relative;
   white-space: nowrap; /* 텍스트가 두 줄로 내려가는 것을 방지 */
+  width: 25%;
 }
 
 .header-menu .nav-item a {
@@ -78,36 +86,56 @@
 
 .header-menu .dropdown{
   color: #ffffff;
+  width: 100%;
+}
+
+.subMenu {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: -140px;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.header-menu:hover .subMenu,
+.header-menu:focus-within .subMenu {
+  visibility: visible;
+  opacity: 1;
+}
+
+.sub-bg{
+  background-color: rgba(94, 124, 113, 0.4);
+  width: 100vw;
+  height: 230px;
+  position: absolute;
+  top: -15px;
 }
 
 /* 드롭다운 메뉴 스타일 */
 .dropdown {
-  position: fixed; /* 화면에 고정 */
+  width: 120px;
   left: 0;
-  width: 100%; /* 화면 전체 너비로 설정 */
-  background-color: rgba(94, 124, 113, 0.4); /* #5e7c71 배경색, 투명도 40% */
   color: #ffffff;
   padding: 1rem 0; /* 드롭다운 메뉴 내부 여백 */
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease;
   z-index: 1000;
   display: flex;
   flex-direction: column; /* 세로 정렬 */
-  align-items: center; /* 중앙 정렬 */
-  text-align: center;
-  justify-content: space-around; /* 상위 메뉴 아래로 분산 배치 */
+  justify-content: space-between;
+  align-items: flex-start;
   box-sizing: border-box;
+  margin: 0px 40px;
+  list-style: none;
 }
 
 /* 각 상위 메뉴 아래로 전체 드롭다운 항목을 분산 배치 */
-.dropdown ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column; /* 세로로 정렬 */
-  align-items: center;
-  gap: 0.5rem;
+.dropdown li {
+  width: 100%;
+  margin: 10px 0;
 }
+
 
 /* 드롭다운이 보이도록 설정 */
 .header-menu:hover .dropdown,
@@ -128,22 +156,17 @@
   font-size: 1rem;
 }
 
-.dropdown ul li a:hover {
-  color: #ffffff;
+.dropdown a:hover {
+  color: #5e7c71;
+  background-color: #ffffff;
 }
-
-
-
-
-
-
 
 /* 오른쪽 상단 사이드바 등등 */
 .header-actions {
   display: flex;
   align-items: center;
   gap: 1.5vw; /* 간격을 뷰포트 너비에 맞춰 조정 */
-  position: absolute;
+  /* position: absolute; */
   top: 5%; /* 상단에 위치 */
   right: 2%; /* 오른쪽 끝에 위치 */
 }
@@ -161,10 +184,96 @@
 }
 
 /* 아이콘 스타일 */
-.header-actions i {
+.header-actions>i{
   font-size: 1.1rem;
   color: #5e7c71;
   cursor: pointer;
 }
 
+/* 사이드 메뉴 CSS */
+.side-menu {
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  background-color: #ffffff;
+  color: #5e7c71;
+  transition: transform 0.3s ease;
+  padding-top: 60px;
+  z-index: 2501;
+  transform: translateX(100%); /* 초기 상태에서 화면 밖으로 밀어냄 */
+}
+
+.side-menu.open {
+  transform: translateX(0); /* 메뉴가 열릴 때 화면 안으로 이동 */
+}
+
+.close-icon {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  color: #ffffff;
+}
+
+.menu-icon {
+  font-size: 24px;
+  cursor: pointer;
+  color: #5e7c71;
+  margin-left: 15px;
+  transition: color 0.3s ease;
+}
+
+.menu-icon:hover {
+  color: #ffffff;
+}
+
+.side-menu .side-bar {
+  padding: 15px 20px;
+  display: block;
+  text-align: left;
+}
+
+.side-menu .side-item,
+.side-menu .header-item {
+  text-decoration: none;
+  color: #5e7c71;
+  display: block;
+  padding: 10px 0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.side-menu .side-item:hover,
+.side-menu .header-item:hover {
+  background-color: #5e7c71;
+  color: #ffffff;
+}
+
+/* 반응형 스타일 */
+@media screen and (max-width: 768px) {
+  .side-menu {
+    width: 80%; /* 모바일 환경에서 사이드 메뉴 너비 조정 */
+  }
+
+  .close-icon {
+    top: 15px;
+    right: 15px;
+  }
+}
+
+/* 애니메이션 효과 추가 */
+.side-menu.open .side-bar {
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
 
