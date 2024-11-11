@@ -1,110 +1,95 @@
 <div th:fragment="header">
   <!-- 헤더 영역 시작 -->
   <header class="header-container">
-    <!-- 로고 영역 -->
-    <div class="header-logo">
-      <a th:href="@{/main}" class="header-logo-link" style="color: #5e7c71;">
-        <h1 class="header-logo">화사 :: 愛 :: 화공</h1>
-        <div class="header-text">그림에 담긴 애, 당신을 위한 작품</div>
-      </a>
-    </div>
-
+    <section class="header-main-menu">
+      <!-- 로고 영역 -->
+      <div class="header-logo">
+        <a th:href="@{/main}" class="header-logo-link" style="color: #5e7c71;">
+          <h1 class="header-logo">화사 :: 愛 :: 화공</h1>
+          <div class="header-text">그림에 담긴 애, 당신을 위한 작품</div>
+        </a>
+      </div>
+      <!-- 오른쪽 사용자 액션 영역 -->
+      <div class="header-actions">
+        <a href="/logout" class="header-item">Logout</a>
+        <i class="fa-solid fa-bell header-item"></i>
+        <i class="fa-solid fa-magnifying-glass header-item" onclick="toggleSearch()"></i>
+        <i class="fa-solid fa-bars menu-icon" onclick="toggleMenu()"></i>
+      </div>
+    </section>
     <!-- 중앙 메뉴 -->
     <nav class="header-menu">
       <ul>
         <li class="nav-item">
           <a href="/gallery">Gallery</a>
-          <ul class="dropdown">
-            <li><a href="/gallery">전체 작품</a></li>
-            <li><a href="/gallery">신규 작품</a></li>
-            <li><a href="/gallery">인기 작품</a></li>
-          </ul>
         </li>
         <li class="nav-item">
           <a href="/artists">Artists</a>
-          <ul class="dropdown">
-            <li><a href="/artists">작가 목록</a></li>
-            <li><a href="/artists">신진 작가</a></li>
-            <li><a href="/artists">이달의 작가</a></li>
-          </ul>
         </li>
         <li class="nav-item">
           <a href="/actions">Auctions</a>
-          <ul class="dropdown">
-            <li><a href="/actions">진행중인 경매</a></li>
-            <li><a href="/actions">예정 경매</a></li>
-            <li><a href="/actions">종료된 경매</a></li>
-          </ul>
         </li>
         <li class="nav-item">
           <a href="/howTo">How To</a>
-          <ul class="dropdown">
-            <li><a href="/howTo">이용 가이드</a></li>
-            <li><a href="/howTo">자주 묻는 질문</a></li>
-            <li><a href="/howTo">문의하기</a></li>
-          </ul>
         </li>
       </ul>
+
+      <nav class="subMenu">
+        <div class="sub-bg"></div>
+        <ul class="dropdown">
+          <li><a href="/gallery">온라인</a></li>
+        </ul>
+        <ul class="dropdown">
+          <li><a href="/artists">신진 작가</a></li>
+          <li><a href="/artists">이달의 작가</a></li>
+          <li><a href="/artists">작가 목록</a></li>
+        </ul>
+        <ul class="dropdown">
+          <li><a href="/actions">진행중인 경매</a></li>
+          <li><a href="/actions">예정 경매</a></li>
+          <li><a href="/actions">종료된 경매</a></li>
+        </ul>
+        <ul class="dropdown">
+          <li><a href="/howTo">이용 가이드</a></li>
+          <li><a href="/howTo">자주 묻는 질문</a></li>
+          <li><a href="/howTo">문의하기</a></li>
+        </ul>
+      </nav>
     </nav>
-
-    <!-- 오른쪽 사용자 액션 영역 -->
-    <!-- 검색 바와 네비게이션 메뉴 영역 -->
-    <div class="header-search-nav-container">
-
-      <!-- 검색 바 영역 -->
-      <div class="header-search-bar">
-        <input type="text" id="search-bar" placeholder="Search" class="header-search-input"
-          oninput="this.nextElementSibling.style.display = this.value ? 'block' : 'none';">
-        <button class="header-clear-button"
-          onclick="document.querySelector('.header-search-input').value = ''; 
-          this.style.display = 'none';" style="display: none;">X</button>
-        <button class="header-search-button"><i class="fa fa-search"></i></button>
-      </div>
-    </div>
-
-    <div class="header-actions">
-      <a href="/main" class="header-item">Logout</a>
-      <i class="fa-solid fa-bell" onclick="toggleMenu()"></i>
-      <i class="fa-solid fa-search" onclick="toggleMenu()"></i>
-      <i class="fa-solid fa-bars menu-icon" onclick="toggleMenu()">〓</i>
-    </div>
-  </header>
 </div>
 
-
-<div>
-  <!-- 사이드 메뉴 영역 -->
-<th:block>
+<!-- 사이드 메뉴 영역 -->
 <div id="side-menu" class="side-menu">
-  <!-- 사이드 메뉴 닫기 아이콘 -->
+  <!-- 사이드 메뉴 열기/닫기 아이콘 -->
   <div class="close-icon" onclick="toggleMenu()">
-      <i class="fa-solid fa-bars" style="font-size: 30px;"></i>
+    <i class="fa-solid fa-bars" style="font-size: 30px;"></i>
   </div>
   <!-- 사이드 메뉴 항목 -->
   <nav>
-      <div class="header-nav-item-wrapper">
-          <a href="/artists/myPage" class="header-item">My Page</a>
-      </div>
-      <div class="header-nav-item-wrapper">
-          <a href="/artists/" class="header-item">구매 내역</a>
-      </div>
-      <div class="header-nav-item-wrapper">
-          <a href="/artists/" class="header-item">진행 경매</a>
-      </div>
-      <div class="header-nav-item-wrapper">
-          <a href="/artists/" class="header-item">팔로우 및 위시</a>
-      </div>
-      <div class="header-nav-item-wrapper">
-          <a href="/artists/" class="header-item">내 경매 현황</a>
-      </div>
-      <div class="header-nav-item-wrapper">
-          <a href="/artists/" class="header-item">작품 업로드</a>
-      </div>
-      <div class="header-nav-item-wrapper">
-          <a href="/artists/" class="header-item">1 : 1 문의</a>
-      </div>
+    <div class="side-bar">
+      <a href="/member/" class="header-item">My Page</a>
+    </div>
+    <div class="side-bar">
+      <a href="/member/" class="side-item">구매 내역</a>
+    </div>
+    <div class="side-bar">
+      <a href="/member/" class="side-item">진행 경매</a>
+    </div>
+    <div class="side-bar">
+      <a href="/member/" class="side-item">팔로우 및 위시</a>
+    </div>
+    <div class="side-bar">
+      <a href="/member/" class="side-item">내 경매 현황</a>
+    </div>
+    <div class="side-bar">
+      <a href="/member/" class="side-item">작품 업로드</a>
+    </div>
+    <div class="side-bar">
+      <a href="/member/" class="side-item">1 : 1 문의</a>
+    </div>
   </nav>
+  </header>
 </div>
-</th:block>
-</div>
+
 <script src="/js/common/header.js"></script>
+<script src="https://kit.fontawesome.com/8695e357e4.js" crossorigin="anonymous"></script>

@@ -14,8 +14,8 @@
         <a href="/member/signUp" class="header-item">SignUp</a>
         <a href="/member/login" class="header-item">Login</a>
         <i class="fa-solid fa-bell header-item"></i>
-        <i class="fa-solid fa-magnifying-glass header-item" onclick="toggleSearch()"></i>
-        <i class="fa-solid fa-bars menu-icon" onclick="toggleMenu()"></i>
+        <i class="fa-solid fa-magnifying-glass header-item"></i>
+        <i class="fa-solid fa-bars header-item" id="menu-icon" onclick="toggleMenu()"></i>
       </div>
     </section>
     <!-- 중앙 메뉴 -->
@@ -46,8 +46,8 @@
           <li><a href="/artists">작가 목록</a></li>
         </ul>
         <ul class="dropdown">
-          <li><a href="/actions">진행중인 경매</a></li>
           <li><a href="/actions">예정 경매</a></li>
+          <li><a href="/actions">진행중인 경매</a></li>
           <li><a href="/actions">종료된 경매</a></li>
         </ul>
         <ul class="dropdown">
@@ -87,6 +87,4 @@
   </nav>
   </header>
 </div>
-
 <script src="/js/common/header.js"></script>
-<script src="https://kit.fontawesome.com/8695e357e4.js" crossorigin="anonymous"></script>
