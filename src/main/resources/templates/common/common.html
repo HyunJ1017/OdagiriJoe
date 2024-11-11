@@ -1,27 +1,28 @@
-<div th:fragment="cssLink">
-  <div th:fragment="cssLinks">
-    <link rel="stylesheet" th:href="@{/css/common/header.css}">
-  </div>
+<th:block th:fragment="cssLinks">
+  <link rel="stylesheet" th:href="@{/css/common/header.css}">
+  <script th:src="@{/js/main.js}"></script>
+</th:block>
+
+<th:block th:fragment="headerLinks">
 
   <!-- 상태에 따른 조각 회원, 작가, 관리자 -->
   <!-- 회원이 로그인한 경우 -->
-  <div th:if="${session.memberLogin != null}">
+  <th:block th:if="${session.memberLogin != null}">
     <header th:replace="~{common/memberHeader :: header}"></header>
-  </div>
+  </th:block>
 
   <!-- 작가가 로그인한 경우 -->
-  <div th:if="${session.artistLogin != null}">
+  <th:block th:if="${session.artistLogin != null}">
     <header th:replace="~{common/artistHeader :: header}"></header>
-  </div>
+  </th:block>
 
   <!-- 로그인이 안 된 경우 -->
-  <div th:if="${session.memberLogin == null && session.artistLogin == null}">
+  <th:block th:if="${session.memberLogin == null && session.artistLogin == null}">
     <header th:replace="~{common/header :: header}"></header>
-  </div>
+  </th:block>
 
   <!-- 관리자가 로그인 된 경우 -->
-  <div th:if="${admin}">
+  <th:block th:if="${admin}">
     <header th:replace="~{common/adminHeader :: header}"></header>
-  </div>
-
-<script th:src="@{/js/main.js}"></script>
+  </th:block>
+</th:block>
