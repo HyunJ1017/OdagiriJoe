@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequestMapping("member/login")
 @RequiredArgsConstructor
-@SessionAttributes({"loginMember"})
+@SessionAttributes({"memberLogin", "artistLogin"})
 public class LogInController {
 
 	private final LogInService service;
@@ -59,11 +59,14 @@ public class LogInController {
 		
 		Member result = service.logIn(member);
 		
-		if(result != null ) {
-			model.addAttribute("loginMember", result);
+		if(result == null ) {
+			return "redirect:/logIn";
+		} else if(result.getArtistReg().equals("N")) {
+			model.addAttribute("memberLogin", result);
 			return "redirect:/";
 		} else {
-			return "redirect:/logIn";
+			model.addAttribute("artistLogin", result);
+			return "redirect:/";
 		}
 	}
 }

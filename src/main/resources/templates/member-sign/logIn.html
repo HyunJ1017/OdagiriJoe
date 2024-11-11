@@ -11,7 +11,7 @@
 
   <th:block th:replace= "~{/common/header.html}"></th:block>
 
-  <main id="logIn-main">
+  <main id="logIn-main" class="member-main">
     <h3>로그인</h3>
 
     <!-- 아이디 -->
@@ -32,10 +32,10 @@
 
     <div class="member-hov" id="logIn-btn">로그인</div>
 
-    <div>
-      <a href="member/login/findingId">아이디 찾기</a>
+    <div id="login-link">
+      <a href="/member/login/findingId">아이디 찾기</a>
       |
-      <a href="member/login/findingPasswords">비밀번호 찾기</a>
+      <a href="/member/login/findingPasswords">비밀번호 찾기</a>
       |
       <a href="/member/signUp">회원가입</a>
     </div>
