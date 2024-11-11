@@ -3,11 +3,106 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>HowTo</title>
 
-  <link rel="stylesheet" href="/">
+  <link rel="stylesheet" href="/css/howto/howToMain.css">
 </head>
 <body>
   
+  <th:block th:replace="~{common/common}"></th:block>
+    
+  <main id="howTo"> 
+
+    <h2>How To</h2>
+
+    <section class="howTo-section1">
+      <div>
+        <div style="font-size: 25px;">경매 소개</div>
+        <div class="inquireBtn">1 : 1 문의</div>
+      </div>
+
+      <div class="section1-imgBox">
+
+        <img src="https://www.theartro.kr/kor/focus/20211203/03.jpg">
+        <div>
+          <h3 style="margin: 0 0 10px 0;">경매소개</h3>
+          <hr>
+          <div class="detailBtn">상세보기</div>
+        </div>
+
+      </div>
+    </section>
+    
+
+    <section class="howTo-section2">
+      <div>
+        <div style="font-size: 25px;">응찰 안내</div>
+        <div class="inquireBtn">1 : 1 문의</div>
+      </div>
+
+      <div class="section2-imgBox">
+
+        <img src="https://www.theartro.kr/kor/focus/20211203/03.jpg">
+        <div>
+          <h3 style="margin: 0 0 10px 0;">안내사항</h3>
+          <hr>
+          <div class="detailBtn">상세보기</div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <section class="faq-section">
+      <div>
+
+      </div>
+
+      <div>
+        <ul>
+          
+        </ul>
+      </div>
+    </section>
+
+
+    <section class="howTo-section3">
+      <div>
+        <div style="font-size: 25px;">공지사항</div>
+      </div>
+
+      <div class="section2-imgBox">
+
+        <img src="https://www.theartro.kr/kor/focus/20211203/03.jpg" style="margin-bottom:30px;">
+        <div class="section3-textBox">
+          <h3 style="margin: 0 0 10px 0;">경매 입찰 방법</h3>
+          <hr>
+          <div class="detailBtn">상세보기</div>
+        </div>
+
+      </div>
+
+      <hr style="width: 97%; height: 3px; border: none; background-color: #333;">
+      <div class="section2-imgBox">
+
+        <img src="https://www.theartro.kr/kor/focus/20211203/03.jpg" style="margin-top: 30px;">
+        <div>
+          <h3 style="margin: 0 0 10px 0;">미술 경매 용어</h3>
+          <hr>
+          <div class="detailBtn">상세보기</div>
+        </div>
+
+      </div>
+
+
+    </section>
+
+
+
+</main>
+
+
+
+  <th:block th:replace= "~{/common/footer.html}"></th:block>
 </body>
 </html>
