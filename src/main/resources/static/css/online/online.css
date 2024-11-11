@@ -1,5 +1,16 @@
 /* CSS 코드: 보낸 HTML 코드에 맞게 이미지와 텍스트 정렬을 구현하기 위한 CSS 스타일 */
 
+/* .board-page  {
+    position: relative;
+  } */
+
+  #onlinePage-main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -42,6 +53,40 @@ body {
     border-radius: 5px;
     visibility: visible;
     margin-left: auto;
+}
+
+ /* 드롭다운 버튼 스타일 */
+ .online-dropdown {
+    margin-left: auto;
+    position: relative;
+    display: inline-block;
+    flex-direction: row; /* 버튼을 오른쪽으로 이동하도록 설정 */
+}
+
+/* 드롭다운 메뉴 스타일 */
+.online-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* 드롭다운 항목 스타일 */
+.online-dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* 드롭다운 항목 hover 스타일 */
+.online-dropdown-content a:hover {background-color: #f1f1f1;}
+
+/* 드롭다운 표시 */
+.online-dropdown:hover .dropdown-content {
+    display: block;
 }
 
 .online-list {
