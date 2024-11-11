@@ -13,7 +13,8 @@ html, body {
 
 *{
   font-family: "ChosunKm", Helvetica;
-  color : #ffffff;
+  /* 임시로 주석처리 */
+  /* color : #ffffff; */
 }
 
 .footer{
