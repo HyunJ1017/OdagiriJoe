@@ -13,6 +13,12 @@ public class MainController {
 		return "common/main";
 	}
 	
+	// 메인 페이지 목록 조회
+//	@GetMapping("")
+//	public String main(@) {
+//		return "common/main";
+//	}
+	
 	// 아티스트 목록 조회 페이지 이동
 	@GetMapping("artist")
 	public String artistList() {

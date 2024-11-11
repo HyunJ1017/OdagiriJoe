@@ -13,12 +13,12 @@
   <div class="slider-container">
     <div class="slider">
       <div class="slide">
-        <img src="path/to/image1.png" alt="Image 1">
-        <button>보러가기</button>
+        <img src="img/image1.png" alt="Image 1">
+        <button src="/" >보러가기</button>
       </div>
       <div class="slide">
         <img src="path/to/image2.png" alt="Image 2">
-        <button>보러가기</button>
+        <button src="/" >보러가기</button>
     </section>
   
       </div>
@@ -34,7 +34,7 @@
   <section class="online-gallery">
     <div class="section-header">
       <h2>Online Gallery</h2>
-      <a href="/piece/online" class="more">작품 더보기 +</a>
+      <a href="#" class="more">작품 더보기 +</a>
     </div>
     <div class="gallery-grid">
       <article class="gallery-item">
@@ -68,6 +68,39 @@
       </article>
     </div>
   </section>
+
+  <!-- <article class="gallery-item">
+    <div class="artwork-image">
+      <a th:href="@{/gallery//{pieceNo} (memberNo= ${artist.memberNo})}" class="class-item" th:each="artist : ${artistList}" th:object="${artist}">
+        <img th:src="*{pieceRename}" alt="Online Gallery" class="piece-rename" th:data-id="*{memberNo}">
+      </a>
+    </div>
+    <div class="artwork-info">
+      <h3 th:text="*{artistsNickname}">박현준</h3>
+      <p class="artwork-title" th:text="*{priceTitle}">작품 : 힐링넷</p>
+      <div class="artwork-details">
+        <p class="size" th:text="*{sixeX || sixeY}">22 x 22</p>
+        <p class="price">현재가 (KRW)</p>
+        <p class="amount" th:text="*{sellPrice}">300,000</p>
+      </div>
+    </div>
+  </article>
+  <article class="gallery-item">
+    <div class="artwork-image">
+      <a th:href="@{/gallery//{pieceNo} (memberNo= ${artist.memberNo})}" class="class-item" th:each="artist : ${artistList}" th:object="${artist}">
+        <img th:src="*{pieceRename}" alt="Online Gallery" class="piece-rename" th:data-id="*{memberNo}">
+      </a>
+    </div>
+    <div class="artwork-info">
+      <h3 th:text="*{artistsNickname}">박현준</h3>
+      <p class="artwork-title" th:text="*{priceTitle}">작품 : 힐링넷</p>
+      <div class="artwork-details">
+        <p class="size" th:text="*{sixeX || sixeY}">22 x 22</p>
+        <p class="price">현재가 (KRW)</p>
+        <p class="amount" th:text="*{sellPrice}">300,000</p>
+      </div>
+    </div>
+  </article> -->
 
   <!-- 온라인 경매 섹션 -->
   <section class="online-auctions">
