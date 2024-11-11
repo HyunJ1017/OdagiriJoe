@@ -5,6 +5,7 @@
 
 * {
   font-family: "Shilla_CultureB-Bold", Helvetica;
+  text-shadow: 1px 1px #d3d3d3;
 }
 
 /* 헤더 영역 */
@@ -178,11 +179,6 @@
   font-size: 1rem;
 }
 
-.header-item:hover {
-  color: #ffffff;
-  background-color: #5e7c71;
-}
-
 /* 아이콘 스타일 */
 .header-actions>i{
   font-size: 1.1rem;
@@ -190,25 +186,24 @@
   cursor: pointer;
 }
 
-사이드 메뉴 CSS
+/* 사이드 메뉴 CSS */
 .side-menu {
+  position: fixed;
   top: 0;
-  right: 0;
+  right: -300px; /* 기본적으로 화면 밖에 위치 */
   width: 300px;
   height: 100%;
   background-color: #ffffff;
   color: #5e7c71;
-  /* overflow-y: auto; */
-  transition: transform 0.3s ease;
+  overflow-y: auto;
+  transition: right 0.3s ease;
   padding-top: 60px;
-  z-index: 2501;
-  transform: translateX(100%); /* 초기 상태에서 화면 밖으로 밀어냄 */
+  z-index: 1000; /* 다른 요소보다 위에 오도록 조정 */
 }
 
 .side-menu.open {
-  transform: translateX(0); /* 메뉴가 열릴 때 화면 안으로 이동 */
+  right: 0; /* 메뉴가 열릴 때 화면 안으로 이동 */
 }
-
 
 .close-icon {
   position: absolute;
@@ -220,16 +215,12 @@
   color: #ffffff;
 }
 
-.menu-icon {
+#menu-icon {
   font-size: 24px;
   cursor: pointer;
   color: #5e7c71;
-  margin-left: 15px;
   transition: color 0.3s ease;
-}
-
-.menu-icon:hover {
-  color: #ffffff;
+  z-index: 2502; /* 사이드 메뉴 위에 있도록 조정 */
 }
 
 .side-menu .side-bar {
@@ -247,12 +238,6 @@
   transition: background-color 0.3s, color 0.3s;
 }
 
-.side-menu .side-item:hover,
-.side-menu .header-item:hover {
-  background-color: #5e7c71;
-  color: #ffffff;
-}
-
 /* 반응형 스타일 */
 @media screen and (max-width: 768px) {
   .side-menu {
@@ -263,6 +248,7 @@
     top: 15px;
     right: 15px;
   }
+
 }
 
 /* 애니메이션 효과 추가 */
