@@ -1,0 +1,100 @@
+
+/* 메인 컨텐츠 영역 */
+#howTo {
+  padding-top: 30vh;
+  width: 100%; /* 가로 100% */
+  overflow-y: hidden; /* 스크롤 추가 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden; /* 가로 스크롤 방지 */
+}
+
+
+#howTo > h1 {
+  position: absolute;
+  top: 224px;
+}
+
+
+/* infoMain */
+.infoMain {
+  width: 100%;
+  height: 1300px;
+  margin-top: 60px;
+}
+
+.infoMain > div > img {
+  width: 100%;
+  height: 800px;
+}
+
+.infoMain-titleText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 90px;
+}
+
+.infoMain-titleContent {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.infoMain-titleContent pre {
+  font-size: 20px;
+  margin-top: 90px;
+  line-height: 1.8; /* 줄 간격을 기본 글자 크기의 1.6배로 설정 */
+}
+
+hr {
+  width: 95%; /* 점선의 너비 조정 */
+  border: none;
+  border-top: 1px solid #B4B4B4; /* 점선 스타일 */
+}
+
+
+
+/* infoBottom */
+.infoBottom {
+  width: 90%;
+  height: 800px;
+  margin-top: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 부모 요소에서 자식들을 가로로 가운데 정렬 */
+}
+
+.infoBottom-contentBox {
+  width: 100%; /* 부모 요소의 너비를 최대한으로 사용 */
+  display: flex;
+  justify-content: space-around; /* 자식 요소 간의 간격을 유지 */
+  align-items: center;
+}
+
+.content-box {
+  width: 45%; /* 두 개의 박스가 가로 공간의 45%씩 차지 */
+  height: 500px;
+  border: 1px solid #333;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.content-box pre {
+  width: 100%;
+  font-size: 20px;
+  text-align: left;
+  line-height: 1.8; /* 줄 간격을 기본 글자 크기의 1.6배로 설정 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 32px;
+}
+

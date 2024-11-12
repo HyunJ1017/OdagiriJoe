@@ -15,4 +15,22 @@ public class HowToController {
 		return "howto/howToMain";
 	}
 
+	
+	@GetMapping("info")
+	public String info() {
+		
+		return "howto/howToAuction";
+	}
+	
+	
+	@GetMapping("word")
+	public String word() {
+		
+		return "howto/auctionWord";
+	}
+	
+	
+	
+	
+
 }
