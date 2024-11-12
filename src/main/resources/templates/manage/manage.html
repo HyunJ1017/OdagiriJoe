@@ -6,41 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관리자 페이지</title>
     <link rel="stylesheet" href="/css/manage/manage.css">
+
 </head>
 
-<body>
+<body id="top">
 
     <!-- 헤더 -->
     <header class="main-header">
         <button class="exit-btn" onclick="">나가기</button>
     </header>
 
-    <div class="container">
+    <body class="container">
         <!-- 사이드바 -->
         <div class="sidebar">
             <nav>
                 <ul>
-                    <li><a href="#" class="nav-item" data-tab="board">대시보드</a></li>
-                    <li><a href="#" class="nav-item" data-tab="visitor">회원 관리</a></li>
-                    <li><a href="#" class="nav-item" data-tab="charge">진행중 관리</a></li>
-                    <li><a href="#" class="nav-item" data-tab="distance">중인 요구 내역</a></li>
-                    <li><a href="#" class="nav-item" data-tab="work">자주 묻는 질문(FAQ)</a></li>
-                    <li><a href="#" class="nav-item" data-tab="faq">공지사항</a></li>
-                    <li><a href="#" class="nav-item" data-tab="notice">포인트 및 환전</a></li>
-                    <li><a href="#" class="nav-item" data-tab="support">1:1 문의</a></li>
+                    <li><a href="#top" class="nav-item" data-tab="board">대시보드</a></li>
+                    <li><a href="#memberManage" class="nav-item" data-tab="visitor">작가 및 회원 관리</a></li>
+                    <li><a href="#contentsManage" class="nav-item" data-tab="charge">콘텐츠 관리</a></li>
+                    <li><a href="#approval" class="nav-item" data-tab="distance">승인 요청 내역</a></li>
+                    <li><a href="#questionQ" class="nav-item" data-tab="work">자주 묻는 질문(FAQ)</a></li>
+                    <li><a href="#noticeN" class="nav-item" data-tab="faq">공지사항</a></li>
+                    <li><a href="#back" class="nav-item" data-tab="notice">작가 환전</a></li>
+                    <li><a href="#onequestion" class="nav-item" data-tab="support">1:1 문의</a></li>
                 </ul>
             </nav>
         </div>
 
         <div class="main-content">
             <div class="tab-buttons">
-                <button class="tab-btn active" data-tab="visitor">방문자</button>
+                <button class="tab-btn" data-tab="visitor">방문자</button>
                 <button class="tab-btn" data-tab="charge">충전 현황</button>
                 <button class="tab-btn" data-tab="distance">거리현황</button>
                 <button class="tab-btn" data-tab="work">작품 현황</button>
             </div>
 
             <!-- 콘텐츠를 가로로 정렬할 컨테이너 -->
+
             <h2>대시보드</h2>
             <div class="content-row">
                 <!-- 방문자 현황 박스 -->
@@ -68,46 +70,84 @@
                             </thead>
                             <tbody id="statsTableBody">
                                 <!-- 데이터 들어갈 자리 -->
+
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
+            <div id="memberManage"></div><!-- 사이드바스크롤 -->
             <!-- 작가 및 회원 관리 섹션 -->
-            <div class="main-content">
-                <h2>작가 및 회원 관리</h2>
+            <h2>작가 및 회원 관리</h2>
+            <div class="writer-row">
+                <!-- 왼쪽 섹션: 작가 리스트 -->
+                <div class="member-list" id="artist-list">
 
-                <div class="artist-content">
-                    <!-- 왼쪽 섹션: 작가 리스트 -->
-                    <div class="artist-list">
-                        <div class="artist-item">
-                            <img src="artist1.jpg" alt="작가 이미지">
-                            <div class="artist-info">
-                                <h3>박현준 | 작가</h3>
-                                <p>경매 금액: ₩20,000,000</p>
-                                <p>판매 금액: ₩980,000,000</p>
-                            </div>
-                            <div class="artist-actions">
-                                <button class="btn suspend-btn">정지</button>
-                                <button class="btn withdraw-btn">탈퇴</button>
-                            </div>
+                    <div class="artist-item">
+                        <img src="artist1.jpg" alt="작가 이미지">
+                        <div class="artist-info">
+                            <h3>박현준 | 작가</h3>
+                            <p>경매 금액: ₩20,000,000</p>
+                            <p>판매 금액: ₩980,000,000</p>
                         </div>
-
-                        <!-- 반복되는 작가 항목들 -->
-                        <div class="artist-item">
-                            <img src="artist2.jpg" alt="작가 이미지">
-                            <div class="artist-info">
-                                <h3>이동혁 | 작가</h3>
-                                <p>경매 금액: ₩20,000,000</p>
-                                <p>판매 금액: ₩980,000,000</p>
-                            </div>
-                            <div class="artist-actions">
-                                <button class="btn suspend-btn">정지</button>
-                                <button class="btn withdraw-btn">탈퇴</button>
-                            </div>
+                        <div class="artist-actions">
+                            <button class="btn suspend-btn">정지</button>
+                            <button class="btn withdraw-btn">탈퇴</button>
                         </div>
                     </div>
+                    <div class="artist-item">
+                        <img src="artist1.jpg" alt="작가 이미지">
+                        <div class="artist-info">
+                            <h3>박현준 | 작가</h3>
+                            <p>경매 금액: ₩20,000,000</p>
+                            <p>판매 금액: ₩980,000,000</p>
+                        </div>
+                        <div class="artist-actions">
+                            <button class="btn suspend-btn">정지</button>
+                            <button class="btn withdraw-btn">탈퇴</button>
+                        </div>
+                    </div>
+                    <div class="artist-item">
+                        <img src="artist1.jpg" alt="작가 이미지">
+                        <div class="artist-info">
+                            <h3>박현준 | 작가</h3>
+                            <p>경매 금액: ₩20,000,000</p>
+                            <p>판매 금액: ₩980,000,000</p>
+                        </div>
+                        <div class="artist-actions">
+                            <button class="btn suspend-btn">정지</button>
+                            <button class="btn withdraw-btn">탈퇴</button>
+                        </div>
+                    </div>
+                    <div class="artist-item">
+                        <img src="artist1.jpg" alt="작가 이미지">
+                        <div class="artist-info">
+                            <h3>박현준 | 작가</h3>
+                            <p>경매 금액: ₩20,000,000</p>
+                            <p>판매 금액: ₩980,000,000</p>
+                        </div>
+                        <div class="artist-actions">
+                            <button class="btn suspend-btn">정지</button>
+                            <button class="btn withdraw-btn">탈퇴</button>
+                        </div>
+                    </div>
+                    <div class="artist-item">
+                        <img src="artist1.jpg" alt="작가 이미지">
+                        <div class="artist-info">
+                            <h3>박현준 | 작가</h3>
+                            <p>경매 금액: ₩20,000,000</p>
+                            <p>판매 금액: ₩980,000,000</p>
+                        </div>
+                        <div class="artist-actions">
+                            <button class="btn suspend-btn">정지</button>
+                            <button class="btn withdraw-btn">탈퇴</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="member-list" id="member-list">
 
                     <!-- 오른쪽 섹션: 회원 요약 -->
                     <div class="artist-summary">
@@ -119,10 +159,10 @@
                                 <button class="btn withdraw-btn">탈퇴</button>
                             </div>
                         </div>
-
-                        <!-- 반복되는 요약 항목들 -->
+                    </div>
+                    <div class="artist-summary">
                         <div class="summary-item">
-                            <h3>이동혁 | 회원</h3>
+                            <h3>박현준 | 회원</h3>
                             <p>경매 금액: ₩1,890,000,000</p>
                             <div class="summary-actions">
                                 <button class="btn suspend-btn">정지</button>
@@ -130,232 +170,415 @@
                             </div>
                         </div>
                     </div>
+                    <div class="artist-summary">
+                        <div class="summary-item">
+                            <h3>박현준 | 회원</h3>
+                            <p>경매 금액: ₩1,890,000,000</p>
+                            <div class="summary-actions">
+                                <button class="btn suspend-btn">정지</button>
+                                <button class="btn withdraw-btn">탈퇴</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="artist-summary">
+                        <div class="summary-item">
+                            <h3>박현준 | 회원</h3>
+                            <p>경매 금액: ₩1,890,000,000</p>
+                            <div class="summary-actions">
+                                <button class="btn suspend-btn">정지</button>
+                                <button class="btn withdraw-btn">탈퇴</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="artist-summary">
+                        <div class="summary-item">
+                            <h3>박현준 | 회원</h3>
+                            <p>경매 금액: ₩1,890,000,000</p>
+                            <div class="summary-actions">
+                                <button class="btn suspend-btn">정지</button>
+                                <button class="btn withdraw-btn">탈퇴</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- 컨텐츠 관리 -->
+            <div id="contentsManage"></div>
+            <h2>콘텐츠 관리</h2>
+            <div class="contents-manage">
+
+                <div class="content-grid">
+                    <div class="content-card">
+                        <img src="image1.jpg" alt="신운모" class="content-image">
+                        <div class="content-info">
+                            <h2>신운모</h2>
+                            <p>작품명</p>
+                            <p>낙찰가: ₩10,000,000</p>
+                            <p>크기: 15 x 10</p>
+                            <div class="buttons">
+                                <button class="view-button">상세보기</button>
+                                <button class="warn-button">정지</button>
+                                <button class="release-button">해제</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-card">
+                        <img src="image2.jpg" alt="쿰순이" class="content-image">
+                        <div class="content-info">
+                            <h2>쿰순이</h2>
+                            <p>작품명</p>
+                            <p>낙찰가: ₩10,000,000</p>
+                            <p>크기: 20 x 15</p>
+                            <div class="buttons">
+                                <button class="view-button">상세보기</button>
+                                <button class="warn-button">정지</button>
+                                <button class="release-button">해제</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-card">
+                        <img src="image2.jpg" alt="쿰순이" class="content-image">
+                        <div class="content-info">
+                            <h2>쿰순이</h2>
+                            <p>작품명</p>
+                            <p>낙찰가: ₩10,000,000</p>
+                            <p>크기: 20 x 15</p>
+                            <div class="buttons">
+                                <button class="view-button">상세보기</button>
+                                <button class="warn-button">정지</button>
+                                <button class="release-button">해제</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-card">
+                        <img src="image2.jpg" alt="쿰순이" class="content-image">
+                        <div class="content-info">
+                            <h2>쿰순이</h2>
+                            <p>작품명</p>
+                            <p>낙찰가: ₩10,000,000</p>
+                            <p>크기: 20 x 15</p>
+                            <div class="buttons">
+                                <button class="view-button">상세보기</button>
+                                <button class="warn-button">정지</button>
+                                <button class="release-button">해제</button>
+                                <div id="approval"></div> <!-- 사이드바 스크롤 -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- 승인 요청 내역 -->
+            <h2>승인 요청 내역</h2>
+            <div class="request-grid">
+                <div class="request-card">
+                    <img src="image1.jpg" alt="박현준" class="profile-image">
+                    <div class="info">
+                        <h2>박현준</h2>
+                        <div class="action-buttons">
+                            <div class="detail-btn">
+                                <button class="detail-button">정보 상세보기</button>
+                            </div>
+                            <div class="two-btn">
+                                <button class="approve-button">승인</button>
+                                <button class="reject-button">거절</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="request-card">
+                    <img src="image1.jpg" alt="박현준" class="profile-image">
+                    <div class="info">
+                        <h2>박현준</h2>
+                        <div class="action-buttons">
+                            <div class="detail-btn">
+                                <button class="detail-button">정보 상세보기</button>
+                            </div>
+                            <div class="two-btn">
+                                <button class="approve-button">승인</button>
+                                <button class="reject-button">거절</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="request-card">
+                    <img src="image1.jpg" alt="박현준" class="profile-image">
+                    <div class="info">
+                        <h2>박현준</h2>
+                        <div class="action-buttons">
+                            <div class="detail-btn">
+                                <button class="detail-button">정보 상세보기</button>
+                            </div>
+                            <div class="two-btn">
+                                <button class="approve-button">승인</button>
+                                <button class="reject-button">거절</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="request-card">
+                    <img src="image1.jpg" alt="박현준" class="profile-image">
+                    <div class="info">
+                        <h2>박현준</h2>
+                        <div class="action-buttons">
+                            <div class="detail-btn">
+                                <button class="detail-button">정보 상세보기</button>
+                            </div>
+                            <div class="two-btn">
+                                <button class="approve-button">승인</button>
+                                <button class="reject-button">거절</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="request-card">
+                    <img src="image1.jpg" alt="박현준" class="profile-image">
+                    <div class="info">
+                        <h2>박현준</h2>
+                        <div class="action-buttons">
+                            <div class="detail-btn">
+                                <button class="detail-button">정보 상세보기</button>
+                            </div>
+                            <div class="two-btn">
+                                <button class="approve-button">승인</button>
+                                <button class="reject-button">거절</button>
+                                <div id="questionQ"></div><!-- 사이드바 스크롤 -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- 자주 묻는 질문 -->
+            <h2>자주 묻는 질문(FAQ)</h2>
+            <div class="faq-section">
+                <div class="feq-header">
+                    <button class="add-button">추가하기</button>
+                </div>
+                <ul class="faq-list">
+                    <li class="faq-item">
+                        <div class="question-row">
+                            <span class="icon">&#9654;</span>
+                            <span class="question">집에 가고 싶은데 어떻게 해요?</span>
+                        </div>
+                        <div class="answer" style="display: none;">참으셔야 합니다.</div>
+                    </li>
+                    <li class="faq-item">
+                        <div class="question-row">
+                            <span class="icon">&#9654;</span>
+                            <span class="question">집에 가고 싶은데 어떻게 해요?</span>
+                        </div>
+                        <div class="answer" style="display: none;">참으셔야 합니다.</div>
+                    </li>
+                    <li class="faq-item">
+                        <div class="question-row">
+                            <span class="icon">&#9654;</span>
+                            <span class="question">집에 가고 싶은데 어떻게 해요?</span>
+                        </div>
+                        <div class="answer" style="display: none;">참으셔야 합니다.</div>
+                    </li>
+                    <li class="faq-item">
+                        <div class="question-row">
+                            <span class="icon">&#9654;</span>
+                            <span class="question">집에 가고 싶은데 어떻게 해요?</span>
+                        </div>
+                        <div class="answer" style="display: none;">참으셔야 합니다.</div>
+                    </li>
+                    <li class="faq-item">
+                        <div class="question-row">
+                            <span class="icon">&#9654;</span>
+                            <span class="question">집에 가고 싶은데 어떻게 해요?</span>
+                        </div>
+                        <div class="answer" style="display: none;">참으셔야 합니다.</div>
+                        <div id="noticeN"></div> <!-- 사이드바 스크롤 -->
+                    </li>
+
+                </ul>
+            </div>
+
+            <!--공지사항 -->
+            <h2>공지사항</h2>
+            <div class="button-group">
+                <button class="add-button2">추가하기</button>
+                <button class="delete-button">삭제하기</button>
+            </div>
+
+            <div class="notice-section">
+                <div class="notice-list">
+                    <div class="notice-item">
+                        <img src="notice1.jpg" alt="경매 입찰 방법" class="notice-image">
+                        <div class="notice-content">
+                            <h3>경매 입찰 방법</h3>
+                            <button class="edit-button">수정하기</button>
+                        </div>
+                    </div>
+                    <div class="notice-item">
+                        <img src="notice2.jpg" alt="미술 경매 용어" class="notice-image">
+                        <div class="notice-content">
+                            <h3>미술 경매 용어</h3>
+                            <button class="edit-button">수정하기</button>
+                        </div>
+                    </div>
+                    <div class="notice-item">
+                        <img src="notice3.jpg" alt="공지사항" class="notice-image">
+                        <div class="notice-content">
+                            <h3>공지사항</h3>
+                            <button class="edit-button">수정하기</button>
+                            <div id="back"></div> <!-- 사이드바 스크롤 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 작가 환전 -->
+            <h2>작가 환전</h2>
+            <div class="sales-section">
+                <div class="writer-header">
+                    <h3>작가 판매 목록</h3>
+                    <div class="select-buttons">
+                        <button class="select-btn">선택 입료 처리</button>
+                        <button class="hold-btn">선택 보류 처리</button>
+                    </div>
+                </div>
+                <div class="status-info">
+                    <div class="info-box">전체 목록</div>
+                    <div class="info-box">전체 <span class="count" id="total-count">7건</span></div>
+                    <div class="info-box">대기 <span class="count" id="pending-count">2건</span></div>
+                    <div class="info-box">완료 <span class="count" id="completed-count">2건</span></div>
+                    <div class="info-box">보류 <span class="count" id="on-hold-count">2건</span></div>
+                </div>
+
+                <div class="search-section">
+                    <div class="search-box">
+                        <label for="artist-id">작가명</label>
+                        <input type="text" id="artist-id" placeholder="작가명 입력">
+                    </div>
+                    <div class="month-select">
+                        <label for="month">월별 검색</label>
+                        <select id="month">
+                            <option>2024년 1월</option>
+                            <option>2024년 2월</option>
+                            <option>2024년 3월</option>
+                            <option>2024년 4월</option>
+                            <option>2024년 5월</option>
+                            <option>2024년 6월</option>
+                            <option>2024년 7월</option>
+                            <option>2024년 8월</option>
+                            <option>2024년 9월</option>
+                            <option>2024년 10월</option>
+                            <option>2024년 11월</option>
+                            <option>2024년 12월</option>
+                            <option>2025년 1월</option>
+
+                        </select>
+                    </div>
+                </div>
+
+
+                <table class="sales-table">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox"></th>
+                            <th>판매 작품 수</th>
+                            <th>은행</th>
+                            <th>입금계좌번호</th>
+                            <th>작가</th>
+                            <th>총 판매 금액</th>
+                            <th>수수료 (%)</th>
+                            <th>입금 상태</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>15개</td>
+                            <td>농협</td>
+                            <td>352-0222-2222-23</td>
+                            <td>김상명</td>
+                            <td>20,000,000</td>
+                            <td>10.1%</td>
+                            <td>완료</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>15개</td>
+                            <td>농협</td>
+                            <td>352-0222-2222-23</td>
+                            <td>이동현</td>
+                            <td>30,000,000</td>
+                            <td>21.5%</td>
+                            <td>대기</td>
+                        </tr>
+                        <!-- 추가 행들 -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 1 : 1 문의 -->
+
+            <h2>1 : 1 문의</h2>
+            <div id="onequestion" class="inquiry-section">
+                <ul class="inquiry-list">
+                    <li class="inquiry-item">
+                        <span class="icon">&#9654;</span>
+                        <span class="content">1 : 1 문의 내용</span>
+                    </li>
+                    <li class="inquiry-item">
+                        <span class="icon">&#9654;</span>
+                        <span class="content">1 : 1 문의 내용</span>
+                    </li>
+                    <li class="inquiry-item">
+                        <span class="icon">&#9654;</span>
+                        <span class="content">1 : 1 문의 내용</span>
+                    </li>
+                    <li class="inquiry-item">
+                        <span class="icon">&#9654;</span>
+                        <span class="content">1 : 1 문의 내용</span>
+                    </li>
+                    <li class="inquiry-item">
+                        <span class="icon">&#9654;</span>
+                        <span class="content">1 : 1 문의 내용</span>
+                    </li>
+                    <li class="inquiry-item">
+                        <span class="icon">&#9654;</span>
+                        <span class="content">1 : 1 문의 내용</span>
+                    </li>
+                    <li class="inquiry-item">
+                        <span class="icon">&#9654;</span>
+                        <span class="content">1 : 1 문의 내용</span>
+                    </li>
+                    <li class="inquiry-item">
+                        <span class="icon">&#9654;</span>
+                        <span class="content">1 : 1 문의 내용</span>
+                    </li>
+                    <li class="inquiry-item">
+                        <span class="icon">&#9654;</span>
+                        <span class="content">1 : 1 문의 내용</span>
+                    </li>
+                    <li class="inquiry-item">
+                        <span class="icon">&#9654;</span>
+                        <span class="content">1 : 1 문의 내용</span>
+                    </li>
+                </ul>
+            </div>
         </div>
-
-
-        <!-- css -->
-         <style>
-     
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        .container {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        .main-header {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            background-color: #526D64;
-            padding: 20px 40px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .exit-btn {
-            background-color: #f5f5f5;
-            color: #526D64;
-            padding: 8px 16px;
-            border: 1px solid #526D64;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .sidebar {
-            width: 250px;
-            background-color: #526D64;
-            color: white;
-            padding: 20px 0;
-        }
-
-        .nav-item {
-            display: block;
-            padding: 15px 20px;
-            color: white;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
-
-        .nav-item:hover,
-        .nav-item.active {
-            background-color: #3A4F48;
-        }
-
-        .main-content {
-            flex: 1;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-
-        .tab-buttons {
-            margin-bottom: 20px;
-        }
-
-        .tab-btn {
-            padding: 10px 20px;
-            background-color: #526D64;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .tab-btn.active {
-            background-color: #3A4F48;
-        }
-
-        .content-row {
-            display: flex;
-            gap: 20px;
-        }
-
-        .tab-content {
-            flex: 1;
-            padding: 20px;
-            background-color: white;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            min-width: 300px;
-        }
-
-        .chart-container {
-            height: 400px;
-        }
-
-        .data-table {
-            width: 100%;
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #717a77c2;
-            color: white;
-        }
-
-        /* 작가 및 회원 관리 스타일 */
-        h2 {
-            color: #3A4F48;
-            font-size: 20px;
-            margin: 20px 0;
-        }
-
-        .main-content {
-            flex: 1;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-
-        .artist-content {
-            display: flex;
-            gap: 20px;
-        }
-
-        .artist-list, .artist-summary {
-            width: 50%;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        /* 왼쪽 섹션: 작가 리스트 스타일 */
-        .artist-item {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            background-color: white;
-            border: 2px solid #3A4F48;
-            border-radius: 8px;
-            height: 130px;
-        }
-
-        .artist-item img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin-right: 15px;
-        }
-
-        .artist-info h3 {
-            color: #3A4F48;
-            font-size: 18px;
-        }
-
-        .artist-info p {
-            color: #555;
-        }
-
-        .artist-actions {
-            margin-left: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .btn {
-            padding: 5px 10px;
-            border: 1px solid #3A4F48;
-            border-radius: 5px;
-            background-color: white;
-            color: #3A4F48;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background-color: #3A4F48;
-            color: white;
-        }
-
-        /* 오른쪽 섹션: 회원 요약 스타일 */
-        .summary-item {
-            padding: 10px;
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            height: 130px;
-            position: relative;
-        }
-
-        .summary-item h3 {
-            color: #3A4F48;
-            font-size: 18px;
-            margin-bottom: 8px;
-        }
-
-        .summary-item p {
-            color: #555;
-        }
-
-        .summary-actions {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            display: flex;
-            gap: 10px;
-        }
-        
-        
-    </style>
+    </body>
+</html>

@@ -20,7 +20,8 @@ public class ManageController {
 	
 	@GetMapping("")
 	public String managePage() {
-		return "common/manage";
+		return "manage/manage";
+		
 	}
 
 }
