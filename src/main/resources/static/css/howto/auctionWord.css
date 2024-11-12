@@ -1,0 +1,71 @@
+
+/* wordMenu */
+.wordMenu {
+  width: 80%;
+  height: 200px;
+}
+
+.wordMenu > nav {
+  margin-top: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+#wordBtn {
+  width: 120px;
+  height: 50px;
+  background-color: #5e7c71;
+  list-style: none; /* 리스트 스타일을 없앰 */
+  padding: 0; /* 기본 패딩 제거 */
+  margin: 0; /* 기본 마진 제거 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* 애니메이션 효과 추가 */
+}
+
+#wordBtn:hover {
+  background-color: #4a6059; /* 버튼 배경 색상 변경 */
+  color: #e0f2f1; /* 텍스트 색상 변경 */
+  transform: scale(1.1); /* 버튼을 1.1배 확대 */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+}
+
+
+/* wordText */
+/* wordText */
+.wordText {
+  width: 80%;
+  padding: 40px;
+  margin-top: 50px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.wordText h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 100px;
+}
+
+.terms-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.terms-list li {
+  margin-bottom: 20px;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.terms-list li strong {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}

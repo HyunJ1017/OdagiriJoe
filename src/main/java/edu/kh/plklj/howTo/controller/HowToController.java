@@ -23,6 +23,13 @@ public class HowToController {
 	}
 	
 	
+	@GetMapping("bidInfo")
+	public String bidInfo() {
+		
+		return "howto/bidInfo";
+	}
+	
+	
 	@GetMapping("word")
 	public String word() {
 		
