@@ -3,6 +3,8 @@
 
 .gradle/
 
+.anima/
+
 .springBeans
 MANIFEST.MF
 settings.json

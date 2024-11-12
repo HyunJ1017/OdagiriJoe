@@ -19,11 +19,7 @@ public class MainController {
 //		return "common/main";
 //	}
 	
-	// 아티스트 목록 조회 페이지 이동
-	@GetMapping("artist")
-	public String artistList() {
-		return "artist/artistList";
-	}
+	
 	
 	
 }
