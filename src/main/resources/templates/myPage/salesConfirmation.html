@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <th:block th:replace= "~{/common/common.html :: cssLinks}"></th:block>
+    <link rel="stylesheet" href="/css/myPage/salesConfirmation.css">
+  </head>
+  <body>
+  <script src="https://kit.fontawesome.com/8695e357e4.js" crossorigin="anonymous"></script>
+  <th:block th:replace= "~{/common/common.html :: headerLinks}"></th:block>
+
+  <main id="myPage-main" class="myPage-main">
+    <h1>작가 매출 확인</h1>
+
+    <section class="content-section" id="wishList-section">
+
+      <hr>
+
+      <section>
+        <p>매출현황</p>
+        <input type="month" id="selectMonth">
+        <p>385,000,000,000</p>
+      </section>
+      <section>
+        <table border="1" class="sales-table">
+          <thead>
+            <tr>
+              <th>작가</th> 
+              <th>작품 이름</th>
+              <th>낙찰가</th>
+              <th>수수료</th>
+              <th>은행</th>
+              <th>계좌번호</th>
+              <th>입금완료상태</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>김상엽</td> 
+              <td>성윤모</td>
+              <td>20,000,000</td>
+              <td>10.1%</td>
+              <td>농협</td>
+              <td>352-0222-23</td>
+              <td>완료</td>
+            </tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+
+    </section>
+    
+    
+  </main>
+
+  <th:block th:replace= "~{/common/footer.html}"></th:block>
+  <script src="/js/myPage/salesConfirmation.js"></script>
+  <script th:inline="javascript">
+    const memberNo = /*[[${session.artistLogin.memberNo}]]*/ "defaultMemberNo";
+  </script>
+
+</body>
+</html>

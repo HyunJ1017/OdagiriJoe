@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <th:block th:replace= "~{/common/common.html}"></th:block>
-  <link rel="stylesheet" href="/css/member-sign/myPage.css">
+  <th:block th:replace= "~{/common/common.html :: cssLinks}"></th:block>
+  <link rel="stylesheet" href="/css/myPage/myPage.css">
 </head>
 <body>
-  <th:block th:replace= "~{/common/header.html}"></th:block>
+  <th:block th:replace= "~{/common/common.html :: headerLinks}"></th:block>
 
   <main id="myPage-main" class="myPage-main">
 
@@ -35,13 +35,13 @@
     <!-- 비밀번호 -->
     <div class="myPage-sec">
       <div>비밀번호</div>
-      <div class="common-box"  id="myPage-pw">비밀번호 변경</div>
+      <div class="common-box canChangeBox"  id="myPage-pw">비밀번호 변경</div>
     </div>
 
     <!-- 전화전호 -->
     <div class="myPage-sec">
       <div>전화번호</div>
-      <div class="common-box canChangeBox">바꿀 수 있음</div>
+      <div class="common-box canChangeBox" id="myPage-phone">바꿀 수 있음</div>
     </div>
         
     <section>
@@ -51,9 +51,10 @@
   </main>
 
   <th:block th:replace= "~{/common/footer.html}"></th:block>
-  <script src="/js/member-sign/myPage.js"></script>
+  <script src="/js/myPage/myPage.js"></script>
   <script th:inline="javascript">
-    const memberNo = /*session.memberLogin.memberNo*/"memberNo"
-  </script>
+    const memberNo = /*[[${session.memberLogin.memberNo}]]*/ "defaultMemberNo";
+</script>
+
 </body>
 </html>

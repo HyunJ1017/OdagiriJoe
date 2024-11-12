@@ -1,0 +1,101 @@
+*{
+  box-sizing: border-box;
+}
+.myPage-main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.myPage-main>h1{
+  color: #5e7c71;
+}
+.myPage-main>.content-section{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 1000px;
+  margin-bottom: 50px;
+}
+.myPage-main>.content-section>hr{
+  width: 100%;
+  border-color: rgba(169, 169, 169, 0.33);
+}
+.myPage-main>.content-section>h2{
+  color: #5e7c71;
+}
+.myPage-main>.content-section>.content-div{
+  align-self: center;
+  width: 100%;
+  margin: 20px;
+  border: 1px solid #80808036;
+  border-radius: 10px;
+  box-shadow: 5px 7px 6px #00000061;
+  display: flex;
+  flex-direction: row;
+}
+
+/* 컨탠츠 내용 */
+.content-div>div:first-child{
+  flex-grow: 1;
+  padding: 10px;
+}
+.content-div>div>.content-img{
+  width: 200px;
+  height: auto;
+}
+.content-div>div:first-child{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.content-div>div>p{
+  margin: 5px;
+}
+.content-div>div>h3{
+  margin-top: 19px;
+  margin-bottom: 0;
+}
+.content-div>div>h4{
+  margin: 10px 0 10px;
+}
+/* 경매 진행품 */
+.content-div>div>.piece-detales{
+  margin: 10px 0 5px;
+  border-radius: 10px;
+  width: 135px;
+  height: 50px;
+  background-color: #5e7c71;
+  color: white;
+  text-shadow: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.content-div>div>.piece-detales:hover{
+  border: 2px solid #5e7c71;
+  background-color: white;
+  color: #5e7c71;
+}
+/* 임금 대기품, 입금 완료 */
+.content-div>div>.piece-waiting,
+.content-div>div>.piece-deposit{
+  margin: 10px 0 5px;
+  border-radius: 10px;
+  width: 135px;
+  height: 50px;
+  border: 2px solid #5e7c71;
+  background-color: white;
+  color: #5e7c71;
+  text-shadow: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.content-div>div>.piece-waiting:hover,
+.content-div>div>.piece-deposit:hover{
+  background-color: #5e7c71;
+  color: white;
+}
