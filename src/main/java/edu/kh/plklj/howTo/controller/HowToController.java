@@ -36,6 +36,15 @@ public class HowToController {
 		return "howto/auctionWord";
 	}
 	
+	@GetMapping("bidmethod")
+	public String bidMethod() {
+		
+		return "howto/bidMethod";
+	}
+	
+	
+	
+	
 	
 	
 	
