@@ -17,9 +17,21 @@ import lombok.extern.slf4j.Slf4j;
 public class PieceController {
 	private final PieceService service;
 	
+	/** 온라인 갤러리 조회 페이지 이동
+	 * @return
+	 */
 	@GetMapping("online")
 	public String onlineList() {
 		return "online/onlineList";
 	}
+	
+	/** 온라인 갤러리 상세 조회 페이지
+	 *
+	 */
+	@GetMapping("onlineDetail")
+	public String onlineDetail() {
+		return "online/onlineDetail";
+	}
+	
 	
 }
