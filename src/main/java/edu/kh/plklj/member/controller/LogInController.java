@@ -98,6 +98,10 @@ public class LogInController {
 	}
 	
 	
+	/** 로그아웃
+	 * @param status
+	 * @return
+	 */
 	@GetMapping("logout")
 	public String logout(SessionStatus status) {
 		

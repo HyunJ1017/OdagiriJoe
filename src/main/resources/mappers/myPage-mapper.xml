@@ -8,4 +8,40 @@
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
 	
+	<!-- 비밀번호변경을위한 멤버정보조회 -->
+	<select id="getMember" resultType="Member">
+		SELECT
+			MEMBER_NO,
+			MEMBER_ID,
+			MEMBER_PW,
+			MEMBER_PHONE
+		FROM "MEMBER"
+		WHERE MEMBER_No = #{memberNo}
+		AND MEMBER_DEL_FL = 'N'
+	</select>
+	
+	<!-- 전화번호 변경하기 -->
+	<update id="updatePhone">
+		UPDATE "MEMBER"
+		SET MEMBER_PHONE = #{memberPhone}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 은행목록 불러오기 -->
+	<select id="getBankList" resultType="BankCode">
+		SELECT
+			BANK_CODE,
+			BANK_NAME
+		FROM "BANK_CODE_LIST"
+	</select>
+	
+	<!-- 작가 활동명 중복검사 -->
+	<select id="checkNickname">
+		SELECT
+			COUNT(*)
+		FROM
+			"ARTIST"
+		WHERE
+			ARTIST_NICKNAME = #{inputNickname}
+	</select>
 </mapper>
