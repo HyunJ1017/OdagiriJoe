@@ -2,16 +2,16 @@
   color:#5e7c71;
 }
 
-
 /* 메인 컨텐츠 영역 */
 #howTo {
+  padding-top: 30vh;
   width: 100%; /* 가로 100% */
   overflow-y: auto; /* 스크롤 추가 */
-  border: 1px solid #333;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow-x: hidden;
 }
 
 .howTo-section1 {
@@ -19,21 +19,21 @@
   height: 500px;
   /* border: 1px solid #333; */
   border-bottom: 3px solid #333; 
-  margin: 300px 30px 30px 30px;
+  margin: 60px 30px 30px 30px;
   position: relative;
 }
 
-#howTo > h2 {
+
+#howTo > h1 {
   position: absolute;
-  top: 185px;
+  top: 224px;
 }
 
 .howTo-section2,
 .howTo-section4 {
   width: 80%;
   height: 500px;
-  border: 1px solid #333;
-  border-bottom: 2px solid #000000; /* 하단 테두리를 두껍게 */
+  border-bottom: 3px solid #333;
   margin: 30px;
 }
 
@@ -43,6 +43,10 @@
   background-color: #5e7c71;
   border-radius: 10px;
   color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
 }
 
 
@@ -55,6 +59,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 18px;
 }
 
@@ -81,7 +86,7 @@
 }
 
 .section1-imgBox > div hr {
-  width: 80%; /* 점선의 너비 조정 */
+  width: 90%; /* 점선의 너비 조정 */
   border: none;
   border-top: 1px dashed #fff; /* 점선 스타일 */
   margin: 10px 0; /* 간격 조정 */
@@ -149,7 +154,7 @@
 }
 
 .section2-imgBox > div hr {
-  width: 80%; /* 점선의 너비 조정 */
+  width: 90%; /* 점선의 너비 조정 */
   border: none;
   border-top: 1px dashed #fff; /* 점선 스타일 */
   margin: 10px 0; /* 간격 조정 */
@@ -169,19 +174,11 @@
 }
 
 
-.faq-section {
-  width: 80%;
-  height: 500px;
-  border: 1px solid #333;
-}
-
 
 /* section 3 */
 .howTo-section3 {
   width: 80%;
   height: 900px;
-  border: 1px solid #333;
-  border-bottom: 2px solid #000000; /* 하단 테두리를 두껍게 */
   margin: 30px;
 }
 
@@ -201,6 +198,7 @@
 .howTo-section3 > :first-child {
   width: 100%;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   font-size: 18px;
 }
@@ -215,6 +213,32 @@
   text-align: center;
 }
 
+
+/* faq-section */
+.faq-section {
+  width: 80%;
+  height: 550px;
+  display: flex;
+  flex-direction: column;
+  margin: 100px 0;
+}
+
+.faq-box {
+  width: 99%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100px;
+  border-bottom: 3px solid #333;
+  margin: 10px 0 10px 10px;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.faq-box > i {
+  margin-left: 15px !important;
+}
 
 
 

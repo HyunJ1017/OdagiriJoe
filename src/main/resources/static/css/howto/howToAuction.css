@@ -1,0 +1,180 @@
+/* 메인 컨텐츠 영역 */
+/* 메인 컨텐츠 영역 */
+#howTo {
+  padding-top: 25vh;
+  width: 100%;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  margin-bottom: 100px; /* 하단에 여백 추가 */
+}
+
+#howTo > h1 {
+  position: relative;
+  margin-bottom: 50px;
+  font-size: 36px;
+  font-weight: bold;
+  color: #3b5d53; /* 제목 색상 변경 */
+}
+
+/* infoMain */
+.infoMain {
+  width: 80%;
+  height: auto;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.infoMain > div > img {
+  width: 100%;
+  height: auto; /* 비율에 맞게 이미지 크기 조정 */
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+.infoMain-titleText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.infoMain-titleText h1 {
+  font-size: 28px;
+  line-height: 1.4;
+  color: #2e483e; /* 강조된 초록 톤 */
+}
+
+.infoMain-titleContent {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff; /* 흰색 배경으로 텍스트 강조 */
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.infoMain-titleContent p {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #4a6059;
+}
+
+/* hr 스타일 조정 */
+hr {
+  width: 95%;
+  border: none;
+  border-top: 1px solid #d1d1d1;
+  margin: 80px 0; /* 상하 여백 조정 */
+}
+
+/* infoBottom */
+.infoBottom {
+  width: 90%;
+  height: auto;
+  margin-top: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 15px;
+  padding: 40px;
+}
+
+.infoBottom-contentBox {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.content-box {
+  width: 45%;
+  min-height: 500px;
+  border: 1px solid #e0e0e0; /* 연한 테두리 */
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* 마우스 올릴 때 애니메이션 */
+}
+
+.content-box:hover {
+  transform: translateY(-10px); /* 마우스 올리면 살짝 위로 이동 */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* 그림자 강조 */
+}
+
+.content-box h2 {
+  font-size: 22px;
+  margin-top: 20px;
+  text-align: center;
+  color: #3b5d53; /* 텍스트 색상 */
+}
+
+.content-box p {
+  font-size: 18px;
+  line-height: 1.8;
+  text-align: left;
+  color: #4a6059;
+  margin-top: 20px;
+}
+
+/* 버튼 스타일 */
+.detailBtn {
+  width: 100px;
+  height: 40px;
+  margin-top: 20px;
+  background-color: #5e7c71;
+  color: #ffffff;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 10px;
+  text-decoration: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.detailBtn:hover {
+  background-color: #4a6059;
+  transform: scale(1.05); /* 확대 효과 */
+  cursor: pointer;
+}
+
+/* FAQ 섹션 스타일 조정 */
+.faq-box {
+  width: 100%;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.faq-box:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.faq-box > i {
+  margin-right: 15px;
+  color: #5e7c71;
+}
+
