@@ -8,7 +8,7 @@
   width: 100%;
 }
 main>h3{
-  color: #4a6741;
+  color: #5e7c71;
 }
 #myPage-main>*{
   margin: 10px 0 10px;
@@ -21,19 +21,25 @@ main>h3{
   width: 820px;
 }
 #myPage-main>.myPage-sec>div:first-child{
-  color: #4a6741;
+  color: #5e7c71;
   margin-bottom: 5px;
 }
 #myPage-main>.myPage-sec>.common-box{
   width: 100%;
-  height: 50px;
+  min-height: 50px;
   border: 2px solid black;
   border-radius: 3px;
   padding: 5px;
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+#myPage-main>.myPage-sec>.canChangeBox{
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
 #myPage-main>.myPage-sec .signUp-count{
 color: red;
@@ -43,11 +49,14 @@ justify-content: center;
 align-items: center;
 margin: 0 10px 0;
 }
+#myPage-main>.myPage-sec>.canChangeBox>*{
+  margin: 5px;
+}
 #myPage-main>.myPage-sec label{
-  width: 100%;
-  border: 2px solid black;
+  width: 97%;
+  min-height: 30px;
+  border: 2px solid rgb(130, 130, 130);
   border-radius: 3px;
-  padding: 5px;
   display: flex;
   flex-direction: row;
 }
@@ -58,27 +67,38 @@ margin: 0 10px 0;
 #myPage-main>.myPage-sec label>input:focus {
   outline: none;
 }
-#myPage-main>.myPage-sec label>div:last-child{
+#myPage-main>.myPage-sec label>div{
   width: 90px;
   border-radius: 3px;
 }
-#myPage-main>section>.myPage-hov{
+#myPage-main>.myPage-sec label>#signUp-count{
+  color: red;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 0 10px 0;
+}
+#myPage-main>section>.member-hov{
   width: 380px;
   height: 45px;
   border-radius: 8px;
   margin: 15px;
 }
 .member-hov{
+  margin: 2px;
+  cursor: pointer;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: #4a6741;
+  background-color: #5e7c71;
   color: white;
 }
-.myPage-hov:hover {
+.member-hov:hover{
   cursor: pointer;
   background: white;
-  border: 2px solid #4a6741;
-  color: #4a6741;
+  border: 2px solid #5e7c71;
+  color: #5e7c71;
 }
+.confirm-red{color: red;}

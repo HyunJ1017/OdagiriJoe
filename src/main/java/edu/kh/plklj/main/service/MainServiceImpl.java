@@ -1,5 +1,26 @@
 package edu.kh.plklj.main.service;
 
-public class MainServiceImpl {
+import java.util.List;
+import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
+import edu.kh.plklj.main.mapper.MainMapper;
+import edu.kh.plklj.piece.dto.Piece;
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class MainServiceImpl implements MainService{
+	private final MainMapper mapper;
+
+	@Override
+	public Map<String, Object> mainPage() {
+		List<Piece> onlineGallery = mapper.selectOnlineGalleryList();
+		List<Piece> auctions = mapper.selectAuctionsList();
+		
+		Map<String, Object> map = Map.of("onlineGallery", onlineGallery, "auctions", auctions);
+	return map;
+	}
+	
 }

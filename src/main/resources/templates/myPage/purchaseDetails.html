@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <th:block th:replace= "~{/common/common.html :: cssLinks}"></th:block>
+    <link rel="stylesheet" href="/css/myPage/purchaseDetails.css">
+  </head>
+  <body>
+  <script src="https://kit.fontawesome.com/8695e357e4.js" crossorigin="anonymous"></script>
+  <th:block th:replace= "~{/common/common.html :: headerLinks}"></th:block>
+
+  <main id="myPage-main" class="myPage-main">
+    <h1>구매작품목록</h1>
+
+    <section id="content-section">
+
+      <div class="content-div">
+        <div>
+          <img src="/images/artist1.jpg" alt="사진" class="content-img">
+        </div>
+        <div>
+          <h3>예시그림</h3>
+          <h4>입니다</h4>
+          <p>낙찰가 ₩50,000,000</p>
+          <p>15 x 30</p>
+          <div class="piece-detales">상세정보</div>
+        </div>
+      </div>
+      
+      <div class="content-div">
+        <div>
+          <img src="#" alt="사진" class="content-img">
+        </div>
+        <div>
+          <h3>무제</h3>
+          <h4>작가명</h4>
+          <p>낙찰가 ₩50,000,000</p>
+          <p>15 x 30</p>
+          <div class="piece-detales">상세정보</div>
+        </div>
+      </div>
+
+      <div class="content-div">
+        <div>
+          <img src="#" alt="사진" class="content-img">
+        </div>
+        <div>
+          <h3>무제</h3>
+          <h4>작가명</h4>
+          <p>낙찰가 ₩50,000,000</p>
+          <p>15 x 30</p>
+          <div class="piece-detales">상세정보</div>
+        </div>
+      </div>
+
+      <div class="content-div">
+        <div>
+          <img src="#" alt="사진" class="content-img">
+        </div>
+        <div>
+          <h3>무제</h3>
+          <h4>작가명</h4>
+          <p>낙찰가 ₩50,000,000</p>
+          <p>15 x 30</p>
+          <div class="piece-detales">상세정보</div>
+        </div>
+      </div>
+
+    </section>
+
+    <div id="loader">
+      <i class="fa-solid fa-spinner fa-spin-pulse" style="color: #74C0FC;"></i>
+    </div>
+    
+  </main>
+
+  <th:block th:replace= "~{/common/footer.html}"></th:block>
+  <script src="/js/myPage/purchaseDetails.js"></script>
+  <script th:inline="javascript">
+    const memberNo = /*[[${session.artistLogin != null} ? ${session.artistLogin.memberNo} : ${session.memberLogin.memberNo}]]*/ "defaultMemberNo";
+  </script>
+
+</body>
+</html>

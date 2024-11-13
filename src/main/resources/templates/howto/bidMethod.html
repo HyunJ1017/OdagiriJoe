@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>입찰방법</title>
+
+  <link rel="stylesheet" href="/css/howto/howToMain.css">
+  <link rel="stylesheet" href="/css/howto/bidMethod.css">
+</head>
+<body>
+  
+  <th:block th:replace="~{common/common}"></th:block>
+    
+  <main id="howTo"> 
+
+    <h1>경매 입찰 방법</h1>
+
+    
+    <section class="auction-steps">
+      <div class="step-container">
+        <div class="step-card">
+          <h2>STEP 01</h2>
+          <h3>회원 가입 및 로그인</h3>
+          <p>경매 참여를 위해 먼저 회원 가입을 완료하고 로그인해 주세요. 계정 생성 후, 안전한 거래를 위해 개인정보와 결제 정보를 확인하게 됩니다.</p>
+        </div>
+        <div class="arrow-right">➜</div>
+        <div class="step-card">
+          <h2>STEP 02</h2>
+          <h3>관심 작품 검색 및 상세 정보 확인</h3>
+          <p>경매에 참여할 작품을 탐색하고 작품의 상세 정보와 경매 일정, 현재 입찰가를 확인해 주세요. 작품의 특성과 상태를 충분히 파악하여 신중한 결정을 내릴 수 있습니다.</p>
+        </div>
+      </div>
+
+       <!-- 가운데 정렬을 위한 화살표 컨테이너 추가 -->
+      <div class="arrow-down-container">
+        <div class="arrow-down">➜</div>
+      </div>
+
+      <div class="step-container">
+        <div class="step-card">
+          <h2>STEP 04</h2>
+          <h3>입찰 참여 및 진행 상황 확인</h3>
+          <p>로그인 후, 원하는 작품에 입찰을 시작하고 실시간으로 경매 진행 상황을 모니터링해 주세요. 최종 낙찰 여부가 결정될 때까지 주의 깊게 상황을 확인하며 경매에 참여하세요.</p>
+        </div>
+        
+        <div class="arrow-left">➜</div>
+        
+        <div class="step-card">
+          <h2>STEP 03</h2>
+          <h3>최소 입찰가 확인 및 입찰 금액 결정</h3>
+          <p>작품의 최소 입찰가와 예상 낙찰가를 검토하고, 예산 내에서 최대 입찰 금액을 설정해 주세요. 입찰 전략을 미리 계획하는 것이 성공적인 낙찰에 도움이 됩니다.</p>
+        </div>
+
+      </div>
+    </section>
+    
+</main>
+
+
+
+  <th:block th:replace= "~{/common/footer.html}"></th:block>
+</body>
+</html>

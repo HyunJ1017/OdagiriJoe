@@ -1,9 +1,10 @@
-package edu.kh.plklj;
+package edu.kh.plklj.artists.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import edu.kh.plklj.artists.service.artistsService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -11,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ArtistController {
 
+	private final artistsService service;
+	
 	/** 작가 목록 조회 페이지 이동
 	 * @return
 	 */

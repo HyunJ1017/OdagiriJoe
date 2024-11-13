@@ -1,0 +1,86 @@
+/* 전체 섹션 스타일 */
+.auction-steps {
+  width: 80%;
+  margin: 40px auto;
+  text-align: center;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.auction-steps h1 {
+  font-size: 28px;
+  color: #5e7c71;
+  margin-bottom: 40px;
+}
+
+/* 단계 카드 컨테이너 */
+.step-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+/* 단계 카드 스타일 */
+.step-card {
+  width: 450px;
+  height: 400px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  text-align: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 30px;
+}
+
+.step-card h2 {
+  font-size: 26px;
+  color: #4a6059;
+  margin: 0;
+}
+
+.step-card h3 {
+  font-size: 24px;
+  color: #333;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.step-card p {
+  font-size: 22px;
+  color: #555;
+  line-height: 1.8;
+  margin: 0;
+  padding-top: 10px;
+}
+
+/* 화살표 스타일 */
+.arrow-right, .arrow-left {
+  font-size: 28px;
+  color: #5e7c71;
+  margin: 20px 0;
+}
+
+.arrow-left {
+  transform: rotate(180deg); /* 왼쪽 화살표 */
+}
+
+/* 아래 화살표를 가운데 정렬 */
+.arrow-down-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.arrow-down {
+  font-size: 28px;
+  color: #5e7c71;
+  transform: rotate(90deg); /* 아래 방향으로 회전 */
+  margin-left: 571px;
+}

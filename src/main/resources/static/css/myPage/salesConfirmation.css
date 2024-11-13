@@ -1,0 +1,70 @@
+*{
+  box-sizing: border-box;
+}
+.myPage-main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.myPage-main>h1{
+  color: #5e7c71;
+}
+.myPage-main>.content-section{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 1000px;
+}
+.myPage-main>.content-section>hr{
+  width: 100%;
+  border-color: rgba(169, 169, 169, 0.33);
+}
+.myPage-main>.content-section>section{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+}
+.myPage-main>.content-section>section:first-of-type{
+  background-color: #5e7c71;
+}
+.myPage-main>.content-section>section:first-of-type>*{
+  margin: 0 10px 0 0;
+}
+.sales-table{
+  width: 100%;
+  border-collapse: collapse; /* 테두리 겹침 방지 */
+}
+.sales-table td, .sales-table th{
+  border: 1px solid rgba(0, 0, 0, 0.7); /* 모든 테두리를 검은색으로 설정 */
+}
+.sales-table td, .sales-table th{
+  border-top: 1px solid transparent; /* 가로 테두리: 투명 */
+  border-bottom: 1px solid transparent; /* 가로 테두리: 투명 */
+}
+.sales-table tr:first-child td, .sales-table tr:first-child th {
+  border-top: 1px solid rgba(0, 0, 0, 0.7);; /* 첫 번째 행의 상단 테두리 복구 */
+}
+.sales-table tr:last-child td {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.7);; /* 마지막 행의 하단 테두리 복구 */
+}
+.sales-table td:first-child, .sales-table th:first-child {
+  border-left: 1px solid rgba(0, 0, 0, 0.7);; /* 첫 번째 열의 왼쪽 테두리 */
+}
+.sales-table td:last-child, .sales-table th:last-child {
+  border-right: 1px solid rgba(0, 0, 0, 0.7);; /* 마지막 열의 오른쪽 테두리 */
+}
+.sales-table th, .sales-table td{
+  height: 40px;
+  text-align: center;
+}
+.sales-table th{
+  background-color: #5e7c7188;
+  color: black;
+}
+.sales-table>tbody>tr:nth-of-type(2n-1){
+  background-color: #ebebeb;
+}
+.sales-table>tbody>tr:nth-of-type(2n){
+  background-color: #ffffff;
+}
