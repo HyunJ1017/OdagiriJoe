@@ -1,47 +1,84 @@
 
 /* .upcoming-auctions */
 .upcoming-auctions {
-  width: 80%;
+  width: 90%;
   height: 500px;
-  border: 1px solid #333;
+  border-bottom: 2px solid #aaaaaa;
   margin-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative; /* 자식 요소의 절대 위치 설정을 위해 추가 */
+}
+
+
+.upcoming-title {
+  position: absolute;
+  top: 10px; /* 박스 상단에서의 거리 조정 */
+  left: 80px; /* 박스 왼쪽에서의 거리 조정 */
+  font-size: 28px;
+  font-weight: bold;
+  color: #5e7c71;;
 }
 
 .upcoming-box {
-  width: 40%;
+  width: 100%;
   height: 400px;
-  border: 1px solid #333;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 30px;
 }
+
+.upcoming-box{
+  width: 100%;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+
+
 
 .upcoming-text {
   display: flex;
   flex-direction: column;
   width: 220px;
   height: 250px;
-  border: 1px solid #333;
   margin-left: 15px;
+  position: relative;
+  padding-bottom: 50px; 
 }
 
 
-/* .upcoming-text {
-  position: relative;
-  padding-bottom: 50px; 
-} */
-
-/* .detail-button {
+.detail-button {
   position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-} */
+  width: 95px;
+  height: 40px;
+  bottom: 0;
+  left: 0;
+  background-color: #5e7c71;
+  border-radius: 5px;
+  color: #fff;
+  border: none;
+  font-size: 16px;
+}
 
+.detail-button:hover {
+  cursor: pointer;
+  background-color: #7e9a8d; /* 약간 더 밝은 톤 */
+}
+
+
+.upcoming-text > *:not(.detail-button) {
+  color: #333 !important;
+}
 
 .upcoming-text,
-.upcoming-text * {
-  color: #333 !important;
+.upcoming-text > * {
+ margin-left: 15px;
 }
 
 .upcoming-imgbox > img {
@@ -50,26 +87,173 @@
   object-fit: cover;
 }
 
+.dotted-line {
+  width: 90%;
+  margin-top: 30px;
+  border: none; /* 기본 선 제거 */
+  height: 1px; /* 선의 높이 */
+  background-image: linear-gradient(to right, #333 30%, rgba(255, 255, 255, 0) 0%);
+  background-size: 5px 5px; /* 점과 점 사이 간격 설정 */
+}
+
 
 
 /* .ongoing-auctions */
 .ongoing-auctions {
-  width: 80%;
-  height: 500px;
-  border: 1px solid #333;
-  margin-top: 50px;
+  width: 90%;
+  height: 1500px;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative; /* 자식 요소의 절대 위치 설정을 위해 추가 */
 }
+
+.ongoing-section1 {
+  width: 70%;
+  height: 400px;
+  border-bottom: 2px solid #aaaaaa;
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.ongoing-title {
+  position: absolute;
+  top: 10px; /* 박스 상단에서의 거리 조정 */
+  left: 80px; /* 박스 왼쪽에서의 거리 조정 */
+  font-size: 28px;
+  font-weight: bold;
+  color: #5e7c71;
+}
+
+.ongoing-imgbox > img {
+  width: 320px;
+  height: 300px;
+  object-fit: cover;
+  /* margin-right: 75px; */
+}
+
+.ongoing-text {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  height: 300px;
+  /* margin-left: 75px; */
+  position: relative;
+  padding-bottom: 50px;
+  font-size: 17px;
+}
+
+
+.detail-button2 {
+  position: absolute;
+  width: 130px;
+  height: 50px;
+  bottom: 0;
+  left: 0;
+  background-color: #5e7c71;
+  border-radius: 5px;
+  color: #fff;
+  border: none;
+  font-size: 18px;
+}
+
+.detail-button2:hover {
+  cursor: pointer;
+  background-color: #7e9a8d; /* 약간 더 밝은 톤 */
+}
+
+.dotted-line2 {
+  width: 90%;
+  margin-top: 41px;
+  border: none; /* 기본 선 제거 */
+  height: 1px; /* 선의 높이 */
+  background-image: linear-gradient(to right, #333 30%, rgba(255, 255, 255, 0) 0%);
+  background-size: 5px 5px; /* 점과 점 사이 간격 설정 */
+}
+
+
+.ongoing-text > *:not(.detail-button2) {
+  color: #333 !important;
+}
+
 
 
 
 
 /* completed-auctions */
 .completed-auctions {
-  width: 80%;
-  height: 500px;
-  border: 1px solid #333;
+  width: 90%;
+  height: 950px;
   margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative; /* 자식 요소의 절대 위치 설정을 위해 추가 */
+}
+
+
+.completed-title {
+  position: absolute;
+  top: 10px; /* 박스 상단에서의 거리 조정 */
+  left: 80px; /* 박스 왼쪽에서의 거리 조정 */
+  font-size: 28px;
+  font-weight: bold;
+  color: #5e7c71;;
+}
+
+.completed-imgbox {
+  width: 90%;
+  height: 300px;
+  margin: 30px;
+  display: flex;
+}
+
+.completed-imgbox > div {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.completed-imgbox > div > a > img {
+  width: 200px;
+  height: 250px;
+  object-fit: cover;
+}
+
+.artist-name {
+  margin: 10px 150px 0 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
 }
 
 
 
+/* pagenation */
+.pagination {
+  text-align: center;
+  margin: 0 0 30px 0;
+}
+
+.pagination a {
+  color: #555;
+  padding: 8px 12px;
+  margin: 0 5px;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.pagination a:hover {
+  background-color: #ddd;
+}

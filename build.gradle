@@ -24,41 +24,41 @@ repositories {
 }
 
 dependencies {
-   implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-   implementation 'org.springframework.boot:spring-boot-starter-mail'
-   implementation 'org.springframework.boot:spring-boot-starter-security'
-   implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-   implementation 'org.springframework.boot:spring-boot-starter-web'
-   implementation 'org.springframework.boot:spring-boot-starter-websocket'
-   implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
-   implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
-   compileOnly 'org.projectlombok:lombok'
-   developmentOnly 'org.springframework.boot:spring-boot-devtools'
-   runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
-   annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-   annotationProcessor 'org.projectlombok:lombok'
-   testImplementation 'org.springframework.boot:spring-boot-starter-test'
-   testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
-   testImplementation 'org.springframework.security:spring-security-test'
-   testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	  implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	  implementation 'org.springframework.boot:spring-boot-starter-mail'
+	  implementation 'org.springframework.boot:spring-boot-starter-security'
+	  implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	  implementation 'org.springframework.boot:spring-boot-starter-web'
+	  implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	  implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+	  implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+	  compileOnly 'org.projectlombok:lombok'
+	  developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	  runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
+	  annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	  annotationProcessor 'org.projectlombok:lombok'
+	  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	  testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+	  testImplementation 'org.springframework.security:spring-security-test'
+		testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
    
-   // Spring - Redis 통신이 가능하게 함
-   // https://mvnrepository.com/artifact/org.springframework.data/spring-data-redis
-   implementation 'org.springframework.data:spring-data-redis:3.3.4'
+		// Spring - Redis 통신이 가능하게 함
+		// https://mvnrepository.com/artifact/org.springframework.data/spring-data-redis
+		implementation 'org.springframework.data:spring-data-redis:3.3.4'
 
-   // Lettuce : Redis 클라이언트 라이브러리, Redis를 사용할 수 있는 Java 코드 제공
-   // https://mvnrepository.com/artifact/io.lettuce/lettuce-core
-   implementation 'io.lettuce:lettuce-core:6.4.0.RELEASE'
+		// Lettuce : Redis 클라이언트 라이브러리, Redis를 사용할 수 있는 Java 코드 제공
+		// https://mvnrepository.com/artifact/io.lettuce/lettuce-core
+		implementation 'io.lettuce:lettuce-core:6.4.0.RELEASE'
    
-   // Spring AOP + AspectJ
-   // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-aop
-   implementation 'org.springframework.boot:spring-boot-starter-aop'
+   	// Spring AOP + AspectJ
+  	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-aop
+		implementation 'org.springframework.boot:spring-boot-starter-aop'
    
 	   
-	implementation 'com.squareup.okhttp3:okhttp:4.9.3'
-	implementation 'com.google.code.gson:gson:2.9.0'
+		implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+		implementation 'com.google.code.gson:gson:2.9.0'
 	
-	implementation group: 'com.google.firebase', name: 'firebase-admin', version: '8.0.1'
+		implementation group: 'com.google.firebase', name: 'firebase-admin', version: '8.0.1'
     // implementation 'com.google.firebase:firebase-admin:latest_version'
     implementation 'com.google.cloud:google-cloud-storage:2.9.1'
 }
