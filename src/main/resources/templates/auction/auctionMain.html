@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auctions</title>
+
+  <link rel="stylesheet" href="/css/howto/howToMain.css">
+  <link rel="stylesheet" href="/css/auction/auctionMain.css">
+</head>
+<body>
+  
+  <th:block th:replace="~{common/common}"></th:block>
+    
+  <main id="howTo"> 
+
+    <h1>Auctions</h1>
+
+    <section class="upcoming-auctions">
+      <div>예정 경매</div>
+
+      <div class="upcoming-box">
+        <div class="upcoming-imgbox">
+          <img src="/images/onlineGallery3.jpg">
+        </div>
+        
+        <div class="upcoming-text">
+          <h1>무제</h1>
+          <div style="margin-top: 20px;">프리뷰</div>
+          <div>11월 09일(수) ~ 11월 19일(월)</div>
+          <div style="margin-top: 20px;">경매일</div>
+          <div >12월 10일 14:00</div>
+          <hr style="width: 100%;">
+          <button class="detail-button">상세보기</button>
+        </div>
+      </div>
+
+      <div>
+
+      </div>
+    </section>
+    
+    <section class="ongoing-auctions">
+        <!-- 진행 경매 내용 -->
+    </section>
+    
+    <section class="completed-auctions">
+        <!-- 종료 경매 내용 -->
+    </section>
+    
+
+
+
+
+
+  </main>
+
+
+
+  <th:block th:replace= "~{/common/footer.html}"></th:block>
+
+  <script src="/js/howto/howToMain.js"></script>
+</body>
+</html>
