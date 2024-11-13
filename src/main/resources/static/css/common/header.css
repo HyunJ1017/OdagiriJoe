@@ -29,7 +29,7 @@ main {
   /* 뷰포트 높이에 비례한 헤더 높이 */
   background-color: #ffffff;
   box-sizing: border-box;
-  box-shadow: 1px #ffffff;
+  box-shadow: 0 2px 5px #ffffff;
 }
 
 .header-main-menu {
