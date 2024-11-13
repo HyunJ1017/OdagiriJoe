@@ -9,7 +9,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-  }
+}
 
 body {
     font-family: Arial, sans-serif;
@@ -33,9 +33,6 @@ body {
     align-items: center;
     margin-bottom: 20px;
 }
-
-
-
 
 .online-header h2 {
     font-size: 2rem;
@@ -117,47 +114,72 @@ body {
     transform: translateY(-5px);
 }
 
+.artwork-image {
+    position: relative;
+    overflow: hidden;
+}
+
 .artwork-image img {
     width: 100%;
-    height: 200px;
+    height: 300px;
     display: block;
     border-bottom: 1px solid #e0e0e0;
 }
 
+/* 마우스 오버 시 정보 표시 스타일 */
 .artwork-info {
-    padding: 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* 반투명 배경 */
+    color: white;
+    opacity: 0;
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* gallery-item에 마우스를 올렸을 때 정보가 나타나도록 설정 */
+.gallery-item:hover .artwork-info {
+    opacity: 1;
+    visibility: visible;
 }
 
 .artwork-info h3 {
     font-size: 1.2rem;
     margin: 0;
-    color: #333;
+    color: #fff;
 }
 
 .artwork-title {
     font-size: 1rem;
-    margin: 10px 0;
-    color: #777;
+    margin: 5px 0;
+    color: #ddd;
 }
 
 .artwork-details {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .artwork-details .size {
     font-size: 0.9rem;
-    color: #555;
+    color: #ccc;
 }
 
 .artwork-details .price,
 .artwork-details .amount {
     font-size: 1rem;
     font-weight: bold;
-    color: #333;
+    color: #fff;
 }
-
 
 /* 페이지네이션 스타일 */
 .pagination {
@@ -193,8 +215,6 @@ body {
     background-color: #466940;
 }
 
-
-
 /* 완료 작품 리스트 */
 .online-list1 {
     display: flex;
@@ -203,7 +223,6 @@ body {
     justify-content: space-between;
     margin-top: 30px;
 }
-
 
 .online-header1 h3 {
     margin-right: auto;
