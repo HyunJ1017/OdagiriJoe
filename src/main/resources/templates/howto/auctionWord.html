@@ -1,47 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>경매용어</title>
-
+  <title>경매 용어</title>
   <link rel="stylesheet" href="/css/howto/auctionWord.css">
   <link rel="stylesheet" href="/css/howto/howToAuction.css">
 </head>
 <body>
   <th:block th:replace="~{common/common}"></th:block>
 
-  
-
-  <main id="howTo"> 
+  <main id="howTo">
     <h1 style="color:#5e7c71;">경매 용어</h1>
 
     <section class="wordMenu">
       <nav style="color: #FFFFFF;">
-        <li id="wordBtn">경매 관련</li>
-        <li id="wordBtn">입찰 관련</li>
-        <li id="wordBtn">경매 과정</li>
-        <li id="wordBtn">경매 유형</li>
-        <li id="wordBtn">기타</li>
+        <li class="tab-button" data-target="auction-terms">경매 관련</li>
+        <li class="tab-button" data-target="bid-terms">입찰 관련</li>
+        <li class="tab-button" data-target="process-terms">경매 과정</li>
+        <li class="tab-button" data-target="type-terms">경매 유형</li>
+        <li class="tab-button" data-target="other-terms">기타</li>
       </nav>
-      
     </section>
 
-    <section class="wordText">
+    <!-- 경매 관련 용어 -->
+    <section id="auction-terms" class="wordText">
       <h2>경매 관련 용어</h2>
       <ul class="terms-list">
-        <li><strong>Lot (로트):</strong> 경매에 출품된 작품이나 물품의 번호. 경매 카탈로그나 경매장에서 작품을 구분하기 위해 부여됩니다.</li>
-        <li><strong>Hammer Price (낙찰가):</strong> 경매사가 망치를 두드리며 낙찰을 확정할 때의 최종 입찰가를 의미합니다. 부가세나 수수료는 포함되지 않은 가격입니다.</li>
-        <li><strong>Reserve Price (최저 경매가):</strong> 판매자가 작품을 팔기 위해 설정한 최소 가격입니다. 이 가격에 도달하지 못하면 작품은 낙찰되지 않습니다.</li>
-        <li><strong>Estimate (추정가):</strong> 경매사에서 제시하는 작품의 예상 낙찰 가격 범위입니다. 예를 들어, 200,000 - 500,000 같은 형식으로 표시됩니다.</li>
-        <li><strong>Buyer’s Premium (구매자 수수료):</strong> 낙찰가에 추가되는 구매자의 수수료로, 경매사에 따라 일정 비율로 책정됩니다. 낙찰가와 구매자 수수료를 합친 금액이 구매자가 최종적으로 지불하는 금액이 됩니다.</li>
+        <li><strong>Lot (로트):</strong> 경매에 출품된 작품이나 물품의 번호입니다.</li>
+        <li><strong>Hammer Price (낙찰가):</strong> 경매사가 망치를 두드리며 낙찰을 확정할 때의 최종 입찰가입니다.</li>
+        <li><strong>Reserve Price (최저 경매가):</strong> 판매자가 설정한 최소 가격입니다.</li>
+        <li><strong>Estimate (추정가):</strong> 경매사의 예상 낙찰 가격 범위입니다.</li>
+        <li><strong>Buyer’s Premium (구매자 수수료):</strong> 낙찰가에 추가되는 수수료입니다.</li>
       </ul>
     </section>
-    
 
+    <!-- 입찰 관련 용어 -->
+    <section id="bid-terms" class="wordText" style="display: none;">
+      <h2>입찰 관련 용어</h2>
+      <ul class="terms-list">
+        <li><strong>Bid (입찰):</strong> 경매에 참여하여 제안한 가격입니다.</li>
+        <li><strong>Increment (입찰 증가분):</strong> 각 입찰 시 제시하는 금액 증가 단위입니다.</li>
+        <li><strong>Telephone Bid (전화 입찰):</strong> 경매에 전화로 참여해 실시간으로 가격을 제시하는 방식입니다.</li>
+        <li><strong>Online Bid (온라인 입찰):</strong> 온라인 플랫폼을 통해 실시간으로 입찰에 참여하는 방식입니다.</li>
+        <li><strong>Winning Bid (최고 입찰):</strong> 경매에서 가장 높은 입찰가를 제시하여 낙찰받는 입찰입니다.</li>
+      </ul>
+    </section>
 
+    <!-- 입찰 관련 용어 -->
+    <section id="bid-terms" class="wordText" style="display: none;">
+      <h2>경매 과정 용어</h2>
+      <ul class="terms-list">
+        <li><strong>Auctioneer (경매사):</strong> 경매를 진행하는 사람으로, 입찰을 유도하고 낙찰을 결정합니다.</li>
+        <li><strong>Increment (입찰 증가분):</strong> 각 입찰 시 제시하는 금액 증가 단위입니다.</li>
+        <li><strong>Telephone Bid (전화 입찰):</strong> 경매에 전화로 참여해 실시간으로 가격을 제시하는 방식입니다.</li>
+        <li><strong>Online Bid (온라인 입찰):</strong> 온라인 플랫폼을 통해 실시간으로 입찰에 참여하는 방식입니다.</li>
+        <li><strong>Winning Bid (최고 입찰):</strong> 경매에서 가장 높은 입찰가를 제시하여 낙찰받는 입찰입니다.</li>
+      </ul>
+    </section>
+
+    <!-- 추가 섹션들 (예: 경매 과정, 경매 유형 등) -->
+    <section id="process-terms" class="wordText" style="display: none;">
+      <h2>경매 과정 용어</h2>
+      <!-- 내용 추가 -->
+    </section>
+
+    <section id="type-terms" class="wordText" style="display: none;">
+      <h2>경매 유형 용어</h2>
+      <!-- 내용 추가 -->
+    </section>
+
+    <section id="other-terms" class="wordText" style="display: none;">
+      <h2>기타 용어</h2>
+      <!-- 내용 추가 -->
+    </section>
   </main>
 
-  <th:block th:replace= "~{/common/footer.html}"></th:block>
+  <th:block th:replace="~{/common/footer.html}"></th:block>
+  <script src="/js/howto/auctionWord.js"></script>
 </body>
 </html>
