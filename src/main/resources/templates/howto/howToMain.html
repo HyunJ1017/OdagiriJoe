@@ -51,66 +51,104 @@
       </div>
     </section>
 
-
+    <!-- FAQ Section -->
     <section class="faq-section">
-
-      <div>
+      <div style="margin-bottom: 30px;">
         <div style="font-size: 25px; margin: 20px 20px 20px 0; font-weight: bold;">자주 묻는 질문(FAQ)</div>
       </div>
       
+      <!-- FAQ Item -->
       <div class="faq-box">
-        <i class="fa-solid fa-play"></i>
-        <a style="color:#5e7c71;">집에 가고싶어요 :: 참아.</a>
+        <div class="faq-header" onclick="toggleFaq(this)">
+          <i class="fa-solid fa-play toggle-icon"></i>
+          <a class="faq-question">집에 가고싶어요 :: 참아.</a>
+        </div>
+      </div>
+
+      <div class="faq-answer-container">
+        <div class="faq-answer">집에 가고 싶을 때, 잠시 산책을 해보세요. 기분이 나아질 수 있습니다.</div>
+      </div>
+
+      <!-- Additional FAQ Items -->
+      <div class="faq-box">
+        <div class="faq-header" onclick="toggleFaq(this)">
+          <i class="fa-solid fa-play toggle-icon"></i>
+          <a class="faq-question">어떻게 시작하나요?</a>
+        </div>
+      </div>
+
+      <div class="faq-answer-container">
+        <div class="faq-answer">시작하려면 먼저 회원가입을 진행하고 로그인 후 사용 가능합니다.</div>
       </div>
 
       <div class="faq-box">
-        <i class="fa-solid fa-play"></i>
-        <a style="color:#5e7c71;">집에 가고싶어요 :: 참아.</a>
+        <div class="faq-header" onclick="toggleFaq(this)">
+          <i class="fa-solid fa-play toggle-icon"></i>
+          <a class="faq-question">안전한가요?</a>
+        </div>
       </div>
 
-      <div class="faq-box">
-        <i class="fa-solid fa-play"></i>
-        <a style="color:#5e7c71;">집에 가고싶어요 :: 참아.</a>
+      <div class="faq-answer-container">
+        <div class="faq-answer">저희 서비스는 최고 수준의 보안 프로토콜을 사용하여 안전합니다.</div>
       </div>
 
+      
       <div class="faq-box">
-        <i class="fa-solid fa-play"></i>
-        <a style="color:#5e7c71;">집에 가고싶어요 :: 참아.</a>
+        <div class="faq-header" onclick="toggleFaq(this)">
+          <i class="fa-solid fa-play toggle-icon"></i>
+          <a class="faq-question">안전한가요?</a>
+        </div>
+      </div>
+
+      <div class="faq-answer-container">
+        <div class="faq-answer">저희 서비스는 최고 수준의 보안 프로토콜을 사용하여 안전합니다.</div>
+      </div>
+
+      
+      <div class="faq-box">
+        <div class="faq-header" onclick="toggleFaq(this)">
+          <i class="fa-solid fa-play toggle-icon"></i>
+          <a class="faq-question">안전한가요?</a>
+        </div>
+      </div>
+
+      <div class="faq-answer-container">
+        <div class="faq-answer">저희 서비스는 최고 수준의 보안 프로토콜을 사용하여 안전합니다.</div>
       </div>
     </section>
 
 
-    <section class="howTo-section3">
+  <section class="howTo-section3">
+    <div>
+      <div style="font-size: 25px;">공지사항</div>
+      <a href="/howTo/notice" style="margin-top: 35px; color: #333;">전체 공지사항 보기 +</a>
+    </div>
+
+    <div class="section2-imgBox">
+
+      <img src="/images/howto/auction.png" style="margin-bottom:30px;">
+      <div class="section3-textBox">
+        <h2 style="margin: 0 0 10px 0; color: #fff;">경매 입찰 방법</h2>
+        <hr>
+        <a href="/howTo/bidmethod" class="detailBtn">상세보기</a>
+      </div>
+
+    </div>
+
+    <hr style="width: 100%; height: 3px; border: none; background-color: #333;">
+    <div class="section2-imgBox">
+
+      <img src="/images/howto/notice.png" style="margin-top: 30px;">
       <div>
-        <div style="font-size: 25px;">공지사항</div>
-        <a href="#" style="margin-top: 35px;">전체 공지사항 보기 +</a>
+        <h2 style="margin: 0 0 10px 0; color: #fff;">경매 용어</h2>
+        <hr>
+        <a href="/howTo/word" class="detailBtn">상세보기</a>
       </div>
 
-      <div class="section2-imgBox">
-
-        <img src="/images/howto/auction.png" style="margin-bottom:30px;">
-        <div class="section3-textBox">
-          <h2 style="margin: 0 0 10px 0; color: #fff;">경매 입찰 방법</h2>
-          <hr>
-          <a href="/howTo/bidmethod" class="detailBtn">상세보기</a>
-        </div>
-
-      </div>
-
-      <hr style="width: 100%; height: 3px; border: none; background-color: #333;">
-      <div class="section2-imgBox">
-
-        <img src="/images/howto/notice.png" style="margin-top: 30px;">
-        <div>
-          <h2 style="margin: 0 0 10px 0; color: #fff;">경매 용어</h2>
-          <hr>
-          <a href="/howTo/word" class="detailBtn">상세보기</a>
-        </div>
-
-      </div>
+    </div>
 
 
-    </section>
+  </section>
 
 
 
@@ -119,5 +157,7 @@
 
 
   <th:block th:replace= "~{/common/footer.html}"></th:block>
+
+  <script src="/js/howto/howToMain.js"></script>
 </body>
 </html>

@@ -1,0 +1,49 @@
+.notice-container {
+  width: 50%;
+  height: 370px;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+h2 {
+  text-align: center;
+  color: #4a6356;
+}
+
+.notice-item {
+  margin: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.notice-title {
+  font-weight: bold;
+  cursor: pointer;
+  padding: 10px;
+  background-color: #f7f7f7;
+  position: relative;
+}
+
+.notice-title::before {
+  content: '▶';
+  display: inline-block;
+  margin-right: 8px;
+  transition: transform 0.3s ease;
+}
+
+.notice-title.open::before {
+  transform: rotate(90deg);
+}
+
+.notice-content {
+  height: 0;
+  overflow: hidden;
+  padding: 0 10px;
+  color: #555;
+  transition: height 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+}
+
+.notice-content.open {
+  opacity: 1;
+  padding: 10px; /* 내용이 펼쳐질 때 패딩을 추가합니다 */
+}
