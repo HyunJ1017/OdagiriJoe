@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항</title>
+    <link rel="stylesheet" href="/css/howto/notice.css">
+    <link rel="stylesheet" href="/css/howto/howToMain.css">
+    <link rel="stylesheet" href="/css/artist/artistList.css">
+</head>
+<body>
+
+  <th:block th:replace="~{common/common}"></th:block>
+
+  <main id="howTo"> 
+
+    <h1>공지사항</h1>
+
+    <div class="notice-container">
+
+      <div class="notice-item">
+        <div class="notice-title" onclick="toggleContent(this)">
+            [공지] 집에 가고 싶은데 어떡해요?
+        </div>
+        <div class="notice-content">
+            <p>길더라도 힘내서 가야죠...</p>
+            <p>눈 부릅 뜨고 집에 도착하세요.</p>
+        </div>
+      </div>
+
+      <div class="notice-item">
+        <div class="notice-title" onclick="toggleContent(this)">
+            [공지] 두 번째 공지 제목
+        </div>
+        <div class="notice-content">
+            <p>이것은 두 번째 공지의 내용입니다.</p>
+        </div>
+      </div>
+
+      <div class="notice-item">
+        <div class="notice-title" onclick="toggleContent(this)">
+            [공지] 두 번째 공지 제목
+        </div>
+        <div class="notice-content">
+            <p>이것은 두 번째 공지의 내용입니다.</p>
+        </div>
+      </div>
+
+      <div class="notice-item">
+        <div class="notice-title" onclick="toggleContent(this)">
+            [공지] 두 번째 공지 제목
+        </div>
+        <div class="notice-content">
+            <p>이것은 두 번째 공지의 내용입니다.</p>
+        </div>
+      </div>
+
+      <div class="notice-item">
+        <div class="notice-title" onclick="toggleContent(this)">
+            [공지] 두 번째 공지 제목
+        </div>
+        <div class="notice-content">
+            <p>이것은 두 번째 공지의 내용입니다.</p>
+        </div>
+      </div>
+
+      
+
+      <div class="pagination">
+        <a href="#">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">5</a>
+        <a href="#">6</a>
+        <a href="#">7</a>
+        <a href="#">8</a>
+        <a href="#">9</a>
+        <a href="#">10</a>
+      </div>
+      
+      <!-- 공지사항 항목을 계속 추가할 수 있습니다 -->
+    </div>
+
+  </main>
+  
+
+  <th:block th:replace= "~{/common/footer.html}"></th:block>
+
+  <script src="/js/howto/notice.js"></script>
+</body>
+</html>

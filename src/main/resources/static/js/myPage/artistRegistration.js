@@ -317,3 +317,25 @@ artistSubmit?.addEventListener("submit", (e) => {
   input1.value=memberNo;
   artistSubmit.appendChild(input1);
 });
+
+
+// 파일등록함수
+const profileUpload = () => {
+  const formData = new FormData();
+  const fileRename = "profile" + memberNo + "." +  imgInput.files[0].name.split(".")[1];
+  formData.append("image", imgInput.files[0]);
+  formData.append("fileName", fileRename);
+
+  fetch("/images/profile", {
+    method: "POST",
+    body: formData,
+  })
+  .then(response => {
+    if (response.ok) return response.json();
+    throw new Error("AJAX 통신 실패");
+  })
+  .then(result => {
+    console.log(result);
+  })
+  .catch(err => console.error(err));
+};

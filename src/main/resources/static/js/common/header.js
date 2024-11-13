@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
- 
+
   // 사이드 메뉴 기능을 위한 요소 가져오기
   const sideMenu = document.getElementById('side-menu');
   const menuBtn = document.querySelector('#menu-icon');

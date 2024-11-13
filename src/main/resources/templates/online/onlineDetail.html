@@ -18,22 +18,22 @@
           <div class="product-container">
               <!-- 좌측 이미지 목록 -->
               <div class="thumbnail-list">
-                  <img src="/images/onlineGallery1.jpg" alt="Thumbnail 1">
-                  <img src="/images/onlineGallery2.jpg" alt="Thumbnail 2">
-                  <img src="/images/onlineGallery3.jpg" alt="Thumbnail 3">
-                  <img src="/images/onlineGallery4.jpg" alt="Thumbnail 4">
+                  <img src="/images/onlineGallery1.jpg" >
+                  <img src="/images/onlineGallery2.jpg">
+                  <img src="/images/onlineGallery3.jpg" >
+                  <img src="/images/onlineGallery4.jpg">
               </div>
       
               <!-- 메인 이미지 및 상세 정보 -->
               <div class="main-image">
-                  <img src="/images/onlineGallery.jpg" alt="Main Artwork Image">
+                  <img src="/images/onlineGallery.jpg">
               </div>
       
               <!-- 우측 정보 패널 -->
               <div class="product-info">
                   <div class="wishlist-button">
-                      <span>♡</span>
-                      <button>신고하기</button>
+                      <span><i class="fa-regular fa-heart"></i></span>
+                      <button id="online-reportBtn">신고하기</button>
                   </div>
                   <h2>정호경</h2>
                   <p>ReNameeeeeem</p>
@@ -62,5 +62,11 @@
 
 
   <th:block th:replace= "~{/common/footer.html}"></th:block>
+
+  <script inline="javascript">
+    const loginCheck = /*[[${session.loginMember != null}]]*/ false;
+  </script>
+
+  <script src="/js/online/onlineDetail.js"></script>
 </body>
 </html>

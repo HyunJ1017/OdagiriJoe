@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="/css/online/pieceUpload.css">
+
+  <th:block th:replace= "~{/common/common}"></th:block>
+
+</head>
+<body>
+  <th:block th:replace= "~{/common/header}"></th:block>
+ 
+ 
+  <main id="pieceUpload-main">
+    <div class="upload-container">
+
+      <!-- method POST로 변경 해야함!! -->
+      <form action="/piece/upload" method="GET" id="upload-form" enctype="multipart/form-data">
+        <div class="image-preview">
+          <img src="/images/online.jfif"  id="preview-image">
+          <label for="file-upload" class="upload-btn">작품 업로드</label>
+          <input type="file" id="file-upload" name="file" accept="image/*" onchange="previewImage(event)" hidden>
+        </div>
+        <div class="form-container">
+          <h2 id="upload-header">작품 기입
+            <button>임시저장</button>
+          </h2>
+          <div class="form-group">
+            <label for="title">작품 이름</label>
+            <input type="text" id="title" name="title" placeholder="작품 이름" required>
+          </div>
+          <div class="form-group">
+            <label for="description">작품 설명</label>
+            <input type="text" id="description" name="description" placeholder="작품 설명" required>
+          </div>
+          <div class="form-group">
+            <label for="width">작품 규격</label>
+            <input type="text" id="width" name="width" placeholder="가로" required>
+            <input type="text" id="height" name="height" placeholder="세로" required>
+          </div>
+          <div class="button-group">
+            <button type="submit" class="sale-btn">즉시 판매</button>
+            <button type="button" class="auction-btn">경매 판매</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    
+  </main>
+    
+    
+    
+    
+    
+    <th:block th:replace= "~{/common/footer.html}"></th:block>
+</body>
+</html>

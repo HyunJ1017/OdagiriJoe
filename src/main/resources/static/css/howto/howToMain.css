@@ -219,35 +219,55 @@
 /* faq-section */
 .faq-section {
   width: 80%;
-  height: 550px;
+  /* height: 500px; */
   display: flex;
   flex-direction: column;
   margin: 100px 0;
 }
 
 .faq-box {
-  width: 99%;
-  height: 100%;
+  width: 100%;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+  position: relative;
+  font-size: 18px;
+  margin: 20px 20px 0 0;
+}
+
+.faq-header {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  height: 100px;
-  border-bottom: 3px solid #333;
-  margin: 10px 0 10px 10px;
-  font-size: 28px;
-  cursor: pointer;
 }
 
-.faq-box > i {
-  margin-left: 15px !important;
+.faq-answer {
+  margin: 10px 0 0 117px;
+  color: #333;
 }
 
+.faq-question {
+  color: #5e7c71;
+  font-weight: bold;
+  text-decoration: none;
+  flex: 1;
+  color:#5e7c71;
+}
 
+.faq-answer-container {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.4s ease;
+}
 
+.faq-box.open .faq-answer-container {
+  max-height: 300px; /* 적절한 높이로 설정 */
+}
 
+.toggle-icon {
+  margin-right: 10px;
+  transition: transform 0.3s ease;
+}
 
-
-
-
-
-
+.faq-box.open .toggle-icon {
+  transform: rotate(90deg);
+}

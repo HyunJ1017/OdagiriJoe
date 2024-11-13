@@ -57,6 +57,10 @@ dependencies {
 	   
 	implementation 'com.squareup.okhttp3:okhttp:4.9.3'
 	implementation 'com.google.code.gson:gson:2.9.0'
+	
+	implementation group: 'com.google.firebase', name: 'firebase-admin', version: '8.0.1'
+    // implementation 'com.google.firebase:firebase-admin:latest_version'
+    implementation 'com.google.cloud:google-cloud-storage:2.9.1'
 }
 
 

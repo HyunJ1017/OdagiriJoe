@@ -1,4 +1,3 @@
-
 /* wordMenu */
 .wordMenu {
   width: 80%;
@@ -12,7 +11,7 @@
   justify-content: space-around;
 }
 
-#wordBtn {
+.tab-button {
   width: 120px;
   height: 50px;
   background-color: #5e7c71;
@@ -27,7 +26,7 @@
   transition: background-color 0.3s ease, transform 0.3s ease; /* 애니메이션 효과 추가 */
 }
 
-#wordBtn:hover {
+.tab-button:hover {
   background-color: #4a6059; /* 버튼 배경 색상 변경 */
   color: #e0f2f1; /* 텍스트 색상 변경 */
   transform: scale(1.1); /* 버튼을 1.1배 확대 */
@@ -35,7 +34,7 @@
 }
 
 
-/* wordText */
+
 /* wordText */
 .wordText {
   width: 80%;

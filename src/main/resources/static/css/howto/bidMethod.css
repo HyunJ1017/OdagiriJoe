@@ -24,8 +24,8 @@
 
 /* 단계 카드 스타일 */
 .step-card {
-  width: 450px;
-  height: 400px;
+  width: 476px;
+  height: 270px;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -40,20 +40,20 @@
 }
 
 .step-card h2 {
-  font-size: 26px;
+  font-size: 22px;
   color: #4a6059;
   margin: 0;
 }
 
 .step-card h3 {
-  font-size: 24px;
+  font-size: 20px;
   color: #333;
   font-weight: bold;
   margin: 10px 0;
 }
 
 .step-card p {
-  font-size: 22px;
+  font-size: 18px;
   color: #555;
   line-height: 1.8;
   margin: 0;
@@ -82,5 +82,5 @@
   font-size: 28px;
   color: #5e7c71;
   transform: rotate(90deg); /* 아래 방향으로 회전 */
-  margin-left: 571px;
+  margin-left: 604px;
 }
