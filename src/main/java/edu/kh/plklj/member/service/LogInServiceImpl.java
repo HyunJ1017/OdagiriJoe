@@ -28,4 +28,17 @@ public class LogInServiceImpl implements LogInService {
 		
 		return null;
 	}
+	
+	// 아이디 전화번호 확인
+	@Override
+	public int searchIdPh(String inputPhone, String inputId) {
+		return mapper.searchIdPh(inputPhone, inputId);
+	}
+	
+	// 비밀번호 변경
+	@Override
+	public int changePw(Member member) {
+		member.setMemberPw( encoder.encode( member.getMemberPw() ) );
+		return mapper.changePw(member);
+	}
 }

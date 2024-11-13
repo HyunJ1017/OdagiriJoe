@@ -1,10 +1,12 @@
+.member-main *{
+  color: black;
+}
 /* 로그인 */
 #logIn-main{
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding-top: 100px;
 }
 #logIn-main>*{
   margin: 10px 0 10px;
@@ -21,7 +23,7 @@
   margin: 10px 0 10px;
 }
 #logIn-main>.logIn-sec>label{
-  height: 80px;
+  height: 52px;
 }
 #logIn-main>.logIn-sec>label>input{
   text-align: center;
@@ -33,8 +35,9 @@
   margin-bottom: 40px;
 }
 #logIn-main>div>a{
-  margin: 0 15px 0;
-  color: #4a6741;
+  margin: 0 5px 0;
+  padding: 0;
+  color: #5e7c71;
 }
 
 /* 회원가입, 아이디찾기, 비밀전호찾기 */
@@ -55,7 +58,7 @@
   width: 820px;
 }
 #member-main>.signUp-sec>label{
-  height: 50px;
+  height: 32px;
 }
 #member-main>.signUp-sec>label>#signUp-count{
 color: red;
@@ -78,10 +81,10 @@ margin: 0 10px 0;
 
 /* 공통 */
 main>h3{
-  color: #4a6741;
+  color: #5e7c71;
 }
 main>div>*:first-child{
-  color: #4a6741;
+  color: #5e7c71;
 }
 main>div>label{
   width: 100%;
@@ -107,14 +110,14 @@ main>div>label>div:last-child{
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: #4a6741;
+  background-color: #5e7c71;
   color: white;
 }
 .member-hov:hover {
   cursor: pointer;
   background: white;
-  border: 2px solid #4a6741;
-  color: #4a6741;
+  border: 2px solid #5e7c71;
+  color: #5e7c71;
 }
 .member-btnA{
   width: 400px;
@@ -126,3 +129,4 @@ main>div>label>div:last-child{
 
 
 .confirm-red{color: red;}
+.sign-displayNone{display: none !important;}

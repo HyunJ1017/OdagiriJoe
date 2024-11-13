@@ -5,177 +5,227 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="stylesheet" href="/css/online/online.css">
+    <link rel="stylesheet" href="/css/online/onlineList.css">
 
-    <th:block th:replace= "~{/common/common.html}"></th:block>
+    <th:block th:replace= "~{/common/common}"></th:block>
 </head>
 <body>
-    <th:block th:replace= "~{/common/header.html}"></th:block>
+  <th:block th:replace= "~{/common/header}"></th:block>
+    <main id="onlinePage-main">
+  
+      <section class="online-gallery-list">
+          <div class="online-header">
+              <h2 class="header-title">Online Gallery</h2>
+              
+                <h3>판매 작품</h3>
+                <div class="online-dropdown">
+                  <button>정렬방식</button>
+                  <div class="online-dropdown-content">
+                      <a href="#" onclick="sortByName()">이름순</a>
+                      <a href="#" onclick="sortByPrice()">가격순</a>
+                      <!-- 필요한 정렬 방식을 여기 추가할 수 있습니다 -->
+                  </div>
+              
+                 </div>
+          </div>
+  
+          <div class="online-list">
+              <article class="gallery-item">
+                  <div class="artwork-image">
+                    <img src="/images/online.jfif" alt="수묵화">
+                  </div>
+                  <div class="artwork-info">
+                    <h3>박현준</h3>
+                    <p class="artwork-title">작품 : 힐링넷</p>
+                    <div class="artwork-details">
+                      <p class="size">22 x 22</p>
+                      <p class="price">현재가 (KRW)</p>
+                      <p class="amount">300,000</p>
+                    </div>
+                  </div>
+                </article>
+  
+                <article class="gallery-item">
+                  <div class="artwork-image">
+                    <img src="/images/onlineGallery.jpg" alt="현대미술">
+                  </div>
+                  <div class="artwork-info">
+                    <h3>이동현</h3>
+                    <p class="artwork-title">작품 : 풍운이</p>
+                    <div class="artwork-details">
+                      <p class="size">22 x 22</p>
+                      <p class="price">현재가 (KRW)</p>
+                      <p class="amount">450,000</p>
+                    </div>
+                  </div>
+                </article>
+                <article class="gallery-item">
+                  <div class="artwork-image">
+                    <img src="/images/onlineGallery1.jpg" alt="현대미술">
+                  </div>
+                  <div class="artwork-info">
+                    <h3>이동현</h3>
+                    <p class="artwork-title">작품 : 풍운이</p>
+                    <div class="artwork-details">
+                      <p class="size">22 x 22</p>
+                      <p class="price">현재가 (KRW)</p>
+                      <p class="amount">450,000</p>
+                    </div>
+                  </div>
+                </article>
+                
+                
+                <article class="gallery-item">
+                  <div class="artwork-image">
+                    <img src="/images/onlineGallery3.jpg" alt="현대미술">
+                  </div>
+                  <div class="artwork-info">
+                    <h3>이동현</h3>
+                    <p class="artwork-title">작품 : 풍운이</p>
+                    <div class="artwork-details">
+                      <p class="size">22 x 22</p>
+                      <p class="price">현재가 (KRW)</p>
+                      <p class="amount">450,000</p>
+                    </div>
+                  </div>
+                </article>
+                
+                
+                <article class="gallery-item">
+                  <div class="artwork-image">
+                    <img src="/images/onlineGallery4.jpg" alt="현대미술">
+                  </div>
+                  <div class="artwork-info">
+                    <h3>이동현</h3>
+                    <p class="artwork-title">작품 : 풍운이</p>
+                    <div class="artwork-details">
+                      <p class="size">22 x 22</p>
+                      <p class="price">현재가 (KRW)</p>
+                      <p class="amount">450,000</p>
+                    </div>
+                  </div>
+                </article>
 
-    <section class="online-gallery-list">
-        <div class="online-header">
-            <h2 class="header-title">Online Gallery</h2>
-            <button>정렬방식</button>
+                
+
+                
+
+                
+          </div>
+
+  
+          <!-- 페이지네이션 영역 -->
+          <div class="pagination">
+              <ul>
+  
+                  <li><a href="#">&lt;</a></li>
+  
+                  <li><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">4</a></li>
+                  <li><a href="#">5</a></li>
+                  <li><a href="#">6</a></li>
+                  <li><a href="#">7</a></li>
+                  <li><a href="#">8</a></li>
+                  <li><a href="#">9</a></li>
+                  <li><a href="#">10</a></li>
+  
+                  <li><a href="#">&gt;</a></li>
+              </ul>
+          </div>
+
+          <hr>
+
+          <div class="online-header1">
+            
+              <h3>완료 작품</h3>
+              
         </div>
 
-        <div class="online-list">
+
+          <div class="online-list1">
             <article class="gallery-item">
-                <div class="artwork-image">
-                  <img src="path/to/artwork1.jpg" alt="수묵화">
+              <div class="artwork-image">
+                <img src="/images/onlineGallery5.jpg" alt="현대미술">
+              </div>
+              <div class="artwork-info">
+                <h3>이동현</h3>
+                <p class="artwork-title">작품 : 풍운이</p>
+                <div class="artwork-details">
+                  <p class="size">22 x 22</p>
+                  <p class="price">현재가 (KRW)</p>
+                  <p class="amount">450,000</p>
                 </div>
-                <div class="artwork-info">
-                  <h3>박현준</h3>
-                  <p class="artwork-title">작품 : 힐링넷</p>
-                  <div class="artwork-details">
-                    <p class="size">22 x 22</p>
-                    <p class="price">현재가 (KRW)</p>
-                    <p class="amount">300,000</p>
-                  </div>
+              </div>
+            </article>
+    
+            <article class="gallery-item">
+              <div class="artwork-image">
+                <img src="/images/image4.png" alt="현대미술">
+              </div>
+              <div class="artwork-info">
+                <h3>이동현</h3>
+                <p class="artwork-title">작품 : 풍운이</p>
+                <div class="artwork-details">
+                  <p class="size">22 x 22</p>
+                  <p class="price">현재가 (KRW)</p>
+                  <p class="amount">450,000</p>
                 </div>
-              </article>
-
-              <article class="gallery-item">
-                <div class="artwork-image">
-                  <img src="path/to/artwork2.jpg" alt="현대미술">
+              </div>
+            </article>
+    
+            <article class="gallery-item">
+              <div class="artwork-image">
+                <img src="/images/image3.png" alt="현대미술">
+              </div>
+              <div class="artwork-info">
+                <h3>이동현</h3>
+                <p class="artwork-title">작품 : 풍운이</p>
+                <div class="artwork-details">
+                  <p class="size">22 x 22</p>
+                  <p class="price">현재가 (KRW)</p>
+                  <p class="amount">450,000</p>
                 </div>
-                <div class="artwork-info">
-                  <h3>이동현</h3>
-                  <p class="artwork-title">작품 : 풍운이</p>
-                  <div class="artwork-details">
-                    <p class="size">22 x 22</p>
-                    <p class="price">현재가 (KRW)</p>
-                    <p class="amount">450,000</p>
-                  </div>
+              </div>
+            </article>
+    
+            <article class="gallery-item">
+              <div class="artwork-image">
+                <img src="/images/image2.png" alt="현대미술">
+              </div>
+              <div class="artwork-info">
+                <h3>이동현</h3>
+                <p class="artwork-title">작품 : 풍운이</p>
+                <div class="artwork-details">
+                  <p class="size">22 x 22</p>
+                  <p class="price">현재가 (KRW)</p>
+                  <p class="amount">450,000</p>
                 </div>
-              </article>
-              <article class="gallery-item">
-                <div class="artwork-image">
-                  <img src="path/to/artwork2.jpg" alt="현대미술">
-                </div>
-                <div class="artwork-info">
-                  <h3>이동현</h3>
-                  <p class="artwork-title">작품 : 풍운이</p>
-                  <div class="artwork-details">
-                    <p class="size">22 x 22</p>
-                    <p class="price">현재가 (KRW)</p>
-                    <p class="amount">450,000</p>
-                  </div>
-                </div>
-              </article>
-              
-              
-              <article class="gallery-item">
-                <div class="artwork-image">
-                  <img src="path/to/artwork2.jpg" alt="현대미술">
-                </div>
-                <div class="artwork-info">
-                  <h3>이동현</h3>
-                  <p class="artwork-title">작품 : 풍운이</p>
-                  <div class="artwork-details">
-                    <p class="size">22 x 22</p>
-                    <p class="price">현재가 (KRW)</p>
-                    <p class="amount">450,000</p>
-                  </div>
-                </div>
-              </article>
-              
-              
-              <article class="gallery-item">
-                <div class="artwork-image">
-                  <img src="path/to/artwork2.jpg" alt="현대미술">
-                </div>
-                <div class="artwork-info">
-                  <h3>이동현</h3>
-                  <p class="artwork-title">작품 : 풍운이</p>
-                  <div class="artwork-details">
-                    <p class="size">22 x 22</p>
-                    <p class="price">현재가 (KRW)</p>
-                    <p class="amount">450,000</p>
-                  </div>
-                </div>
-              </article>
-              <article class="gallery-item">
-                <div class="artwork-image">
-                  <img src="path/to/artwork2.jpg" alt="현대미술">
-                </div>
-                <div class="artwork-info">
-                  <h3>이동현</h3>
-                  <p class="artwork-title">작품 : 풍운이</p>
-                  <div class="artwork-details">
-                    <p class="size">22 x 22</p>
-                    <p class="price">현재가 (KRW)</p>
-                    <p class="amount">450,000</p>
-                  </div>
-                </div>
-              </article>
+              </div>
+            </article>
             
-            
-              <article class="gallery-item">
-                <div class="artwork-image">
-                  <img src="path/to/artwork2.jpg" alt="현대미술">
+            <article class="gallery-item">
+              <div class="artwork-image">
+                <img src="/images/image1.png" alt="현대미술">
+              </div>
+              <div class="artwork-info">
+                <h3>이동현</h3>
+                <p class="artwork-title">작품 : 풍운이</p>
+                <div class="artwork-details">
+                  <p class="size">22 x 22</p>
+                  <p class="price">현재가 (KRW)</p>
+                  <p class="amount">450,000</p>
                 </div>
-                <div class="artwork-info">
-                  <h3>이동현</h3>
-                  <p class="artwork-title">작품 : 풍운이</p>
-                  <div class="artwork-details">
-                    <p class="size">22 x 22</p>
-                    <p class="price">현재가 (KRW)</p>
-                    <p class="amount">450,000</p>
-                  </div>
-                </div>
-              </article>
-             
-             
-              <article class="gallery-item">
-                <div class="artwork-image">
-                  <img src="path/to/artwork2.jpg" alt="현대미술">
-                </div>
-                <div class="artwork-info">
-                  <h3>이동현</h3>
-                  <p class="artwork-title">작품 : 풍운이</p>
-                  <div class="artwork-details">
-                    <p class="size">22 x 22</p>
-                    <p class="price">현재가 (KRW)</p>
-                    <p class="amount">450,000</p>
-                  </div>
-                </div>
-              </article>
-             
-             
-              <article class="gallery-item">
-                <div class="artwork-image">
-                  <img src="path/to/artwork2.jpg" alt="현대미술">
-                </div>
-                <div class="artwork-info">
-                  <h3>이동현</h3>
-                  <p class="artwork-title">작품 : 풍운이</p>
-                  <div class="artwork-details">
-                    <p class="size">22 x 22</p>
-                    <p class="price">현재가 (KRW)</p>
-                    <p class="amount">450,000</p>
-                  </div>
-                </div>
-              </article>
-             
-             
-              <article class="gallery-item">
-                <div class="artwork-image">
-                  <img src="path/to/artwork2.jpg" alt="현대미술">
-                </div>
-                <div class="artwork-info">
-                  <h3>이동현</h3>
-                  <p class="artwork-title">작품 : 풍운이</p>
-                  <div class="artwork-details">
-                    <p class="size">22 x 22</p>
-                    <p class="price">현재가 (KRW)</p>
-                    <p class="amount">450,000</p>
-                  </div>
-                </div>
-              </article>
-        </div>
+              </div>
+            </article>
+          </div>
 
-        <!-- 페이지네이션 영역 -->
-        <div class="pagination">
+          <hr>
+
+
+          <!-- 페이지네이션 영역 -->
+          <div class="pagination">
             <ul>
 
                 <li><a href="#">&lt;</a></li>
@@ -194,11 +244,12 @@
                 <li><a href="#">&gt;</a></li>
             </ul>
         </div>
-
-        
-
-    </section>
-
+  
+          
+  
+      </section>
+  
+    </main>
 
     <th:block th:replace= "~{/common/footer.html}"></th:block>
 </body>

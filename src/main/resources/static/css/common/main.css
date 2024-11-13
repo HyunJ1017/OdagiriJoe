@@ -1,200 +1,74 @@
-.slider-container {
-  position: relative;
-  width: 100%;
-  max-width: 600px; /* 원하는 너비로 조절 */
-  margin: auto;
-  overflow: hidden;
+@font-face {
+  font-family: 'Shilla_CultureB-Bold';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/Shilla_CultureB-Bold.woff2') format('woff2');
 }
 
-.slider {
+* {
+  font-family: "Shilla_CultureB-Bold", Helvetica;
+}
+
+/* 메인 슬라이드쇼 스타일 */
+.slider-container {
+  width: 100%;
+  max-height: 85vh;
+  overflow: hidden;
+  border: 1px solid #5e7c71;
+}
+
+.slides {
   display: flex;
-  transition: transform 0.5s ease-in-out;
+  transition: transform 6s ease-in-out; /* 전환 시 6초 동안 부드럽게 이동 */
+  width: calc(100% * 4); /* 슬라이드 개수 + 복사본 개수만큼 */
 }
 
 .slide {
-  min-width: 100%;
-  box-sizing: border-box;
-}
-
-.navigation .nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-}
-
-.navigation .prev {
-  left: 10px;
-}
-
-.navigation .next {
-  right: 10px;
-}
-
-.view-btn {
-  margin-top: 20px;
-  padding: 10px 30px;
-  border: 1px solid #4a6741;
-  background: none;
-  color: #4a6741;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.view-btn:hover {
-  background: #4a6741;
-  color: white;
-}
-
-.slide-image {
-  flex: 1;
-  overflow: hidden;
-}
-
-.slide-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* 갤러리 섹션 스타일 */
-.online-gallery,
-.online-auctions {
-  max-width: 1200px;
-  margin: 50px auto;
-  padding: 0 20px;
-  padding-top: 100px;
-}
-
-.section-header {
-  display: flex;
-  justify-content: space-between;
+  width: calc(100vw - 5px); /* 화면 전체 너비에서 간격을 뺀 크기 */
+  flex-shrink: 0;
   align-items: center;
-  margin-bottom: 30px;
+  justify-content: center;
 }
 
-.section-header h2 {
-  font-size: 24px;
-  color: #4a6741;
-}
-
-.more {
-  color: #666;
-  font-size: 14px;
-}
-
-.gallery-grid,
-.auction-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 30px;
-}
-
-.gallery-item,
-.auction-item {
-  border: 1px solid #eee;
-  transition: transform 0.3s ease;
-}
-
-.gallery-item:hover,
-.auction-item:hover {
-  transform: translateY(-5px);
-}
-
-.artwork-image {
-  position: relative;
-  padding-top: 100%;
-}
-
-.artwork-image img {
-  position: absolute;
-  top: 0;
-  left: 0;
+.slide img {
   width: 100%;
-  height: 100%;
+  height: 65%;
   object-fit: cover;
 }
 
-.artwork-info {
-  padding: 15px;
+/* 이전/다음 버튼 스타일 */
+.prev-btn, .next-btn {
+  position: relative; /* 위치를 indicator-container 안에서 상대적으로 배치 */
+  border: none;
+  background: transparent;
+  color: #5e7c71;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 5px;
+  z-index: 10;
+  margin: 0 10px; /* 인디케이터 바와의 간격 설정 */
 }
 
-.artwork-info h3 {
-  font-size: 18px;
-  margin-bottom: 5px;
+/* 라인 형식 스크롤 바 스타일 */
+.progress-bar-container {
+  width: 20%; /* 전체 바의 너비 */
+  height: 4px; /* 바의 높이 */
+  background-color: #e0e0e0; /* 바 배경 색상 */
+  border-radius: 3px;
+  overflow: hidden;
+  display: inline-block; /* 버튼들과 한 줄에 배치 */
+  vertical-align: middle; /* 버튼들과 세로로 정렬 */
+}
+.progress-bar {
+  height: 100%;
+  background-color: #5e7c71; /* 진행 상태 색상 */
+  width: 0%; /* 초기 너비는 0% */
+  transition: width 1s ease-in-out; /* 버튼을 눌렀을 때 부드럽게 움직이도록 */
 }
 
-.artwork-title {
-  color: #666;
-  font-size: 14px;
-}
-
-.artwork-details {
-  margin-top: 10px;
-  font-size: 14px;
-}
-
-/* 푸터 스타일 */
-footer {
-  background-color: #4a6741;
-  color: white;
-  padding: 40px 0;
-  margin-top: 50px;
-}
-
-.footer-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.footer-links {
+/* 인디케이터 컨테이너 */
+.indicator-container {
   display: flex;
-  gap: 20px;
-  margin-bottom: 20px;
-}
-
-.footer-info {
-  font-size: 14px;
-  opacity: 0.8;
-  line-height: 1.8;
-}
-
-/* 반응형 스타일 */
-@media (max-width: 768px) {
-  .main-nav {
-    display: none;
-  }
-
-  .slide {
-    flex-direction: column;
-  }
-
-  .gallery-grid,
-  .auction-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  }
-
-  .footer-links {
-    flex-wrap: wrap;
-  }
-}
-
-/* 애니메이션 */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-.fade-in {
-  animation: fadeIn 0.5s ease-in-out;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  text-align: center;
 }

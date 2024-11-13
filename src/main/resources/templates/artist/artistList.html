@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,86 +8,121 @@
 
     <link rel="stylesheet" href="/css/artist/artistList.css">
 
-    <th:block th:replace= "~{/common/common.html}"></th:block>
+    <th:block th:replace="~{/common/common}"></th:block>
 </head>
+
 <body>
-    <th:block th:replace= "~{/common/header.html}"></th:block>
 
-    <!DOCTYPE html>
-    <html lang="ko">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Artists</title>
-      <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
-      <div class="container">
-        <h1>Artists</h1>
+    <th:block th:replace="~{/common/header}"></th:block>
+<main id="artistPage-main">
     
-        <section class="artist-category">
-          <h2>신진 작가</h2>
-          <div class="artist-grid">
-            <div class="artist-card"><img src="/images/main1.png" alt="작가1"><p>박민준</p></div>
-            <div class="artist-card"><img src="/images/artist2.jpg" alt="작가2"><p>이동현</p></div>
-            <div class="artist-card"><img src="artist3.jpg" alt="작가3"><p>김재영</p></div>
-            <div class="artist-card"><img src="artist4.jpg" alt="작가4"><p>이소현</p></div>
-            <div class="artist-card"><img src="artist5.jpg" alt="작가5"><p>천은혜</p></div>
-          </div>
-        </section>
-
-        <hr>
+        <div class="container">
+            <h1>Artists</h1>
     
-        <section class="artist-category">
-          <h2>인기 작가</h2>
-          <div class="artist-grid">
-            <div class="artist-card"><img src="artist6.jpg" alt="작가6"><p>황남성</p></div>
-            <div class="artist-card"><img src="artist7.jpg" alt="작가7"><p>장은이</p></div>
-            <div class="artist-card"><img src="artist8.jpg" alt="작가8"><p>성준호</p></div>
-            <div class="artist-card"><img src="artist9.jpg" alt="작가9"><p>정수현</p></div>
-            <div class="artist-card"><img src="artist10.jpg" alt="작가10"><p>조현서</p></div>
-          </div>
-        </section>
-
-        <hr>
+            <section class="artist-category">
+                <h2>신진 작가</h2>
+                <div class="artist-grid">
+                    <div class="artist-card"><img src="/images/artist1.jpg" alt="작가1">
+                        <p>로버트</p>
+                    </div>
+                    <div class="artist-card"><img src="/images/artist1.jpg" alt="작가2">
+                        <p>이동현</p>
+                    </div>
+                    <div class="artist-card"><img src="artist3.jpg" alt="작가3">
+                        <p>김재영</p>
+                    </div>
+                    <div class="artist-card"><img src="artist4.jpg" alt="작가4">
+                        <p>이소현</p>
+                    </div>
+                    <div class="artist-card"><img src="artist5.jpg" alt="작가5">
+                        <p>천은혜</p>
+                    </div>
+                </div>
+            </section>
     
-        <section class="artist-category">
-          <h2>작가 목록</h2>
-          <div class="artist-grid">
-            <div class="artist-card"><img src="artist11.jpg" alt="작가11"><p>박남현</p></div>
-            <div class="artist-card"><img src="artist12.jpg" alt="작가12"><p>윤예림</p></div>
-            <div class="artist-card"><img src="artist13.jpg" alt="작가13"><p>김상혁</p></div>
-            <div class="artist-card"><img src="artist14.jpg" alt="작가14"><p>정수현</p></div>
-            <div class="artist-card"><img src="artist14.jpg" alt="작가14"><p>정수현</p></div>
-            <div class="artist-card"><img src="artist14.jpg" alt="작가14"><p>정수현</p></div>
-            <div class="artist-card"><img src="artist14.jpg" alt="작가14"><p>정수현</p></div>
-            <div class="artist-card"><img src="artist14.jpg" alt="작가14"><p>정수현</p></div>
-            <div class="artist-card"><img src="artist14.jpg" alt="작가14"><p>정수현</p></div>
-            <!-- 추가 작가 카드들 -->
-          </div>
-        </section>
-
-        <hr>
+            <hr>
     
-        <div class="pagination">
-          <a href="#">1</a>
-          <a href="#">2</a>
-          <a href="#">3</a>
-          <a href="#">4</a>
-          <a href="#">5</a>
-          <a href="#">6</a>
-          <a href="#">7</a>
-          <a href="#">8</a>
-          <a href="#">9</a>
-          <a href="#">10</a>
+            <section class="artist-category">
+                <h2>인기 작가</h2>
+                <div class="artist-grid">
+                    <div class="artist-card"><img src="artist6.jpg" alt="작가6">
+                        <p>황남성</p>
+                    </div>
+                    <div class="artist-card"><img src="artist7.jpg" alt="작가7">
+                        <p>장은이</p>
+                    </div>
+                    <div class="artist-card"><img src="artist8.jpg" alt="작가8">
+                        <p>성준호</p>
+                    </div>
+                    <div class="artist-card"><img src="artist9.jpg" alt="작가9">
+                        <p>정수현</p>
+                    </div>
+                    <div class="artist-card"><img src="artist10.jpg" alt="작가10">
+                        <p>조현서</p>
+                    </div>
+                </div>
+            </section>
+    
+            <hr>
+    
+            <section class="artist-category">
+                <h2>작가 목록</h2>
+                <div class="artist-grid">
+                    <div class="artist-card"><img src="/images/artist1.jpg" alt="작가11">
+                        <p>박남현</p>
+                    </div>
+                    <div class="artist-card"><img src="/images/artist1.jpg" alt="작가12">
+                        <p>윤예림</p>
+                    </div>
+                    <div class="artist-card"><img src="/images/artist1.jpg" alt="작가13">
+                        <p>김상혁</p>
+                    </div>
+                    <div class="artist-card"><img src="/images/artist1.jpg" alt="작가14">
+                        <p>정수현</p>
+                    </div>
+                    <div class="artist-card"><img src="/images/artist1.jpg" alt="작가14">
+                        <p>정수현</p>
+                    </div>
+                    <div class="artist-card"><img src="/images/artist1.jpg" alt="작가14">
+                        <p>정수현</p>
+                    </div>
+                    <div class="artist-card"><img src="/images/artist1.jpg" alt="작가14">
+                        <p>정수현</p>
+                    </div>
+                    <div class="artist-card"><img src="/images/artist1.jpg" alt="작가14">
+                        <p>정수현</p>
+                    </div>
+                    <div class="artist-card"><img src="/images/artist1.jpg" alt="작가14">
+                        <p>정수현</p>
+                    </div>
+                    <div class="artist-card"><img src="/images/artist1.jpg" alt="작가14">
+                        <p>정수현</p>
+                    </div>
+                    <!-- 추가 작가 카드들 -->
+                </div>
+            </section>
+    
+            <hr>
+    
+            <div class="pagination">
+                <a href="#">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#">6</a>
+                <a href="#">7</a>
+                <a href="#">8</a>
+                <a href="#">9</a>
+                <a href="#">10</a>
+            </div>
         </div>
-      </div>
-    </body>
-    </html>
-    
-    
-    
+</main>
 
-    <th:block th:replace= "~{/common/footer.html}"></th:block>
+
+
+
+    <th:block th:replace="~{/common/footer.html}"></th:block>
 </body>
+
 </html>

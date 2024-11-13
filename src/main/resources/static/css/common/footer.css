@@ -3,34 +3,27 @@
   src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunKm.woff') format('woff');
 }
 
-
-html, body {
-  height: 100%;
-  margin: 0;
-  min-height: calc(100vh - 100px - 200px);
-  box-sizing: border-box;
-}
-
 *{
   font-family: "ChosunKm", Helvetica;
-  color : #ffffff;
 }
 
 .footer{
-  padding-top: 5%;
+  padding-top: 2%;
   box-sizing: border-box;
   background-color: #5e7c71;
-  margin-top: 15%;
+  margin-top: 3%;
   font-size: 14px;
 }
 
 a{
+  color : #ffffff;
   text-decoration-line: none;
   padding-left: 5%;
 }
 
 .footer-info {
-  margin-top: 5%;
+  margin-top: 3%;
   font-size: 14px;
+  color : #ffffff;
   background-color: #5e7c71;
 }

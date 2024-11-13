@@ -23,7 +23,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
 @PropertySource("classpath:/config.properties")
 @RequestMapping("sms")
 @Controller
@@ -85,17 +84,24 @@ public class SmsController {
 	
 	/** 인증문자 발송
 	 * @param phoneNumber
+	 * @param typeCode : 1:인증문자발송, 2:아이디찾기
 	 * @return
 	 * @throws IOException
 	 */
 	@GetMapping("sendSms")
 	@ResponseBody
 	public int sendSms(
-			@RequestParam("phoneNumber") String phoneNumber
+			@RequestParam("phoneNumber") String phoneNumber,
+			@RequestParam("typeCode") int typeCode
 			) throws IOException {
 		String token = getToken();
 		String smsSendUrl = "https://sms.gabia.com/api/send/sms";
-		String message = service.createMassage(phoneNumber);
+		String message;
+		if(typeCode == 1) message = service.createMassage(phoneNumber);
+		else {
+			message = service.getIdList(phoneNumber);
+			if(message == null) return 0;
+		}
 		String refkey = service.createAuthKey();
 		
 		

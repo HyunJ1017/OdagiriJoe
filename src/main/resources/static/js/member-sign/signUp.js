@@ -155,7 +155,7 @@ idCheckBtn?.addEventListener("click", ()=>{
 const inputEmail = document.querySelector("#inputEmail");
 const emailMessage = document.querySelector("#emailMessage");
 
-// 이름입력창이 선택되었을때
+// 이메일입력창이 선택되었을때
 inputEmail?.addEventListener("focus", () => {
   // 다른곳에 열려있던 메세지가 있었다면 지우기
   const otherCheck = document.querySelector("#inputMessage");
@@ -398,7 +398,7 @@ phoneCheckBtn?.addEventListener("click", ()=>{
     return;
   }
 
-  fetch("/sms/sendSms?phoneNumber=" + inputPhoneV)
+  fetch("/sms/sendSms?phoneNumber=" + inputPhoneV + "&typeCode=1")
   .then(response => {
     if (response.ok) return response.text();
     throw new Error("AJAX 통신 실패");

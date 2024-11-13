@@ -5,6 +5,14 @@
 
 * {
   font-family: "Shilla_CultureB-Bold", Helvetica;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  flex-grow: 1;
+  padding-top: 15vh;
 }
 
 /* 헤더 영역 */
@@ -17,34 +25,40 @@
   padding: 0% 5%;
   width: 100%;
   z-index: 1000;
-  height: 15vh; /* 뷰포트 높이에 비례한 헤더 높이 */
+  height: 13vh;
+  /* 뷰포트 높이에 비례한 헤더 높이 */
   background-color: #ffffff;
   box-sizing: border-box;
-  margin-bottom: 10%;
+  box-shadow: 1px #ffffff;
 }
 
-.header-main-menu{
+.header-main-menu {
   justify-content: space-between;
   width: 100%;
-  padding: 0% 5% 0% 0%;
   display: flex;
-  flex-wrap: nowrap; /* 한 줄로 나오게 변경 */
+  flex-wrap: nowrap;
+  /* 한 줄로 나오게 변경 */
 }
 
 /* 로고 스타일 */
 .header-logo {
+  padding-top: 1%;
   font-style: italic;
-  font-size: 1.5rem; /* 로고 크기 조정 */
+  font-size: 1.5rem;
+  /* 로고 크기 조정 */
   color: #5e7c71;
+  text-shadow: 1px 1px #c9c9c9;
 }
 
 .header-text {
-  font-size: 0.8rem; /* 서브 텍스트 크기 조정 */
+  font-size: 0.8rem;
+  /* 서브 텍스트 크기 조정 */
   margin-top: 0.3rem;
   color: #5e7c71;
+  text-shadow: 1px 1px #c9c9c9;
 }
 
-.header-logo-link > a {
+.header-logo-link>a {
   text-decoration: none;
   color: #5e7c71;
 }
@@ -52,14 +66,17 @@
 /* 중앙 메뉴 스타일 */
 .header-menu {
   display: flex;
-  gap: 4vw; /* 메뉴 간 간격을 뷰포트 너비에 따라 조정 */
+  gap: 4vw;
+  /* 메뉴 간 간격을 뷰포트 너비에 따라 조정 */
   justify-content: center;
   align-items: flex-end;
-  transform: translate(5%, 20%);
+  transform: translate(5%, -10%);
   color: #5e7c71;
   flex-wrap: wrap;
   position: relative;
   width: 500px;
+  padding-bottom: 1%;
+  text-shadow: 1px 1px #c9c9c9;
 }
 
 .header-menu ul {
@@ -72,19 +89,21 @@
 
 .header-menu .nav-item {
   position: relative;
-  white-space: nowrap; /* 텍스트가 두 줄로 내려가는 것을 방지 */
+  white-space: nowrap;
+  /* 텍스트가 두 줄로 내려가는 것을 방지 */
   width: 25%;
 }
 
 .header-menu .nav-item a {
   text-decoration: none;
   font-weight: 500;
-  font-size: 1.1rem; /* 반응형 글자 크기 */
+  font-size: 1.1rem;
+  /* 반응형 글자 크기 */
   transition: color 0.3s ease;
   color: #5e7c71;
 }
 
-.header-menu .dropdown{
+.header-menu .dropdown {
   color: #ffffff;
   width: 100%;
 }
@@ -94,7 +113,8 @@
   display: flex;
   justify-content: center;
   position: absolute;
-  bottom: -140px;
+  bottom: -177px;
+  left: -5%;
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -106,7 +126,7 @@
   opacity: 1;
 }
 
-.sub-bg{
+.sub-bg {
   background-color: rgba(94, 124, 113, 0.4);
   width: 100vw;
   height: 230px;
@@ -116,24 +136,26 @@
 
 /* 드롭다운 메뉴 스타일 */
 .dropdown {
-  width: 120px;
+  width: 140px;
   left: 0;
   color: #ffffff;
-  padding: 1rem 0; /* 드롭다운 메뉴 내부 여백 */
+  padding: 1rem 0;
+  /* 드롭다운 메뉴 내부 여백 */
   z-index: 1000;
   display: flex;
-  flex-direction: column; /* 세로 정렬 */
+  flex-direction: column;
+  /* 세로 정렬 */
   justify-content: space-between;
   align-items: flex-start;
   box-sizing: border-box;
-  margin: 0px 40px;
+  margin: 0px 30px;
   list-style: none;
 }
 
 /* 각 상위 메뉴 아래로 전체 드롭다운 항목을 분산 배치 */
 .dropdown li {
   width: 100%;
-  margin: 10px 0;
+  margin: 10px 28px;
 }
 
 
@@ -151,7 +173,8 @@
 }
 
 .dropdown ul li a {
-  color: #ffffff; /* 텍스트 색상 흰색으로 설정 */
+  color: #ffffff;
+  /* 텍스트 색상 흰색으로 설정 */
   text-decoration: none;
   font-size: 1rem;
 }
@@ -165,10 +188,14 @@
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 1.5vw; /* 간격을 뷰포트 너비에 맞춰 조정 */
+  gap: 1.5vw;
+  /* 간격을 뷰포트 너비에 맞춰 조정 */
   /* position: absolute; */
-  top: 5%; /* 상단에 위치 */
-  right: 2%; /* 오른쪽 끝에 위치 */
+  top: 5%;
+  /* 상단에 위치 */
+  right: 2%;
+  /* 오른쪽 끝에 위치 */
+  text-shadow: 1px 1px #c9c9c9;
 }
 
 .header-item {
@@ -178,13 +205,8 @@
   font-size: 1rem;
 }
 
-.header-item:hover {
-  color: #ffffff;
-  background-color: #5e7c71;
-}
-
 /* 아이콘 스타일 */
-.header-actions>i{
+.header-actions>i {
   font-size: 1.1rem;
   color: #5e7c71;
   cursor: pointer;
@@ -192,42 +214,50 @@
 
 /* 사이드 메뉴 CSS */
 .side-menu {
+  position: fixed;
   top: 0;
-  right: 0;
+  right: -300px;
   width: 300px;
   height: 100%;
   background-color: #ffffff;
   color: #5e7c71;
-  transition: transform 0.3s ease;
+  overflow-y: auto;
+  transition: right 0.3s ease;
   padding-top: 60px;
   z-index: 2501;
-  transform: translateX(100%); /* 초기 상태에서 화면 밖으로 밀어냄 */
+  text-shadow: 1px 1px #c9c9c9;
 }
 
 .side-menu.open {
-  transform: translateX(0); /* 메뉴가 열릴 때 화면 안으로 이동 */
+  right: 0;
 }
 
-.close-icon {
-  position: absolute;
-  top: 20px;
-  right: 25px;
-  cursor: pointer;
-  width: 30px;
-  height: 30px;
-  color: #ffffff;
-}
-
-.menu-icon {
+#menu-icon {
   font-size: 24px;
   cursor: pointer;
+  background-color: #ffffff;
   color: #5e7c71;
-  margin-left: 15px;
   transition: color 0.3s ease;
 }
 
-.menu-icon:hover {
+#menu-icon:hover {
   color: #ffffff;
+  background-color: #5e7c71;
+}
+
+.close-icon {
+  top: 20px;
+  right: 25px;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  color: #5e7c71;
+  background-color: #ffffff;
+}
+
+.close-icon:hover {
+  color: #ffffff;
+  background-color: #5e7c71;
 }
 
 .side-menu .side-bar {
@@ -239,6 +269,7 @@
 .side-menu .side-item,
 .side-menu .header-item {
   text-decoration: none;
+  background-color: #ffffff;
   color: #5e7c71;
   display: block;
   padding: 10px 0;
@@ -254,7 +285,13 @@
 /* 반응형 스타일 */
 @media screen and (max-width: 768px) {
   .side-menu {
-    width: 80%; /* 모바일 환경에서 사이드 메뉴 너비 조정 */
+    width: 80%;
+    /* 모바일 환경에서 사이드 메뉴 너비 조정 */
+  }
+
+  #menu-icon {
+    top: 15px;
+    right: 15px;
   }
 
   .close-icon {
@@ -270,10 +307,10 @@
 
 @keyframes slideIn {
   from {
-    transform: translateX(100%);
+    right: -300px;
   }
+
   to {
-    transform: translateX(0);
+    right: 0;
   }
 }
-

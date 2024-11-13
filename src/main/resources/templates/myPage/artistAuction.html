@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <th:block th:replace= "~{/common/common.html :: cssLinks}"></th:block>
+    <link rel="stylesheet" href="/css/myPage/artistAuction.css">
+  </head>
+  <body>
+  <script src="https://kit.fontawesome.com/8695e357e4.js" crossorigin="anonymous"></script>
+  <th:block th:replace= "~{/common/common.html :: headerLinks}"></th:block>
+
+  <main id="myPage-main" class="myPage-main">
+    <h1>내 경매 현황</h1>
+
+
+    <section class="content-section">
+
+      <h2>완료 경매</h2>
+
+      <div class="content-div">
+        <div>
+          <h3>무제</h3>
+          <h4>작가명</h4>
+          <p>경매액 ₩50,000,000</p>
+          <p>15 x 30</p>
+          <div class="piece-waiting">입금대기</div>
+        </div>
+        <div>
+          <img src="#" alt="사진" class="content-img">
+        </div>
+      </div>
+
+      <div class="content-div">
+        <div>
+          <h3>무제</h3>
+          <h4>작가명</h4>
+          <p>경매액 ₩50,000,000</p>
+          <p>15 x 30</p>
+          <div class="piece-deposit">입금확인</div>
+        </div>
+        <div>
+          <img src="#" alt="사진" class="content-img">
+        </div>
+      </div>
+
+    </section>
+    
+    <section class="content-section">
+      <hr>
+      <h2>진행중 경매</h2>
+
+      <div class="content-div">
+        <div>
+          <h3>무제</h3>
+          <h4>작가명</h4>
+          <p>경매액 ₩50,000,000</p>
+          <p>15 x 30</p>
+          <div class="piece-detales">상세보기</div>
+        </div>
+        <div>
+          <img src="#" alt="사진" class="content-img">
+        </div>
+      </div>
+
+      <div class="content-div">
+        <div>
+          <h3>무제</h3>
+          <h4>작가명</h4>
+          <p>경매액 ₩50,000,000</p>
+          <p>15 x 30</p>
+          <div class="piece-detales">상세보기</div>
+        </div>
+        <div>
+          <img src="#" alt="사진" class="content-img">
+        </div>
+      </div>
+
+    </section>
+    
+    <section class="content-section">
+      <hr>
+      <h2>대기중인 작품</h2>
+
+      <div class="content-div">
+        <div>
+          <h3>무제</h3>
+          <h4>작가명</h4>
+          <p>경매액 ₩50,000,000</p>
+          <p>15 x 30</p>
+          <div class="piece-detales">상세보기</div>
+        </div>
+        <div>
+          <img src="#" alt="사진" class="content-img">
+        </div>
+      </div>
+
+      <div class="content-div">
+        <div>
+          <h3>무제</h3>
+          <h4>작가명</h4>
+          <p>경매액 ₩50,000,000</p>
+          <p>15 x 30</p>
+          <div class="piece-detales">상세보기</div>
+        </div>
+        <div>
+          <img src="#" alt="사진" class="content-img">
+        </div>
+      </div>
+
+    </section>
+    
+  </main>
+
+  <th:block th:replace= "~{/common/footer.html}"></th:block>
+  <script src="/js/myPage/artistAuction.js"></script>
+  <script th:inline="javascript">
+    const memberNo = /*[[${session.artistLogin.memberNo}]]*/ "defaultMemberNo";
+  </script>
+
+</body>
+</html>

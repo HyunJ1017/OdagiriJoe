@@ -29,8 +29,8 @@ public class Member {
 	private String artistProfile;
 	private String artistNickname;
 	private String artistPortfolio;
-	private String artistBankName;
-	private int artistBankNo;
+	private String bankCode;
+	private String bankNo;
 	
 	// 입금 기록
 	private int recordNo;

@@ -1,0 +1,98 @@
+.myPage-main *{
+  color: black;
+}
+#myPage-main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+#myPage-main>h3{
+  color: #5e7c71;
+}
+#myPage-main>*{
+  margin: 10px 0 10px;
+}
+#myPage-main>.myPage-sec{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  width: 820px;
+}
+#myPage-main>.myPage-sec>div:first-child{
+  color: #5e7c71;
+  margin-top: 40px;
+  margin-bottom: 5px;
+}
+#imgBorder{
+  border: 1px solid #80808036;
+  padding: 10px;
+  position:relative;
+}
+#imgBorder>#deleteImg{
+  position: absolute;
+  right: 15px;
+  top: 10px;
+}
+#imgBorder>img{
+  width: 800px;
+  height: auto;
+}
+#myPage-main>.myPage-sec label:nth-child(2), #artistBank{
+  width: 97%;
+  min-height: 34px;
+  border: 2px solid rgb(130, 130, 130);
+  border-radius: 3px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+#artistProfileLabel{
+  align-self: center;
+  width: 380px;
+  height: 45px;
+  border-radius: 8px;
+}
+#myPage-main>.myPage-sec label>span{
+  flex-grow: 1;
+}
+#myPage-main>.myPage-sec .labely>input{
+  border: none;
+  flex-grow: 1;
+}
+#myPage-main>.myPage-sec .labely>input:focus {
+  outline: none;
+}
+#myPage-main>.myPage-sec .hiddenInput{
+  display: none !important;
+}
+#myPage-main>.myPage-sec .labely>div{
+  width: 90px;
+  border-radius: 3px;
+  margin-right: 3px;
+  height: 29px;
+}
+#myPage-main>section>.member-hov{
+  margin-top: 40px;
+  width: 380px;
+  height: 45px;
+  border-radius: 8px;
+}
+.member-hov{
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #5e7c71;
+  color: white;
+  border: none;
+}
+.member-hov:hover{
+  cursor: pointer;
+  background: white;
+  border: 2px solid #5e7c71;
+  color: #5e7c71;
+}
+.confirm-red{color: red;}

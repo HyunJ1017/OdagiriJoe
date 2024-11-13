@@ -1,15 +1,21 @@
 package edu.kh.plklj.sms.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.kh.plklj.common.util.RedisUtil;
+import edu.kh.plklj.sms.mapper.SmsMapper;
 
 @Service
 public class SmsServiceImpl implements SmsService {
 	
 	@Autowired
 	private RedisUtil redis;
+	
+	@Autowired
+	private SmsMapper mapper;
 
 	/** 문자메시지 생성 및 인증키 저장
 	 *
@@ -56,6 +62,23 @@ public class SmsServiceImpl implements SmsService {
 		if(redis.getValue(phoneNumber).equals(authKey)) return 1;
 
 		return 2;
+	}
+	
+	// 아이디찾기 - 아이디리스트 찾기
+	@Override
+	public String getIdList(String phoneNumber) {
+		
+		List<String> idList = mapper.getIdList(phoneNumber);
+
+		if(idList.isEmpty()) return null;
+		
+		StringBuilder stb = new StringBuilder();
+		stb.append("회원님의 아이디목록 조회결과입니다.");
+		for(String str : idList) {
+			stb.append( String.format("- %s", str) );
+		}
+		
+		return stb.toString();
 	}
 
 }

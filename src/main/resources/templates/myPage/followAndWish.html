@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <th:block th:replace= "~{/common/common.html :: cssLinks}"></th:block>
+    <link rel="stylesheet" href="/css/myPage/followAndWish.css">
+  </head>
+  <body>
+  <script src="https://kit.fontawesome.com/8695e357e4.js" crossorigin="anonymous"></script>
+  <th:block th:replace= "~{/common/common.html :: headerLinks}"></th:block>
+
+  <main id="myPage-main" class="myPage-main">
+    <h1>팔로우 및 위시리스트</h1>
+
+
+    <section class="content-section" id="wishList-section">
+
+      <h2>위시리스트</h2>
+
+      <div class="content-div">
+        <div>
+          <h3>무제</h3>
+          <h4>작가명</h4>
+          <p>경매액 ₩50,000,000</p>
+          <p>15 x 30</p>
+          <div class="piece-detales">상세보기</div>
+        </div>
+        <div>
+          <img src="/images/artist1.jpg" alt="사진" class="content-img">
+        </div>
+      </div>
+
+      <div class="content-div">
+        <div>
+          <h3>무제</h3>
+          <h4>작가명</h4>
+          <p>경매액 ₩50,000,000</p>
+          <p>15 x 30</p>
+          <div class="piece-detales">상세보기</div>
+        </div>
+        <div>
+          <img src="#" alt="사진" class="content-img">
+        </div>
+      </div>
+
+      <div class="content-div">
+        <div>
+          <h3>무제</h3>
+          <h4>작가명</h4>
+          <p>경매액 ₩50,000,000</p>
+          <p>15 x 30</p>
+          <div class="piece-detales">상세보기</div>
+        </div>
+        <div>
+          <img src="#" alt="사진" class="content-img">
+        </div>
+      </div>
+
+    </section>
+
+    <section class="content-section">
+      <h2>팔로우</h2>
+
+      <section class="follow-div">
+        <div class="following">
+          <img src="/images/artist1.jpg" alt="사진" class="artist-img">
+          <p>작가명</p>
+        </div>
+        <div class="following">
+          <img src="#" alt="사진" class="artist-img">
+          <p>작가명</p>
+        </div>
+        <div class="following">
+          <img src="/images/artist1.jpg" alt="사진" class="artist-img">
+          <p>작가명</p>
+        </div>
+        <div class="following">
+          <img src="#" alt="사진" class="artist-img">
+          <p>작가명</p>
+        </div>
+        <div class="following">
+          <img src="/images/artist1.jpg" alt="사진" class="artist-img">
+          <p>작가명</p>
+        </div>
+        <div class="following">
+          <img src="#" alt="사진" class="artist-img">
+          <p>작가명</p>
+        </div>
+        <div class="following">
+          <img src="/images/artist1.jpg" alt="사진" class="artist-img">
+          <p>작가명</p>
+        </div>
+        <div class="following">
+          <img src="#" alt="사진" class="artist-img">
+          <p>작가명</p>
+        </div>
+        <div class="following">
+          <img src="/images/artist1.jpg" alt="사진" class="artist-img">
+          <p>작가명</p>
+        </div>
+        <div class="following">
+          <img src="#" alt="사진" class="artist-img">
+          <p>작가명</p>
+        </div>
+      </section>
+
+      <div id="pagenation">
+        <span> 1 2 3 4 5 6 7 8 9 10 </span>
+      </div>
+    </section>
+    
+    
+  </main>
+
+  <th:block th:replace= "~{/common/footer.html}"></th:block>
+  <script src="/js/myPage/followAndWish.js"></script>
+  <script th:inline="javascript">
+    const memberNo = /*[[${session.artistLogin != null} ? ${session.artistLogin.memberNo} : ${session.memberLogin.memberNo}]]*/ "defaultMemberNo";
+  </script>
+
+</body>
+</html>
