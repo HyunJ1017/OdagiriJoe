@@ -59,3 +59,64 @@ document.addEventListener("DOMContentLoaded", function () {
   updateProgressBar(0);
   slideTimer = setTimeout(showSlides, 6000);
 });
+
+//-------------------------------------------------------------
+let slideIndices = {
+  main: 0,
+  auction: 0
+};
+
+const slideTimers = {
+  main: null,
+  auction: null
+};
+
+function showSlides(sliderName) {
+  const slidesContainer = document.querySelector(`.${sliderName}-slider .slides`);
+  const slides = document.querySelectorAll(`.${sliderName}-slider .auctions-item, .${sliderName}-slider .slide`);
+  const totalSlides = slides.length - 1;
+
+  slideIndices[sliderName]++;
+  slidesContainer.style.transition = 'transform 6s ease-in-out';
+  slidesContainer.style.transform = `translateX(-${slideIndices[sliderName] * 100}vw)`;
+
+  if (slideIndices[sliderName] === totalSlides) {
+    setTimeout(() => {
+      slidesContainer.style.transition = 'none';
+      slideIndices[sliderName] = 0;
+      slidesContainer.style.transform = `translateX(0vw)`;
+      setTimeout(() => {
+        slidesContainer.style.transition = 'transform 6s ease-in-out';
+      }, 50);
+    }, 6000);
+  }
+
+  updateProgressBar(sliderName, 6000);
+  slideTimers[sliderName] = setTimeout(() => showSlides(sliderName), 11000);
+}
+
+function updateProgressBar(sliderName, duration = 1000) {
+  const progressBar = document.querySelector(`.${sliderName}-progress`);
+  const totalSlides = document.querySelectorAll(`.${sliderName}-slider .auctions-item, .${sliderName}-slider .slide`).length - 1;
+  const progressPercentage = ((slideIndices[sliderName] % totalSlides) / totalSlides) * 100;
+  progressBar.style.width = `${progressPercentage}%`;
+  progressBar.style.transition = `width ${duration}ms ease-in-out`;
+}
+
+function moveSlide(sliderName, n) {
+  const slidesContainer = document.querySelector(`.${sliderName}-slider .slides`);
+  const totalSlides = document.querySelectorAll(`.${sliderName}-slider .auctions-item, .${sliderName}-slider .slide`).length - 1;
+
+  slideIndices[sliderName] = (slideIndices[sliderName] + n + totalSlides) % totalSlides;
+  slidesContainer.style.transition = 'transform 1s ease-in-out';
+  slidesContainer.style.transform = `translateX(-${slideIndices[sliderName] * 100}vw)`;
+  updateProgressBar(sliderName, 1000);
+
+  clearTimeout(slideTimers[sliderName]);
+  slideTimers[sliderName] = setTimeout(() => showSlides(sliderName), 6000);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  showSlides('main');
+  showSlides('auction');
+});

@@ -14,18 +14,15 @@ import edu.kh.plklj.main.dto.Member;
 import edu.kh.plklj.main.service.MainService;
 import edu.kh.plklj.piece.dto.Piece;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("main")
 @RequiredArgsConstructor
+@Slf4j
 public class MainController {
 	private final MainService service;
 
-//	@GetMapping("")
-//	public String mainPage() {
-//		return "common/main";
-//	}
-	
 	// 메인 페이지 목록 조회
 	@GetMapping("")
 	public String main(Model model) {
@@ -33,7 +30,7 @@ public class MainController {
 
 		List<Piece> onlineGallery = (List<Piece>) map.get("onlineGallery");
 		List<Piece> auctions = (List<Piece>) map.get("auctions");
-
+		
 		model.addAttribute("onlineGallery", onlineGallery);
 		model.addAttribute("auctions", auctions);
 

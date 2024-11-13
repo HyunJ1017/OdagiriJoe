@@ -77,41 +77,44 @@
     </div>
   </section>
 
-  <section class="art-container">
-    <div class="art-header">
-      <h3>Online Gallery</h3>
-      <button class="artBtn" onclick="location.href='/piece/auctions'">작품 더보기 + </button>
-    </div>
-    <div class="custom-line"></div> <!-- 제목과 버튼 아래 구분선 -->
-    <div class="auctions-container">
-      <article class="auctions-item" th:each="artist : ${onlineAuctions}">
-        <div class="auctions-image">
-          <a th:href="@{/piece/auctions/{pieceNo} (memberNo= ${artist.memberNo})}" th:object="${artist}" class="class-item">
-            <img th:src="*{pieceRename}" alt="Online Auctions" class="piece-rename" th:data-id="*{memberNo}">
-          </a>
-          <div class="auctions-detail" th:object="${piece}">
-            <p th:text="|작가 : ${artist.artistNickname}|">작가명</p>
-            <p th:text="|제목 : ${artist.pieceTitle}|">제목: </p>
-            <p th:text="|${artist.sizeX} x ${artist.sizeY}|" class="priceText">22 x 22</p>
-            <p th:if="${artist.startPrice != null}" th:text="|시작가 (KRW): ${artist.startPrice}|" class="priceText">시작가(KRW)</p>
-            <p th:if="${artist.startPrice == null}" th:text="|현재가 (KRW): ${artist.hopePrice}|" class="priceText">현재가(KRW)</p>
+<!-- 경매 슬라이드 섹션 -->
+<section class="art-container">
+  <div class="art-header">
+    <h3>Action</h3>
+    <button class="artBtn" onclick="location.href='/auction/main'">경매 더보기 + </button>
+  </div>
+  <div class="custom-line"></div> <!-- 제목과 버튼 아래 구분선 -->
+  <div class="auctions-container">
+    <section class="slider-container auction-slider">
+      <div class="slides">
+        <div class="auctions-item" th:each="artist : ${auctions}">
+        <div class="auctions-detail" th:object="${piece}">
+          <p th:text="|작가 : ${artist.artistNickname}|">작가명</p>
+          <p th:text="|제목 : ${artist.pieceTitle}|">제목: </p>
+          <p th:text="|작품 사이즈 : ${artist.sizeX} x ${artist.sizeY}|" class="priceText">22 x 22</p>
+          <p th:if="${artist.startPrice != null}" th:text="|시작가 (KRW): ${artist.startPrice}|" class="priceText">시작가(KRW)</p>
+          <p th:if="${artist.startPrice == null}" th:text="|현재가 (KRW): ${artist.hopePrice}|" class="priceText">현재가(KRW)</p>
+          <div class="auctions-image">
+            <a th:href="@{/auction/main/{pieceNo} (memberNo= ${artist.memberNo})}" th:object="${artist}" class="class-item">
+              <img th:src="*{pieceRename}" alt="Online Auctions" class="piece-rename" th:data-id="*{memberNo}">
+            </a>
           </div>
         </div>
-      </article>
-      
-    </div>
-    <div class="custom-line"></div>
-  </section>
-    <!-- 인디케이터 바 -->
-    <!-- 이전/다음 버튼 -->
-  <div class="indicator-container">
-    <button class="prev-btn" onclick="moveSlide(-1)">&#10094;</button>
-    <div class="progress-bar-container">
-      <div class="progress-bar"></div>
-    </div>
-    <button class="next-btn" onclick="moveSlide(1)">&#10095;</button>
+        </div>
+      </div>
+      <div class="custom-line"></div>
+    </section>
   </div>
 
+  <!-- 경매 슬라이더 인디케이터 바 -->
+  <div class="indicator-container auction-indicator">
+    <button class="prev-btn" onclick="moveSlide('auction', -1)">&#10094;</button>
+    <div class="progress-bar-container">
+      <div class="progress-bar auction-progress"></div>
+    </div>
+    <button class="next-btn" onclick="moveSlide('auction', 1)">&#10095;</button>
+  </div>
+</section>
 
   <script src="/js/common/main.js"></script>
 </body>
