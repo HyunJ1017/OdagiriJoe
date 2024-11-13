@@ -75,6 +75,7 @@
     </form>
   </main>
 
+  <th:block th:replace= "~{/myPage/popup.html}"></th:block>
   <th:block th:replace= "~{/common/footer.html}"></th:block>
   <script th:inline="javascript">
     const memberNo = /*[[${session.memberLogin.memberNo}]]*/ "defaultMemberNo";

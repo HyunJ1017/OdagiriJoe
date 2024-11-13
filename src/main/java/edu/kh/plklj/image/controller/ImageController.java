@@ -26,7 +26,7 @@ public class ImageController {
 	
 	private final ImageService service;
 	
-	/** 이미지삽입
+	/** 대표이미지삽입
 	 * @param image
 	 * @param fileName
 	 * @return
@@ -38,6 +38,19 @@ public class ImageController {
 			@RequestParam("fileName") String fileName) throws IOException {
         return service.updateProfile(image, fileName );
     }
+	
+	/** 작품이미지삽입
+	 * @param image
+	 * @param fileName
+	 * @return
+	 * @throws IOException
+	 */
+	@PostMapping("peice")
+	@ResponseBody
+	public int updatePeice(@RequestParam("image") MultipartFile image,
+			@RequestParam("fileName") String fileName) throws IOException {
+		return service.updatePeice(image, fileName );
+	}
 	
 	/** 대표작품 불러오기
 	 * @param filename
@@ -53,5 +66,20 @@ public class ImageController {
 
         return new ResponseEntity<>(content, headers, HttpStatus.OK);
     }
+	
+	/** 작품이미지 불러오기
+	 * @param filename
+	 * @return
+	 */
+	@GetMapping("/peice/{filename}")
+	public ResponseEntity<byte[]> downloadPiece(@PathVariable("filename") String filename) {
+		byte[] content = service.getPiece(filename);  // byte[]로 반환
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.IMAGE_JPEG);  // 이미지의 MIME 타입 (예: image/jpeg)
+		headers.setContentLength(content.length);
+		
+		return new ResponseEntity<>(content, headers, HttpStatus.OK);
+	}
 
 }

@@ -21,4 +21,6 @@ public interface MyPageMapper {
 
 	int checkNickname(String inputNickname);
 
+	int insertArtist(Member artist);
+
 }

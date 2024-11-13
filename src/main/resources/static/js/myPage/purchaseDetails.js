@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const handleScroll = () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-    if (scrollTop + clientHeight >= scrollHeight - 50) {
+    if (scrollTop + clientHeight >= scrollHeight - 216) {
       loadMoreContent();
     }
   };
