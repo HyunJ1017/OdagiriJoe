@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 public class PieceController {
 	private final PieceService service;
 	
+	
 	/** 온라인 갤러리 조회 페이지 이동
 	 * @return
 	 */
@@ -35,8 +36,6 @@ public class PieceController {
 	}
 	
 	
-	
-	
 	/** 작품 등록 페이지 이동
 	 * 
 	 */
@@ -46,14 +45,9 @@ public class PieceController {
 	}
 	
 	
-	/** 진행 경매 작품 상세 조회 페이지
-	 * 
-	 */
-	@GetMapping("auctionDetail")
-	public String auctionDetail() {
-		return "auction/auctionDetail";
-	}
 	
+	
+
 	
 	
 	
