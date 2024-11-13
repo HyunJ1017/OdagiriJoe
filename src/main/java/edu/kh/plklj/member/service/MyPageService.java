@@ -26,7 +26,7 @@ public interface MyPageService {
 	int checkNickname(String inputNickname);
 
 	// 작가 등록
-	int insertArtist(Member artist, MultipartFile inputArtistPortfolio, MultipartFile inputArtistProfile);
+	int insertArtist(Member artist, MultipartFile inputArtistPortfolio);
 	
 
 }

@@ -1,0 +1,35 @@
+<!-- alert -->
+<link rel="stylesheet" href="/css/myPage/popup.css">
+<section class="msg-body mc-body  display-none">
+  <section>
+    <section class="msg-head">
+      <div class="msg-logo">
+        <p>D</p><p>a</p><p>e</p><p>m</p><p>o</p><p>i</p><p>m</p>
+      </div>
+      <div><i id="msg-closeBtn" class="fa-solid fa-xmark" style="color: #ff6600;"></i></div>
+    </section>
+    <section class="msg-main">
+      <pre id="msg-content"></pre>
+    </section>
+    <section class="msg-foot">
+      <div></div>
+      <div class="msg-logo">
+        <p>D</p><p>a</p><p>e</p><p>m</p><p>o</p><p>i</p><p>m</p>
+      </div>
+    </section>
+  </section>
+</section>
+
+<script>
+  const alertM = (message)=>{
+    const massageWindow = document.querySelector(".msg-body");
+    const contentBox = document.querySelector("#msg-content");
+    contentBox.innerText = message;
+    massageWindow.classList.remove("display-none");
+    
+    const msgCloseButton = document.querySelector("#msg-closeBtn");
+    msgCloseButton.addEventListener("click", () => {
+      massageWindow.classList.add("display-none");
+    });
+  };
+</script>

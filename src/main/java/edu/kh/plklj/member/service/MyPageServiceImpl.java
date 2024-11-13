@@ -1,5 +1,6 @@
 package edu.kh.plklj.member.service;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -7,18 +8,24 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.Bucket;
+
 import edu.kh.plklj.main.dto.BankCode;
 import edu.kh.plklj.main.dto.Member;
 import edu.kh.plklj.member.mapper.LogInMapper;
 import edu.kh.plklj.member.mapper.MyPageMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MyPageServiceImpl implements MyPageService {
 	
 	private final MyPageMapper mapper;
 	private final LogInMapper loginMapper;
+	private final Bucket bucket;
 	
 	private final BCryptPasswordEncoder encoder;
 	
@@ -61,7 +68,32 @@ public class MyPageServiceImpl implements MyPageService {
 	
 	// 작가 등록
 	@Override
-	public int insertArtist(Member artist, MultipartFile inputArtistPortfolio, MultipartFile inputArtistProfile) {
-		return 0;
+	public int insertArtist(Member artist, MultipartFile inputArtistPortfolio) {
+		String originalFileName = inputArtistPortfolio.getOriginalFilename();
+		int index = originalFileName.lastIndexOf(".");
+		String ext = originalFileName.substring(index);
+		
+		/*포트폴리오 저장 및 파일명 저장*/
+		String blob = "portfolio/" + "portpolio" + artist.getMemberNo() + ext;
+	    try {
+	        // 기존 파일 삭제
+	        Blob existingBlob = bucket.get(blob);
+	        if (existingBlob != null) {
+	            existingBlob.delete();
+	        }
+
+	        // InputStream으로 파일 업로드
+	        try (InputStream inputStream = inputArtistPortfolio.getInputStream()) {
+	            bucket.create(blob, inputStream, inputArtistPortfolio.getContentType());
+	        }
+
+	    } catch (Exception e) {
+	        log.error("profile upload failed", e);
+	        throw new RuntimeException("ErrorCode.IMAGE_UPLOAD_FAILED");
+	    }
+		
+	    artist.setArtistPortfolio(blob);
+	    return mapper.insertArtist(artist);
 	}
+	
 }

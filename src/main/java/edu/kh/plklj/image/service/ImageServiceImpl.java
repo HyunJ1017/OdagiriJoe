@@ -41,6 +41,29 @@ public class ImageServiceImpl implements ImageService {
 	    }
 	}
 	
+	// 작품 저장
+	@Override
+	public int updatePeice(MultipartFile image, String fileName) {
+		String blob = "peice/" + fileName;
+		try {
+			// 기존 파일 삭제
+			Blob existingBlob = bucket.get(blob);
+			if (existingBlob != null) {
+				existingBlob.delete();
+			}
+			
+			// InputStream으로 파일 업로드
+			try (InputStream inputStream = image.getInputStream()) {
+				bucket.create(blob, inputStream, image.getContentType());
+			}
+			
+			return 1;
+		} catch (Exception e) {
+			log.error("profile upload failed", e);
+			throw new RuntimeException("ErrorCode.IMAGE_UPLOAD_FAILED");
+		}
+	}
+	
 	// 프로필 불러오기
 	@Override
 	public byte[] getProfile(String filename) {
@@ -49,6 +72,16 @@ public class ImageServiceImpl implements ImageService {
 	        throw new RuntimeException("File not found");
 	    }
 	    return blob.getContent();
+	}
+	
+	// 작품 불러오기
+	@Override
+	public byte[] getPiece(String filename) {
+		Blob blob = bucket.get("peice/" + filename);
+		if (blob == null) {
+			throw new RuntimeException("File not found");
+		}
+		return blob.getContent();
 	}
 	
 

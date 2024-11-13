@@ -280,6 +280,8 @@ bankNo.addEventListener("input", ()=>{
 /* 제출 */
 const artistSubmit = document.querySelector("#myPage-main");
 artistSubmit?.addEventListener("submit", (e) => {
+  e.preventDefault();
+
   if(submitConfirm.artistNickname === false){
     e.preventDefault();
     alert("닉네임 확인 후 제출해 주시기 바랍니다");
@@ -311,11 +313,7 @@ artistSubmit?.addEventListener("submit", (e) => {
     return;
   }
 
-  const input1 = document.createElement("input");
-  input1.type="hidden";
-  input1.name="memberNo";
-  input1.value=memberNo;
-  artistSubmit.appendChild(input1);
+  profileUpload();
 });
 
 
@@ -326,6 +324,7 @@ const profileUpload = () => {
   formData.append("image", imgInput.files[0]);
   formData.append("fileName", fileRename);
 
+  alertM("프로필 이미지를 등록하고 있습니다.");
   fetch("/images/profile", {
     method: "POST",
     body: formData,
@@ -335,7 +334,25 @@ const profileUpload = () => {
     throw new Error("AJAX 통신 실패");
   })
   .then(result => {
-    console.log(result);
+    if(result > 0){
+      alertM("프로필 이미지 등록에 성공하였습니다.");
+      const input1 = document.createElement("input");
+      input1.type="hidden";
+      input1.name="memberNo";
+      input1.value=memberNo;
+      artistSubmit.appendChild(input1);
+      
+      const input2 = document.createElement("input");
+      input2.type="hidden";
+      input2.name="artistProfile";
+      input2.value=fileRename;
+      artistSubmit.appendChild(input2);
+
+      document.querySelector("#myPage-main").submit();
+    } else {
+      alertM("프로필 이미지 등록에 실패하였습니다.");
+      return;
+    }
   })
   .catch(err => console.error(err));
 };

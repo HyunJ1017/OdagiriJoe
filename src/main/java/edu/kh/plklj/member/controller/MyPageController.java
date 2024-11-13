@@ -144,12 +144,16 @@ public class MyPageController {
 	@PostMapping("insertArtist")
 	public String insertArtist(
 			@ModelAttribute Member artist,
-			@RequestParam("inputArtistPortfolio") MultipartFile inputArtistPortfolio,
-			@RequestParam("inputArtistProfile")  MultipartFile inputArtistProfile
+			@RequestParam("inputArtistPortfolio") MultipartFile inputArtistPortfolio
 			) {
 		
-		int result = service.insertArtist(artist, inputArtistPortfolio, inputArtistProfile);
+		int result = service.insertArtist(artist, inputArtistPortfolio);
 		return "redirect:/";
+	}
+	
+	@GetMapping("1")
+	public String test() {
+		return "myPage/test";
 	}
 	
 	

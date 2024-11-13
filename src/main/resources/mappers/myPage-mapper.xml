@@ -44,4 +44,18 @@
 		WHERE
 			ARTIST_NICKNAME = #{inputNickname}
 	</select>
+	
+	<!-- 작가등록 -->
+	<insert id="insertArtist">
+		INSERT INTO "ARTIST"
+		VALUES(
+			#{memberNo},
+			#{artistProfile},
+			#{artistNickname},
+			#{artistPortfolio},
+			#{bankCode},
+			#{bankNo}
+		)
+	</insert>
+	
 </mapper>
