@@ -28,6 +28,8 @@ public class Piece {
 	private String pieceStatus;
 	private int pieceCategoryNo;
 	
+	private String artistNickname;
+	
 	// 경매 작품 
 	private String startDate;
 	private String endDate;

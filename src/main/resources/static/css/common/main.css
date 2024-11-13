@@ -10,15 +10,15 @@
 /* 메인 슬라이드쇼 스타일 */
 .slider-container {
   width: 100%;
-  max-height: 85vh;
+  max-height: 78vh;
   overflow: hidden;
-  border: 1px solid #5e7c71;
+  position: relative;
 }
 
 .slides {
   display: flex;
   transition: transform 6s ease-in-out; /* 전환 시 6초 동안 부드럽게 이동 */
-  width: calc(100% * 4); /* 슬라이드 개수 + 복사본 개수만큼 */
+  width: calc(100% * 5); /* 슬라이드 개수 + 복사본 개수만큼 */
 }
 
 .slide {
@@ -29,9 +29,30 @@
 }
 
 .slide img {
-  width: 100%;
-  height: 65%;
+  width: 90%;
+  height: auto;
+  margin-left: 5%;
   object-fit: cover;
+}
+
+.seeBtn {
+  bottom: 30%;
+  left: 20%;
+  transform: translateX(-50%);
+  border: 2px solid #5e7c71;
+  border-radius: 5px;
+  color: white;
+  background-color: #5e7c71;
+  padding: 10px 20px;
+  cursor: pointer;
+
+}
+
+.seeBtn:hover {
+  border: 2px solid #5e7c71;
+  border-radius: 5px;
+  background-color: white;
+  color: #5e7c71;
 }
 
 /* 이전/다음 버튼 스타일 */
@@ -71,4 +92,171 @@
   justify-content: center;
   margin-top: 20px;
   text-align: center;
+}
+
+/* --------------------------------------------------------------------------------------------------- */
+/* 전체 섹션 컨테이너 설정 */
+.art-container {
+  width: 90%;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+/* 제목과 버튼 섹션 설정 */
+.art-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2%;
+}
+
+h3 {
+  margin: 0;
+  color: #414141;
+}
+
+.artBtn {
+  font-size: 15px;
+  color: #414141;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+/* 제목 아래 구분선 */
+.custom-line {
+  border-bottom: 1px solid #acacac;
+  width: 100%;
+  margin: 20px 0;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------ */
+/* 온라인 갤러리 관련 */
+
+.gallery-container {
+  display: flex;
+  flex-wrap: wrap; /* 여러 줄로 나눠지도록 설정 */
+  justify-content: space-between; /* 각 이미지 사이에 일정한 간격 유지 */
+}
+
+.gallery-item {
+  justify-content: space-between;
+  overflow: hidden;
+  display: flex;
+  margin-bottom: 2%;
+  position: relative;
+}
+
+.gallery-item a{
+  padding: 0;
+  display: block;
+  overflow: hidden;
+}
+
+.gallery-image{
+  object-fit: cover;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-image img{
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.piece-rename{
+  display: inline-block;
+  width: 20%;
+  height: 20%;
+  cursor: pointer;
+}
+
+.gallery-detail{
+  color: #414141;
+  margin-top: 2%;
+  text-align: left;
+}
+
+
+.gallery-innerDetails{
+  color: #414141;
+  background: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-size: 10px;
+  pointer-events: none; /* 호버 시 링크 클릭 방지 */
+  padding: 20px; /* 텍스트 여백 추가 */
+}
+
+.gallery-innerDetails > p{
+  font-size: 16px;
+}
+
+/* 이미지 호버 효과 */
+.gallery-image > a:hover img {
+  transform: scale(1.05);
+  opacity: 0.85;
+}
+
+/* 이미지 세부 정보 호버 시 표시 */
+.gallery-image:hover .gallery-innerDetails {
+  opacity: 1;
+}
+
+/* ------------------------------------------------------------------------------------------------ */
+/* 진행 경매 관련 */
+.auctions-container {
+  border: 1px solid #414141;
+  display: flex;
+  justify-content: space-between; /* 각 이미지 사이에 일정한 간격 유지 */
+
+}
+
+.auctions-item{
+  justify-content: space-between;
+  overflow: hidden;
+  display: flex;
+  margin-bottom: 2%;
+  position: relative;
+}
+
+.piece-rename{
+  display: inline-block;
+  width: 20%;
+  height: 20%;
+  cursor: pointer;
+}
+
+.auctions-image img{
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+.auctions-item a{
+  padding: 0;
+  display: block;
+  overflow: hidden;
+}
+.auctions-image{
+  object-fit: cover;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.auctions-detail{
+  color: #414141;
+  margin-top: 2%;
+  text-align: left;
 }

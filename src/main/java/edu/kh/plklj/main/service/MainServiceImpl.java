@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import edu.kh.plklj.main.dto.Member;
 import edu.kh.plklj.main.mapper.MainMapper;
 import edu.kh.plklj.piece.dto.Piece;
 import lombok.RequiredArgsConstructor;
