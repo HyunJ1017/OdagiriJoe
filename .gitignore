@@ -2,7 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,eclipse
 
 
-seviceAccountKey.json
+serviceAccountKey.json
 
 .anima/
 .gradle/
