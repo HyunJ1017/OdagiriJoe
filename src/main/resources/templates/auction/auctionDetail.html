@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="/css/online/onlineDetail.css">
+  <link rel="stylesheet" href="/css/auction/auctionDetail.css">
 
   <th:block th:replace= "~{/common/common}"></th:block>
 </head>
 <body>
   <th:block th:replace= "~{/common/header}"></th:block>
   
-  <main class="onlinePurchase-main">
+  <main class="auctionDetail-main">
 
    <section class="product-section">
         
@@ -26,33 +26,44 @@
       
               <!-- 메인 이미지 및 상세 정보 -->
               <div class="main-image">
-                  <img src="/images/onlineGallery.jpg">
+                  <img src="/images/onlineGallery5.jpg">
               </div>
       
               <!-- 우측 정보 패널 -->
               <div class="product-info">
                   <div class="wishlist-button">
                       <span><i class="fa-regular fa-heart"></i></span>
-                      <button id="online-reportBtn">신고하기</button>
+                      <button id="auction-reportBtn">신고</button>
                   </div>
-                  <h2>정호경</h2>
+                  <h2>이동현</h2>
                   <p>ReNameeeeeem</p>
-                  <h3>작살나게 잘 가기</h3>
-                  <p>25 x 32</p>
+                  <h3>Burnt Umber * Ultramarine Blue</h3>
+                  <p>25 x 32 <Strong>추상화</Strong></p>
                   
-                  <div class="price">
-                    금액 : 
-                    <span style="margin-left: 210px;"> ₩380,000 (KRW)</span>
+                <div class="price">
+                    추정가 : 
+                    <span style="margin-left: 100px;">KRW 209,000,00 ~ 400,000,00 </span>
+                    <span style="margin-left: 235px;">USD 207,00 ~ 286,00</span>
+                </div>
+
+                <div class="start-date">
+                  시작일 :
+                  <span style="margin-left: 275px;">11/13(수)</span>
+                </div>
+                
+                <div class="end-date">
+                  종료일 :
+                  <span style="margin-left: 275px;">11/15(금)</span>
                 </div>
                   
-                  <button class="purchase-button">구매하기</button>
+                  <button class="purchase-button">입찰 신청</button>
               </div>
           </div>
       
           <!-- 작품 내용 섹션 -->
           <section class="product-description">
               <h4>작품 내용</h4>
-              <p>작품 내용 설명인가?</p>
+              <p>작품 내용 설명인가설명인가설명인가설명인가설명인가설명인가설명인가설명인가설명인가</p>
           </section>
    </section>
  
@@ -67,6 +78,6 @@
     const loginCheck = /*[[${session.loginMember != null}]]*/ false;
   </script>
 
-  <script src="/js/online/onlineDetail.js"></script>
+  <script src="/js/auction/auctionDetail.js"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import edu.kh.plklj.artists.service.artistsService;
+import edu.kh.plklj.artists.service.ArtistsService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ArtistController {
 
-	private final artistsService service;
+	private final ArtistsService service;
 	
 	/** 작가 목록 조회 페이지 이동
 	 * @return

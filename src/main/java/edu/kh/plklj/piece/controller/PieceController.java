@@ -3,6 +3,7 @@ package edu.kh.plklj.piece.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import edu.kh.plklj.piece.service.PieceService;
@@ -32,6 +33,28 @@ public class PieceController {
 	public String onlineDetail() {
 		return "online/onlineDetail";
 	}
+	
+	
+	
+	
+	/** 작품 등록 페이지 이동
+	 * 
+	 */
+	@GetMapping("upload")
+	public String pieceUpload() {
+		return "online/pieceUpload";
+	}
+	
+	
+	/** 진행 경매 작품 상세 조회 페이지
+	 * 
+	 */
+	@GetMapping("auctionDetail")
+	public String auctionDetail() {
+		return "auction/auctionDetail";
+	}
+	
+	
 	
 	
 }
