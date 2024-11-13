@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="/css/reportPopup/reportPopup.css">
+
+</head>
+<body>
+
+  <main>
+
+    <div class="popup-container">
+      <div class="popup-header">
+        <span>신고 하기</span>
+        <button class="close-btn" onclick="window.close();">&times;</button> <!-- 팝업 닫기 -->
+        <hr>
+      </div>
+      <div class="popup-content">
+        <h3>신고 사유</h3>
+        <table border="1">
+          <label><input type="radio" name="reason" value="1"> 허위 정보 </label>
+          <label><input type="radio" name="reason" value="2"> 사기 및 불법 행위 </label>
+          <label><input type="radio" name="reason" value="3"> 부적절한 콘텐츠 </label>
+        </table>
+      </div>
+      <div class="detail-section">
+        <h3>신고 내용</h3>
+        <textarea placeholder="내용을 입력해 주세요"></textarea>
+      </div>
+      <div class="popup-footer">
+        <button class="submit-btn">보내기</button>
+      </div>
+
+    </div>
+
+  </main>
+  
+</body>
+</html>

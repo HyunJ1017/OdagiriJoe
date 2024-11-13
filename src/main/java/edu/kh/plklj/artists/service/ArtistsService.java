@@ -1,5 +1,5 @@
 package edu.kh.plklj.artists.service;
 
-public interface artistsService {
+public interface ArtistsService {
 
 }

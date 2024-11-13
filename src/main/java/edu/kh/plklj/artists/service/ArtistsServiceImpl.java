@@ -2,11 +2,11 @@ package edu.kh.plklj.artists.service;
 
 import org.springframework.stereotype.Service;
 
-import edu.kh.plklj.artists.mapper.artistsMapper;
+import edu.kh.plklj.artists.mapper.ArtistsMapper;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class artistsServiceImpl implements artistsService{
-	private final artistsMapper mapper;
+public class ArtistsServiceImpl implements ArtistsService{
+	private final ArtistsMapper mapper;
 }
