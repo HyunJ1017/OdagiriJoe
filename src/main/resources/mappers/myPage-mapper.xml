@@ -74,4 +74,101 @@
 		)
 	</insert>
 	
+	<!-- 전체 문의수 조회 -->
+	<select id="getQuestionListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM "QUESTION"
+		WHERE
+			MEMBER_NO = #{memberNo}
+		AND QUESTION_DEL_FL = 'N'
+	</select>
+	
+	<!-- 전체 종류 조회 -->
+	<select id="getCategoryList" resultType="Notice">
+		SELECT QUESTION_CATEGORY_NO, QUESTION_CATEGORY_NAME
+		FROM "QUESTION_CATEGORY"
+	</select>
+	
+	<!-- 문의 조회 -->
+	<select id="getQuestionList" resultType="Notice">
+		SELECT
+			QUESTION_NO,
+			QUESTION_CONTENT,
+			(TO_CHAR(QUESTION_DATE, 'YY-MM-DD')) AS QUESTION_DATE,
+			QUESTION_ANS_FL,
+			QUESTION_ANSWER,
+			QUESTION_CATEGORY_NO,
+			(SELECT QUESTION_CATEGORY_NAME
+			 FROM QUESTION_CATEGORY QC
+			 WHERE QC.QUESTION_CATEGORY_NO = Q.QUESTION_CATEGORY_NO
+			 ) AS QUESTION_CATEGORY_NAME
+		FROM "QUESTION" Q
+		WHERE
+			MEMBER_NO = 1
+		AND QUESTION_DEL_FL = 'N'
+		ORDER BY QUESTION_NO DESC
+	</select>
+	
+	<!-- 1:1 문의사항 삭제하기 -->
+	<update id="deleteQuestion">
+		UPDATE "QUESTION"
+		SET QUESTION_DEL_FL = 'Y'
+		WHERE QUESTION_NO = #{questionNo}
+	</update>
+		
+	<!-- 전체 팔로우 수 조회 -->
+	<select id="getFollowListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM "FOLLOW"
+		WHERE
+			MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 전체 위시리스트 수 조회 -->
+	<select id="getWishListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM "WISH"
+		WHERE
+			MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 팔로우 목록 조회 -->
+	<select id="getFollowList" resultType="Member">
+		SELECT
+			ART.MEMBER_NO,
+			ART.ARTIST_PROFILE,
+			ART.ARTIST_NICKNAME
+		FROM
+			FOLLOW F
+		LEFT JOIN "ARTIST" ART ON (F.ARTIST_NO = ART.MEMBER_NO)
+		WHERE
+			F.MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 위시 목록 조회 -->
+	<select id="getWishList" resultType="Piece">
+		SELECT
+			W.PIECE_NO,
+			P.MEMBER_NO,
+			(SELECT ARTIST_NICKNAME
+			 FROM ARTIST A
+			 WHERE A.MEMBER_NO = P.MEMBER_NO) AS "ARTIST_NICKNAME",
+			P.PIECE_RENAME,
+			P.PIECE_TITLE,
+			P.PIECE_STATUS,
+			(TO_CHAR(PA.START_DATE, 'YYYY-MM-DD HH24:MI')) AS START_DATE,
+			(TO_CHAR(PA.START_DATE, 'MM/DD(DY)')) AS OPEN_DATE,
+			(TO_CHAR(PA.START_DATE, 'MM/DD(DY)')) AS PREVIEW_START_DATE,
+			(TO_CHAR(PA.START_DATE, 'MM/DD(DY)')) AS PREVIEW_END_DATE
+		FROM
+			WISH W
+		LEFT JOIN PIECE P ON (W.PIECE_NO = P.PIECE_NO)
+		LEFT JOIN PIECE_AUCTION PA ON (PA.PIECE_NO = W.PIECE_NO)
+		WHERE
+			W.MEMBER_NO = #{memberNo}
+		AND	P.PIECE_TYPE = 2
+		AND P.PIECE_STATUS IN ('A', 'S')
+		ORDER BY PIECE_NO
+	</select>
+	
 </mapper>

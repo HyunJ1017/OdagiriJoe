@@ -21,8 +21,8 @@ public class Piece {
 	private String pieceRename;
 	private String pieceTitle;
 	private String pieceDetail;
-	private int sizeX;
-	private int sizeY;
+	private double sizeX;
+	private double sizeY;
 	private String regDate;
 	private int pieceType;
 	private String pieceStatus;
@@ -33,14 +33,14 @@ public class Piece {
 	// 경매 작품 
 	private String startDate;
 	private String endDate;
-	private int startPrice;
-	private int hopePrice;
-	private int finalPrice;
+	private String startPrice;
+	private String hopePrice;
+	private String finalPrice;
 	
 	// 경매
 	private int auction;
 	private String bidDate;
-	private int endPrice;
+	private String endPrice;
 	
 	// 배송
 	private int deliveryNo;
@@ -50,9 +50,12 @@ public class Piece {
 	private String deliveryDate;
 	
 	// 판매작품
-	private int sellPrice;
+	private String sellPrice;
 	
-	
+	// ??
+	private String openDate;
+	private String previewStartDate;
+	private String previewEndDate;
 	
 	
 	

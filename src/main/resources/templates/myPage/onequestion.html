@@ -17,9 +17,11 @@
     <section class="inquiryInsert">
       <div id="insertBtn" class="member-hov">1:1 문의 남기기</div>
       <div class="detail display-none" id="insertQuestionBox">
+        <!-- 문의 종류목록 -->
         <select name="questionCategoryNo" id="questionCategoryNo">
-          <option value="1">일반문의</option>
-          <option value="2">배송 및 위탁문의</option>
+          <th:block th:each="questionCategory : ${categoryList}" th:object="${questionCategory}">
+            <option th:value="*{questionCategoryNo}" th:text="*{questionCategoryName}">일반문의</option>
+          </th:block>
         </select>
         <textarea
          name="questionContent"
@@ -31,187 +33,27 @@
     <section id="onequestion" class="inquiry-section">
       <ul class="inquiry-list">
 
-        <li class="inquiry-item">
-          <div>
-            <span class="icon">&#9654;</span>
-            <span class="content">1 : 1 문의 내용</span>
-          </div>
-          <div class="detail display-none">
-            <div>2024-11-14</div>
-            <div>문의내용 상세보기</div>
-          </div>
-          <div class="detail display-none">
-            <div>문의중 입니다</div>
-            <div>답변내용 상세보기</div>
-            <section class="inquiryInsert">
-              <div class="deleteBtn member-hov">삭제하기</div>
-            </section>
-          </div>
-        </li>
+        <!-- 문의목록 -->
+        <th:block th:each= "question : ${questionList}" th:object="${question}">
+          <li class="inquiry-item">
+            <div>
+              <span class="icon">&#9654;</span>
+              <span class="content" th:text="*{questionCategoryName}">1 : 1 문의 내용</span>
+            </div>
+            <div class="detail display-none">
+              <div th:text="|문의하신 날자 : *{questionDate}|">2024-11-14</div>
+              <div th:text="*{questionContent}">문의내용 상세보기</div>
+            </div>
+            <div class="detail display-none">
+              <div th:if= "*{questionAnsFl == 'N'}">문의중 입니다</div>
+              <div th:unless= "*{questionAnsFl == 'N'}" th:text="*{questionAnswer}">답변내용 상세보기</div>
+              <section class="inquiryInsert">
+                <div class="deleteBtn member-hov" th:data-question-no="*{questionNo}">삭제하기</div>
+              </section>
+            </div>
+          </li>
+      </th:block>
 
-        <li class="inquiry-item">
-          <div>
-            <span class="icon">&#9654;</span>
-            <span class="content">1 : 1 문의 내용</span>
-          </div>
-          <div class="detail display-none">
-            <div>2024-11-14</div>
-            <div>문의내용 상세보기</div>
-          </div>
-          <div class="detail display-none">
-            <div>문의중 입니다</div>
-            <div>답변내용 상세보기</div>
-            <section class="inquiryInsert">
-              <div class="deleteBtn member-hov">삭제하기</div>
-            </section>
-          </div>
-        </li>
-
-        <li class="inquiry-item">
-          <div>
-            <span class="icon">&#9654;</span>
-            <span class="content">1 : 1 문의 내용</span>
-          </div>
-          <div class="detail display-none">
-            <div>2024-11-14</div>
-            <div>문의내용 상세보기</div>
-          </div>
-          <div class="detail display-none">
-            <div>문의중 입니다</div>
-            <div>답변내용 상세보기</div>
-            <section class="inquiryInsert">
-              <div class="deleteBtn member-hov">삭제하기</div>
-            </section>
-          </div>
-        </li>
-
-        <li class="inquiry-item">
-          <div>
-            <span class="icon">&#9654;</span>
-            <span class="content">1 : 1 문의 내용</span>
-          </div>
-          <div class="detail display-none">
-            <div>2024-11-14</div>
-            <div>문의내용 상세보기</div>
-          </div>
-          <div class="detail display-none">
-            <div>문의중 입니다</div>
-            <div>답변내용 상세보기</div>
-            <section class="inquiryInsert">
-              <div class="deleteBtn member-hov">삭제하기</div>
-            </section>
-          </div>
-        </li>
-
-        <li class="inquiry-item">
-          <div>
-            <span class="icon">&#9654;</span>
-            <span class="content">1 : 1 문의 내용</span>
-          </div>
-          <div class="detail display-none">
-            <div>2024-11-14</div>
-            <div>문의내용 상세보기</div>
-          </div>
-          <div class="detail display-none">
-            <div>문의중 입니다</div>
-            <div>답변내용 상세보기</div>
-            <section class="inquiryInsert">
-              <div class="deleteBtn member-hov">삭제하기</div>
-            </section>
-          </div>
-        </li>
-
-        <li class="inquiry-item">
-          <div>
-            <span class="icon">&#9654;</span>
-            <span class="content">1 : 1 문의 내용</span>
-          </div>
-          <div class="detail display-none">
-            <div>2024-11-14</div>
-            <div>문의내용 상세보기</div>
-          </div>
-          <div class="detail display-none">
-            <div>문의중 입니다</div>
-            <div>답변내용 상세보기</div>
-            <section class="inquiryInsert">
-              <div class="deleteBtn member-hov">삭제하기</div>
-            </section>
-          </div>
-        </li>
-
-        <li class="inquiry-item">
-          <div>
-            <span class="icon">&#9654;</span>
-            <span class="content">1 : 1 문의 내용</span>
-          </div>
-          <div class="detail display-none">
-            <div>2024-11-14</div>
-            <div>문의내용 상세보기</div>
-          </div>
-          <div class="detail display-none">
-            <div>문의중 입니다</div>
-            <div>답변내용 상세보기</div>
-            <section class="inquiryInsert">
-              <div class="deleteBtn member-hov">삭제하기</div>
-            </section>
-          </div>
-        </li>
-
-        <li class="inquiry-item">
-          <div>
-            <span class="icon">&#9654;</span>
-            <span class="content">1 : 1 문의 내용</span>
-          </div>
-          <div class="detail display-none">
-            <div>2024-11-14</div>
-            <div>문의내용 상세보기</div>
-          </div>
-          <div class="detail display-none">
-            <div>문의중 입니다</div>
-            <div>답변내용 상세보기</div>
-            <section class="inquiryInsert">
-              <div class="deleteBtn member-hov">삭제하기</div>
-            </section>
-          </div>
-        </li>
-
-        <li class="inquiry-item">
-          <div>
-            <span class="icon">&#9654;</span>
-            <span class="content">1 : 1 문의 내용</span>
-          </div>
-          <div class="detail display-none">
-            <div>2024-11-14</div>
-            <div>문의내용 상세보기</div>
-          </div>
-          <div class="detail display-none">
-            <div>문의중 입니다</div>
-            <div>답변내용 상세보기</div>
-            <section class="inquiryInsert">
-              <div class="deleteBtn member-hov">삭제하기</div>
-            </section>
-          </div>
-        </li>
-
-        <li class="inquiry-item">
-          <div>
-            <span class="icon">&#9654;</span>
-            <span class="content">1 : 1 문의 내용</span>
-          </div>
-          <div class="detail display-none">
-            <div>2024-11-14</div>
-            <div>문의내용 상세보기</div>
-          </div>
-          <div class="detail display-none">
-            <div>문의중 입니다</div>
-            <div>답변내용 상세보기</div>
-            <section class="inquiryInsert">
-              <div class="deleteBtn member-hov">삭제하기</div>
-            </section>
-          </div>
-        </li>
-        
-        
       </ul>
     </section>
 

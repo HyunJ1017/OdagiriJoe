@@ -320,7 +320,7 @@ artistSubmit?.addEventListener("submit", (e) => {
 // 파일등록함수
 const profileUpload = () => {
   const formData = new FormData();
-  const fileRename = "profile" + memberNo + "." +  imgInput.files[0].name.split(".")[1];
+  const fileRename = "profile" + memberNo + "." +  imgInput.files[0].name.split(".").pop();
   formData.append("image", imgInput.files[0]);
   formData.append("fileName", fileRename);
 

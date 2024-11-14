@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,11 +66,35 @@ public class MyPageController {
 		return "myPage/artistAuction";
 	}
 	
+
 	/** 팔로우 및 위시리스트 페이지로 이동 (일반,작가)
-	 * @return 구매내역 페이지
+	 * @param memberLogin
+	 * @param artistLogin
+	 * ** 페이지네이션은 비동기로 작동
+	 * @param model
+	 * @return
 	 */
 	@GetMapping("followAndWish")
-	public String followAndWish() {
+	public String followAndWish(
+			@SessionAttribute(name = "memberLogin", required = false) Member memberLogin,
+			@SessionAttribute(name = "artistLogin", required = false) Member artistLogin,
+			Model model) {
+		
+		int memberNo = 0;
+		if(memberLogin != null) {
+			memberNo = memberLogin.getMemberNo();
+		} else {
+			memberNo = artistLogin.getMemberNo();
+		}
+		
+		// 팔로우, 위시리스트 얻어오기
+		Map<String, Object> map = service.followAndWish(memberNo);
+		
+		model.addAttribute("followList", map.get("followList"));
+		model.addAttribute("followPagination", map.get("followPagination"));
+		model.addAttribute("wishList", map.get("wishList"));
+		model.addAttribute("wishPagination", map.get("wishPagination"));
+		
 		return "myPage/followAndWish";
 	}
 	
@@ -163,7 +188,9 @@ public class MyPageController {
 	@GetMapping("onequestion")
 	public String onequestion(
 			@SessionAttribute(name = "memberLogin", required = false) Member memberLogin,
-			@SessionAttribute(name = "artistLogin", required = false) Member artistLogin) {
+			@SessionAttribute(name = "artistLogin", required = false) Member artistLogin,
+			@RequestParam(name="cp", required = false, defaultValue = "1") int currentPage,
+			Model model) {
 		
 		int memberNo = 0;
 		if(memberLogin != null) {
@@ -173,7 +200,11 @@ public class MyPageController {
 		}
 		
 		// 1:1문의내역, 문의카테고리, 페이지네이션 얻어오기
-		Map<String, Object> map = service.onequestion(memberNo);
+		Map<String, Object> map = service.onequestion(memberNo, currentPage);
+		
+		model.addAttribute("pagination", map.get("pagination"));
+		model.addAttribute("categoryList", map.get("categoryList"));
+		model.addAttribute("questionList", map.get("questionList"));
 		
 		return "myPage/onequestion";
 	}
@@ -186,5 +217,16 @@ public class MyPageController {
 	@ResponseBody
 	public int insertQuestion(@RequestBody Notice question) {
 		return service.insertQuestion(question);
+	}
+	
+	
+	/** 1:1 문의사항 삭제
+	 * @param questionNo
+	 * @return
+	 */
+	@GetMapping("deleteQuestion")
+	@ResponseBody
+	public int deleteQuestion(@RequestParam("questionNo") int questionNo) {
+		return service.deleteQuestion(questionNo);
 	}
 }

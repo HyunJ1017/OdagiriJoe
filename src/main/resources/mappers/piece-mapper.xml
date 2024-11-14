@@ -36,7 +36,50 @@
         WHERE PIECE_STATUS = 'F'
     </select>
 	
+	<!-- 작품등록(공통) -->
+	<insert id="pieceInsert">
+		INSERT INTO "PIECE"
+		VALUES(
+			#{pieceNo},
+			#{memberNo},
+			#{pieceRename},
+			#{pieceTitle},
+			#{pieceDetail},
+			#{sizeX},
+			#{sizeY},
+			DEFAULT,
+			#{pieceType},
+			#{pieceStatus},
+			#{pieceCategoryNo}
+		)
+	</insert>
+	<!-- 작품등록(즉시판매) -->
+	<insert id="pieceSellInert">
+		INSERT INTO "PIECE_SELL"
+		VALUES(
+			#{pieceNo},
+			#{sellPrice}
+		)
+	</insert>
+	<!-- 작품등록(경매) -->
+	<insert id="pieceAuctionInert">
+		INSERT INTO "PIECE_AUCTION"
+		VALUES(
+			#{pieceNo},
+			TO_DATE(#{startDate}, 'YYYYMMDD'),
+			TO_DATE(#{startDate} + 1, 'YYYYMMDD'),
+			#{startPrice},
+			#{hopePrice},
+			DEFAULT
+		)
+	</insert>
 	
+	<select id="getCategoryList" resultType="Category">
+		SELECT
+			PIECE_CATEGORY_NO AS CATEGORY_NO,
+			PIECE_CATEGORY_NAME AS CATEGORY_NAME
+		FROM PIECE_CATEGORY
+	</select>
 	
 	
 </mapper>

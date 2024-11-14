@@ -69,11 +69,13 @@ body {
 
 /* 폼 컨테이너 */
 .form-container {
+  min-width: 400px;
   flex: 1;
   padding-left: 20px;
   justify-content: space-between;
   flex-direction: column;
   margin-left: 100px;
+  position: relative;
 }
 
 .form-container h2 {
@@ -83,6 +85,16 @@ body {
 
 .form-group {
   margin-bottom: 15px;
+}
+#sizeInputBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+#sizeInputBox > input{
+  width: 0;
+  margin: 0 10px 0;
+  flex-grow: 1;
 }
 
 .form-group label {
@@ -111,6 +123,7 @@ body {
 /* 버튼 그룹 */
 .button-group {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   margin-top: 20px;
 }
@@ -154,4 +167,73 @@ body {
 #upload-header button:hover {
   background-color: #336633;
   color: white;
+}
+
+.auction-popup, .sale-popup{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.colstart{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.rowcenter{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.sale-popup>div, .auction-popup>div{width: 100%;}
+.sale-popup button, .auction-popup button{
+  height: 35px;
+  margin: 0 10px 0;
+  flex-grow: 1;
+  background-color: #336633;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1em;
+  border-radius: 5px;
+  cursor: pointer
+}
+.sale-popup input, .auction-popup input{
+  border: 2px solid #5e7c71;
+  height: 40px;
+  width: 100%;
+  margin: 5px 0 5px;
+  border-radius: 8px;
+  padding: 5px;
+}
+.sale-popup input:focus, .auction-popup input:focus{
+  outline: none;
+}
+.display-none{display: none !important;}
+/* 숫자 증감버튼 숨기기 */
+.auction-popup input::-webkit-inner-spin-button,  
+.auction-popup input::-webkit-outer-spin-button,
+.sale-popup input::-webkit-inner-spin-button,  
+.sale-popup input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* 날자입력 */
+#startDate {
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+/* 유효하지 않은 날짜 입력 시 스타일 */
+#startDate.invalid {
+  border: 1px solid red;
+  background-color: #ffe6e6; /* 연한 붉은색 배경 */
 }
