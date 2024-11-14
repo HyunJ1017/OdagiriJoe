@@ -33,7 +33,13 @@ public interface MyPageService {
 	int insertQuestion(Notice question);
 
 	// 1:1문의내역, 문의카테고리, 페이지네이션 얻어오기
-	Map<String, Object> onequestion(int memberNo);
+	Map<String, Object> onequestion(int memberNo, int currentPage);
+
+	// 1:1 문의사항 삭제
+	int deleteQuestion(int questionNo);
+
+	// 팔로우, 위시리스트 얻어오기
+	Map<String, Object> followAndWish(int memberNo);
 	
 
 }

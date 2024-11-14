@@ -1,9 +1,11 @@
 package edu.kh.plklj.member.service;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,11 +13,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Bucket;
 
+import edu.kh.plklj.common.util.Pagination;
 import edu.kh.plklj.main.dto.BankCode;
 import edu.kh.plklj.main.dto.Member;
 import edu.kh.plklj.member.mapper.LogInMapper;
 import edu.kh.plklj.member.mapper.MyPageMapper;
 import edu.kh.plklj.notice.dto.Notice;
+import edu.kh.plklj.piece.dto.Piece;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -105,9 +109,72 @@ public class MyPageServiceImpl implements MyPageService {
 	
 	// 1:1문의내역, 문의카테고리, 페이지네이션 얻어오기
 	@Override
-	public Map<String, Object> onequestion(int memberNo) {
+	public Map<String, Object> onequestion(int memberNo, int currentPage) {
 		
-		return null;
+		// 페이지 네이션 생성
+		int listCount = mapper.getQuestionListCount(memberNo);
+		Pagination pagination = new Pagination(currentPage, listCount, 10, 10);
+		int limit = pagination.getLimit();
+		int offset = (currentPage - 1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		// 문의 카테고리 불러오기
+		List<Notice> categoryList = mapper.getCategoryList();
+		
+		// 1:1문의 내역 불러오기
+		List<Notice> questionList = mapper.getQuestionList(memberNo, rowBounds);
+		
+		// 결과 담기
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("pagination", pagination);
+		resultMap.put("categoryList", categoryList);
+		resultMap.put("questionList", questionList);
+		
+		return resultMap;
+	}
+	
+	// 1:1 문의사항 삭제
+	@Override
+	public int deleteQuestion(int questionNo) {
+		return mapper.deleteQuestion(questionNo);
+	}
+	
+	// 팔로우, 위시리스트 얻어오기
+	@Override
+	public Map<String, Object> followAndWish(int memberNo) {
+		
+		// 페이지 네이션 생성
+		int currentPage = 1;
+		int listCount = mapper.getFollowListCount(memberNo);
+		Pagination pagination = new Pagination(currentPage, listCount, 10, 10);
+		int limit = pagination.getLimit();
+		int offset = (currentPage - 1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		// 페이지 네이션 생성2
+		int listCount2 = mapper.getWishListCount(memberNo);
+		Pagination pagination2 = new Pagination(currentPage, listCount2, 3, 10);
+		int limit2 = pagination2.getLimit();
+		int offset2 = (currentPage - 1) * limit2;
+		
+		RowBounds rowBounds2 = new RowBounds(offset2, limit2);
+		
+		// 팔로우 불러오기
+		List<Member> followList = mapper.getFollowList(memberNo, rowBounds);
+		
+		// 위시리스트 불러오기
+		List<Piece> wishList = mapper.getWishList(memberNo, rowBounds2);
+		
+		// 결과 담기
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("followPagination", pagination);
+		resultMap.put("wishPagination", pagination2);
+		resultMap.put("followList", followList);
+		resultMap.put("wishList", wishList);
+		
+		
+		return resultMap;
 	}
 	
 }

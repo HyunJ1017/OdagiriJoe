@@ -1,5 +1,5 @@
 // 문의사항 클릭시 세부내용 창을 여는 함수
-const inquiryClickEvect = () => {
+const inquiryClickEvent = () => {
   const items = document.querySelectorAll(".inquiry-item");
 
   items.forEach((item) => {
@@ -50,6 +50,45 @@ insertQuestion.addEventListener("click", () => {
   .catch(err => console.error(err));
 })
 
+// 삭제하기
+const deleteClickEvent = () => {
+  const deleteBtn = document.querySelectorAll(".deleteBtn");
+  deleteBtn.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation(); // 부모로의 이벤트 전파 중단
+
+      const questionNo = e.target.dataset.questionNo;
+      fetch("/member/myPage/deleteQuestion?questionNo=" + questionNo)
+        .then(response => {
+          if (response.ok) return response.json();
+          throw new Error("AJAX 통신 실패");
+        })
+        .then(result => {
+          if (result > 0) {
+            location.href = "/member/myPage/onequestion";
+          } else {
+            alert("다시 시도해 주세요.");
+          }
+        })
+        .catch(err => console.error(err));
+    }, { once: true }); // 이벤트 중복 방지를 위해 'once' 옵션 추가
+  });
+};
+
+/* 페이지네이션 */
+const pageNation = document.querySelector(".pagination");
+const pagenations = pageNation.querySelectorAll("a");
+
+pagenations.forEach((pagenation) => {
+  pagenation.addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log("된거야만거야");
+    if(e.target.classList.contains("current")) return;
+    location.href = location.pathname + "?cp=" + e.target.innerText;
+  });
+});
+
 document.addEventListener("DOMContentLoaded", ()=> {
-  inquiryClickEvect();
+  inquiryClickEvent();
+  deleteClickEvent();
 });

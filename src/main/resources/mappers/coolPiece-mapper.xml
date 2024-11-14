@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "edu.kh.plklj.piece.mapper.CoolPieceMapper">
+
+	<!-- 경매 불가날자 찾기 -->
+	<select id="getAuctionDate" resultType="AuctionDate">
+		SELECT
+			TO_CHAR(START_DATE, 'YYYY-MM-DD') AS "DATE",
+			COUNT(*) AS "DATA_COUNT"
+		FROM PIECE_AUCTION
+		GROUP BY TO_CHAR(START_DATE, 'YYYY-MM-DD')
+	</select>
+	
+	<!-- 작품번호 시퀀스 불러오기 -->
+	<select id="getPieceNo" resultType="_int">
+		SELECT SEQ_PIECE_NO.NEXTVAL FROM DUAL
+	</select>
+	
+</mapper>

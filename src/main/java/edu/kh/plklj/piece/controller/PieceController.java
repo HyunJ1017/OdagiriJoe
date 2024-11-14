@@ -5,12 +5,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.kh.plklj.common.util.Pagination;
+import edu.kh.plklj.piece.dto.Category;
 import edu.kh.plklj.piece.dto.Piece;
 import edu.kh.plklj.piece.service.PieceService;
 import lombok.RequiredArgsConstructor;
@@ -80,12 +84,32 @@ public class PieceController {
 	 * 
 	 */
 	@GetMapping("upload")
-	public String pieceUpload() {
+	public String pieceUpload(Model model) {
+		
+		List<Category> categoryList = service.getCategoryList();
+		model.addAttribute("categoryList", categoryList);
+		
 		return "online/pieceUpload";
 	}
 	
 	
-	
+	/** 작품등록
+	 * @param piece : 작품번호, 작가번호, 작품호출경로 등등
+	 * @return
+	 */
+	@PostMapping("upload")
+	public String pieceInsert(
+			@ModelAttribute Piece piece) {
+		
+		int result = service.pieceInsert(piece);
+		
+		if(result > 0) {
+			return "redirect:/main";
+		} else {
+			return "redirect:/piece/upload";
+		}
+		
+	}
 	
 
 	

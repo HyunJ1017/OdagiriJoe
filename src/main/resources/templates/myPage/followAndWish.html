@@ -20,49 +20,28 @@
       <h2>위시리스트</h2>
 
       <section>
-        <div class="content-div">
-          <div>
-            <h3>무제</h3>
-            <h4>작가명</h4>
-            <p>경매액 ₩50,000,000</p>
-            <p>15 x 30</p>
-            <div class="piece-detales">상세보기</div>
+
+        <!-- 위시리스트 -->
+        <th:block th:each= "wishList : ${wishList}" th:object="${wishList}">
+          <div class="content-div">
+            <div>
+              <h3 th:text="*{pieceTitle}">무제</h3>
+              <P th:text="|오픈일 *{openDate}|">11/09(금)</P>
+              <p th:text="|프리뷰 *{previewStartDate} ~ *{previewEndDate}|">11/09(토) ~ 11/20(수)</p>
+              <p th:text="|경매일 *{startDate}|">12월 6일 14:00</p>
+              <div class="piece-detales">상세보기</div>
+            </div>
+            <div>
+              <img th:src="*{pieceRename}" alt="사진" class="content-img">
+            </div>
           </div>
-          <div>
-            <img src="/images/artist1.jpg" alt="사진" class="content-img">
-          </div>
-        </div>
+        </th:block>
   
-        <div class="content-div">
-          <div>
-            <h3>무제</h3>
-            <h4>작가명</h4>
-            <p>경매액 ₩50,000,000</p>
-            <p>15 x 30</p>
-            <div class="piece-detales">상세보기</div>
-          </div>
-          <div>
-            <img src="#" alt="사진" class="content-img">
-          </div>
-        </div>
-  
-        <div class="content-div">
-          <div>
-            <h3>무제</h3>
-            <h4>작가명</h4>
-            <p>경매액 ₩50,000,000</p>
-            <p>15 x 30</p>
-            <div class="piece-detales">상세보기</div>
-          </div>
-          <div>
-            <img src="#" alt="사진" class="content-img">
-          </div>
-        </div>
       </section>
 
-      <section th:if= "${pagination}" class="pagination-area">
+      <section th:if= "${wishPagination}" class="pagination-area">
 
-        <ul class="pagination" th:object="${pagination}">
+        <ul class="pagination" th:object="${wishPagination}">
 
           <!-- 페이지 변경 foward -->
           <!-- 이제 10페이지 넘어가면 페이지 넘기는 버튼이 나올예정 -->
@@ -105,51 +84,20 @@
       <h2>팔로우</h2>
 
       <section class="follow-div">
-        <div class="following">
-          <img src="/images/artist1.jpg" alt="사진" class="artist-img">
-          <p>작가명</p>
-        </div>
-        <div class="following">
-          <img src="#" alt="사진" class="artist-img">
-          <p>작가명</p>
-        </div>
-        <div class="following">
-          <img src="/images/artist1.jpg" alt="사진" class="artist-img">
-          <p>작가명</p>
-        </div>
-        <div class="following">
-          <img src="#" alt="사진" class="artist-img">
-          <p>작가명</p>
-        </div>
-        <div class="following">
-          <img src="/images/artist1.jpg" alt="사진" class="artist-img">
-          <p>작가명</p>
-        </div>
-        <div class="following">
-          <img src="#" alt="사진" class="artist-img">
-          <p>작가명</p>
-        </div>
-        <div class="following">
-          <img src="/images/artist1.jpg" alt="사진" class="artist-img">
-          <p>작가명</p>
-        </div>
-        <div class="following">
-          <img src="#" alt="사진" class="artist-img">
-          <p>작가명</p>
-        </div>
-        <div class="following">
-          <img src="/images/artist1.jpg" alt="사진" class="artist-img">
-          <p>작가명</p>
-        </div>
-        <div class="following">
-          <img src="#" alt="사진" class="artist-img">
-          <p>작가명</p>
-        </div>
+
+        <!-- 팔로우작가 -->
+        <th:block th:each= "artist : ${followList}" th:object="${artist}">
+          <div class="following">
+            <img th:src="*{artistProfile}" alt="사진" class="artist-img" th:data-artist-no="*{memberNo}">
+            <p th:text="*{artistNickname}">작가명</p>
+          </div>
+        </th:block>
+
       </section>
 
-      <section th:if= "${pagination}" class="pagination-area">
+      <section th:if= "${followPagination}" class="pagination-area">
 
-        <ul class="pagination" th:object="${pagination}">
+        <ul class="pagination" th:object="${followPagination}">
 
           <!-- 페이지 변경 foward -->
           <!-- 이제 10페이지 넘어가면 페이지 넘기는 버튼이 나올예정 -->
@@ -173,7 +121,7 @@
             <li th:unless= "${i} == *{currentPage}">
               <a href="#" th:text="${i}">이동할 수 있는 페이지</a>
             </li>
-
+            
           </th:block>
 
           <th:block  th:if= "*{maxPage > pageSize}">
