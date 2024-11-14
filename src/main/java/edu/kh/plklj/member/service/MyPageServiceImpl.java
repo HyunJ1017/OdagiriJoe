@@ -15,6 +15,7 @@ import edu.kh.plklj.main.dto.BankCode;
 import edu.kh.plklj.main.dto.Member;
 import edu.kh.plklj.member.mapper.LogInMapper;
 import edu.kh.plklj.member.mapper.MyPageMapper;
+import edu.kh.plklj.notice.dto.Notice;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -92,8 +93,21 @@ public class MyPageServiceImpl implements MyPageService {
 	        throw new RuntimeException("ErrorCode.IMAGE_UPLOAD_FAILED");
 	    }
 		
-	    artist.setArtistPortfolio(blob);
+	    artist.setArtistPortfolio("portfolio/" + "portpolio" + artist.getMemberNo() + ext);
 	    return mapper.insertArtist(artist);
+	}
+	
+	// 1:1 문의사항 등록
+	@Override
+	public int insertQuestion(Notice question) {
+		return mapper.insertQuestion(question);
+	}
+	
+	// 1:1문의내역, 문의카테고리, 페이지네이션 얻어오기
+	@Override
+	public Map<String, Object> onequestion(int memberNo) {
+		
+		return null;
 	}
 	
 }

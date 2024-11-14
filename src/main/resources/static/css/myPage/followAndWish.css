@@ -20,7 +20,14 @@
 .myPage-main>.content-section>h2{
   color: #5e7c71;
 }
-.myPage-main>.content-section>.content-div{
+.myPage-main>.content-section>section{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0;
+}
+.myPage-main>.content-section>section>.content-div{
   align-self: center;
   width: 100%;
   margin: 20px;
@@ -32,36 +39,36 @@
 }
 
 /* 컨탠츠 내용 */
-#wishList-section>.content-div>div:first-child{
+#wishList-section>section>.content-div>div:first-child{
   flex-grow: 1;
   padding: 10px;
 }
-#wishList-section>.content-div>div:last-child{
+#wishList-section>section>.content-div>div:last-child{
   padding: 10px;
 }
-#wishList-section>.content-div>div>.content-img{
+#wishList-section>section>.content-div>div>.content-img{
   width: 180px; /* 고정 가로 크기 */
   height: 252px; /* 고정 세로 크기 */
   object-fit: cover; /* 비율을 유지하며 크기에 맞게 잘라냄 */
   display: block; /* 상속된 여백 제거 */
 }
-#wishList-section>.content-div>div:first-child{
+#wishList-section>section>.content-div>div:first-child{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
 }
-#wishList-section>.content-div>div>p{
+#wishList-section>section>.content-div>div>p{
   margin: 5px;
 }
-#wishList-section>.content-div>div>h3{
+#wishList-section>section>.content-div>div>h3{
   margin-top: 19px;
   margin-bottom: 0;
 }
-#wishList-section>.content-div>div>h4{
+#wishList-section>section>.content-div>div>h4{
   margin: 10px 0 10px;
 }
-#wishList-section>.content-div>div>.piece-detales{
+#wishList-section>section>.content-div>div>.piece-detales{
   margin: 10px 0 5px;
   border-radius: 10px;
   width: 135px;
@@ -74,7 +81,7 @@
   justify-content: center;
   align-items: center;
 }
-#wishList-section>.content-div>div>.piece-detales:hover{
+#wishList-section>section>.content-div>div>.piece-detales:hover{
   border: 2px solid #5e7c71;
   background-color: white;
   color: #5e7c71;

@@ -8,7 +8,7 @@ public interface ImageService {
 
 	int updateProfile(MultipartFile image, String fileName);
 	
-	int updatePeice(MultipartFile image, String fileName);
+	int updatePiece(MultipartFile image, String fileName);
 
 	byte[] getProfile(String filename);
 

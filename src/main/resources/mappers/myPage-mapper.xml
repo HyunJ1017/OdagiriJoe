@@ -58,4 +58,20 @@
 		)
 	</insert>
 	
+	
+	<!-- 1:1 문의사항 등록 -->
+	<insert id="insertQuestion">
+		INSERT INTO "QUESTION"
+		VALUES(
+			SEQ_QUESTION_NO.NEXTVAL,
+			#{memberNo},
+			#{questionContent},
+			DEFAULT,
+			DEFAULT,
+			DEFAULT,
+			NULL,
+			#{questionCategoryNo}
+		)
+	</insert>
+	
 </mapper>
