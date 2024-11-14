@@ -13,12 +13,12 @@
 .ongoingDetail {
   width: 90%;
   height: 500px;
-  border: 1px solid #333;
   background-image: url("/images/backimage.png");
   display: flex;
   justify-content: space-around;
   align-items: center;
   position: relative;
+  z-index: 1; /* 기본 박스가 뒤에 위치하도록 설정 */
 }
 
 .ongoing-status {
@@ -29,15 +29,12 @@
 .ongoingDetail-imageBox {
   width: 180px;
   height: 180px;
-  border: 1px solid #333;
 }
 
 
 .ongoingDetail-imageBox > img {
   width: 100%;
   height: 100%;
-  border: 1px solid #333;
-  background-color: #333;
 }
 
 
@@ -51,7 +48,89 @@
 
 /* ongoingDetail2 */
 .ongoingDetail2 {
-  width: 600px;
-  height: 800px;
-  border: 1px solid #333;
+  width: 550px;
+  height: 700px;
+  position: absolute; /* 겹쳐지도록 설정 */
+  top: 63%; /* 위치 조정 */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2; /* 위에 겹쳐지도록 설정 */
+}
+
+.ongoingDetail2-imageBox > img {
+  width: 100%;
+  height: 500px;
+}
+
+.like-box {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.ongoingdetail2-textBox {
+  display: flex;
+  flex-direction: column;
+  font-size: 21px;
+  gap: 15px;
+}
+
+
+.button-container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100%;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 0;
+}
+
+.ongoing-list-btn, .ongoing-report-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.ongoing-list-btn {
+  width: 65%;
+  background-color: #5e766d; /* 목록보기 버튼의 컬러 */
+  color: white;
+}
+
+.ongoing-report-btn {
+  width: 25%;
+  background-color: #9e6660; /* 신고 버튼의 컬러 */
+  color: white;
+}
+
+/* 호버 효과 */
+.ongoing-list-btn:hover {
+  background-color: #4b5e56;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.ongoing-report-btn:hover {
+  background-color: #804e4a;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 버튼 클릭 시 살짝 눌리는 효과 */
+.ongoing-list-btn:active, .ongoing-report-btn:active {
+  transform: scale(0.98);
+}
+
+
+
+/* dummy */
+.dummy {
+  width: 100%;
+  height: 630px;
 }
