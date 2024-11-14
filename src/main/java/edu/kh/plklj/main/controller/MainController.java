@@ -22,6 +22,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MainController {
 	private final MainService service;
+	
+	
 
 	// 메인 페이지 목록 조회
 	@GetMapping("")
