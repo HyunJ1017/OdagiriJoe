@@ -13,6 +13,7 @@ galleryItems.forEach((item) => {
     });
 });
 
+/* 드롭 다운 */
 document.addEventListener("DOMContentLoaded", function() {
   const sortBtn = document.getElementById("sortBtn");
   const dropdownContent = document.getElementById("dropdownContent");
@@ -32,6 +33,105 @@ document.addEventListener("DOMContentLoaded", function() {
   document.addEventListener("click", function() {
       dropdownContent.style.display = "none";
   });
+});
+
+
+
+/* 온란인 갤러리 목록 조회, 페이지네이션 */
+function loadPieces(page = 1) {
+    fetch(`/piece/online?page=${page}`)
+        .then(response => {
+          if(response.ok) { // HTTP 응답 상태 코드 200번(응답 성공)
+            return response.json(); // 응답 결과를 text로 파싱
+          }
+        })
+        .then(data => {
+
+           
+
+            
+            renderSalesList(data.salesPiece || []); // 판매 작품 목록 렌더링
+            renderPagination(data.salesPagination, 'salesPaginationBox', loadPieces);
+            renderCompletedList(data.completedPiece || []); // 완료 작품 목록 렌더링
+            renderPagination(data.complPagination, 'completedPaginationBox', loadPieces);
+            
+        })
+        .catch(err => console.error(err));
+}
+
+// 판매 작품 목록 렌더링
+function renderSalesList(items = []) {
+    const salesListContainer = document.querySelector('.online-list');
+    salesListContainer.innerHTML = items.map(item => `
+        <article class="gallery-item">
+            <div class="artwork-image" data-id="${item.pieceNo}">
+                <img src="">
+                <div class="artwork-info">
+                    <h3>${item.artistNickname}</h3>
+                    <p class="artwork-title">작품 : ${item.pieceTitle}</p>
+                    <div class="artwork-details">
+                        <p class="size">${item.sizeX} x ${item.sizeY}</p>
+                        <p class="price">현재가 (KRW)</p>
+                        <p class="amount">${item.sellPrice}</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+    `).join('');
+}
+
+// 완료 작품 목록 렌더링
+function renderCompletedList(items) {
+    const completedListContainer = document.querySelector('.online-list1');
+    completedListContainer.innerHTML = items.map(item => `
+        <article class="gallery-item">
+            <div class="artwork-image" data-id="${item.pieceNo}">
+                <img src="">
+                <div class="artwork-info">
+                    <h3>${item.artistNickname}</h3>
+                    <p class="artwork-title">작품 : ${item.pieceTitle}</p>
+                    <div class="artwork-details">
+                        <p class="size">${item.sizeX} x ${item.sizeY}</p>
+                        <p class="price">현재가 (KRW)</p>
+                        <p class="amount">${item.sellPrice}</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+    `).join('');
+}
+
+// 페이지네이션 렌더링 (판매 작품과 완료 작품 모두 사용)
+function renderPagination(pagination = {}, paginationBoxId, loadFunction) {
+    const paginationBox = document.getElementById(paginationBoxId);
+    paginationBox.innerHTML = '';
+
+    if (pagination.prevPage) {
+        const prevButton = document.createElement('button');
+        prevButton.innerText = '<';
+        prevButton.onclick = () => loadFunction(pagination.prevPage);
+        paginationBox.appendChild(prevButton);
+    }
+
+    for (let i = pagination.startPage; i <= pagination.endPage; i++) {
+        const pageButton = document.createElement('button');
+        pageButton.innerText = i;
+        pageButton.classList.add(i === pagination.currentPage ? 'active' : '');
+        pageButton.onclick = () => loadFunction(i);
+        paginationBox.appendChild(pageButton);
+    }
+
+    if (pagination.nextPage) {
+        const nextButton = document.createElement('button');
+        nextButton.innerText = '>';
+        nextButton.onclick = () => loadFunction(pagination.nextPage);
+        paginationBox.appendChild(nextButton);
+    }
+}
+
+// 초기 로드 시 첫 페이지 로드
+document.addEventListener('DOMContentLoaded', () => {
+    loadPieces(1); // 첫 페이지의 작품들을 로드
 });
 
 

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "edu.kh.plklj.piece.mapper.PieceMapper">
+
+	<!-- 판매 작품 페이징 조회 쿼리 -->
+    <select id="selectSalesPiece" resultType="Piece">
+        SELECT 
+        	P.PIECE_NO, PIECE_TITLE, SIZE_X, SIZE_Y,
+        	PIECE_STATUS, SELL_PRICE
+        FROM PIECE P
+        JOIN PIECE_SELL S ON (P.PIECE_NO = S.PIECE_NO)
+        WHERE PIECE_STATUS = 'N'
+        ORDER BY P.PIECE_NO DESC
+    </select>
+
+    <!-- 완료 작품 페이징 조회 쿼리 -->
+    <select id="selectCompletedPiece" resultType="Piece">
+		SELECT 
+        	P.PIECE_NO, PIECE_TITLE, SIZE_X, SIZE_Y,
+        	PIECE_STATUS, SELL_PRICE
+        FROM PIECE P
+        JOIN PIECE_SELL S ON (P.PIECE_NO = S.PIECE_NO)
+        WHERE PIECE_STATUS = 'F'
+        ORDER BY P.PIECE_NO DESC
+    </select>
+
+    <!-- 판매 작품 전체 개수 조회 쿼리 -->
+    <select id="countSalesPiece" resultType="int">
+        SELECT COUNT(*) FROM PIECE
+        WHERE PIECE_STATUS = 'N'
+    </select>
+
+    <!-- 완료 작품 전체 개수 조회 쿼리 -->
+    <select id="countCompletedPiece" resultType="int">
+        SELECT COUNT(*) FROM PIECE
+        WHERE PIECE_STATUS = 'F'
+    </select>
+	
+	
+	
+	
+</mapper>
