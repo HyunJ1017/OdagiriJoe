@@ -23,9 +23,18 @@ public class AuctionController {
 		/** 진행 경매 작품 상세 조회 페이지
 		 * 
 		 */
-		@GetMapping("auctionDetail")
+		@GetMapping("currentDetail")
 		public String auctionDetail() {
-			return "auction/auctionDetail";
+			return "auction/currentDetail";
+		}
+		
+		
+		/** 예정 경매 상세 페이지
+		 * 
+		 */
+		@GetMapping("ongoingDetail")
+		public String ongoingDetail() {
+			return "auction/ongoingDetail";
 		}
 		
 }
