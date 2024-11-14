@@ -1,0 +1,141 @@
+*{
+  box-sizing: border-box;
+}
+.myPage-main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 761px;
+}
+.myPage-main>h1{
+  color: #5e7c71;
+  margin: 30px 0 50px;
+}
+.inquiryInsert{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.myPage-main>.inquiryInsert{
+  width: 700px;
+}
+.detail>.inquiryInsert{
+  width: 98%;
+}
+/* 1:1 문의 */
+.inquiry-section {
+  max-width: 1000px;
+  margin: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.inquiry-section h2 {
+  font-size: 20px;
+  color: #3A4F48;
+  margin-bottom: 15px;
+}
+#onequestion .inquiry-list {
+  list-style-type: none;
+  border-radius: 8px;
+  padding: 10px 0;
+  width: 700px;
+}
+#onequestion .inquiry-item {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 20px;
+  border-top: 1px solid #3A4F48;
+  border-left: 1px solid #3A4F48;
+  border-right: 1px solid #3A4F48;
+}
+#onequestion .inquiry-item>div:first-child{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+}
+#onequestion .inquiry-item:last-child {
+  border-bottom: 1px solid #3A4F48;
+}
+#onequestion .inquiry-item:hover{
+  background-color: #5e7c7120;
+}
+#onequestion .inquiry-item:hover .content{
+  font-size: 18px;
+}
+#onequestion .icon {
+  font-size: 20px;
+  color: #3A4F48;
+  margin-right: 20px;
+}
+#onequestion .content {
+  font-size: 17px;
+  color: #3A4F48;
+  user-select: none;         /* 드레그방지 */
+  white-space: nowrap;       /* 텍스트를 한 줄로 제한 */
+  overflow: hidden;          /* 넘치는 텍스트를 숨김 */
+  text-overflow: ellipsis;   /* 넘친 부분에 ... 표시 */
+}
+#onequestion .detail {
+  width: 100%;
+  border: 1px solid #3A4F48;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+#onequestion .detail > *{
+  margin: 5px;
+}
+#myPage-main>.inquiryInsert>.member-hov{
+  width: 230px;
+  height: 35px;
+}
+.detail>.inquiryInsert>.member-hov{
+  width: 100px;
+  height: 30px;
+}
+#insertQuestionBox>.member-hov{
+  width: 100px;
+  height: 30px;
+}
+.member-hov{
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #5e7c71;
+  color: white;
+}
+.member-hov:hover{
+  cursor: pointer;
+  background: white;
+  border: 2px solid #5e7c71;
+  color: #5e7c71;
+}
+.display-none{
+  display: none !important;
+}
+#insertQuestionBox{
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+#insertQuestionBox>select{
+  height: 25px;
+  display: block;
+}
+#questionContent {
+  display: block;
+  margin: 10px 0 10px;
+  padding: 10px;
+  width: 450px;  /* 고정된 너비 */
+  height: 150px; /* 고정된 높이 */
+  resize: none;  /* 크기 조정 비활성화 */
+}

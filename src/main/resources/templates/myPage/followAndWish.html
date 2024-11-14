@@ -19,44 +19,85 @@
 
       <h2>위시리스트</h2>
 
-      <div class="content-div">
-        <div>
-          <h3>무제</h3>
-          <h4>작가명</h4>
-          <p>경매액 ₩50,000,000</p>
-          <p>15 x 30</p>
-          <div class="piece-detales">상세보기</div>
+      <section>
+        <div class="content-div">
+          <div>
+            <h3>무제</h3>
+            <h4>작가명</h4>
+            <p>경매액 ₩50,000,000</p>
+            <p>15 x 30</p>
+            <div class="piece-detales">상세보기</div>
+          </div>
+          <div>
+            <img src="/images/artist1.jpg" alt="사진" class="content-img">
+          </div>
         </div>
-        <div>
-          <img src="/images/artist1.jpg" alt="사진" class="content-img">
+  
+        <div class="content-div">
+          <div>
+            <h3>무제</h3>
+            <h4>작가명</h4>
+            <p>경매액 ₩50,000,000</p>
+            <p>15 x 30</p>
+            <div class="piece-detales">상세보기</div>
+          </div>
+          <div>
+            <img src="#" alt="사진" class="content-img">
+          </div>
         </div>
-      </div>
+  
+        <div class="content-div">
+          <div>
+            <h3>무제</h3>
+            <h4>작가명</h4>
+            <p>경매액 ₩50,000,000</p>
+            <p>15 x 30</p>
+            <div class="piece-detales">상세보기</div>
+          </div>
+          <div>
+            <img src="#" alt="사진" class="content-img">
+          </div>
+        </div>
+      </section>
 
-      <div class="content-div">
-        <div>
-          <h3>무제</h3>
-          <h4>작가명</h4>
-          <p>경매액 ₩50,000,000</p>
-          <p>15 x 30</p>
-          <div class="piece-detales">상세보기</div>
-        </div>
-        <div>
-          <img src="#" alt="사진" class="content-img">
-        </div>
-      </div>
+      <section th:if= "${pagination}" class="pagination-area">
 
-      <div class="content-div">
-        <div>
-          <h3>무제</h3>
-          <h4>작가명</h4>
-          <p>경매액 ₩50,000,000</p>
-          <p>15 x 30</p>
-          <div class="piece-detales">상세보기</div>
-        </div>
-        <div>
-          <img src="#" alt="사진" class="content-img">
-        </div>
-      </div>
+        <ul class="pagination" th:object="${pagination}">
+
+          <!-- 페이지 변경 foward -->
+          <!-- 이제 10페이지 넘어가면 페이지 넘기는 버튼이 나올예정 -->
+          <th:block th:if= "*{maxPage > pageSize}">
+            <!-- 첫 페이지로 이동 -->
+            <li><a href="#">&lt;&lt;</a></li>
+  
+            <!-- 이전 목록 마지막 번호로 이동 -->
+            <li><a href="#">&lt;</a></li>
+          </th:block>
+
+          <!-- 특정 페이지로 이동 -->
+          <th:block th:each= "i:*{#numbers.sequence(startPage, endPage)}">
+
+            <!-- 현재 보고있는 페이지 -->
+            <li th:if= "${i} == *{currentPage}">
+              <a class="current" th:text="${i}">현재페이지</a>
+            </li>
+  
+            <!-- 보고있지 않은 페이지 -->
+            <li th:unless= "${i} == *{currentPage}">
+              <a href="#" th:text="${i}">이동할 수 있는 페이지</a>
+            </li>
+
+          </th:block>
+
+          <th:block  th:if= "*{maxPage > pageSize}">
+            <!-- 다음 목록 시작 번호로 이동 -->
+            <li><a href="#">&gt;</a></li>
+  
+            <!-- 끝 페이지로 이동 -->
+            <li><a href="#">&gt;&gt;</a></li>
+          </th:block>
+        </ul>
+      </section>
 
     </section>
 
@@ -106,9 +147,44 @@
         </div>
       </section>
 
-      <div id="pagenation">
-        <span> 1 2 3 4 5 6 7 8 9 10 </span>
-      </div>
+      <section th:if= "${pagination}" class="pagination-area">
+
+        <ul class="pagination" th:object="${pagination}">
+
+          <!-- 페이지 변경 foward -->
+          <!-- 이제 10페이지 넘어가면 페이지 넘기는 버튼이 나올예정 -->
+          <th:block th:if= "*{maxPage > pageSize}">
+            <!-- 첫 페이지로 이동 -->
+            <li><a href="#">&lt;&lt;</a></li>
+  
+            <!-- 이전 목록 마지막 번호로 이동 -->
+            <li><a href="#">&lt;</a></li>
+          </th:block>
+
+          <!-- 특정 페이지로 이동 -->
+          <th:block th:each= "i:*{#numbers.sequence(startPage, endPage)}">
+
+            <!-- 현재 보고있는 페이지 -->
+            <li th:if= "${i} == *{currentPage}">
+              <a class="current" th:text="${i}">현재페이지</a>
+            </li>
+  
+            <!-- 보고있지 않은 페이지 -->
+            <li th:unless= "${i} == *{currentPage}">
+              <a href="#" th:text="${i}">이동할 수 있는 페이지</a>
+            </li>
+
+          </th:block>
+
+          <th:block  th:if= "*{maxPage > pageSize}">
+            <!-- 다음 목록 시작 번호로 이동 -->
+            <li><a href="#">&gt;</a></li>
+  
+            <!-- 끝 페이지로 이동 -->
+            <li><a href="#">&gt;&gt;</a></li>
+          </th:block>
+        </ul>
+      </section>
     </section>
     
     

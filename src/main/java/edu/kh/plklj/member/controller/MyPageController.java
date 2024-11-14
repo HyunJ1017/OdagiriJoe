@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import edu.kh.plklj.main.dto.BankCode;
 import edu.kh.plklj.main.dto.Member;
 import edu.kh.plklj.member.service.MyPageService;
+import edu.kh.plklj.notice.dto.Notice;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -89,10 +90,9 @@ public class MyPageController {
 	}
 	
 	
-	
 	/** 이름 수정하기
 	 * @param member
-	 * @return
+	 * @return 1,0
 	 */
 	@PostMapping("updateName")
 	@ResponseBody
@@ -102,7 +102,7 @@ public class MyPageController {
 	
 	/** 비밀번호 수정하기
 	 * @param map : 현재 비밀번호와, 재입력할 비밀번호
-	 * @return
+	 * @return 1,0
 	 */
 	@PostMapping("updatePw")
 	@ResponseBody
@@ -112,7 +112,7 @@ public class MyPageController {
 	
 	/** 전화번호 수정하기
 	 * @param map : 현재 비밀번호와, 재입력할 비밀번호
-	 * @return
+	 * @return 1,0
 	 */
 	@PostMapping("updatePhone")
 	@ResponseBody
@@ -122,7 +122,7 @@ public class MyPageController {
 	
 	
 	/** 은행리스트보내주기
-	 * @return
+	 * @return 은행리스트
 	 */
 	@GetMapping("getBankList")
 	@ResponseBody
@@ -141,6 +141,11 @@ public class MyPageController {
 	}
 	
 	
+	/** 작가신청
+	 * @param artist : 작가정보
+	 * @param inputArtistPortfolio : 입력받은 포트폴리오 파일
+	 * @return
+	 */
 	@PostMapping("insertArtist")
 	public String insertArtist(
 			@ModelAttribute Member artist,
@@ -151,10 +156,35 @@ public class MyPageController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("1")
-	public String test() {
-		return "myPage/test";
+	
+	/** 1:1문의 페이지로 이동
+	 * @return
+	 */
+	@GetMapping("onequestion")
+	public String onequestion(
+			@SessionAttribute(name = "memberLogin", required = false) Member memberLogin,
+			@SessionAttribute(name = "artistLogin", required = false) Member artistLogin) {
+		
+		int memberNo = 0;
+		if(memberLogin != null) {
+			memberNo = memberLogin.getMemberNo();
+		} else {
+			memberNo = artistLogin.getMemberNo();
+		}
+		
+		// 1:1문의내역, 문의카테고리, 페이지네이션 얻어오기
+		Map<String, Object> map = service.onequestion(memberNo);
+		
+		return "myPage/onequestion";
 	}
 	
-	
+	/** 1:1 문의사항 등록
+	 * @param question
+	 * @return
+	 */
+	@PostMapping("insertQuestion")
+	@ResponseBody
+	public int insertQuestion(@RequestBody Notice question) {
+		return service.insertQuestion(question);
+	}
 }

@@ -27,8 +27,13 @@ public class ImageController {
 	private final ImageService service;
 	
 	/** 대표이미지삽입
-	 * @param image
-	 * @param fileName
+	 * 
+	 * DB에 저장될 작품이름
+	 * profile/profile작품번호.확장자
+	 * (ex: profile/profile15.jpg)
+	 * 
+	 * @param image : 이미지파일
+	 * @param fileName : profile15.jpg 형태로 넘겨받기
 	 * @return
 	 * @throws IOException
 	 */
@@ -40,16 +45,23 @@ public class ImageController {
     }
 	
 	/** 작품이미지삽입
-	 * @param image
-	 * @param fileName
+	 * 
+	 * 작품 DB에 삽입하고 서비스에서 임폴트하여 호출하기
+	 * 
+	 * DB에 저장될 작품이름
+	 * piece/piece작품번호.확장자
+	 * (ex: piece/piece16.jpg)
+	 * 
+	 * @param image : 이미지파일
+	 * @param fileName : piece16.jpg 형태로 넘겨받기
 	 * @return
 	 * @throws IOException
 	 */
-	@PostMapping("peice")
+	@PostMapping("piece")
 	@ResponseBody
-	public int updatePeice(@RequestParam("image") MultipartFile image,
+	public int updatePiece(@RequestParam("image") MultipartFile image,
 			@RequestParam("fileName") String fileName) throws IOException {
-		return service.updatePeice(image, fileName );
+		return service.updatePiece(image, fileName );
 	}
 	
 	/** 대표작품 불러오기
@@ -71,7 +83,7 @@ public class ImageController {
 	 * @param filename
 	 * @return
 	 */
-	@GetMapping("/peice/{filename}")
+	@GetMapping("/piece/{filename}")
 	public ResponseEntity<byte[]> downloadPiece(@PathVariable("filename") String filename) {
 		byte[] content = service.getPiece(filename);  // byte[]로 반환
 		

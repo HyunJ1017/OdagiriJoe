@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.plklj.main.dto.BankCode;
 import edu.kh.plklj.main.dto.Member;
+import edu.kh.plklj.notice.dto.Notice;
 
 public interface MyPageService {
 
@@ -27,6 +28,12 @@ public interface MyPageService {
 
 	// 작가 등록
 	int insertArtist(Member artist, MultipartFile inputArtistPortfolio);
+
+	// 1:1 문의사항 등록
+	int insertQuestion(Notice question);
+
+	// 1:1문의내역, 문의카테고리, 페이지네이션 얻어오기
+	Map<String, Object> onequestion(int memberNo);
 	
 
 }

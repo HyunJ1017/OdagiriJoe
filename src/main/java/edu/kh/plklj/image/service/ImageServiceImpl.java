@@ -43,8 +43,8 @@ public class ImageServiceImpl implements ImageService {
 	
 	// 작품 저장
 	@Override
-	public int updatePeice(MultipartFile image, String fileName) {
-		String blob = "peice/" + fileName;
+	public int updatePiece(MultipartFile image, String fileName) {
+		String blob = "piece/" + fileName;
 		try {
 			// 기존 파일 삭제
 			Blob existingBlob = bucket.get(blob);
@@ -77,7 +77,7 @@ public class ImageServiceImpl implements ImageService {
 	// 작품 불러오기
 	@Override
 	public byte[] getPiece(String filename) {
-		Blob blob = bucket.get("peice/" + filename);
+		Blob blob = bucket.get("piece/" + filename);
 		if (blob == null) {
 			throw new RuntimeException("File not found");
 		}

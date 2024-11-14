@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import edu.kh.plklj.main.dto.BankCode;
 import edu.kh.plklj.main.dto.Member;
+import edu.kh.plklj.notice.dto.Notice;
 
 @Mapper
 public interface MyPageMapper {
@@ -22,5 +23,7 @@ public interface MyPageMapper {
 	int checkNickname(String inputNickname);
 
 	int insertArtist(Member artist);
+
+	int insertQuestion(Notice question);
 
 }
