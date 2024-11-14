@@ -1,28 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace = "edu.kh.plklj.main.mapper.MainMapper">
+<mapper namespace="edu.kh.plklj.main.mapper.MainMapper">
 
-  <!-- 최신 온라인 갤러리 조회 -->
-  <select id="selectOnlineGalleryList" resultType="Piece">
-	SELECT PIECE_NO, MEMBER_NO, PIECE_RENAME, PIECE_TITLE, SIZE_X, SIZE_Y, PIECE_CATEGORY_NO, ARTIST_NICKNAME, SELL_PRICE
-	FROM PIECE
-	JOIN ARTIST USING(MEMBER_NO)
-	JOIN PIECE_SELL USING(PIECE_NO)
-	WHERE PIECE_TYPE = 1
-	ORDER BY PIECE_NO DESC
-	FETCH FIRST 10 ROWS ONLY
-  </select> 
-  
-  <!-- 최신 경매 조회 -->
-  <select id="selectAuctionsList" resultType="Piece">
-	SELECT PIECE_NO, MEMBER_NO, PIECE_RENAME, PIECE_TITLE, SIZE_X, SIZE_Y, PIECE_CATEGORY_NO, ARTIST_NICKNAME, START_PRICE, HOPE_PRICE
-	FROM PIECE
-	JOIN ARTIST USING(MEMBER_NO)
-	JOIN PIECE_AUCTION USING(PIECE_NO)
-	WHERE PIECE_TYPE = 2
-	AND PIECE_STATUS = 'S'
-	ORDER BY PIECE_NO DESC
-	FETCH FIRST 3 ROWS ONLY
-  </select> 
+	<!-- 메인 슬라이드쇼-->
+	<select id="selectShowViewing" resultType="Piece">
+		SELECT PIECE_NO, MEMBER_NO, PIECE_TITLE, START_DATE, END_DATE, PIECE_RENAME
+		FROM PIECE_AUCTION
+		JOIN PIECE USING(PIECE_NO)
+		WHERE PIECE_STATUS = 'F'
+		AND PIECE_TYPE = 2
+		ORDER BY END_DATE DESC
+	</select>
 	
+	<!-- 최신 온라인 갤러리 조회 -->
+	<select id="selectOnlineGalleryList" resultType="Piece">
+		SELECT PIECE_NO, MEMBER_NO, PIECE_RENAME, PIECE_TITLE, SIZE_X, SIZE_Y,
+		PIECE_CATEGORY_NO, ARTIST_NICKNAME, SELL_PRICE
+		FROM PIECE
+		JOIN ARTIST USING(MEMBER_NO)
+		JOIN PIECE_SELL USING(PIECE_NO)
+		WHERE PIECE_TYPE = 1
+		ORDER BY PIECE_NO DESC
+		FETCH FIRST 10 ROWS ONLY
+	</select>
+
+	<!-- 최신 경매 조회 -->
+	<select id="selectAuctionsList" resultType="Piece">
+		SELECT PIECE_NO, MEMBER_NO, PIECE_RENAME, PIECE_TITLE, SIZE_X, SIZE_Y,
+		PIECE_CATEGORY_NO, ARTIST_NICKNAME, START_PRICE, HOPE_PRICE
+		FROM PIECE
+		JOIN ARTIST USING(MEMBER_NO)
+		JOIN PIECE_AUCTION USING(PIECE_NO)
+		WHERE PIECE_TYPE = 2
+		AND PIECE_STATUS = 'S'
+		ORDER BY PIECE_NO DESC
+		FETCH FIRST 3 ROWS ONLY
+	</select>
+
 </mapper>

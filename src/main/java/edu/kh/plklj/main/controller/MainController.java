@@ -28,9 +28,11 @@ public class MainController {
 	public String main(Model model) {
 		Map<String, Object> map = service.mainPage();
 
+		List<Piece> showViewing = (List<Piece>) map.get("showViewing");
 		List<Piece> onlineGallery = (List<Piece>) map.get("onlineGallery");
 		List<Piece> auctions = (List<Piece>) map.get("auctions");
 		
+		model.addAttribute("showViewing", showViewing);
 		model.addAttribute("onlineGallery", onlineGallery);
 		model.addAttribute("auctions", auctions);
 

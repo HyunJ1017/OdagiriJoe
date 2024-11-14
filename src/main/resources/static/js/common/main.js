@@ -61,62 +61,40 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 //-------------------------------------------------------------
-let slideIndices = {
-  main: 0,
-  auction: 0
-};
+let auctionSlideIndex = 0;
+const auctionSlidesContainer = document.querySelector('.auctions-slider');
+const auctionSlides = document.querySelectorAll('.auctions-item');
+const auctionTotalSlides = auctionSlides.length;
+const auctionProgressBar = document.querySelector('.progress-bar');
+let auctionSlideTimer = null;
 
-const slideTimers = {
-  main: null,
-  auction: null
-};
-
-function showSlides(sliderName) {
-  const slidesContainer = document.querySelector(`.${sliderName}-slider .slides`);
-  const slides = document.querySelectorAll(`.${sliderName}-slider .auctions-item, .${sliderName}-slider .slide`);
-  const totalSlides = slides.length - 1;
-
-  slideIndices[sliderName]++;
-  slidesContainer.style.transition = 'transform 6s ease-in-out';
-  slidesContainer.style.transform = `translateX(-${slideIndices[sliderName] * 100}vw)`;
-
-  if (slideIndices[sliderName] === totalSlides) {
-    setTimeout(() => {
-      slidesContainer.style.transition = 'none';
-      slideIndices[sliderName] = 0;
-      slidesContainer.style.transform = `translateX(0vw)`;
-      setTimeout(() => {
-        slidesContainer.style.transition = 'transform 6s ease-in-out';
-      }, 50);
-    }, 6000);
+function showAuctionSlides() {
+  auctionSlideIndex++;
+  if (auctionSlideIndex >= auctionTotalSlides) {
+    auctionSlideIndex = 0;
   }
-
-  updateProgressBar(sliderName, 6000);
-  slideTimers[sliderName] = setTimeout(() => showSlides(sliderName), 11000);
+  auctionSlidesContainer.style.transition = 'transform 6s ease-in-out';
+  auctionSlidesContainer.style.transform = `translateX(-${auctionSlideIndex * 100}%)`;
+  updateAuctionProgressBar(5000);
+  auctionSlideTimer = setTimeout(showAuctionSlides, 11000); // 다음 슬라이드 전환 시간 설정
 }
 
-function updateProgressBar(sliderName, duration = 1000) {
-  const progressBar = document.querySelector(`.${sliderName}-progress`);
-  const totalSlides = document.querySelectorAll(`.${sliderName}-slider .auctions-item, .${sliderName}-slider .slide`).length - 1;
-  const progressPercentage = ((slideIndices[sliderName] % totalSlides) / totalSlides) * 100;
-  progressBar.style.width = `${progressPercentage}%`;
-  progressBar.style.transition = `width ${duration}ms ease-in-out`;
+function updateAuctionProgressBar(duration = 5000) {
+  const progressPercentage = ((auctionSlideIndex % auctionTotalSlides) / auctionTotalSlides) * 100;
+  auctionProgressBar.style.width = `${progressPercentage}%`;
+  auctionProgressBar.style.transition = `width ${duration}ms ease-in-out`;
 }
 
-function moveSlide(sliderName, n) {
-  const slidesContainer = document.querySelector(`.${sliderName}-slider .slides`);
-  const totalSlides = document.querySelectorAll(`.${sliderName}-slider .auctions-item, .${sliderName}-slider .slide`).length - 1;
+function moveAuctionSlide(n) {
+  auctionSlideIndex = (auctionSlideIndex + n + auctionTotalSlides) % auctionTotalSlides;
+  auctionSlidesContainer.style.transition = 'transform 1s ease-in-out';
+  auctionSlidesContainer.style.transform = `translateX(-${auctionSlideIndex * 100}%)`;
+  updateAuctionProgressBar(1000);
 
-  slideIndices[sliderName] = (slideIndices[sliderName] + n + totalSlides) % totalSlides;
-  slidesContainer.style.transition = 'transform 1s ease-in-out';
-  slidesContainer.style.transform = `translateX(-${slideIndices[sliderName] * 100}vw)`;
-  updateProgressBar(sliderName, 1000);
-
-  clearTimeout(slideTimers[sliderName]);
-  slideTimers[sliderName] = setTimeout(() => showSlides(sliderName), 6000);
+  clearTimeout(auctionSlideTimer);
+  auctionSlideTimer = setTimeout(showAuctionSlides, 6000);
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  showSlides('main');
-  showSlides('auction');
+  showAuctionSlides();
 });
