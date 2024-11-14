@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>공지사항 작성</title>
+  <link rel="stylesheet" href="/css/manage/noticeRevise.css">
+  <th:block th:replace= "~{/common/common}"></th:block>
+</head>
+<body>
+  <!-- 헤더 -->
+  <th:block th:replace="~{common/header}"></th:block>
+  
+  <main>
+    <section class="container">
+      <h1 class="title">공지사항 작성</h1>
+    </section>
+    <button class="save-button">임시저장</button>
+
+    <section>
+      <form action="notice-form">
+        <label for="title">제목</label>
+        <input type="text" id="title" class="input-title">
+
+        <label for="context">내용</label>
+        <textarea id="content" class="input-content"></textarea>
+      </form>
+    </section>
+
+    <button class="write-button">작성하기</button>
+  </main>
+  <!-- 푸터 -->
+  <th:block th:replace= "~{/common/footer.html}"></th:block>
+
+ </body>
+</html>

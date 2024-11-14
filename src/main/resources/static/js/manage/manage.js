@@ -22,8 +22,48 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+/* 토글 기능 추가 */
+
+// 모든 아이콘 요소 선택
+document.querySelectorAll(".faq-item .question-row").forEach(row => {
+  row.addEventListener("click", () => {
+    const answer = row.nextElementSibling;
+    const buttons = answer.nextElementSibling;
+
+    // answer요소가 숨겨져 있거나 스타일이 지정되어 있지 않을 경우
+    if (answer.style.display === "none" || !answer.style.display) {
+      // answer 요소를 보이도록 함
+      answer.style.display = "block";
+      // bottons 요소를 보이도록 하고  flex 레이아웃 적용
+      buttons.style.display = "flex";
+      row.querySelector(".icon").textContent = "▼";
+    } else {
+      answer.style.display = "none";
+      buttons.style.display = "none";
+      row.querySelector(".icon").textContent = "▶";
+    }
+  });
+});
 
 
+  // 1:1 문의 토글 기능
+// 1:1 문의 토글 기능
+document.querySelectorAll(".inquiry-section .inquiry-row").forEach(row => {
+  row.addEventListener("click", () => {
+    const details = row.nextElementSibling;
+    const buttons = details.querySelector(".inquiry-buttons");
+
+    if (details.style.display === "none" || !details.style.display) {
+      details.style.display = "flex";
+      buttons.style.display = "flex"; // 버튼들이 보이도록 설정
+      row.querySelector(".icon").textContent = "▼";
+    } else {
+      details.style.display = "none";
+      buttons.style.display = "none"; // 버튼들이 사라지도록 설정
+      row.querySelector(".icon").textContent = "▶";
+    }
+  });
+});
 
 /* 페이지네이션 */
 // 공통 페이지네이션 함수
@@ -39,14 +79,14 @@ function applyPagination(items, paginationContainer, itemsPerPage = 4) {
 
     // 모든 항목을 순회하면서, 현재 페이지 범위에 속하는 항목만 표시하고 나머지는 숨김
     items.forEach((item, index) => {
-      if(item.style.display = index >= start && index < end){
-        if(item.tagName === 'TR'){
-          item.style.display ="table-row";
+      if (item.style.display = index >= start && index < end) {
+        if (item.tagName === 'TR') {
+          item.style.display = "table-row";
         } else {
-          item.style.display ="block";
+          item.style.display = "block";
         }
       } else {
-        item.style.display ="none";
+        item.style.display = "none";
       }
     });
   }
@@ -109,6 +149,8 @@ function applyPagination(items, paginationContainer, itemsPerPage = 4) {
     paginationContainer.appendChild(nextBtn); // 다음 버튼을 페이지네이션 컨테이너에 추가
   }
 
+
+
   displayItems(currentPage); // 첫 페이지의 항목을 표시
   setupPagination(items.length); // 페이지네이션 버튼을 초기화
 }
@@ -121,8 +163,8 @@ const contentPagination = document.getElementById("pagination"); // 콘텐츠 �
 applyPagination(contentItems, contentPagination, 4); // 콘텐츠 관리 섹션에 페이지네이션 적용
 
 // 승인 요청 내역
-const acceptItems =Array.from(document.querySelectorAll(".request-grid .request-card"));
-const acceptPagination  = document.createElement("div");
+const acceptItems = Array.from(document.querySelectorAll(".request-grid .request-card"));
+const acceptPagination = document.createElement("div");
 acceptPagination.classList.add("pagination");
 document.querySelector(".accept-list").appendChild(acceptPagination);
 applyPagination(acceptItems, acceptPagination, 5);
@@ -150,11 +192,10 @@ applyPagination(salesItems, salesPagination, 4); // 작가 환전 섹션에 페�
 
 // 1:1 문의
 const inquiryItems = Array.from(document.querySelectorAll(".inquiry-list .inquiry-item")); // 1:1 문의 섹션의 항목 배열 가져오기
-const inquiryPagination = document.createElement("div"); // 페이지네이션 컨테이너 생성
+const inquiryPagination = document.createElement("ul"); // 페이지네이션 컨테이너 생성
 inquiryPagination.classList.add("pagination"); // 페이지네이션 컨테이너에 'pagination' 클래스 추가
 document.querySelector(".inquiry-section").appendChild(inquiryPagination); // 1:1 문의 섹션에 페이지네이션 컨테이너 추가
 applyPagination(inquiryItems, inquiryPagination, 5); // 1:1 문의 섹션에 페이지네이션 적용
-
 
 
 
