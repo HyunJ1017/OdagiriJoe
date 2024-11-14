@@ -17,10 +17,11 @@ public class MainServiceImpl implements MainService{
 
 	@Override
 	public Map<String, Object> mainPage() {
+		List<Piece> showViewing = mapper.selectShowViewing();
 		List<Piece> onlineGallery = mapper.selectOnlineGalleryList();
 		List<Piece> auctions = mapper.selectAuctionsList();
 		
-		Map<String, Object> map = Map.of("onlineGallery", onlineGallery, "auctions", auctions);
+		Map<String, Object> map = Map.of("showViewing", showViewing, "onlineGallery", onlineGallery, "auctions", auctions);
 	return map;
 	}
 	
