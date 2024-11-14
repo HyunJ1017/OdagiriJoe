@@ -24,14 +24,18 @@ public class HowToController {
 			) {
 		
 		// 공지사항 리스트 조회
-		List<Question> list = service.questionList();
+		List<Question> questionList = service.questionList();
 		
 		
-		System.out.println(list);
+		// list가 null 이거나 isEmpty()는 리스트가 비어 있는지 검사
+		 if (questionList == null || questionList.isEmpty()) {
+       System.out.println("questionList is empty or null");
+		 }
 		
+		model.addAttribute("questionList", questionList);
 		
 
-	    return "howto/howToMain"; 
+    return "howto/howToMain"; 
 	}
 
 	

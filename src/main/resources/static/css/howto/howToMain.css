@@ -2,6 +2,10 @@
   color:#5e7c71;
 }
 
+a {
+  text-decoration: none;
+}
+
 /* 메인 컨텐츠 영역 */
 #howTo {
   padding-top: 30vh;
@@ -242,8 +246,9 @@
 
 .faq-answer {
   color: #333;
-  width: 100%;
-  padding: 10px 10px 20px 106px;
+  width: 80%;
+  padding: 10px 10px 20px 0;
+  margin-left: 50px;
 }
 
 .faq-question {
