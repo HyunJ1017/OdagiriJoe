@@ -8,6 +8,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-decoration-line: none;
 }
 
 main {
@@ -117,6 +118,7 @@ main {
   left: -5%;
   visibility: hidden;
   opacity: 0;
+  color: #ffffff;
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
@@ -216,7 +218,7 @@ main {
 .side-menu {
   position: fixed;
   top: 0;
-  right: -300px;
+  right: -3000px;
   width: 300px;
   height: 100%;
   background-color: #ffffff;
