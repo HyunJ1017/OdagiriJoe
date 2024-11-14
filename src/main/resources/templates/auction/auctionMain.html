@@ -9,7 +9,6 @@
   <link rel="stylesheet" href="/css/auction/auctionMain.css">
 </head>
 <body>
-  
   <th:block th:replace="~{common/common}"></th:block>
     
   <main id="howTo"> 
@@ -26,12 +25,12 @@
         
         <div class="upcoming-text">
           <h1>무제</h1>
-          <div style="margin-top: 20px;">프리뷰</div>
+          <div style="margin-top: 35px;">프리뷰</div>
           <div style="margin-top: 8px;">11월 09일(수) ~ 11월 19일(월)</div>
-          <div style="margin-top: 40px;">경매일</div>
+          <div style="margin-top: 25px;">경매일</div>
           <div style="margin-top: 8px;">12월 10일 14:00</div>
           <hr class="dotted-line">
-          <button class="detail-button">상세보기</button>
+          <button class="detail-button" id="ongoingBtn">상세보기</button>
         </div>
       </div>
       
@@ -43,12 +42,12 @@
         
         <div class="upcoming-text">
           <h1>무제</h1>
-          <div style="margin-top: 20px;">프리뷰</div>
+          <div style="margin-top: 35px;">프리뷰</div>
           <div style="margin-top: 8px;">11월 09일(수) ~ 11월 19일(월)</div>
-          <div style="margin-top: 40px;">경매일</div>
+          <div style="margin-top: 25px;">경매일</div>
           <div style="margin-top: 8px;">12월 10일 14:00</div>
           <hr class="dotted-line">
-          <button class="detail-button">상세보기</button>
+          <button class="detail-button" id="ongoingBtn">상세보기</button>
         </div>
       </div>
       
@@ -66,7 +65,7 @@
           <div style="margin-top: 8px;">프리뷰 11/09(토) ~ 11/20(수)</div>
           <div style="margin-top: 8px;">경매일 12월 06일 14:00</div>
           <hr class="dotted-line2">
-          <button class="detail-button2">상세보기</button>
+          <button class="detail-button2" id="currentBtn">상세보기</button>
         </div>
 
         <div class="ongoing-imgbox">
@@ -81,7 +80,7 @@
           <div style="margin-top: 8px;">프리뷰 11/09(토) ~ 11/20(수)</div>
           <div style="margin-top: 8px;">경매일 12월 06일 14:00</div>
           <hr class="dotted-line2">
-          <button class="detail-button2">상세보기</button>
+          <button class="detail-button2" id="currentBtn">상세보기</button>
         </div>
 
         <div class="ongoing-imgbox">
@@ -96,7 +95,7 @@
           <div style="margin-top: 8px;">프리뷰 11/09(토) ~ 11/20(수)</div>
           <div style="margin-top: 8px;">경매일 12월 06일 14:00</div>
           <hr class="dotted-line2">
-          <button class="detail-button2">상세보기</button>
+          <button class="detail-button2" id="currentBtn">상세보기</button>
         </div>
 
         <div class="ongoing-imgbox">
@@ -206,6 +205,6 @@
 
   <th:block th:replace= "~{/common/footer.html}"></th:block>
 
-  <script src="/js/howto/howToMain.js"></script>
+  <script src="/js/auction/auctionMain.js"></script>
 </body>
 </html>

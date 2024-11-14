@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ongoing Auction Detail</title>
+
+  <link rel="stylesheet" href="/css/auction/ongoingDetail.css">
+  <link rel="stylesheet" href="/css/howto/howToMain.css">
+</head>
+<body>
+  <th:block th:replace="~{common/common}"></th:block>
+    
+  <main id="ongoinAuction"> 
+
+    <section class="ongoingDetail">
+      <h1 class="ongoing-status" style="font-size: 26px;">무제 :: OPEN</h1>
+
+      <div class="ongoingDetail-imageBox">
+        <img src="/images/onlineGallery5.jpg">
+        <div>
+          <h3>Hours</h3>
+        </div>
+      </div>
+
+      <div class="ongoingDetail-imageBox">
+        <img src="/images/onlineGallery5.jpg">
+        <div>
+          <h3>Hours</h3>
+        </div>
+      </div>
+
+      <div class="ongoingDetail-imageBox">
+        <img src="/images/onlineGallery5.jpg">
+        <div>
+          <h3>Hours</h3>
+        </div>
+      </div>
+    </section>
+
+    <section class="ongoingDetail2">
+      <div class="ongoingDetail2-imageBox">
+        <img src=""></img>
+        <div>
+          <i class="fa-regular fa-heart"></i>
+        </div>
+        <div>
+          <span>오픈일 11/08(금)</span>
+          <span>프리뷰 11/09(토) ~ 11/20(수)</span>
+          <span>경매일 12월 6일 14:00</span>
+        </div>
+        <div>
+          <button class="ongoingListBtn">목록보기</button>
+          <button class="ongoingReportBtn">신고</button>
+        </div>
+      </div>
+    </section>
+
+    
+  </main>
+
+
+
+  <th:block th:replace= "~{/common/footer.html}"></th:block>
+
+  <script src="/js/howto/howToMain.js"></script>
+</body>
+</html>

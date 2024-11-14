@@ -1,0 +1,57 @@
+#ongoinAuction {
+  padding-top: 20vh;
+  width: 100%;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  margin-bottom: 100px; /* 하단에 여백 추가 */
+}
+
+.ongoingDetail {
+  width: 90%;
+  height: 500px;
+  border: 1px solid #333;
+  background-image: url("/images/backimage.png");
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+}
+
+.ongoing-status {
+  position: absolute;
+  top: 40px;
+}
+
+.ongoingDetail-imageBox {
+  width: 180px;
+  height: 180px;
+  border: 1px solid #333;
+}
+
+
+.ongoingDetail-imageBox > img {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #333;
+  background-color: #333;
+}
+
+
+.ongoingDetail-imageBox > div {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ongoingDetail2 */
+.ongoingDetail2 {
+  width: 600px;
+  height: 800px;
+  border: 1px solid #333;
+}
