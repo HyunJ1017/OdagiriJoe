@@ -6,9 +6,10 @@
     <select id="selectSalesPiece" resultType="Piece">
         SELECT 
         	P.PIECE_NO, PIECE_TITLE, SIZE_X, SIZE_Y,
-        	PIECE_STATUS, SELL_PRICE
+        	PIECE_STATUS, SELL_PRICE, ARTIST_NICKNAME
         FROM PIECE P
         JOIN PIECE_SELL S ON (P.PIECE_NO = S.PIECE_NO)
+        JOIN ARTIST A ON (P.MEMBER_NO = A.MEMBER_NO)
         WHERE PIECE_STATUS = 'N'
         ORDER BY P.PIECE_NO DESC
     </select>
@@ -17,9 +18,10 @@
     <select id="selectCompletedPiece" resultType="Piece">
 		SELECT 
         	P.PIECE_NO, PIECE_TITLE, SIZE_X, SIZE_Y,
-        	PIECE_STATUS, SELL_PRICE
+        	PIECE_STATUS, SELL_PRICE, ARTIST_NICKNAME
         FROM PIECE P
         JOIN PIECE_SELL S ON (P.PIECE_NO = S.PIECE_NO)
+        JOIN ARTIST A ON (P.MEMBER_NO = A.MEMBER_NO)
         WHERE PIECE_STATUS = 'F'
         ORDER BY P.PIECE_NO DESC
     </select>
