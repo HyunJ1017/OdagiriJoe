@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>승인 요청 시 프로필 확인</title>
+  <link rel="stylesheet" href="/css/manage/profileConfirm.css">
+  <th:block th:replace="~{/common/common}"></th:block>
+</head>
+
+<body>
+  <!-- 헤더 -->
+  <th:block th:replace="~{common/header}"></th:block>
+
+  <main class="main-content">
+    <section class="profile-section">
+        <div class="profile-image">
+            <img src="profile.jpg" alt="대표 이미지">
+        </div>
+        <div class="profile-info">
+            <h2 class="name">정호정</h2>
+            <p class="description">hohohohohohoho</p>
+
+            <h3 class="section-title">작가 경력 사항</h3>
+            <p>경력경력</p>
+            <p>경력경력</p>
+
+            <h3 class="section-title">포트폴리오</h3>
+            <a href="artist_resume.pdf" class="pdf-link" download>정호정.pdf (클릭 시 다운로드)</a>
+        </div>
+    </section>
+</main>
+
+  <!-- 푸터 -->
+  <th:block th:replace="~{/common/footer.html}"></th:block>
+</body>
+
+</html>
