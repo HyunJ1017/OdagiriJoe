@@ -18,7 +18,7 @@
     <section class="howTo-section1">
       <div>
         <div style="font-size: 25px;">경매 소개</div>
-        <a href="#" class="inquireBtn">1 : 1 문의</a>
+        <a href="/member/myPage/onequestion" class="inquireBtn">1 : 1 문의</a>
       </div>
 
       <div class="section1-imgBox">
@@ -159,5 +159,10 @@
   <th:block th:replace= "~{/common/footer.html}"></th:block>
 
   <script src="/js/howto/howToMain.js"></script>
+
+  <script th:inline="javascript">
+    const isLoggedIn = /*[[${session.memberLogin != null}]]*/ false;
+  </script>
+
 </body>
 </html>
