@@ -1,14 +1,18 @@
 let slideIndex = 0;
-const slidesContainer = document.querySelector('.slides');
-const slides = document.querySelectorAll('.slide');
-const totalSlides = slides.length - 1; // 마지막 슬라이드는 복사본이므로 총 슬라이드 수에서 제외
+// const slidesContainer = document.querySelector('.slides');
+const slidesContainer = document.querySelector('.main-header');
+// const slides = document.querySelectorAll('.slide');
+const slides = document.querySelectorAll('.main-item');
+const totalSlides = slides.length; 
 const progressBar = document.querySelector('.progress-bar');
 let slideTimer = null;
 
 function showSlides() {
   slideIndex++;
   slidesContainer.style.transition = 'transform 6s ease-in-out';
-  slidesContainer.style.transform = `translateX(-${slideIndex * 100}vw)`;
+  // slidesContainer.style.transform = `translateX(-${slideIndex * 100}vw)`;
+
+  slidesContainer.style.transform = `translateX(-${slideIndex * (slidesContainer.clientWidth / 4)}px)`;
 
   // 마지막 슬라이드에서 첫 슬라이드로 넘어갈 때
   if (slideIndex === totalSlides) {
@@ -27,7 +31,7 @@ function showSlides() {
 }
 
 function updateProgressBar(duration = 1000) {
-  const progressPercentage = ((slideIndex % totalSlides) / totalSlides) * 100;
+  const progressPercentage = ((slideIndex+1) / totalSlides) * 100;
   progressBar.style.width = `${progressPercentage}%`;
   progressBar.style.transition = `width ${duration}ms ease-in-out`;
 }
@@ -36,7 +40,7 @@ function updateProgressBar(duration = 1000) {
 function moveSlide(n) {
   slideIndex = (slideIndex + n + totalSlides) % totalSlides;
   slidesContainer.style.transition = 'transform 1s ease-in-out';
-  slidesContainer.style.transform = `translateX(-${slideIndex * 100}vw)`;
+  slidesContainer.style.transform = `translateX(-${slideIndex * (slidesContainer.clientWidth / 4)}px)`;
   updateProgressBar(1000);
 
   clearTimeout(slideTimer);
@@ -61,40 +65,70 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 //-------------------------------------------------------------
-let auctionSlideIndex = 0;
-const auctionSlidesContainer = document.querySelector('.auctions-slider');
-const auctionSlides = document.querySelectorAll('.auctions-item');
-const auctionTotalSlides = auctionSlides.length;
-const auctionProgressBar = document.querySelector('.progress-bar');
+let auctionsSlideIndex = 0;
+const auctionSlidesContainer = document.querySelector('.auctions-slide');
+const auctionSlides = document.querySelectorAll('.auctions-container');
+const auctionTotalSlides = auctionSlides.length; 
+const auctionsProgressBar = document.querySelector('.auctions-progress-bar');
 let auctionSlideTimer = null;
 
-function showAuctionSlides() {
-  auctionSlideIndex++;
-  if (auctionSlideIndex >= auctionTotalSlides) {
-    auctionSlideIndex = 0;
-  }
+function auctionShowSlides() {
+  auctionsSlideIndex++;
   auctionSlidesContainer.style.transition = 'transform 6s ease-in-out';
-  auctionSlidesContainer.style.transform = `translateX(-${auctionSlideIndex * 100}%)`;
-  updateAuctionProgressBar(5000);
-  auctionSlideTimer = setTimeout(showAuctionSlides, 11000); // 다음 슬라이드 전환 시간 설정
+
+  console.log(auctionsSlideIndex);
+
+  auctionSlidesContainer.style.transform = `translateX(-${auctionsSlideIndex * (auctionSlidesContainer.clientWidth)}px)`;
+
+  // 마지막 슬라이드에서 첫 슬라이드로 넘어갈 때
+  if (auctionsSlideIndex === auctionTotalSlides) {
+    setTimeout(() => {
+      auctionSlidesContainer.style.transition = 'none';
+      auctionsSlideIndex = 0;
+      auctionSlidesContainer.style.transform = `translateX(0vw)`;
+      setTimeout(() => {
+        auctionSlidesContainer.style.transition = 'transform 6s ease-in-out';
+      }, 50);
+    }, 6000);
+  }
+
+  updateAuctionsProgressBar(6000);
+  auctionSlideTimer = setTimeout(auctionShowSlides, 11000); // 다음 슬라이드 전환 시간 설정
 }
 
-function updateAuctionProgressBar(duration = 5000) {
-  const progressPercentage = ((auctionSlideIndex % auctionTotalSlides) / auctionTotalSlides) * 100;
-  auctionProgressBar.style.width = `${progressPercentage}%`;
-  auctionProgressBar.style.transition = `width ${duration}ms ease-in-out`;
+
+function updateAuctionsProgressBar(duration = 1000) {
+  const auctionsProgressPercentage = ((auctionsSlideIndex+1) / auctionTotalSlides) * 100;
+  auctionsProgressBar.style.width = `${auctionsProgressPercentage}%`;
+  auctionsProgressBar.style.transition = `width ${duration}ms ease-in-out`;
 }
 
-function moveAuctionSlide(n) {
-  auctionSlideIndex = (auctionSlideIndex + n + auctionTotalSlides) % auctionTotalSlides;
+// 이전/다음 버튼으로 슬라이드 이동 시
+function moveSlide(n) {
+  auctionsSlideIndex = (auctionsSlideIndex + n + auctionTotalSlides) % auctionTotalSlides;
   auctionSlidesContainer.style.transition = 'transform 1s ease-in-out';
-  auctionSlidesContainer.style.transform = `translateX(-${auctionSlideIndex * 100}%)`;
-  updateAuctionProgressBar(1000);
+  auctionSlidesContainer.style.transform = `translateX(-${auctionsSlideIndex * (auctionSlidesContainer.clientWidth)}px)`;
+  updateAuctionsProgressBar(1000);
 
   clearTimeout(auctionSlideTimer);
-  auctionSlideTimer = setTimeout(showAuctionSlides, 6000);
+  auctionSlideTimer = setTimeout(auctionShowSlides, 6000);
+}
+
+// 특정 슬라이드로 이동
+function goToSlide(index) {
+  auctionsSlideIndex = index;
+  auctionSlidesContainer.style.transition = 'transform 1s ease-in-out';
+  auctionSlidesContainer.style.transform = `translateX(-${auctionsSlideIndex * 100}vw)`;
+  updateAuctionsProgressBar(1000);
+
+  clearTimeout(auctionSlideTimer);
+  auctionSlideTimer = setTimeout(auctionShowSlides, 6000);
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  showAuctionSlides();
+  auctionsSlideIndex = 0;
+  updateAuctionsProgressBar(0);
+  auctionSlideTimer = setTimeout(auctionShowSlides, 6000);
 });
+
+

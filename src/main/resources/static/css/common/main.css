@@ -10,83 +10,86 @@
 /* 메인 슬라이드쇼 스타일 */
 .slider-container {
   width: 100%;
-  max-height: 78vh;
+  height: 78vh;
   overflow: hidden;
   position: relative;
 }
 
+/* 슬라이드 컨테이너 */
 .slides {
-  display: flex;
+  display: flex; 
   transition: transform 6s ease-in-out; /* 전환 시 6초 동안 부드럽게 이동 */
-  width: calc(100% * 5); /* 슬라이드 개수 + 복사본 개수만큼 */
-}
-
-.slide {
-  width: calc(120vw - 100px);
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-}
-
-.main-container {
-  width: 90%;
-  height: 100%;
-  margin-bottom: 2%;
-  flex-wrap: nowrap; /* 한 줄로 슬라이드 배치 */
-  overflow: hidden; /* 넘치는 내용 숨기기 */
-  justify-content: space-between;
-}
-
-/* 이미지 내부 컨테이너 */
-.main-item{
   width: 100%;
+}
+
+/* 각 슬라이드 스타일 */
+.slide {
+  width: 100%;
+  flex-shrink: 0;
+  position: relative;
+}
+
+/* 메인 컨테이너 */
+.main-container {
+  position: relative;
+  width: 100%;
+  height: 78vw;
+  /* align-items: center; */
+}
+
+.main-container .main-header{
+  width: calc(100% * 4);
+  display: flex
+}
+
+/* 이미지와 텍스트를 포함하는 내부 컨테이너 */
+.main-item {
+  width: 100vw;
   height: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
+  position: relative;
+  width: 25%;
 }
 
 .main-image {
   width: 100%;
-  max-height: 78vh;
+  height: 78vh;
   object-fit: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
+  z-index: 1; /* 이미지가 뒤에 위치하도록 설정 */
+  display: inline-block;
 }
-
 
 /* 카테고리 이름 */
 .mainPriceText{
   font-size: 25px;
   color: #414141;
   margin-bottom: 3%;
+}
+
+/* 텍스트와 버튼을 이미지 위에 나타나도록 설정 */
+.main-detail {
+  position: absolute; /* 텍스트와 버튼이 이미지 위에 나타나도록 절대 위치 설정 */
+  left: 15%;
+  background: rgba(255, 255, 255, 0.8);
+  top: 5%;
+  width: 34%;
+  height: 90%;
+  padding: 20px;
+  color: #414141;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
   text-align: left;
 }
 
 /* 내부 내용 */
 .main-detai p {
-  width: 40px;
-  height: 20px;
-  position: absolute;
-  text-align: left;
+  width: 20%;
+  height: 25%;
   margin: 10% 5% 10% 5%;
-}
-
-.main-detail {
-  color: #414141;
-  position: absolute;
-  background: rgba(255, 255, 255, 0.7);
-  width: 40%;
-  height: 70%;
-  margin: 10% 5% 10% 5%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  transition: opacity 0.3s ease;
-  padding: 20px; /* 텍스트 여백 추가 */
 }
 
 /* 보러가기 버튼 */
@@ -95,7 +98,7 @@
   color: white;
   border: none;
   padding: 6px 10px;
-  margin-top: 1%;
+  margin-top: 3%;
   border-radius: 5px;
   cursor: pointer;
   border: 1px solid #5e7c71;
@@ -183,7 +186,6 @@ h3 {
 
 /* ------------------------------------------------------------------------------------------------------------------------------ */
 /* 온라인 갤러리 관련 */
-
 .gallery-container {
   display: flex;
   flex-wrap: wrap; /* 여러 줄로 나눠지도록 설정 */
@@ -230,7 +232,6 @@ h3 {
   text-align: left;
 }
 
-
 .gallery-innerDetails{
   color: #414141;
   background: rgba(255, 255, 255, 0.7);
@@ -267,26 +268,56 @@ h3 {
 }
 
 /* ------------------------------------------------------------------------------------------------ */
+/* 경매 슬라이드쇼 스타일 */
+.auctions-slider-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.auctions-slides {
+  display: flex;
+  transition: transform 6s ease-in-out; /* 전환 시 6초 동안 부드럽게 이동 */
+  width: 100%;
+}
+
+.auctions-slide {
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  position: relative;
+  display: inline-flex;
+}
+
+/* ------------------------------------------------------------------------------------------------ */
 /* 경매 섹션 설정 */
 .auctions-container {
-  width: 20%;
-  height: 90%;
-  border: 1px solid black;
-  margin-bottom: 4%;
-  flex-wrap: nowrap; /* 한 줄로 슬라이드 배치 */
-  overflow: hidden; /* 넘치는 내용 숨기기 */
-  justify-content: space-between;
+  position: relative;
+  width: 100%;
+  height: 40%;
 }
 
 /* 이미지 내부 컨테이너 */
 .auction-item{
-  width: 20%;
-  height: 90%;
-  border: 1px solid black;
-  padding: 0.7%;
-  display: flex;
-  justify-content: space-between;
+  display: inline-flex;
   align-items: center;
+  margin: 0% 5% 0% 5%;
+  width: 100vw;
+}
+
+.auctions-container .main-item{
+  width: calc(100% * 3);
+  display: flex;
+}
+
+/* 내용 컨테이너 */
+.auction-detail{
+  flex: 1; /* 텍스트 부분이 남은 공간을 차지하도록 설정 */
+  padding: 10%;
+  text-align: left;
+  padding: 2% 22% 2% 2%;
+  display: flex;
+  flex-direction: column;
 }
 
 /* 작가 닉네임 관련 */
@@ -294,47 +325,42 @@ h3 {
   font-size: 20px;
 }
 
-.auction-detai{
-  width: 100%;
-  height: 100%;
-}
-
 /* 내부 내용 */
 .auction-detail p {
   color: #414141;
-  flex-direction: column;
   padding: 2% 2% 2% 2%;
-  text-align: left;
 }
 
-/* 구분선 */
-.dotted-line {
-  width: 90%;
-  margin: 3% 0 5% 0;
-  border: none; /* 기본 선 제거 */
-  height: 1px; /* 선의 높이 */
-  background-image: linear-gradient(to right, #333 30%, rgba(255, 255, 255, 0) 0%);
-  background-size: 5px 5px; /* 점과 점 사이 간격 설정 */
+
+/* 이미지 컨테이너 */
+.auction-img {
+  flex: 0 0 35%;
 }
 
 /* 이미지 크기 */
 .auction-image{
-  width: 250px; 
-  height: 300px; 
-  float: right;
-  object-fit: cover;  /* 이미지가 영역을 채우면서 비율을 유지 */
+  width: 300px;
+  height: 350px;
+  object-fit: cover;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+/* ------------------------------------------------------------------------------------------------ */
 
 /* 상세보기 버튼 */
 .view-button{
   background-color: #5e7c71;
   color: white;
   border: none;
-  padding: 6px 10px;
+  width: 70px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 5px;
   cursor: pointer;
   border: 1px solid #5e7c71;
+  margin-left: 2%;
 }
 
 /* 버튼 선택 시 hover */
@@ -344,6 +370,17 @@ h3 {
   border: 1px solid #5e7c71;
 }
 
+/* 구분선 */
+.dotted-line {
+  width: 90%;
+  margin: 3% 0% 3% 0%;
+  border: none; /* 기본 선 제거 */
+  height: 1px; /* 선의 높이 */
+  background-image: linear-gradient(to right, #333 30%, rgba(255, 255, 255, 0) 0%);
+  background-size: 5px 5px; /* 점과 점 사이 간격 설정 */
+}
+
+/* ------------------------------------------------------------------------------------------------- */
 /* 이미지 슬라이더 설정 */
 .auctions-slider {
   display: flex;
@@ -355,6 +392,15 @@ h3 {
 
 .auctions-slider::-webkit-scrollbar {
   display: none; /* 스크롤바 숨기기 */
+}
+
+/* 인디케이터 컨테이너 */
+.auctions-progress-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  text-align: center;
 }
 
 /* 이전/다음 버튼 스타일 */
@@ -380,18 +426,10 @@ h3 {
   display: inline-block; /* 버튼들과 한 줄에 배치 */
   vertical-align: middle; /* 버튼들과 세로로 정렬 */
 }
+
 .auctions-progress-bar {
   height: 100%;
   background-color: #5e7c71; /* 진행 상태 색상 */
   width: 0%; /* 초기 너비는 0% */
   transition: width 1s ease-in-out; /* 버튼을 눌렀을 때 부드럽게 움직이도록 */
-}
-
-/* 인디케이터 컨테이너 */
-.auctions-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
-  text-align: center;
 }
