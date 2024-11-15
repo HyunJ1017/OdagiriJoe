@@ -8,9 +8,10 @@
         	P.PIECE_NO, PIECE_TITLE, SIZE_X, SIZE_Y,
         	PIECE_STATUS, SELL_PRICE, ARTIST_NICKNAME
         FROM PIECE P
-        JOIN PIECE_SELL S ON (P.PIECE_NO = S.PIECE_NO)
-        JOIN ARTIST A ON (P.MEMBER_NO = A.MEMBER_NO)
+        LEFT JOIN PIECE_SELL S ON (P.PIECE_NO = S.PIECE_NO)
+        LEFT JOIN ARTIST A ON (P.MEMBER_NO = A.MEMBER_NO)
         WHERE PIECE_STATUS = 'N'
+        AND   PIECE_TYPE = 1
         ORDER BY P.PIECE_NO DESC
     </select>
 
@@ -20,9 +21,10 @@
         	P.PIECE_NO, PIECE_TITLE, SIZE_X, SIZE_Y,
         	PIECE_STATUS, SELL_PRICE, ARTIST_NICKNAME
         FROM PIECE P
-        JOIN PIECE_SELL S ON (P.PIECE_NO = S.PIECE_NO)
-        JOIN ARTIST A ON (P.MEMBER_NO = A.MEMBER_NO)
+        LEFT JOIN PIECE_SELL S ON (P.PIECE_NO = S.PIECE_NO)
+        LEFT JOIN ARTIST A ON (P.MEMBER_NO = A.MEMBER_NO)
         WHERE PIECE_STATUS = 'F'
+        AND   PIECE_TYPE = 1
         ORDER BY P.PIECE_NO DESC
     </select>
 
@@ -30,12 +32,14 @@
     <select id="countSalesPiece" resultType="int">
         SELECT COUNT(*) FROM PIECE
         WHERE PIECE_STATUS = 'N'
+        AND   PIECE_TYPE = 1  
     </select>
 
     <!-- 완료 작품 전체 개수 조회 쿼리 -->
     <select id="countCompletedPiece" resultType="int">
         SELECT COUNT(*) FROM PIECE
         WHERE PIECE_STATUS = 'F'
+        AND   PIECE_TYPE = 1
     </select>
 	
 	<!-- 작품등록(공통) -->

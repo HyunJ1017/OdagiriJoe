@@ -1,17 +1,4 @@
-/* 이미지 클릭 시 해당 작품 상세 조회 페이지 이동 */
 
-// 모든 gallery-item 요소 선택
-const galleryItems = document.querySelectorAll(".gallery-item");
-
-// 각 gallery-item에 클릭 이벤트 추가
-galleryItems.forEach((item) => {
-    item.addEventListener("click", () => {
-        // 클릭한 item의 data-id 값을 가져옴
-        const artworkId = item.querySelector(".artwork-image").getAttribute("data-id");
-        // 상세 조회 페이지로 이동
-        window.location.href = `/piece/onlineDetail`;
-    });
-});
 
 /* 드롭 다운 */
 document.addEventListener("DOMContentLoaded", function() {
@@ -35,32 +22,70 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
+// 작품 유형에 따라 로드 함수 호출
+function setType(type) {
+    const cp = 1; // 기본적으로 첫 페이지부터 로드
+    if (type === '판매작품') {
+        loadPieces(cp, '판매작품');
+    } else if (type === '완료작품') {
+        loadPieces(cp, '완료작품');
+    } else {
+        console.error('유효하지 않은 type입니다:', type);
+    }
+}
 
 
-/* 온란인 갤러리 목록 조회, 페이지네이션 */
-function loadPieces(page = 1) {
-    fetch(`/piece/online?page=${page}`)
+// 작품 유형에 따라 로드 함수 호출
+function setType(type) {
+    const cp = 1; // 기본적으로 첫 페이지부터 로드
+    if (type === '판매작품') {
+        loadPieces(cp, '판매작품');
+    } else if (type === '완료작품') {
+        loadPieces(cp, '완료작품');
+    } else {
+        console.error('유효하지 않은 type입니다:', type);
+    }
+}
+
+
+/* 판매 작품 목록 로드 및 페이지네이션 */
+function loadPieces(cp, type) {
+		// console.log(type);
+
+		const url = type === '판매작품' ? `/piece/online/sales?cp=${cp}` : `/piece/online/completed?cp=${cp}`;
+
+    fetch(url)
         .then(response => {
           if(response.ok) { // HTTP 응답 상태 코드 200번(응답 성공)
-            return response.json(); // 응답 결과를 text로 파싱
+            return response.json(); // 응답 결과를 JSON 객체로 변환
           }
         })
         .then(data => {
 
-           
+					console.log(data.salesPagination);
 
-            
+					if (type === '판매작품') {
             renderSalesList(data.salesPiece || []); // 판매 작품 목록 렌더링
-            renderPagination(data.salesPagination, 'salesPaginationBox', loadPieces);
-            renderCompletedList(data.completedPiece || []); // 완료 작품 목록 렌더링
-            renderPagination(data.complPagination, 'completedPaginationBox', loadPieces);
-            
+						renderPagination(data.salesPagination, 'salesPaginationBox', type);
+					} else if (type === '완료작품') {
+						renderCompletedList(data.completedPiece || []); // 완료 작품 목록 렌더링
+						renderPagination(data.complPagination, 'completedPaginationBox', type);
+						
+					}
+						
+
+						// console.log(data);
+           
         })
         .catch(err => console.error(err));
-}
+    }
+
+            
+            
 
 // 판매 작품 목록 렌더링
 function renderSalesList(items = []) {
+
     const salesListContainer = document.querySelector('.online-list');
     salesListContainer.innerHTML = items.map(item => `
         <article class="gallery-item">
@@ -101,41 +126,58 @@ function renderCompletedList(items = []) {
     `).join('');
 }
 
-function renderPagination(pagination = {}, paginationBoxId, loadFunction) {
+
+
+
+
+function renderPagination(pagination, paginationBoxId, type) {
+
     const paginationBox = document.getElementById(paginationBoxId);
+
     paginationBox.innerHTML = '';
 
-    if (pagination.prevPage) {
-        const prevButton = document.createElement('button');
-        prevButton.innerText = '<';
-        prevButton.onclick = () => loadFunction(pagination.prevPage);
-        paginationBox.appendChild(prevButton);
-    }
+    const createPageButton = (page, text, isActive = false) => {
+			const button = document.createElement("a");
+			button.href = "#";
+			button.classList.add("page-btn");
+			button.dataset.page = page;
+			button.textContent = text;
 
-    for (let i = pagination.startPage; i <= pagination.endPage; i++) {
-        const pageButton = document.createElement('button');
-        pageButton.innerText = i;
+			if (isActive) button.classList.add("active");
 
-        if (i === pagination.currentPage) {
-            pageButton.classList.add('active');
-        }
+			button.addEventListener("click", (event) => {
+				event.preventDefault();
+				const cp = parseInt(event.target.dataset.page);
+				
+				loadPieces(cp, type);
+			});
 
-        pageButton.onclick = () => loadFunction(i);
-        paginationBox.appendChild(pageButton);
-    }
+			return button;
+		};
 
-    if (pagination.nextPage) {
-        const nextButton = document.createElement('button');
-        nextButton.innerText = '>';
-        nextButton.onclick = () => loadFunction(pagination.nextPage);
-        paginationBox.appendChild(nextButton);
-    }
-}
+		// <<, < 버튼 추가
+		paginationBox.appendChild(createPageButton(1, "<<"));
+		paginationBox.appendChild(createPageButton(pagination.prevPage, "<"));
+
+		// 동적 페이지 번호 버튼 생성
+		for (let i = pagination.startPage; i <= pagination.endPage; i++) {
+			paginationBox.appendChild(createPageButton(i, i, i === pagination.currentPage));
+		}
+
+		// >, >> 버튼 추가
+		paginationBox.appendChild(createPageButton(pagination.nextPage, ">"));
+		paginationBox.appendChild(createPageButton(pagination.maxPage, ">>"));
+};
+
+
+
+
 
 
 // 초기 로드 시 첫 페이지 로드
 document.addEventListener('DOMContentLoaded', () => {
-    loadPieces(1); // 첫 페이지의 작품들을 로드
+	setType('판매작품'); // 판매 작품 첫 페이지 로드
+	setType('완료작품'); // 완료 작품 첫 페이지 로드
 });
 
 
