@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -73,7 +74,7 @@ public class MyPageServiceImpl implements MyPageService {
 	
 	// 작가 등록
 	@Override
-	public int insertArtist(Member artist, MultipartFile inputArtistPortfolio) {
+	public int insertArtist(Member artist, MultipartFile inputArtistPortfolio, List<String> workDetails) {
 		String originalFileName = inputArtistPortfolio.getOriginalFilename();
 		int index = originalFileName.lastIndexOf(".");
 		String ext = originalFileName.substring(index);
@@ -98,7 +99,18 @@ public class MyPageServiceImpl implements MyPageService {
 	    }
 		
 	    artist.setArtistPortfolio("portfolio/" + "portpolio" + artist.getMemberNo() + ext);
-	    return mapper.insertArtist(artist);
+	    
+	    int result = mapper.insertArtist(artist);
+	    
+	    if(workDetails.isEmpty() == false && workDetails.get(0).length() > 0) {
+	    	workDetails = workDetails.stream()
+	    		    .filter(detail -> detail != null && !detail.trim().isEmpty())
+	    		    .collect(Collectors.toList());
+
+	    	result = mapper.insertWork(artist.getMemberNo(), workDetails);
+	    }
+	    
+	    return result;
 	}
 	
 	// 1:1 문의사항 등록
@@ -175,6 +187,12 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		
 		return resultMap;
+	}
+	
+	// 작가 경매물품 얻어오기
+	@Override
+	public List<Piece> artistAuction(int memberNo) {
+		return mapper.artistAuction(memberNo);
 	}
 	
 }

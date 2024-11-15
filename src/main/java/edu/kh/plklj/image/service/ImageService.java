@@ -6,9 +6,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface ImageService {
 
-	int updateProfile(MultipartFile image, String fileName);
+	String updateProfile(MultipartFile image, String fileName);
 	
-	int updatePiece(MultipartFile image, String fileName);
+	String updatePiece(MultipartFile image, String fileName);
 
 	byte[] getProfile(String filename);
 

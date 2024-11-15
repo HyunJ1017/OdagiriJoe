@@ -2,6 +2,8 @@ package edu.kh.plklj.image.service;
 
 import java.io.InputStream;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,14 +15,22 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
+@PropertySource("classpath:/config.properties")
 @RequiredArgsConstructor
 public class ImageServiceImpl implements ImageService {
 	
 	private final Bucket bucket;
 	
+	@Value("${firebase.file.prePath}")
+	private String prePath;
+	
+	@Value("${firebase.file.appPath}")
+	private String appPath;
+	
+	
 	// 프로필 저장
 	@Override
-	public int updateProfile(MultipartFile image, String fileName) {
+	public String updateProfile(MultipartFile image, String fileName) {
 	    String blob = "profile/" + fileName;
 	    try {
 	        // 기존 파일 삭제
@@ -33,35 +43,39 @@ public class ImageServiceImpl implements ImageService {
 	        try (InputStream inputStream = image.getInputStream()) {
 	            bucket.create(blob, inputStream, image.getContentType());
 	        }
-
-	        return 1;
+	        
+            return prePath + fileName + appPath;
+	        
 	    } catch (Exception e) {
 	        log.error("profile upload failed", e);
 	        throw new RuntimeException("ErrorCode.IMAGE_UPLOAD_FAILED");
 	    }
 	}
+
+
 	
 	// 작품 저장
 	@Override
-	public int updatePiece(MultipartFile image, String fileName) {
+	public String updatePiece(MultipartFile image, String fileName) {
 		String blob = "piece/" + fileName;
-		try {
-			// 기존 파일 삭제
-			Blob existingBlob = bucket.get(blob);
-			if (existingBlob != null) {
-				existingBlob.delete();
-			}
-			
-			// InputStream으로 파일 업로드
-			try (InputStream inputStream = image.getInputStream()) {
-				bucket.create(blob, inputStream, image.getContentType());
-			}
-			
-			return 1;
-		} catch (Exception e) {
-			log.error("profile upload failed", e);
-			throw new RuntimeException("ErrorCode.IMAGE_UPLOAD_FAILED");
-		}
+	    try {
+	        // 기존 파일 삭제
+	        Blob existingBlob = bucket.get(blob);
+	        if (existingBlob != null) {
+	            existingBlob.delete();
+	        }
+
+	        // InputStream으로 파일 업로드
+	        try (InputStream inputStream = image.getInputStream()) {
+	        	existingBlob = bucket.create(blob, inputStream, image.getContentType());
+	        }
+	        
+	        return prePath + fileName + appPath;
+	        
+	    } catch (Exception e) {
+	        log.error("profile upload failed", e);
+	        throw new RuntimeException("ErrorCode.IMAGE_UPLOAD_FAILED");
+	    }
 	}
 	
 	// 프로필 불러오기

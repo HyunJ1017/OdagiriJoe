@@ -316,6 +316,26 @@ artistSubmit?.addEventListener("submit", (e) => {
   profileUpload();
 });
 
+document.getElementById('workDetailSection').addEventListener('input', function (e) {
+  const inputs = document.querySelectorAll('.workDetail');
+  let allFilled = true;
+
+  // 빈칸이 있다면 추가함수 실행하지 않음
+  inputs.forEach((input) => {
+    if (input.value.length === 0) {
+      allFilled = false;
+    }
+  });
+
+  if (allFilled) {
+    const newInput = document.createElement('input');
+    newInput.type = 'text';
+    newInput.className = 'workDetail';
+    newInput.name = 'workDetail';
+    newInput.placeholder = '경력사항이나 수상내역을 입력해 주세요.';
+    this.appendChild(newInput);
+  }
+});
 
 // 파일등록함수
 const profileUpload = () => {
@@ -327,14 +347,14 @@ const profileUpload = () => {
   alertM("프로필 이미지를 등록하고 있습니다.");
   fetch("/images/profile", {
     method: "POST",
-    body: formData,
+    body: formData
   })
   .then(response => {
-    if (response.ok) return response.json();
+    if (response.ok) return response.text();
     throw new Error("AJAX 통신 실패");
   })
   .then(result => {
-    if(result > 0){
+    if(result !== null){
       alertM("프로필 이미지 등록에 성공하였습니다.");
       const input1 = document.createElement("input");
       input1.type="hidden";
@@ -345,7 +365,7 @@ const profileUpload = () => {
       const input2 = document.createElement("input");
       input2.type="hidden";
       input2.name="artistProfile";
-      input2.value=fileRename;
+      input2.value=result;
       artistSubmit.appendChild(input2);
 
       document.querySelector("#myPage-main").submit();

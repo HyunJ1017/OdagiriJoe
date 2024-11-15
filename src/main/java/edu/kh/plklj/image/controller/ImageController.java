@@ -39,7 +39,7 @@ public class ImageController {
 	 */
 	@PostMapping("profile")
 	@ResponseBody
-    public int updateProfile(@RequestParam("image") MultipartFile image,
+    public String updateProfile(@RequestParam("image") MultipartFile image,
 			@RequestParam("fileName") String fileName) throws IOException {
         return service.updateProfile(image, fileName );
     }
@@ -59,9 +59,9 @@ public class ImageController {
 	 */
 	@PostMapping("piece")
 	@ResponseBody
-	public int updatePiece(@RequestParam("image") MultipartFile image,
+	public String updatePiece(@RequestParam("image") MultipartFile image,
 			@RequestParam("fileName") String fileName) throws IOException {
-		return service.updatePiece(image, fileName );
+		return service.updatePiece(image, fileName);
 	}
 	
 	/** 대표작품 불러오기

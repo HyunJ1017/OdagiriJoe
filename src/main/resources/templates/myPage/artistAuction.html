@@ -17,97 +17,113 @@
 
     <section class="content-section">
 
-      <h2>완료 경매</h2>
+      <!-- <h2>완료 경매</h2> -->
 
-      <div class="content-div">
-        <div>
-          <h3>무제</h3>
-          <h4>작가명</h4>
-          <p>경매액 ₩50,000,000</p>
-          <p>15 x 30</p>
-          <div class="piece-waiting">입금대기</div>
-        </div>
-        <div>
-          <img src="#" alt="사진" class="content-img">
-        </div>
-      </div>
+      <th:block th:each= "piece:${pieceList}">
+        <th:block th:if= "${piece.pieceStatus == 'F'}" th:object="${piece}">
+          
+          <div class="content-div">
+            <div>
+              <h3 th:text="*{pieceTitle}">무제</h3>
+              <p th:text="|경매일 *{startDate}|">11/09(토)</p>
+              <p th:text="|낙찰가 *{finalPrice}|">12월 6일 14:00</p>
+              <hr>
+              <div class="piece-btns deliveryBtn">배달정보</div>
+            </div>
+            <div>
+              <img th:src="*{pieceRename}" alt="사진" class="content-img">
+            </div>
+          </div>
 
-      <div class="content-div">
-        <div>
-          <h3>무제</h3>
-          <h4>작가명</h4>
-          <p>경매액 ₩50,000,000</p>
-          <p>15 x 30</p>
-          <div class="piece-deposit">입금확인</div>
-        </div>
-        <div>
-          <img src="#" alt="사진" class="content-img">
-        </div>
-      </div>
+        </th:block>
+        <th:block th:if= "${piece.pieceStatus == 'N'}" th:object="${piece}">
+          
+          <div class="content-div">
+            <div>
+              <h3 th:text="*{pieceTitle}">무제</h3>
+              <p th:text="|경매일 *{startDate}|">11/09(토)</p>
+              <p th:text="|낙찰가 *{finalPrice}|">12월 6일 14:00</p>
+              <hr>
+              <div class="piece-btns detailBtn">입금대기</div>
+            </div>
+            <div>
+              <img th:src="*{pieceRename}" alt="사진" class="content-img">
+            </div>
+          </div>
 
-    </section>
+        </th:block>
+      </th:block>
+
+    <!-- </section>
     
     <section class="content-section">
       <hr>
-      <h2>진행중 경매</h2>
+      <h2>진행중 경매</h2> -->
 
-      <div class="content-div">
-        <div>
-          <h3>무제</h3>
-          <h4>작가명</h4>
-          <p>경매액 ₩50,000,000</p>
-          <p>15 x 30</p>
-          <div class="piece-detales">상세보기</div>
-        </div>
-        <div>
-          <img src="#" alt="사진" class="content-img">
-        </div>
-      </div>
+      <th:block th:each= "piece:${pieceList}">
+        <th:block th:if= "${piece.pieceStatus == 'S'}" th:object="${piece}">
+          
+          <div class="content-div">
+            <div>
+              <h3 th:text="*{pieceTitle}">무제</h3>
+              <p th:text="|경매일 *{startDate}|">11/09(토)</p>
+              <p th:text="|입찰가 *{finalPrice}|">12월 6일 14:00</p>
+              <hr>
+              <div class="piece-btns detailBtn">상세보기</div>
+            </div>
+            <div>
+              <img th:src="*{pieceRename}" alt="사진" class="content-img">
+            </div>
+          </div>
 
-      <div class="content-div">
-        <div>
-          <h3>무제</h3>
-          <h4>작가명</h4>
-          <p>경매액 ₩50,000,000</p>
-          <p>15 x 30</p>
-          <div class="piece-detales">상세보기</div>
-        </div>
-        <div>
-          <img src="#" alt="사진" class="content-img">
-        </div>
-      </div>
+        </th:block>
 
-    </section>
+      </th:block>
+
+    <!-- </section>
     
     <section class="content-section">
       <hr>
-      <h2>대기중인 작품</h2>
+      <h2>대기중 경매</h2> -->
 
-      <div class="content-div">
-        <div>
-          <h3>무제</h3>
-          <h4>작가명</h4>
-          <p>경매액 ₩50,000,000</p>
-          <p>15 x 30</p>
-          <div class="piece-detales">상세보기</div>
-        </div>
-        <div>
-          <img src="#" alt="사진" class="content-img">
-        </div>
-      </div>
+      <th:block th:each= "piece:${pieceList}">
+        <th:block th:if= "${piece.pieceStatus == 'A'}" th:object="${piece}">
+          
+          <div class="content-div">
+            <div>
+              <h3 th:text="*{pieceTitle}">무제</h3>
+              <p th:text="|경매일 *{startDate}|">11/09(토)</p>
+              <p th:text="|시작가 *{finalPrice}|">12월 6일 14:00</p>
+              <hr>
+              <div class="piece-btns detailBtn">상세보기</div>
+            </div>
+            <div>
+              <img th:src="*{pieceRename}" alt="사진" class="content-img">
+            </div>
+          </div>
 
-      <div class="content-div">
-        <div>
-          <h3>무제</h3>
-          <h4>작가명</h4>
-          <p>경매액 ₩50,000,000</p>
-          <p>15 x 30</p>
-          <div class="piece-detales">상세보기</div>
-        </div>
-        <div>
-          <img src="#" alt="사진" class="content-img">
-        </div>
-      </div>
+        </th:block>
+
+      <th:block th:each= "piece:${pieceList}">
+        <th:block th:if= "${piece.pieceStatus == 'T'}" th:object="${piece}">
+          
+          <div class="content-div">
+            <div>
+              <h3 th:text="*{pieceTitle}">무제</h3>
+              <p th:text="|경매일 *{startDate}|">11/09(토)</p>
+              <p th:text="|입찰가 *{finalPrice}|">12월 6일 14:00</p>
+              <hr>
+              <div class="piece-btns detailBtn">작성하기</div>
+              <div class="piece-btns removeBtn">삭제하기</div>
+            </div>
+            <div>
+              <img th:src="*{pieceRename}" alt="사진" class="content-img">
+            </div>
+          </div>
+
+        </th:block>
+
+      </th:block>
 
     </section>
     
