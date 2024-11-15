@@ -114,6 +114,7 @@ function moveSlide(n) {
   auctionSlideTimer = setTimeout(auctionShowSlides, 6000);
 }
 
+
 // 특정 슬라이드로 이동
 function goToSlide(index) {
   auctionsSlideIndex = index;
@@ -130,6 +131,4 @@ document.addEventListener("DOMContentLoaded", function () {
   updateAuctionsProgressBar(0);
   auctionSlideTimer = setTimeout(auctionShowSlides, 6000);
 });
-
-
 
