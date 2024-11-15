@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.plklj.manage.mapper.ManageMapper">
+
+	<select id="getContentListCount" resultType="_int">
+	 	SELECT 
+	        COUNT(*)
+	    FROM 
+	        REPORT R
+	    JOIN PIECE P ON R.PIECE_NO = P.PIECE_NO
+	    LEFT JOIN PIECE_AUCTION A ON P.PIECE_NO = A.PIECE_NO
+	    LEFT JOIN ARTIST D ON R.MEMBER_NO = D.MEMBER_NO
+	    WHERE 
+	        R.REPORT_DEL_FL ='N'
+	</select>
+
+
+	<select id="getContentList" resultType="map">
+	   SELECT 
+	        R.REPORT_NO "reportNo",
+	        R.MEMBER_NO "memberNo",
+	        P.PIECE_TITLE AS "pieceName",
+	        P.SIZE_X || ' x ' || P.SIZE_Y AS "pieceSize",
+	        A.FINAL_PRICE AS "auctionPrice",
+	        D.ARTIST_NICKNAME AS "artistNickname"
+	    FROM 
+	        REPORT R
+	    JOIN PIECE P ON R.PIECE_NO = P.PIECE_NO
+	    LEFT JOIN PIECE_AUCTION A ON P.PIECE_NO = A.PIECE_NO
+	    LEFT JOIN ARTIST D ON R.MEMBER_NO = D.MEMBER_NO
+	    WHERE 
+	        R.REPORT_DEL_FL ='N'
+		
+	</select>
+
+
+
+	
+</mapper>

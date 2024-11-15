@@ -46,7 +46,6 @@ document.querySelectorAll(".faq-item .question-row").forEach(row => {
 });
 
 
-  // 1:1 문의 토글 기능
 // 1:1 문의 토글 기능
 document.querySelectorAll(".inquiry-section .inquiry-row").forEach(row => {
   row.addEventListener("click", () => {
@@ -198,15 +197,77 @@ document.querySelector(".inquiry-section").appendChild(inquiryPagination); // 1:
 applyPagination(inquiryItems, inquiryPagination, 5); // 1:1 문의 섹션에 페이지네이션 적용
 
 
+/* 작가관리 */
+document.addEventListener('DOMContentLoaded', () => {
+  getList(3);
+  // getList(2);
+  // getList(3);
+  // getList(4);
+  // getList(5);
+  // getList(6);
+  // getList(7);
+  // getList(8);
+});
+
+function displayReportContents(contents) {
+  
+  const contentGrid = document.getElementById('contentGrid');
+  contentGrid.innerHTML = ''; // 기존 콘텐츠 초기화
+
+  contents.forEach(content => {
+      const contentCard = document.createElement('div');
+      contentCard.classList.add('content-card');
+      contentCard.innerHTML = `
+          <img src="/images/profile/${content.artistNickname || 'default.jpg'}" alt="${content.artistNickname}" class="content-image">
+          <div class="content-info">
+              <h2>${content.artistNickname}</h2>
+              <p>작품명: ${content.pieceName}</p>
+              <p>낙찰가: ₩${content.auctionPrice.toLocaleString()}</p>
+              <p>크기: ${content.pieceSize}</p>
+              <div class="buttons">
+                  <button class="view-button">상세보기</button>
+                  <button class="warn-button">정지</button>
+                  <button class="release-button">해제</button>
+              </div>
+          </div>`;
+      contentGrid.appendChild(contentCard);
+  });
+}
 
 
 
 
 
+const getList = (code) => {
+  fetch("/manage/getList?code=" + code)
+  .then(response => {
+    if (response.ok) return response.json();
+    throw new Error("AJAX 통신 실패");
+  })
+  .then(result => {
+    console.log("응답데이터:", result);
+    console.log(result.pg);    
+    console.log(result.resultList);    
+    
+    switch(code){
+      case 1 : break;
+      case 2 : break;
+      case 3 : displayReportContents(result.resultList); break;
+      case 4 : break;
+      case 5 : break;
+      case 6 : break;
+      case 7 : break;
+      case 8 : break;
+    }
+
+    applyPagination(1);
+  })
+  .catch(err => console.error(err));
+}
 
 
 
-
+// 페이지네이션
 
 
 
