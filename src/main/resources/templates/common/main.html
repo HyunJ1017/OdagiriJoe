@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>화사 :: 愛 :: 화공</title>
   <link rel="stylesheet" href="/css/common/main.css">
-  <th:block th:replace="~{/common/common.html :: cssLinks}"></th:block>
+  <th:block th:replace= "~{/common/common.html :: cssLinks}"></th:block>
 </head>
-
 <body>
   <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
   <main>
@@ -31,45 +29,6 @@
           </div>
         </div>
       </div>
-    </section>
-
-    <!-- 인디케이터 바 -->
-    <!-- 이전/다음 버튼 -->
-    <div class="indicator-container">
-      <button class="prev-btn" onclick="moveSlide(-1)">&#10094;</button>
-      <div class="progress-bar-container">
-        <div class="progress-bar"></div>
-      </div>
-      <button class="next-btn" onclick="moveSlide(1)">&#10095;</button>
-    </div>
-  </main>
-
-  <!-- 갤러리 섹션 -->
-  <section class="art-container">
-    <div class="art-header">
-      <h3>Online Gallery</h3>
-      <button class="artBtn" onclick="location.href='/piece/gallery'">작품 더보기 + </button>
-    </div>
-    <div class="custom-line"></div> <!-- 제목과 버튼 아래 구분선 -->
-    <div class="gallery-container">
-      <article class="gallery-item" th:each="artist, stat : ${onlineGallery}">
-        <div class="gallery-image">
-          <a th:href="@{/piece/online/{artist.pieceNo} (memberNo= ${artist.memberNo})}" th:object="${artist}">
-            <img th:src="*{pieceRename}" alt="Online Gallery" class="pieceRename" th:data-id="*{memberNo}">
-          </a>
-          <div class="gallery-innerDetails" th:object="${piece}">
-            <p th:text="|${artist.sizeX} x ${artist.sizeY}|">22 x 22</p>
-            <p th:text="|현재가(KRW) : ${artist.sellPrice}|">현재가</p>
-          </div>
-          <div class="gallery-detail">
-            <p th:text="|작가 : ${artist.artistNickname}|">작가명</p>
-            <p th:text="|제목 : ${artist.pieceTitle}|">제목: </p>
-          </div>
-        </div>
-        <div th:if="${stat.index % 5 == 4}" class="custom-line gallery-divider"></div>
-      </article>
-    </div>
-  </section>
 
   <!-- 경매 슬라이드 섹션 -->
     <section class="art-container">
@@ -117,4 +76,3 @@
   <script src="/js/common/main.js"></script>
 </body>
 <th:block th:replace="~{/common/footer.html}"></th:block>
-</html>
