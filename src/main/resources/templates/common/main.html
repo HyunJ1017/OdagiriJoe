@@ -23,8 +23,7 @@
                   <p th:text="|*{pieceTitle}|" class="mainPriceText">카테고리 이름</p>
                   <p th:text="|Open Time: *{startDate}|">시작 일시</p>
                   <p th:text="|End Time: *{endDate}|">끝난 일시</p>
-                  <button type="button" class="seeBtn"
-                    th:onclick="|location.href='/{pieceType}/main/{pieceNo} (memberNo=*{memberNo})'|">보러가기</button>
+                  <button type="button" class="seeBtn" th:onclick="|location.href='/{pieceType}/main/{pieceNo} (memberNo=*{memberNo})'|">보러가기</button>
                 </div>
                 <img th:src="${artist.pieceRename}" alt="Main" class="main-image" th:data-id="*{memberNo}">
               </article>
@@ -73,48 +72,49 @@
   </section>
 
   <!-- 경매 슬라이드 섹션 -->
-  <main>
     <section class="art-container">
       <div class="art-header">
         <h3>Action</h3>
         <button class="artBtn" onclick="location.href='/auction/main'">경매 더보기 + </button>
       </div>
       <div class="custom-line"></div> <!-- 제목과 버튼 아래 구분선 -->
-      <div class="slides">
-        <div class="slider-container auction-slider">
-          <div class="auctions-container">
-            <article class="auction-item" th:each="artist, stat : ${auction}" th:object="${artist}">
-              <div class="auction-detail">
-                <p th:text="*{artistNickname}" class="priceText">작가명</p>
-                <p th:text="|제목 : *{pieceTitle}|">제목</p>
-                <p th:text="|작품 사이즈 : *{sizeX} x *{sizeY}|">22 x 22</p>
-                <p th:if="*{startPrice != null}" th:text="|시작가 (KRW): *{startPrice}|">시작가(KRW)</p>
-                <p th:if="*{startPrice == null}" th:text="|현재가 (KRW): *{hopePrice}|">현재가(KRW)</p>
-                <hr class="dotted-line">
-                <button class="view-button" role="link" aria-label="상세보기: ${pieceTitle}"
-                  th:onclick="|location.href='/auction/main/{artist.pieceNo} (memberNo=${memberNo})'|">상세보기</button>
+      <div class="auctions-slider-container">
+        <div class="auctions-slides">
+          <div class="auctions-slide">
+            <article class="auctions-container" th:each="artist, stat : ${auctions}" th:object="${artist}">
+              <div class="auction-item">
+                <div class="auction-detail">
+                  <p th:text="*{artistNickname}" class="priceText">작가명</p>
+                  <p th:text="|제목 : *{pieceTitle}|">제목</p>
+                  <p th:text="|작품 사이즈 : *{sizeX} x *{sizeY}|">22 x 22</p>
+                  <p th:if="*{startPrice != null}" th:text="|시작가 (KRW): *{startPrice}|">시작가(KRW)</p>
+                  <p th:if="*{startPrice == null}" th:text="|현재가 (KRW): *{hopePrice}|">현재가(KRW)</p>
+                  <hr class="dotted-line">
+                  <button class="view-button" role="link" aria-label="상세보기: ${pieceTitle}" th:onclick="|location.href='/auction/main/{artist.pieceNo} (memberNo=${memberNo})'|">상세보기</button>
+                </div>
+                <div class="auction-img">
+                <img th:src="*{pieceRename}" alt="작품: *{pieceTitle}" class="auction-image" th:data-id="*{memberNo}">
+                </div>
               </div>
-              <img th:src="*{pieceRename}" alt="작품: *{pieceTitle}" class="auction-image" th:data-id="*{memberNo}">
-              <div class="custom-line"></div>
             </article>
           </div>
         </div>
       </div>
+      <div class="custom-line"></div>
+      
+      <!-- 경매 슬라이더 인디케이터 바 -->
+      <div class="auctions-progress-container">
+        <button class="auctions-prev-btn" onclick="moveSlide(-1)">&#10094;</button>
+        <div class="auctions-progress-bar-container">
+          <div class="auctions-progress-bar"></div>
+        </div>
+        <button class="auctions-next-btn" onclick="moveSlide(1)">&#10095;</button>
+      </div>
     </section>
     
-    <!-- 경매 슬라이더 인디케이터 바 -->
-    <div class="auctions-container">
-      <button class="auctions-prev-btn" onclick="moveSlide(-1)">&#10094;</button>
-      <div class="auctions-progress-bar-container">
-        <div class="auctions-progress-bar"></div>
-      </div>
-      <button class="auctions-next-btn" onclick="moveSlide(1)">&#10095;</button>
-    </div>
-  </main>
 
 
   <script src="/js/common/main.js"></script>
 </body>
 <th:block th:replace="~{/common/footer.html}"></th:block>
-
 </html>
