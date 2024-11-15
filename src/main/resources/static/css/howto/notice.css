@@ -1,6 +1,6 @@
 .notice-container {
   width: 50%;
-  height: 500px;
+  height: 350px;
   margin: 0 auto;
   padding-top: 20px;
 }
@@ -53,8 +53,8 @@ h2 {
   display: flex;
   justify-content: center; /* 중앙 정렬 */
   margin-top: auto; /* 남은 공간만큼 아래로 이동 */
-  padding: 20px 0; /* 상하 여백 추가 */
   width: 100%;
+  margin-bottom: 50px;
 }
 
 .pagination-box > .page-btn {

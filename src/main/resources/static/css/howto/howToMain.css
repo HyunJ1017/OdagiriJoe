@@ -248,7 +248,7 @@ a {
   color: #333;
   width: 80%;
   padding: 10px 10px 20px 0;
-  margin-left: 50px;
+  margin-left: 60px;
 }
 
 .faq-question {
@@ -257,6 +257,7 @@ a {
   text-decoration: none;
   flex: 1;
   color:#5e7c71;
+  margin-left: 15px;
 }
 
 .faq-answer-container {
