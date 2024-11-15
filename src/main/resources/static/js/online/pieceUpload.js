@@ -298,7 +298,7 @@ const pieceUpload = () => {
       const input2 = document.createElement("input");
       input2.type="hidden";
       input2.name="pieceRename";
-      input2.value=fileRename;
+      input2.value="/images/piece/" + fileRename;
       form.appendChild(input2);
       
       const input3 = document.createElement("input");
