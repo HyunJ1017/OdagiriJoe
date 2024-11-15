@@ -168,7 +168,44 @@
 			W.MEMBER_NO = #{memberNo}
 		AND	P.PIECE_TYPE = 2
 		AND P.PIECE_STATUS IN ('A', 'S')
-		ORDER BY PIECE_NO
+		ORDER BY PIECE_NO DESC
 	</select>
+	
+	<!-- 경력사항 집어넣기 -->
+	<insert id="insertWork">
+	  INSERT ALL
+	  <foreach collection="workDetails" item="workDetail">
+	    <if test="workDetail != null and workDetail.trim() != ''">
+	      INTO WORK (WORK_NO, MEMBER_NO, WORK_DETAIL)
+	      VALUES (SEQ_WORK_NO.NEXTVAL, #{memberNo}, #{workDetail})
+	    </if>
+	  </foreach>
+	  SELECT 1 FROM DUAL
+	</insert>
+
+	<!-- 작가 - 진행중인경매목록 조회 -->
+	<select id="artistAuction" resultType="Piece">
+		SELECT
+			P.PIECE_NO,
+			P.MEMBER_NO,
+			PIECE_RENAME,
+			PIECE_TITLE,
+			PIECE_STATUS,
+			(TO_CHAR(START_DATE, 'MM/DD') || '(' || SUBSTR(TO_CHAR(START_DATE, 'DY'), 1, 1) || ')') AS START_DATE,
+			(TO_CHAR(END_DATE, 'MM/DD') || '(' || SUBSTR(TO_CHAR(END_DATE, 'DY'), 1, 1) || ')') AS END_DATE,
+			PA.FINAL_PRICE,
+			D.DELIVERY_STATUS
+		FROM "PIECE" P
+		LEFT JOIN PIECE_AUCTION PA ON (P.PIECE_NO = PA.PIECE_NO)
+		LEFT JOIN DELIVERY D ON (D.PIECE_NO = P.PIECE_NO) 
+		WHERE
+			P.PIECE_TYPE = 2
+		AND P.MEMBER_NO = #{memberNo}
+		AND PIECE_STATUS NOT IN ('S')
+		<![CDATA[
+		AND (D.DELIVERY_STATUS < 3 OR D.DELIVERY_STATUS IS NULL)
+		]]>
+	</select>
+
 	
 </mapper>

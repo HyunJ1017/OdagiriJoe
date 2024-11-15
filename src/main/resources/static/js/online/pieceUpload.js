@@ -280,14 +280,15 @@ const pieceUpload = () => {
   alertM("작품 이미지를 등록하고 있습니다.");
   fetch("/images/piece", {
     method: "POST",
-    body: formData,
+    body: formData
   })
   .then(response => {
-    if (response.ok) return response.json();
+    if (response.ok) return response.text();
     throw new Error("AJAX 통신 실패");
   })
   .then(result => {
-    if(result > 0){
+    console.log(result);
+    if(result !== null){
       alertM("작품 이미지 등록에 성공하였습니다.");
       const input1 = document.createElement("input");
       input1.type="hidden";
@@ -298,7 +299,7 @@ const pieceUpload = () => {
       const input2 = document.createElement("input");
       input2.type="hidden";
       input2.name="pieceRename";
-      input2.value="/images/piece/" + fileRename;
+      input2.value=result;
       form.appendChild(input2);
       
       const input3 = document.createElement("input");

@@ -19,6 +19,7 @@ import edu.kh.plklj.main.dto.BankCode;
 import edu.kh.plklj.main.dto.Member;
 import edu.kh.plklj.member.service.MyPageService;
 import edu.kh.plklj.notice.dto.Notice;
+import edu.kh.plklj.piece.dto.Piece;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -62,7 +63,16 @@ public class MyPageController {
 	 * @return 구매내역 페이지
 	 */
 	@GetMapping("artistAuction")
-	public String artistAuction() {
+	public String artistAuction(
+			@SessionAttribute("artistLogin") Member artistLogin,
+			Model model) {
+		int memberNo = artistLogin.getMemberNo();
+		
+		// 진행중인 경매물품 조회하기
+		List<Piece> pieceList = service.artistAuction(memberNo);
+		
+		model.addAttribute("pieceList", pieceList);
+		
 		return "myPage/artistAuction";
 	}
 	
@@ -174,11 +184,16 @@ public class MyPageController {
 	@PostMapping("insertArtist")
 	public String insertArtist(
 			@ModelAttribute Member artist,
+			@RequestParam("workDetail") List<String> workDetails,
 			@RequestParam("inputArtistPortfolio") MultipartFile inputArtistPortfolio
 			) {
 		
-		int result = service.insertArtist(artist, inputArtistPortfolio);
-		return "redirect:/";
+		int result = service.insertArtist(artist, inputArtistPortfolio, workDetails);
+		if(result > 0) {
+			return "redirect:/";
+		} else {
+			return "redirect:/member/myPage/artistRegistration";
+		}
 	}
 	
 	

@@ -24,22 +24,22 @@ repositories {
 }
 
 dependencies {
-	  implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-	  implementation 'org.springframework.boot:spring-boot-starter-mail'
-	  implementation 'org.springframework.boot:spring-boot-starter-security'
-	  implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	  implementation 'org.springframework.boot:spring-boot-starter-web'
-	  implementation 'org.springframework.boot:spring-boot-starter-websocket'
-	  implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
-	  implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
-	  compileOnly 'org.projectlombok:lombok'
-	  developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	  runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
-	  annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-	  annotationProcessor 'org.projectlombok:lombok'
-	  testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	  testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
-	  testImplementation 'org.springframework.security:spring-security-test'
+		implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+		implementation 'org.springframework.boot:spring-boot-starter-mail'
+		implementation 'org.springframework.boot:spring-boot-starter-security'
+		implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+		implementation 'org.springframework.boot:spring-boot-starter-web'
+		implementation 'org.springframework.boot:spring-boot-starter-websocket'
+		implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+		implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+		compileOnly 'org.projectlombok:lombok'
+		developmentOnly 'org.springframework.boot:spring-boot-devtools'
+		runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
+		annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+		annotationProcessor 'org.projectlombok:lombok'
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+		testImplementation 'org.springframework.security:spring-security-test'
 		testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
    
 		// Spring - Redis 통신이 가능하게 함
@@ -50,17 +50,30 @@ dependencies {
 		// https://mvnrepository.com/artifact/io.lettuce/lettuce-core
 		implementation 'io.lettuce:lettuce-core:6.4.0.RELEASE'
    
-   	// Spring AOP + AspectJ
-  	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-aop
+   		// Spring AOP + AspectJ
+  		// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-aop
 		implementation 'org.springframework.boot:spring-boot-starter-aop'
    
 	   
 		implementation 'com.squareup.okhttp3:okhttp:4.9.3'
 		implementation 'com.google.code.gson:gson:2.9.0'
 	
+		//implementation 'com.google.firebase:firebase-admin:9.1.0'
+    	//implementation 'com.google.cloud:google-cloud-storage:2.9.1'
+		//implementation group: 'com.google.firebase', name: 'firebase-admin', version: '8.0.1'
+    	//implementation 'com.google.cloud:google-cloud-storage:2.9.1'
+    	//implementation 'com.google.firebase:firebase-admin:9.1.0'
+		//implementation 'com.google.firebase:firebase-storage:20.0.1'
+    	//implementation 'com.google.firebase:firebase-admin:latest_version'
+    	//implementation 'com.google.firebase:firebase-core:17.0.0'
+		//implementation 'com.google.firebase:firebase-firestore:15.0.0'
+		//implementation 'com.google.firebase:firebase-storage-ktx'
+	    // implementation 'com.google.firebase:firebase-admin:latest_version'
 		implementation group: 'com.google.firebase', name: 'firebase-admin', version: '8.0.1'
-    // implementation 'com.google.firebase:firebase-admin:latest_version'
-    implementation 'com.google.cloud:google-cloud-storage:2.9.1'
+	    implementation 'com.google.cloud:google-cloud-storage:2.9.1'
+	  
+	  
+	  
 }
 
 

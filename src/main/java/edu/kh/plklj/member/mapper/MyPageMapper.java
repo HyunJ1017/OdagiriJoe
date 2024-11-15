@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.plklj.main.dto.BankCode;
@@ -43,5 +44,9 @@ public interface MyPageMapper {
 	int getFollowListCount(int memberNo);
 
 	int getWishListCount(int memberNo);
+
+	int insertWork(@Param("memberNo") int memberNo, @Param("workDetails") List<String> workDetails);
+
+	List<Piece> artistAuction(int memberNo);
 
 }
