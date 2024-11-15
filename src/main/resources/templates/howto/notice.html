@@ -15,9 +15,9 @@
 
     <h1>공지사항</h1>
 
-    <div class="notice-container">
+    <div class="notice-container" id="noticeContainer">
 
-      <div class="notice-item">
+      <!-- <div class="notice-item">
         <div class="notice-title" onclick="toggleContent(this)">
             [공지] 집에 가고 싶은데 어떡해요?
         </div>
@@ -61,27 +61,28 @@
         <div class="notice-content">
             <p>이것은 두 번째 공지의 내용입니다.</p>
         </div>
-      </div>
+      </div> -->
 
-      
-
-      <div class="pagination-box">
-        <a href="#" class="page-btn">1</a>
-        <a href="#" class="page-btn">2</a>
-        <a href="#" class="page-btn">3</a>
-        <a href="#" class="page-btn">4</a>
-        <a href="#" class="page-btn">5</a>
-        <a href="#" class="page-btn">6</a>
-        <a href="#" class="page-btn">7</a>
-        <a href="#" class="page-btn">8</a>
-        <a href="#" class="page-btn">9</a>
-        <a href="#" class="page-btn">10</a>
-      </div>
-      
       <!-- 공지사항 항목을 계속 추가할 수 있습니다 -->
     </div>
 
+
+    <div class="pagination-box" id="paginationBox">
+      <!-- <a href="#" class="page-btn">1</a>
+      <a href="#" class="page-btn">2</a>
+      <a href="#" class="page-btn">3</a>
+      <a href="#" class="page-btn">4</a>
+      <a href="#" class="page-btn">5</a>
+      <a href="#" class="page-btn">6</a>
+      <a href="#" class="page-btn">7</a>
+      <a href="#" class="page-btn">8</a>
+      <a href="#" class="page-btn">9</a>
+      <a href="#" class="page-btn">10</a> -->
+    </div>
+
   </main>
+
+
   
 
   <th:block th:replace= "~{/common/footer.html}"></th:block>

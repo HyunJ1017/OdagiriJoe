@@ -7,6 +7,7 @@
 
   <link rel="stylesheet" href="/css/howto/howToMain.css">
   <link rel="stylesheet" href="/css/auction/auctionMain.css">
+  <link rel="stylesheet" href="/css/howto/notice.css">
 </head>
 <body>
   <th:block th:replace="~{common/common}"></th:block>
@@ -18,6 +19,23 @@
     <section class="upcoming-auctions">
       <div class="upcoming-title">예정 경매</div> 
 
+      <div class="upcoming-box" style="border-right: 2px solid #aaaaaa;">
+        <div class="upcoming-imgbox">
+          <img src="/images/onlineGallery3.jpg">
+        </div>
+        
+        <div class="upcoming-text">
+          <h1>무제</h1>
+          <div style="margin-top: 35px;">프리뷰</div>
+          <div style="margin-top: 8px;">11월 09일(수) ~ 11월 19일(월)</div>
+          <div style="margin-top: 25px;">경매일</div>
+          <div style="margin-top: 8px;">12월 10일 14:00</div>
+          <hr class="dotted-line">
+          <button class="detail-button" id="ongoingBtn">상세보기</button>
+        </div>
+      </div>
+
+      
       <div class="upcoming-box" style="border-right: 2px solid #aaaaaa;">
         <div class="upcoming-imgbox">
           <img src="/images/onlineGallery3.jpg">
@@ -107,7 +125,7 @@
     </section>
     
     <section class="completed-auctions">
-      <div class="completed-title">예정 경매</div> 
+      <div class="completed-title">종료 경매</div> 
 
       <div class="completed-imgbox">
         <div>
@@ -186,18 +204,23 @@
 
     </section>
 
-    <div class="pagination">
-      <a href="#">1</a>
-      <a href="#">2</a>
-      <a href="#">3</a>
-      <a href="#">4</a>
-      <a href="#">5</a>
-      <a href="#">6</a>
-      <a href="#">7</a>
-      <a href="#">8</a>
-      <a href="#">9</a>
-      <a href="#">10</a>
+    <div class="pagination-box" id="paginationBox">
+      <a href="#" class="page-btn"><<</a>
+      <a href="#" class="page-btn"><</a>
+      <a href="#" class="page-btn">1</a>
+      <a href="#" class="page-btn">2</a>
+      <a href="#" class="page-btn">3</a>
+      <a href="#" class="page-btn">4</a>
+      <a href="#" class="page-btn">5</a>
+      <a href="#" class="page-btn">6</a>
+      <a href="#" class="page-btn">7</a>
+      <a href="#" class="page-btn">8</a>
+      <a href="#" class="page-btn">9</a>
+      <a href="#" class="page-btn">10</a>
+      <a href="#" class="page-btn">>></a>
+      <a href="#" class="page-btn">></a>
     </div>
+  
     
   </main>
 

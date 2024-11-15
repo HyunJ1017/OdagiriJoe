@@ -1,11 +1,14 @@
 package edu.kh.plklj.howTo.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.kh.plklj.howTo.service.HowToService;
 import edu.kh.plklj.question.dto.Question;
@@ -37,6 +40,22 @@ public class HowToController {
 
     return "howto/howToMain"; 
 	}
+	
+	
+	// 공지사항 페이지 페이지네이션 리스트 조회
+	@GetMapping("noticeList")
+	@ResponseBody
+	public Map<String, Object> noticeList(
+				@RequestParam(value = "cp", required = false,	defaultValue = "1") int cp
+			) {
+		
+		Map<String, Object> map = service.noticeList(cp);
+		
+		
+		return map;
+	}
+	
+	
 
 	
 	@GetMapping("info")

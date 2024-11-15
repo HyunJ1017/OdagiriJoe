@@ -20,5 +20,25 @@
         WHERE ROWNUM &lt;= 5
 	</select>
 	
+	
+	<select id="noticeCount" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM
+			"NOTICE"
+		WHERE
+			NOTICE_DEL_FL = 'N'
+	</select>
+	
+	
+	<select id="noticeList" resultType="Notice">
+		SELECT
+			*
+		FROM
+			"NOTICE"
+		WHERE
+			NOTICE_DEL_FL = 'N'
+	</select>
+	
 
 </mapper>
