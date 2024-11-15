@@ -2,8 +2,10 @@ package edu.kh.plklj.piece.service;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 
+import edu.kh.plklj.common.util.Pagination;
 import edu.kh.plklj.piece.dto.Category;
 import edu.kh.plklj.piece.dto.Piece;
 import edu.kh.plklj.piece.mapper.PieceMapper;
@@ -21,10 +23,27 @@ public class PieceServiceImpl implements PieceService{
 		return mapper.countSalesPiece();
 	}
 	
+//	@Override
+//	public List<Piece> getSalesPieces(int cp, Pagination salesPagination) {
+//		
+//		int offset = (cp - 1) * Pagination.getLimit();
+//		
+//		Pagination salesPagination = new Pagination(cp, salesListCount, 5, 5);
+//		
+//		RowBounds rowBounds = new RowBounds(offset, Pagination.getLimit());
+//			
+//		return mapper.selectSalesPiece(offset, rowBounds);
+//		
+//	}
+	
 	@Override
-	public List<Piece> getSalesPieces(int currentPage, int limit) {
-		int offset = (currentPage - 1) * limit; // 현재 페이지에 따른 시작 위치 계산
-		return mapper.selectSalesPiece(offset, limit);
+	public List<Piece> getSalesPieces(int cp, int salesListCount, Pagination salesPagination) {
+		
+		int offset = (cp - 1) * salesPagination.getLimit();
+
+		RowBounds rowBounds = new RowBounds(offset, salesPagination.getLimit());
+	
+		return mapper.selectSalesPiece(rowBounds);
 	}
 	
 	@Override
@@ -33,9 +52,13 @@ public class PieceServiceImpl implements PieceService{
 	}
 	
 	@Override
-	public List<Piece> getCompletePieces(int currentPage, int limit) {
-		int offset = (currentPage - 1) * limit; // 현재 페이지에 따른 시작 위치 계산
-		return mapper.selectCompletedPiece(offset, limit);
+	public List<Piece> getCompletePieces(int cp, int completeListCount, Pagination complPagination) {
+		
+		int offset = (cp - 1) * complPagination.getLimit(); // 현재 페이지에 따른 시작 위치 계산
+		
+		RowBounds rowBounds = new RowBounds(offset, complPagination.getLimit());
+		
+		return mapper.selectCompletedPiece(rowBounds);
 	}
 	
 	// 작품 등록

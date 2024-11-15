@@ -21,7 +21,7 @@ body {
 .online-gallery-list {
     max-width: 1200px;
   margin: 150px auto;
-  padding: 0 20px;
+  padding: 0 61px;
   color: #333;
 }
 
@@ -94,10 +94,11 @@ body {
 }
 
 .online-list {
+    width: 1290px;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: space-between;
+    /* justify-content: space-between; */
 }
 
 .gallery-item {
@@ -108,6 +109,7 @@ body {
     border-radius: 10px;
     overflow: hidden;
     transition: transform 0.3s ease;
+    width: 200px;
 }
 
 .gallery-item:hover {
@@ -120,7 +122,7 @@ body {
 }
 
 .artwork-image img {
-    width: 300px;
+    width: 100%;
     height: 300px;
     display: block;
     border-bottom: 1px solid #e0e0e0;
@@ -181,61 +183,6 @@ body {
     color: #fff;
 }
 
-/* 페이지네이션 스타일 */
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    font-size: 0.9rem; /* 글씨 크기를 작게 설정 */
-}
-
-.pagination ul {
-    list-style: none;
-    display: flex;
-    padding: 0;
-}
-
-.pagination li {
-    margin: 0 3px; /* 버튼 간격을 줄임 */
-}
-
-.pagination a {
-    display: block;
-    padding: 5px 10px; /* 패딩을 줄여 버튼 크기를 작게 */
-    text-decoration: none;
-    /* background-color: #5e7c53; */
-    color: #333;
-    border-radius: 3px; /* 둥글기 감소 */
-    transition: background-color 0.3s ease;
-    font-size: 0.85rem; /* 버튼 글씨 크기를 작게 설정 */
-}
-
-.pagination a:hover {
-    background-color: #466940;
-}
-
-/* 완료 작품 리스트 */
-.online-list1 {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-between;
-    margin-top: 30px;
-}
-
-.online-header1 h3 {
-    margin-right: auto;
-    color: #4a6741;
-    font-size: 28px;
-    margin-top: 50px;
-}
-
-hr {
-    margin-top: 50px;
-}
-
-
 /* ***************** 페이지네이션 *************************** */
 .pagination-box {
     display: flex;
@@ -262,14 +209,14 @@ hr {
   
   .pagination-box >.page-btn:hover {
     border-radius: 50%; /* 원형으로 만들기 */
-    background-color: #FF7F7F; /* 원형의 배경색 */
+    background-color: #5e7c71; /* 원형의 배경색 */
     color: #fff; /* 글자색 흰색 */
   }
   
      /* 페이지 네이션 색상 */
   .pagination-box > .page-btn.active {
     border-radius: 50%; /* 원형으로 만들기 */
-    background-color: #FF7F7F; /* 원형의 배경색 */
+    background-color: #5e7c71; /* 원형의 배경색 */
     color: #fff; /* 글자색 흰색 */
     font-weight: bold;
   }
@@ -283,3 +230,58 @@ hr {
     justify-content: center; /* 가로 중앙 정렬 */
     padding: 5px; /* 패딩 추가하여 클릭 영역 확대 */
   }
+  
+
+/* 완료 작품 리스트 */
+.online-list1 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.online-header1 h3 {
+    margin-right: auto;
+    color: #4a6741;
+    font-size: 28px;
+    margin-top: 50px;
+}
+
+hr {
+    margin-top: 50px;
+}
+
+/* 드롭다운 버튼 스타일 */
+.online-dropdown1 {
+    margin-left: auto;
+    position: relative;
+    display: inline-block;
+    flex-direction: row; /* 버튼을 오른쪽으로 이동하도록 설정 */
+}
+
+/* 드롭다운 메뉴 스타일 */
+.online-dropdown-content1 {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* 드롭다운 항목 스타일 */
+.online-dropdown-content1 a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* 드롭다운 항목 hover 스타일 */
+.online-dropdown-content1 a:hover {background-color: #f1f1f1;}
+
+/* 드롭다운 표시 */
+.online-dropdown1:hover .dropdown-content {
+    display: block;
+}
