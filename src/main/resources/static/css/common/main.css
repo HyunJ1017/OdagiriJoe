@@ -308,6 +308,7 @@ h3 {
 .auctions-container .main-item{
   width: calc(100% * 3);
   display: flex;
+
 }
 
 /* 내용 컨테이너 */
