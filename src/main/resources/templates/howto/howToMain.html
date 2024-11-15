@@ -31,8 +31,9 @@
         </div>
 
       </div>
+
     </section>
-    
+
 
     <section class="howTo-section2">
       <div>
@@ -51,71 +52,33 @@
       </div>
     </section>
 
+
+  
+
     <!-- FAQ Section -->
     <section class="faq-section">
       <div style="margin-bottom: 30px;">
         <div style="font-size: 25px; margin: 20px 20px 20px 0; font-weight: bold;">자주 묻는 질문(FAQ)</div>
       </div>
+
+      <th:block th:unless="${#lists.isEmpty(questionList)}">
+        <div th:each="question : ${questionList}">
+            <div class="faq-box">
+                <div class="faq-header" onclick="toggleFaq(this)">
+                    <i class="fa-solid fa-play toggle-icon"></i>
+                    <a class="faq-question" th:text="${question.questionContent}"></a>
+                </div>
+            </div>
+
+            <div class="faq-answer-container">
+              <div class="faq-answer" th:text="${question.questionAnswer != null ? question.questionAnswer : '답변이 아직 등록되지 않았습니다.'}"></div>
+          </div>
+        </div>
+    </th:block>
       
-      <!-- FAQ Item -->
-      <div class="faq-box">
-        <div class="faq-header" onclick="toggleFaq(this)">
-          <i class="fa-solid fa-play toggle-icon"></i>
-          <a class="faq-question">집에 가고싶어요 :: 참아.</a>
-        </div>
-      </div>
-
-      <div class="faq-answer-container">
-        <div class="faq-answer">집에 가고 싶을 때, 잠시 산책을 해보세요. 기분이 나아질 수 있습니다.</div>
-      </div>
-
-      <!-- Additional FAQ Items -->
-      <div class="faq-box">
-        <div class="faq-header" onclick="toggleFaq(this)">
-          <i class="fa-solid fa-play toggle-icon"></i>
-          <a class="faq-question">어떻게 시작하나요?</a>
-        </div>
-      </div>
-
-      <div class="faq-answer-container">
-        <div class="faq-answer">시작하려면 먼저 회원가입을 진행하고 로그인 후 사용 가능합니다.</div>
-      </div>
-
-      <div class="faq-box">
-        <div class="faq-header" onclick="toggleFaq(this)">
-          <i class="fa-solid fa-play toggle-icon"></i>
-          <a class="faq-question">안전한가요?</a>
-        </div>
-      </div>
-
-      <div class="faq-answer-container">
-        <div class="faq-answer">저희 서비스는 최고 수준의 보안 프로토콜을 사용하여 안전합니다.</div>
-      </div>
-
-      
-      <div class="faq-box">
-        <div class="faq-header" onclick="toggleFaq(this)">
-          <i class="fa-solid fa-play toggle-icon"></i>
-          <a class="faq-question">안전한가요?</a>
-        </div>
-      </div>
-
-      <div class="faq-answer-container">
-        <div class="faq-answer">저희 서비스는 최고 수준의 보안 프로토콜을 사용하여 안전합니다.</div>
-      </div>
-
-      
-      <div class="faq-box">
-        <div class="faq-header" onclick="toggleFaq(this)">
-          <i class="fa-solid fa-play toggle-icon"></i>
-          <a class="faq-question">안전한가요?</a>
-        </div>
-      </div>
-
-      <div class="faq-answer-container">
-        <div class="faq-answer">저희 서비스는 최고 수준의 보안 프로토콜을 사용하여 안전합니다.</div>
-      </div>
     </section>
+
+
 
 
   <section class="howTo-section3">

@@ -24,9 +24,13 @@
       </div>
       <!-- 슬라이드 추가 가능 -->
     </div>
-    <div class="navigation">
-      <button class="nav prev">&#10094;</button>
-      <button class="nav next">&#10095;</button>
+  </main>
+
+  <!-- 갤러리 섹션 -->
+  <section class="art-container">
+    <div class="art-header">
+      <h3>Online Gallery</h3>
+      <button class="artBtn" onclick="location.href='/piece/gallery'">작품 더보기 + </button>
     </div>
   </div>
   
@@ -68,39 +72,6 @@
       </article>
     </div>
   </section>
-
-  <!-- <article class="gallery-item">
-    <div class="artwork-image">
-      <a th:href="@{/gallery//{pieceNo} (memberNo= ${artist.memberNo})}" class="class-item" th:each="artist : ${artistList}" th:object="${artist}">
-        <img th:src="*{pieceRename}" alt="Online Gallery" class="piece-rename" th:data-id="*{memberNo}">
-      </a>
-    </div>
-    <div class="artwork-info">
-      <h3 th:text="*{artistsNickname}">박현준</h3>
-      <p class="artwork-title" th:text="*{priceTitle}">작품 : 힐링넷</p>
-      <div class="artwork-details">
-        <p class="size" th:text="*{sixeX || sixeY}">22 x 22</p>
-        <p class="price">현재가 (KRW)</p>
-        <p class="amount" th:text="*{sellPrice}">300,000</p>
-      </div>
-    </div>
-  </article>
-  <article class="gallery-item">
-    <div class="artwork-image">
-      <a th:href="@{/gallery//{pieceNo} (memberNo= ${artist.memberNo})}" class="class-item" th:each="artist : ${artistList}" th:object="${artist}">
-        <img th:src="*{pieceRename}" alt="Online Gallery" class="piece-rename" th:data-id="*{memberNo}">
-      </a>
-    </div>
-    <div class="artwork-info">
-      <h3 th:text="*{artistsNickname}">박현준</h3>
-      <p class="artwork-title" th:text="*{priceTitle}">작품 : 힐링넷</p>
-      <div class="artwork-details">
-        <p class="size" th:text="*{sixeX || sixeY}">22 x 22</p>
-        <p class="price">현재가 (KRW)</p>
-        <p class="amount" th:text="*{sellPrice}">300,000</p>
-      </div>
-    </div>
-  </article> -->
 
   <!-- 온라인 경매 섹션 -->
   <section class="online-auctions">
