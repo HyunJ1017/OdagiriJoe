@@ -1,47 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>화사 :: 愛 :: 화공</title>
   <link rel="stylesheet" href="/css/common/main.css">
-  <th:block th:replace="~{/common/common.html :: cssLinks}"></th:block>
+  <th:block th:replace= "~{/common/common.html :: cssLinks}"></th:block>
 </head>
-
 <body>
-  <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
-  <main>
-    <!-- 메인 슬라이드쇼 섹션 -->
-    <section class="slider-container">
-      <div class="slides">
-        <div class="slide">
-          <div class="main-container">
-            <div class="main-header">
-              <article class="main-item" th:each="artist, stat : ${showViewing}">
-                <div class="main-detail" th:object="${artist}">
-                  <p th:text="|*{pieceTitle}|" class="mainPriceText">카테고리 이름</p>
-                  <p th:text="|Open Time: *{startDate}|">시작 일시</p>
-                  <p th:text="|End Time: *{endDate}|">끝난 일시</p>
-                  <button type="button" class="seeBtn"
-                    th:onclick="|location.href='/{pieceType}/main/{pieceNo} (memberNo=*{memberNo})'|">보러가기</button>
-                </div>
-                <img th:src="${artist.pieceRename}" alt="Main" class="main-image" th:data-id="*{memberNo}">
-              </article>
-            </div>
-          </div>
-        </div>
+  <th:block th:replace= "~{/common/common.html :: headerLinks}"></th:block>
+  
+  <div class="slider-container">
+    <div class="slider">
+      <div class="slide">
+        <img src="img/image1.png" alt="Image 1">
+        <button src="/" >보러가기</button>
       </div>
+      <div class="slide">
+        <img src="path/to/image2.png" alt="Image 2">
+        <button src="/" >보러가기</button>
     </section>
-
-    <!-- 인디케이터 바 -->
-    <!-- 이전/다음 버튼 -->
-    <div class="indicator-container">
-      <button class="prev-btn" onclick="moveSlide(-1)">&#10094;</button>
-      <div class="progress-bar-container">
-        <div class="progress-bar"></div>
+  
       </div>
-      <button class="next-btn" onclick="moveSlide(1)">&#10095;</button>
+      <!-- 슬라이드 추가 가능 -->
     </div>
   </main>
 
@@ -51,70 +32,67 @@
       <h3>Online Gallery</h3>
       <button class="artBtn" onclick="location.href='/piece/gallery'">작품 더보기 + </button>
     </div>
-    <div class="custom-line"></div> <!-- 제목과 버튼 아래 구분선 -->
-    <div class="gallery-container">
-      <article class="gallery-item" th:each="artist, stat : ${onlineGallery}">
-        <div class="gallery-image">
-          <a th:href="@{/piece/online/{artist.pieceNo} (memberNo= ${artist.memberNo})}" th:object="${artist}">
-            <img th:src="*{pieceRename}" alt="Online Gallery" class="pieceRename" th:data-id="*{memberNo}">
-          </a>
-          <div class="gallery-innerDetails" th:object="${piece}">
-            <p th:text="|${artist.sizeX} x ${artist.sizeY}|">22 x 22</p>
-            <p th:text="|현재가(KRW) : ${artist.sellPrice}|">현재가</p>
-          </div>
-          <div class="gallery-detail">
-            <p th:text="|작가 : ${artist.artistNickname}|">작가명</p>
-            <p th:text="|제목 : ${artist.pieceTitle}|">제목: </p>
+  </div>
+  
+  <!-- 온라인 갤러리 섹션 -->
+  <section class="online-gallery">
+    <div class="section-header">
+      <h2>Online Gallery</h2>
+      <a href="/" class="more">작품 더보기 +</a>
+    </div>
+    <div class="gallery-grid">
+      <article class="gallery-item">
+        <div class="artwork-image">
+          <img src="path/to/artwork1.jpg" alt="수묵화">
+        </div>
+        <div class="artwork-info">
+          <h3>박현준</h3>
+          <p class="artwork-title">작품 : 힐링넷</p>
+          <div class="artwork-details">
+            <p class="size">22 x 22</p>
+            <p class="price">현재가 (KRW)</p>
+            <p class="amount">300,000</p>
           </div>
         </div>
-        <div th:if="${stat.index % 5 == 4}" class="custom-line gallery-divider"></div>
+      </article>
+      <!-- 추가 갤러리 아이템들 -->
+      <article class="gallery-item">
+        <div class="artwork-image">
+          <img src="path/to/artwork2.jpg" alt="현대미술">
+        </div>
+        <div class="artwork-info">
+          <h3>이동현</h3>
+          <p class="artwork-title">작품 : 풍운이</p>
+          <div class="artwork-details">
+            <p class="size">22 x 22</p>
+            <p class="price">현재가 (KRW)</p>
+            <p class="amount">450,000</p>
+          </div>
+        </div>
       </article>
     </div>
   </section>
 
-  <!-- 경매 슬라이드 섹션 -->
-  <main>
-    <section class="art-container">
-      <div class="art-header">
-        <h3>Action</h3>
-        <button class="artBtn" onclick="location.href='/auction/main'">경매 더보기 + </button>
-      </div>
-      <div class="custom-line"></div> <!-- 제목과 버튼 아래 구분선 -->
-      <div class="slides">
-        <div class="slider-container auction-slider">
-          <div class="auctions-container">
-            <article class="auction-item" th:each="artist, stat : ${auction}" th:object="${artist}">
-              <div class="auction-detail">
-                <p th:text="*{artistNickname}" class="priceText">작가명</p>
-                <p th:text="|제목 : *{pieceTitle}|">제목</p>
-                <p th:text="|작품 사이즈 : *{sizeX} x *{sizeY}|">22 x 22</p>
-                <p th:if="*{startPrice != null}" th:text="|시작가 (KRW): *{startPrice}|">시작가(KRW)</p>
-                <p th:if="*{startPrice == null}" th:text="|현재가 (KRW): *{hopePrice}|">현재가(KRW)</p>
-                <hr class="dotted-line">
-                <button class="view-button" role="link" aria-label="상세보기: ${pieceTitle}"
-                  th:onclick="|location.href='/auction/main/{artist.pieceNo} (memberNo=${memberNo})'|">상세보기</button>
-              </div>
-              <img th:src="*{pieceRename}" alt="작품: *{pieceTitle}" class="auction-image" th:data-id="*{memberNo}">
-              <div class="custom-line"></div>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- 경매 슬라이더 인디케이터 바 -->
-    <div class="auctions-container">
-      <button class="auctions-prev-btn" onclick="moveSlide(-1)">&#10094;</button>
-      <div class="auctions-progress-bar-container">
-        <div class="auctions-progress-bar"></div>
-      </div>
-      <button class="auctions-next-btn" onclick="moveSlide(1)">&#10095;</button>
+  <!-- 온라인 경매 섹션 -->
+  <section class="online-auctions">
+    <div class="section-header">
+      <h2>Online Auctions</h2>
+      <a href="#" class="more">경매 더보기 +</a>
     </div>
-  </main>
-
-
-  <script src="/js/common/main.js"></script>
+    <div class="auction-grid">
+      <article class="auction-item">
+        <div class="artwork-image">
+          <img src="path/to/auction1.jpg" alt="경매 작품">
+        </div>
+        <div class="auction-info">
+          <h3>힐링넷</h3>
+          <p class="artist">작품 설명</p>
+        </div>
+      </article>
+      <!-- 추가 경매 아이템들 -->
+    </div>
+  </section>
+  
 </body>
-<th:block th:replace="~{/common/footer.html}"></th:block>
-
+<th:block th:replace= "~{/common/footer.html}"></th:block>
 </html>

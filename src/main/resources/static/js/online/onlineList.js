@@ -81,7 +81,7 @@ function renderSalesList(items = []) {
 }
 
 // 완료 작품 목록 렌더링
-function renderCompletedList(items) {
+function renderCompletedList(items = []) {
     const completedListContainer = document.querySelector('.online-list1');
     completedListContainer.innerHTML = items.map(item => `
         <article class="gallery-item">
@@ -101,7 +101,6 @@ function renderCompletedList(items) {
     `).join('');
 }
 
-// 페이지네이션 렌더링 (판매 작품과 완료 작품 모두 사용)
 function renderPagination(pagination = {}, paginationBoxId, loadFunction) {
     const paginationBox = document.getElementById(paginationBoxId);
     paginationBox.innerHTML = '';
@@ -116,7 +115,11 @@ function renderPagination(pagination = {}, paginationBoxId, loadFunction) {
     for (let i = pagination.startPage; i <= pagination.endPage; i++) {
         const pageButton = document.createElement('button');
         pageButton.innerText = i;
-        pageButton.classList.add(i === pagination.currentPage ? 'active' : '');
+
+        if (i === pagination.currentPage) {
+            pageButton.classList.add('active');
+        }
+
         pageButton.onclick = () => loadFunction(i);
         paginationBox.appendChild(pageButton);
     }
@@ -128,6 +131,7 @@ function renderPagination(pagination = {}, paginationBoxId, loadFunction) {
         paginationBox.appendChild(nextButton);
     }
 }
+
 
 // 초기 로드 시 첫 페이지 로드
 document.addEventListener('DOMContentLoaded', () => {
