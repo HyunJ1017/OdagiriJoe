@@ -5,22 +5,40 @@ document.addEventListener("DOMContentLoaded", function() {
   const sortBtn = document.getElementById("sortBtn");
   const dropdownContent = document.getElementById("dropdownContent");
 
-  // 버튼 클릭 시 드롭다운 메뉴 표시/숨기기
-  sortBtn.addEventListener("click", function(event) {
-      event.stopPropagation(); // 이벤트 전파 중지
-      // 드롭다운이 보이는지 여부에 따라 표시/숨기기 토글
-      if (dropdownContent.style.display === "block") {
-          dropdownContent.style.display = "none";
-      } else {
-          dropdownContent.style.display = "block";
-      }
-  });
+  let currentSortContent = { // 현재 정렬 상태를 저장
+    field: null, //  정렬기준 (예: "name", "price")
+    direction : 'asc' // 정렬방향 ("asc" 또는 "desc")
+  };
 
-  // 드롭다운 외부 클릭 시 드롭다운 숨기기
-  document.addEventListener("click", function() {
-      dropdownContent.style.display = "none";
-  });
+  // 드롭 다운 버튼 클릭 시 표시/ 숨기기
+  sortBtn.addEventListener("click", function (event) {
+    event.stopPropagation();
+    dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block";
 });
+
+// 외부 클릭 시 드롭다운 숨기기
+document.addEventListener("click", function() {
+    dropdownContent.style.display = "none";
+});
+
+// 정렬 버튼 클릭 이벤트 추가
+document.getElementById("sortByNameBtn").addEventListener("click", () => 
+    handleSort('name'));
+document.getElementById("sortByPriceBtn").addEventListener("click", () => 
+    handleSort('price'));
+
+// 정렬 처리 함수
+function handleSort(field) {
+    // 동일한 필드를 다시 클릭하면 정렬 방향 토글
+    if(currentSortOrder.field === field) {
+        currentSortOrder.direction = currentSortOrder.direction 
+        === 'asc' ? 'desc' : 'asc';
+    }
+
+    
+}
+    
+})
 
 // 작품 유형에 따라 로드 함수 호출
 function setType(type) {
