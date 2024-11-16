@@ -25,15 +25,15 @@ public class ManageController {
 		return "manage/manage";
 	}
 
+
 	// 콘텐츠 관리
 	@GetMapping("getList")
 	@ResponseBody
 	public Map<String, Object> getReportContents(@RequestParam("code") String code,
-		@RequestParam(name="cp", required = false, defaultValue = "1") int cp ){
+			@RequestParam(name="cp", required = false, defaultValue = "1") int cp ){
 		
 		return service.getSearchList(code, cp);
 	}
-	
 
 	// 공지사항 수정 페이지
 	@GetMapping("revise")
