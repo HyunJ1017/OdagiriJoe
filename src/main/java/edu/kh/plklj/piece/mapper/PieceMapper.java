@@ -14,7 +14,7 @@ public interface PieceMapper {
 
 	int countSalesPiece();
 
-	List<Piece> selectSalesPiece(RowBounds rowBounds);
+	List<Piece> selectSalesPiece(RowBounds rowBounds, @Param("sort") String sort, @Param("order") String order);
 
 	int countCompletedPiece();
 

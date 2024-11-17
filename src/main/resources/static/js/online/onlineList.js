@@ -2,31 +2,76 @@
 
 /* 드롭 다운 */
 document.addEventListener("DOMContentLoaded", function() {
-  const sortBtn = document.getElementById("sortBtn");
-  const dropdownContent = document.getElementById("dropdownContent");
+  // 판매 작품 정렬
+  let salesSortBtn = document.getElementById("salesSortBtn");
+  const salesDropdownContent = document.getElementById("salesDropdownContent");
+  // 정렬 상태 초기화
+	let salesSortState = { field: "recent", direction: "desc" };
+	let completedSortState = { field: "recent", direction: "desc" };
 
-  // 버튼 클릭 시 드롭다운 메뉴 표시/숨기기
-  sortBtn.addEventListener("click", function(event) {
-      event.stopPropagation(); // 이벤트 전파 중지
-      // 드롭다운이 보이는지 여부에 따라 표시/숨기기 토글
-      if (dropdownContent.style.display === "block") {
-          dropdownContent.style.display = "none";
-      } else {
-          dropdownContent.style.display = "block";
-      }
+	
+
+
+  salesSortBtn.addEventListener("click", function(event) {
+    event.stopPropagation();
+    salesDropdownContent.style.display = 
+        salesDropdownContent.style.display === "block" ? "none" : "block";
   });
 
-  // 드롭다운 외부 클릭 시 드롭다운 숨기기
   document.addEventListener("click", function() {
-      dropdownContent.style.display = "none";
+    salesDropdownContent.style.display = "none";
   });
-});
+
+  document.getElementById("salesSortByName").addEventListener("click", () => 
+    handleSort("판매작품", "name"));
+  document.getElementById("salesSortByPrice").addEventListener("click", () => 
+    handleSort("판매작품", "price"));
+
+  // 완료 작품 정렬
+  let completedSortBtn = document.getElementById("completedSortBtn");
+  const completedDropdownContent = document.getElementById("completedDropdownContent");
+  
+
+  completedSortBtn.addEventListener("click", function (event) {
+    event.stopPropagation();
+    completedDropdownContent.style.display = 
+        completedDropdownContent.style.display === "block" ? "none" : "block";
+  });
+
+  document.addEventListener("click", function () {
+    completedDropdownContent.style.display = "none";
+  });
+
+  document.getElementById("completedSortByName").addEventListener("click", () => 
+    handleSort("완료작품", "name"));
+  document.getElementById("completedSortByPrice").addEventListener("click", () => 
+    handleSort("완료작품", "price"));
+
+  // 정렬 처리 함수
+  function handleSort(type, field) {
+    let sortState = type === "판매작품" ? salesSortState : completedSortState;
+
+    // 정렬 상태 업데이트
+    if (sortState.field === field) {
+				sortState.direction = sortState.direction === "asc" ? "desc" : "asc";
+    } else {
+        sortState.field = field;
+				sortState.direction = "asc";
+    }
+
+		console.log("Sort State:", sortState);
+
+		// 로드 데이터 호출
+		loadPieces(1, type, sortState.field, sortState.direction);
+  }
+    
+})
 
 // 작품 유형에 따라 로드 함수 호출
 function setType(type) {
     const cp = 1; // 기본적으로 첫 페이지부터 로드
     if (type === '판매작품') {
-        loadPieces(cp, '판매작품');
+        loadPieces(cp, '판매작품', sortState.field, sortState.direction);
     } else if (type === '완료작품') {
         loadPieces(cp, '완료작품');
     } else {
@@ -49,10 +94,15 @@ function setType(type) {
 
 
 /* 판매 작품 목록 로드 및 페이지네이션 */
-function loadPieces(cp, type) {
+function loadPieces(cp, type, sort = "recent", order = "desc") {
 		// console.log(type);
 
-		const url = type === '판매작품' ? `/piece/online/sales?cp=${cp}` : `/piece/online/completed?cp=${cp}`;
+		const url =
+    type === "판매작품"
+      ? `/piece/online/sales?cp=${cp}&sort=${sort}&order=${order}`
+      : `/piece/online/completed?cp=${cp}&sort=${sort}&order=${order}`;
+
+			console.log("Request URL:", url); // 요청 URL 확인
 
     fetch(url)
         .then(response => {
@@ -148,7 +198,11 @@ function renderPagination(pagination, paginationBoxId, type) {
 			button.addEventListener("click", (event) => {
 				event.preventDefault();
 				const cp = parseInt(event.target.dataset.page);
+
+				 // 작품 유형에 따른 정렬 상태를 가져옴
+				//  const sortState = type === "판매작품" ? salesSortState : completedSortState;
 				
+				// 현재 정렬 상태를 유지하여 요청
 				loadPieces(cp, type);
 			});
 
@@ -178,6 +232,8 @@ function renderPagination(pagination, paginationBoxId, type) {
 document.addEventListener('DOMContentLoaded', () => {
 	setType('판매작품'); // 판매 작품 첫 페이지 로드
 	setType('완료작품'); // 완료 작품 첫 페이지 로드
+	// loadPieces(1, "판매작품", salesSortState.field, salesSortState.direction);
+  // loadPieces(1, "완료작품", completedSortState.field, completedSortState.direction);
 });
 
 
