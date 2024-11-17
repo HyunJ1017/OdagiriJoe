@@ -25,17 +25,32 @@
 }
 
 /* 컨탠츠 내용 */
-.content-div>div{
-  flex-grow: 1;
-  padding: 10px;
+
+.image-container{
+  padding: 10px; 
+  position: relative;
+  min-width: 202px;
+  min-height: 274px;
+  border: 1px solid #80808030;
 }
-.content-div>div>.content-img{
-  width: 200px; /* 고정 가로 크기 */
-  height: 210px; /* 고정 세로 크기 */
+.loader { /* 이미지 로딩전까지 보여줄 로딩이미지 */
+  position: absolute;
+  width: 180px;
+  height: 252px;
+  top: 10;
+  right: 10;
+  background: url('/images/loading.gif') center center no-repeat;
+  background-size: contain;
+}
+.content-img{ /* 로딩할 이미지 */
+  display: none; /* 처음에는 보이지 않게 */
+  width: 180px; /* 고정 가로 크기 */
+  height: 252px; /* 고정 세로 크기 */
   object-fit: cover; /* 비율을 유지하며 크기에 맞게 잘라냄 */
-  display: block; /* 상속된 여백 제거 */
 }
 .content-div>div:last-child{
+  flex-grow: 1;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;

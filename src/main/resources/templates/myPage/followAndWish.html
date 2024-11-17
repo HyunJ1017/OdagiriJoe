@@ -19,7 +19,7 @@
 
       <h2>위시리스트</h2>
 
-      <section>
+      <section id="wishList-content">
 
         <!-- 위시리스트 -->
         <th:block th:each= "wishList : ${wishList}" th:object="${wishList}">
@@ -31,118 +31,103 @@
               <p th:text="|경매일 *{startDate}|">12월 6일 14:00</p>
               <div class="piece-detales">상세보기</div>
             </div>
-            <div>
-              <img th:src="*{pieceRename}" alt="사진" class="content-img">
+            <div class="image-container">
+              <img th:src="*{pieceRename}" alt="사진" class="content-img" onload="hideLoader(this)">
+              <div class="loader"></div>
             </div>
           </div>
         </th:block>
   
       </section>
 
-      <section th:if= "${wishPagination}" class="pagination-area">
+      <!-- 위시리스트 페이지네이션 -->
+      <ul th:if= "${wishPagination}" class="pagination-box" id="paginationBox1" th:object="${wishPagination}">
 
-        <ul class="pagination" th:object="${wishPagination}">
+        <th:block th:if= "*{maxPage > pageSize}">
+          <li><a href="#" class="page-btn">&lt;&lt;</a></li>
+          <li><a href="#" class="page-btn">&lt;</a></li>
+        </th:block>
 
-          <!-- 페이지 변경 foward -->
-          <!-- 이제 10페이지 넘어가면 페이지 넘기는 버튼이 나올예정 -->
-          <th:block th:if= "*{maxPage > pageSize}">
-            <!-- 첫 페이지로 이동 -->
-            <li><a href="#">&lt;&lt;</a></li>
-  
-            <!-- 이전 목록 마지막 번호로 이동 -->
-            <li><a href="#">&lt;</a></li>
-          </th:block>
+        <th:block th:each= "i:*{#numbers.sequence(startPage, endPage)}">
 
-          <!-- 특정 페이지로 이동 -->
-          <th:block th:each= "i:*{#numbers.sequence(startPage, endPage)}">
+          <!-- 현재 보고있는 페이지 -->
+          <li th:if= "${i} == *{currentPage}">
+            <a href="#" class="current page-btn" th:text="${i}">현재페이지</a>
+          </li>
 
-            <!-- 현재 보고있는 페이지 -->
-            <li th:if= "${i} == *{currentPage}">
-              <a class="current" th:text="${i}">현재페이지</a>
-            </li>
-  
-            <!-- 보고있지 않은 페이지 -->
-            <li th:unless= "${i} == *{currentPage}">
-              <a href="#" th:text="${i}">이동할 수 있는 페이지</a>
-            </li>
+          <!-- 보고있지 않은 페이지 -->
+          <li th:unless= "${i} == *{currentPage}">
+            <a href="#" class="page-btn" th:text="${i}">이동할 수 있는 페이지</a>
+          </li>
 
-          </th:block>
+        </th:block>
 
-          <th:block  th:if= "*{maxPage > pageSize}">
-            <!-- 다음 목록 시작 번호로 이동 -->
-            <li><a href="#">&gt;</a></li>
-  
-            <!-- 끝 페이지로 이동 -->
-            <li><a href="#">&gt;&gt;</a></li>
-          </th:block>
-        </ul>
-      </section>
+        <th:block  th:if= "*{maxPage > pageSize}">
+          <li><a href="#" class="page-btn">&gt;</a></li>
+          <li><a href="#" class="page-btn">&gt;&gt;</a></li>
+        </th:block>
+      </ul>
 
     </section>
 
     <section class="content-section">
       <h2>팔로우</h2>
 
-      <section class="follow-div">
+      <section class="follow-div" id="followList-content">
 
         <!-- 팔로우작가 -->
         <th:block th:each= "artist : ${followList}" th:object="${artist}">
           <div class="following">
-            <img th:src="*{artistProfile}" alt="사진" class="artist-img" th:data-artist-no="*{memberNo}">
+            <div class="image-container">
+              <img th:src="*{artistProfile}" alt="사진" class="artist-img" onload="hideLoader(this)">
+              <div class="loader"></div>
+            </div>
             <p th:text="*{artistNickname}">작가명</p>
           </div>
         </th:block>
 
       </section>
 
-      <section th:if= "${followPagination}" class="pagination-area">
+      <!-- 페이지네이션 -->
+      <ul th:if="${followPagination}" class="pagination-box" id="paginationBox2" th:object="${followPagination}">
 
-        <ul class="pagination" th:object="${followPagination}">
+        <!-- <th:block th:if= "*{maxPage > pageSize}"> -->
+          <li><a href="#" class="page-btn">&lt;&lt;</a></li>
+          <li><a href="#" class="page-btn">&lt;</a></li>
+        <!-- </th:block> -->
 
-          <!-- 페이지 변경 foward -->
-          <!-- 이제 10페이지 넘어가면 페이지 넘기는 버튼이 나올예정 -->
-          <th:block th:if= "*{maxPage > pageSize}">
-            <!-- 첫 페이지로 이동 -->
-            <li><a href="#">&lt;&lt;</a></li>
-  
-            <!-- 이전 목록 마지막 번호로 이동 -->
-            <li><a href="#">&lt;</a></li>
-          </th:block>
+        <th:block th:each= "i:*{#numbers.sequence(startPage, endPage)}">
 
-          <!-- 특정 페이지로 이동 -->
-          <th:block th:each= "i:*{#numbers.sequence(startPage, endPage)}">
+          <!-- 현재 보고있는 페이지 -->
+          <li th:if= "${i} == *{currentPage}">
+            <a href="#" class="current page-btn" th:text="${i}">현재페이지</a>
+          </li>
 
-            <!-- 현재 보고있는 페이지 -->
-            <li th:if= "${i} == *{currentPage}">
-              <a class="current" th:text="${i}">현재페이지</a>
-            </li>
-  
-            <!-- 보고있지 않은 페이지 -->
-            <li th:unless= "${i} == *{currentPage}">
-              <a href="#" th:text="${i}">이동할 수 있는 페이지</a>
-            </li>
-            
-          </th:block>
+          <!-- 보고있지 않은 페이지 -->
+          <li th:unless= "${i} == *{currentPage}">
+            <a href="#" class="page-btn" th:text="${i}">이동할 수 있는 페이지</a>
+          </li>
 
-          <th:block  th:if= "*{maxPage > pageSize}">
-            <!-- 다음 목록 시작 번호로 이동 -->
-            <li><a href="#">&gt;</a></li>
-  
-            <!-- 끝 페이지로 이동 -->
-            <li><a href="#">&gt;&gt;</a></li>
-          </th:block>
-        </ul>
-      </section>
+        </th:block>
+
+        <th:block  th:if= "*{maxPage > pageSize}">
+          <li><a href="#" class="page-btn">&gt;</a></li>
+          <li><a href="#" class="page-btn">&gt;&gt;</a></li>
+        </th:block>
+      </ul>
+
     </section>
     
     
   </main>
 
   <th:block th:replace= "~{/common/footer.html}"></th:block>
-  <script src="/js/myPage/followAndWish.js"></script>
   <script th:inline="javascript">
     const memberNo = /*[[${session.artistLogin != null} ? ${session.artistLogin.memberNo} : ${session.memberLogin.memberNo}]]*/ "defaultMemberNo";
+    let wishPagination   = /*[[${wishPagination}]]*/ "defaultFollowPagination";
+    let followPagination = /*[[${followPagination}]]*/ "defaultFollowPagination";
   </script>
+  <script src="/js/myPage/followAndWish.js"></script>
 
 </body>
 </html>
