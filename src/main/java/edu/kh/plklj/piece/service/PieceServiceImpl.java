@@ -37,13 +37,14 @@ public class PieceServiceImpl implements PieceService{
 //	}
 	
 	@Override
-	public List<Piece> getSalesPieces(int cp, int salesListCount, Pagination salesPagination) {
+	public List<Piece> getSalesPieces(int cp, int salesListCount, Pagination salesPagination, String sort, String order) {
 		
 		int offset = (cp - 1) * salesPagination.getLimit();
 
 		RowBounds rowBounds = new RowBounds(offset, salesPagination.getLimit());
 	
-		return mapper.selectSalesPiece(rowBounds);
+		// 정렬 기준 및 방향 전달
+		return mapper.selectSalesPiece(rowBounds, sort, order);
 	}
 	
 	@Override
