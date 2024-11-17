@@ -195,4 +195,80 @@ public class MyPageServiceImpl implements MyPageService {
 		return mapper.artistAuction(memberNo);
 	}
 	
+	/** 리스트최신화용
+	 * @param map { "memberNo" : memberNo, "listType" : listType, "cp" : cp }
+	 * @return { "listType" : listType, "getList" : getList, "getPagination" : getPagination }
+	 */
+	@Override
+	public Map<String, Object> paginationCall(Map<String, String> map) {
+		
+		String listType = map.get("listType");
+		int memberNo = Integer.parseInt( map.get("memberNo") );
+		int cp = Integer.parseInt( map.get("cp") );
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		// 타입에 따른 페이지네이션 생성
+		int listCount;
+		int limit;
+		int pageSize;
+		switch(listType) {
+		case "wishList" : 
+			listCount = mapper.getWishListCount(memberNo);
+			limit = 3;
+			pageSize = 10;
+			break;
+		case "followList" :
+			listCount = mapper.getFollowListCount(memberNo);
+			limit = 10;
+			pageSize = 10;
+			break;
+		default : return null;
+		}
+		
+		Pagination pagination = new Pagination(cp, listCount, limit, pageSize);
+		limit = pagination.getLimit();
+		int offset = (cp - 1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		switch(listType) {
+		case "wishList" :
+			List<Piece> wishList = mapper.getWishList(memberNo, rowBounds);
+			resultMap.put("getList", wishList);
+			break;
+		case "followList" : 
+			List<Member> followList = mapper.getFollowList(memberNo, rowBounds);
+			resultMap.put("getList", followList);
+			break;
+		default : return null;
+		}
+		
+		resultMap.put("listType", listType);
+		resultMap.put("getPagination", pagination);
+		return resultMap;
+	}
+	
+	// 낙찰했는데 아직 입금안한 경매품
+	@Override
+	public List<Piece> getBuyList(int memberNo) {
+		return mapper.getBuyList(memberNo);
+	}
+	
+	// 오늘것중 입찰한 경매품
+	@Override
+	public List<Piece> getAuctionList(int memberNo) {
+		return mapper.getAuctionList(memberNo);
+	}
+	
+	// 현재입찰가 조회하기
+	@Override
+	public int getEndprice(int pieceNo) {
+		Integer endPrice = mapper.getEndprice(pieceNo);
+		if (endPrice == null) {
+		    return 0;
+		}
+		return endPrice;
+	}
+	
 }

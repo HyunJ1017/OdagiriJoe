@@ -44,6 +44,21 @@ public interface MyPageService {
 
 	// 작가 경매 물품 조회하기
 	List<Piece> artistAuction(int memberNo);
+
+	/** 리스트최신화용
+	 * @param map { "memberNo" : memberNo, "listType" : listType, "cp" : cp }
+	 * @return { "listType" : listType, "getList" : getList, "getPagination" : getPagination }
+	 */
+	Map<String, Object> paginationCall(Map<String, String> map);
+
+	// 낙찰했는데 아직 입금안한 경매품
+	List<Piece> getBuyList(int memberNo);
+
+	// 오늘것중 입찰한 경매품
+	List<Piece> getAuctionList(int memberNo);
+
+	// 현재입찰가 얻어오기
+	int getEndprice(int pieceNo);
 	
 
 }

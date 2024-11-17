@@ -36,25 +36,16 @@
 }
 
 /* 컨탠츠 내용 */
-.content-div>div>.content-img{
-  width: 180px; /* 고정 가로 크기 */
-  height: 252px; /* 고정 세로 크기 */
-  object-fit: cover; /* 비율을 유지하며 크기에 맞게 잘라냄 */
-  display: block; /* 상속된 여백 제거 */
-}
 .content-div>div{
   padding: 10px; 
 }
-.content-div>div:first-child{
+.content-div>div:first-child{/* 이미지설명부분 */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
   flex-grow: 1;
   padding: 10px;
-}
-.content-div>div:last-child{
-  border: 1px solid #80808030;
 }
 .content-div>div>hr{
   width: 30%;
@@ -70,44 +61,60 @@
 .content-div>div>h4{
   margin: 10px 0 10px;
 }
-/* 경매 진행품 */
+.content-div>.image-container{/* 이미지 */
+  position: relative;
+  min-width: 202px;
+  min-height: 274px;
+  border: 1px solid #80808030;
+}
+.loader {/* 이미지 로딩전까지 보여줄 로딩이미지 */
+  position: absolute;
+  width: 180px;
+  height: 252px;
+  top: 10;
+  right: 10;
+  background: url('/images/loading.gif') center center no-repeat;
+  background-size: contain;
+}
+.content-div>div>.content-img{
+  display: none; /* 처음에는 보이지 않게 */
+  width: 180px; /* 고정 가로 크기 */
+  height: 252px; /* 고정 세로 크기 */
+  object-fit: cover; /* 비율을 유지하며 크기에 맞게 잘라냄 */
+}
+
+/* 클릭버튼 */
 .content-div>div>.piece-btns{
-  margin: 10px 0 5px;
-  border-radius: 10px;
-  width: 135px;
-  height: 50px;
-  background-color: #5e7c71;
-  color: white;
-  text-shadow: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.content-div>div>.piece-detales:hover{
-  border: 2px solid #5e7c71;
-  background-color: white;
-  color: #5e7c71;
-}
-/* 임금 대기품, 입금 완료 */
-.content-div>div>.piece-waiting,
-.content-div>div>.piece-deposit{
-  margin: 10px 0 5px;
-  border-radius: 10px;
-  width: 135px;
-  height: 50px;
-  border: 2px solid #5e7c71;
-  background-color: white;
-  color: #5e7c71;
-  text-shadow: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   cursor: pointer;
-}
-.content-div>div>.piece-waiting:hover,
-.content-div>div>.piece-deposit:hover{
+  margin: 10px 0 5px;
+  border-radius: 10px;
+  width: 135px;
+  height: 50px;
   background-color: #5e7c71;
   color: white;
+  text-shadow: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+.content-div>div>.piece-btns:hover{
+  border: 2px solid #5e7c71;
+  background-color: white;
+  color: #5e7c71;
+}
+
+/* 입금 완료 후 배달중인 작품 */
+.content-section>.auction-end:hover{box-shadow: 0 0 3px 3px #33ff0061;}
+
+/* 입금대기작품 */
+.content-section>.auction-deposit:hover{box-shadow: 0 0 3px 3px #f5760061;}
+
+/* 경매 진행작 */
+.content-section>.auction-start:hover{box-shadow: 0 0 3px 3px #ffe60061;}
+
+/* 경매 대기작 */
+.content-section>.auction-auction:hover{box-shadow: 0 0 3px 3px #33ff0061;}
+
+/* 임시저장작품 */
+.content-section>.auction-temp{border: 2px solid #ffe60030;}

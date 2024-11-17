@@ -16,6 +16,28 @@
 
     <section id="content-section">
 
+      <!-- 구매작품목록 -->
+      <th:block th:if= "${purchasedList}" th:each= "piece:${purchasedList}" th:object="${piece}">
+        <div class="content-div">
+          <div class="image-container">
+            <img th:src="*{pieceRename}" alt="사진" class="content-img" onload="hideLoader(this)">
+            <div class="loader"></div>
+          </div>
+          <div>
+            <h3 th:text="*{pieceTitle}">무제</h3>
+            <h4 th:text="*{artistNickname}">작가명</h4>
+            <p th:text="|구매가 *{finalPrice}|">구매가 ₩50,000,000</p>
+            <p th:text="*|{sizeX} x *{sizeY}|">15 x 30</p>
+            <div class="piece-detales">상세정보</div>
+          </div>
+        </div>
+      </th:block>
+      <th:block th:unless= "${purchasedList}">
+        <div class="no-content">
+          <p>구매하신 작품이 없습니다.</p>
+        </div>
+      </th:block>
+
       <div class="content-div">
         <div>
           <img src="/images/piece/ai-generated-8486280_1280.jpg" alt="사진" class="content-img">

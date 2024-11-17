@@ -21,7 +21,9 @@ import edu.kh.plklj.member.service.MyPageService;
 import edu.kh.plklj.notice.dto.Notice;
 import edu.kh.plklj.piece.dto.Piece;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @RequestMapping("member/myPage")
 @RequiredArgsConstructor
@@ -55,7 +57,25 @@ public class MyPageController {
 	 * @return 구매내역 페이지
 	 */
 	@GetMapping("progressiveAuction")
-	public String progressiveAuction() {
+	public String progressiveAuction(
+			@SessionAttribute(name = "memberLogin", required = false) Member memberLogin,
+			@SessionAttribute(name = "artistLogin", required = false) Member artistLogin,
+			Model model) {
+		
+		int memberNo;
+		if(memberLogin != null) {
+			memberNo = memberLogin.getMemberNo();
+		} else {
+			memberNo = artistLogin.getMemberNo();
+		}
+		
+		// 구매내역 가져오기
+		List<Piece> buyList = service.getBuyList(memberNo);
+		List<Piece> auctionList = service.getAuctionList(memberNo);
+		
+		model.addAttribute("buyList", buyList);
+		model.addAttribute("auctionList", auctionList);
+		
 		return "myPage/progressiveAuction";
 	}
 	
@@ -244,4 +264,28 @@ public class MyPageController {
 	public int deleteQuestion(@RequestParam("questionNo") int questionNo) {
 		return service.deleteQuestion(questionNo);
 	}
+	
+	
+	/** 리스트최신화용
+	 * @param map { "memberNo" : memberNo, "listType" : listType, "cp" : cp }
+	 * @return { "listType" : listType, "getList" : getList, "getPagination" : getPagination }
+	 */
+	@PostMapping("paginationCall")
+	@ResponseBody
+	public Map<String, Object> paginationCall(
+			@RequestBody Map<String, String> map){
+		return service.paginationCall(map);
+	}
+	
+	
+	/** 연재 입찰가 얻어오기
+	 * @param pieceNo
+	 * @return
+	 */
+	@GetMapping("getEndprice")
+	@ResponseBody
+	public int getEndprice(@RequestParam("pieceNo") int pieceNo) {
+		return service.getEndprice(pieceNo);
+	}
+	
 }

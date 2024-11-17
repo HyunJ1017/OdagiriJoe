@@ -1,3 +1,37 @@
+/* 버튼클릭시 페이지 이동 */
+
+/* url 모음 */
+const urls = {
+  /* 상세보기 */ "detail" : "/",
+  /* 입금화면 */ "payment" : "/",
+  /* 배달정보 */ "delivery" : "/"
+}
+
+// 입금하기 버튼 클릭시 입금 페이지로 이동? 팝업열기?
+const paymentBtns = document.querySelectorAll(".piece-payment");
+paymentBtns?.forEach(btn => {
+  btn.addEventListener("click", () => {
+    location.href = urls.detail;
+  })
+}) // paymentBtns end
+
+// 상세정보 버튼 클릭시 상세정보 페이지로 이동
+const detailBtns = document.querySelectorAll(".detailBtn");
+detailBtns?.forEach(btn => {
+  btn.addEventListener("click", () => {
+    location.href = urls.detail;
+  })
+}) // detailBtns end
+
+// 이미지 로딩 완료시 이미지 띄움
+function hideLoader(imgElement) {
+  const loader = imgElement.nextElementSibling; // loader div
+  loader.style.display = 'none'; // 로딩 이미지 숨기기
+  imgElement.style.display = 'block'; // 실제 이미지 보이기
+} // hideLoader end
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
   const contentContainer = document.getElementById('content-section');
   const loader = document.getElementById('loader');
