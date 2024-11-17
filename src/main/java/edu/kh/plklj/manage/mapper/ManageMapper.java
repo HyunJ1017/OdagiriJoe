@@ -10,10 +10,16 @@ import java.util.Map;
 @Mapper
 public interface ManageMapper {
 
+	// 작가 목록 
 
-	int getContentListCount();
+	int getArtistListCount();
+	List<Map<String, Object>> getArtistList(RowBounds artistBounds);
 	
+	// 콘텐츠 관리
+	int getContentListCount();
 	List<Map<String, Object>> getContentList(RowBounds bounds);
+
+
 
 	
 
