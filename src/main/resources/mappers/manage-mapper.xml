@@ -14,10 +14,9 @@
 		SELECT
 		A.MEMBER_NO AS 회원번호,
 		A.ARTIST_PROFILE AS 아티스트프로필,
-		A.ARTIST_NICKNAME AS 아티스트닉네임,
-		PA.PIECE_NO AS 작품번호,
-		PA.FINAL_PRICE AS 경매가,
-		PS.SELL_PRICE AS 판매가
+		A.ARTIST_NICKNAME AS "artistNickname",
+		PA.FINAL_PRICE AS "auctionPrice",
+		PS.SELL_PRICE AS "sellPrice"
 		FROM
 		ARTIST A
 		LEFT JOIN
