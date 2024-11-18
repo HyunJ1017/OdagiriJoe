@@ -42,7 +42,47 @@
   border-radius: 20px;
 }
 
+
 .hours-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+}
+
+.minutes-box {
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #D9D9D9;
+  font-size: 40px;
+  border-radius: 20px;
+}
+
+
+.minutes-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+}
+
+
+.seconds-box {
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #D9D9D9;
+  font-size: 40px;
+  border-radius: 20px;
+}
+
+
+.seconds-text {
   display: flex;
   align-items: center;
   justify-content: center;

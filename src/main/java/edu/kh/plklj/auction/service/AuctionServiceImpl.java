@@ -66,25 +66,6 @@ public class AuctionServiceImpl implements AuctionService {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	//공통 날짜 계산 메서드
   private Map<String, Object> calculatePieceData(Piece piece) {
       Map<String, Object> pieceData = new HashMap<>();
@@ -101,13 +82,42 @@ public class AuctionServiceImpl implements AuctionService {
       LocalDateTime previewStart = registerDate.plusDays(7);
       LocalDateTime previewEnd = registerDate.plusDays(17);
 
-      // 경매일
-      LocalDateTime auctionDate = registerDate.plusDays(21).withHour(14).withMinute(0).withSecond(0);
+      
+      // 현재 시간
+      LocalDateTime now = LocalDateTime.now();
+      
+      
+    	// 경매일 설정: 현재 날짜 기준으로 다음 날 14:00
+      // LocalDateTime auctionDate = now.plusDays(1).withHour(14).withMinute(0).withSecond(0).withNano(0);
 
-      // 날짜를 문자열로 변환하여 저장
-      pieceData.put("previewPeriod",
-              previewStart.format(DISPLAY_FORMATTER) + " ~ " + previewEnd.format(DISPLAY_FORMATTER));
-      pieceData.put("auctionDate", auctionDate.format(DISPLAY_FORMATTER) + " 14:00");
+      // 20초 테스트 설정
+      // 경매일 설정: 고정된 값으로 현재 시간 기준 20초 뒤
+     LocalDateTime auctionDate = LocalDateTime.now().plusSeconds(20);
+      
+      // 남은 시간 계산
+      long totalSeconds = java.time.Duration.between(now, auctionDate).getSeconds();
+      long hours = totalSeconds / 3600; // 남은 총 시간
+      long minutes = (totalSeconds % 3600) / 60; // 남은 분
+      long seconds = totalSeconds % 60; // 남은 초
+
+      // ISO 8601 형식으로 변환하여 저장
+      piece.setStartDate(auctionDate.toLocalDate().toString() + "T" + auctionDate.toLocalTime().withNano(0).toString());
+      pieceData.put("auctionDate", piece.getStartDate());
+      
+      System.out.println(piece.getStartDate());
+
+      // 사용자 친화적인 경매일 표현
+      pieceData.put("auctionDateDisplay", auctionDate.format(DISPLAY_FORMATTER) + " 14:00");
+
+      // 남은 시간 표현
+      pieceData.put("remainingHours", hours);
+      pieceData.put("remainingMinutes", minutes);
+      pieceData.put("remainingSeconds", seconds);
+
+      // 프리뷰 기간 저장
+      pieceData.put("previewPeriod",previewStart.format(DISPLAY_FORMATTER) + " ~ " + previewEnd.format(DISPLAY_FORMATTER));
+      															
+
 
       return pieceData;
   }
