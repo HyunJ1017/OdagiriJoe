@@ -13,6 +13,6 @@ public interface MainService {
 	 * @param listSearch
 	 * @return
 	 */
-	Map<String, Object> listSearch(String listSearch);
+	Map<String, Object> searchList(String listSearch);
 
 }

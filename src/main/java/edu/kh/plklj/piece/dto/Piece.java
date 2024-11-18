@@ -35,7 +35,6 @@ public class Piece {
 	private String endDate; // 경매 끝난 날짜
 	private String startPrice; // 경매 시작가
 	private String hopePrice; // 경매 희망가
-	private String finalPrice; // 경매 낙찰가
 	
 	// 경매
 	private int auctionNo; // 입찰 번호
@@ -57,7 +56,8 @@ public class Piece {
 	private String previewStartDate;
 	private String previewEndDate;
 	
-	
+	public String pieceCategoryName; // 카테고리 번호
+
 	
 	
 }

@@ -38,6 +38,7 @@ main {
   color: #ffffff;
 }
 
+
 .header-main-menu {
   justify-content: space-between;
   width: 100%;
@@ -55,6 +56,7 @@ main {
   color: #5e7c71;
   text-shadow: 1px 1px #c9c9c9;
 }
+
 
 .header-text {
   font-size: 0.8rem;
@@ -108,7 +110,78 @@ main {
   transition: color 0.3s ease;
   color: #5e7c71;
 }
+/* ----------------------------------------------------------------------------------------------------------------------------------------------- */
+/* 검색 */
+#search-form {
+  width: 75%;
+  display:flex;
+  justify-content: space-between;
+}
 
+/* 특정 검색 섹션 */
+#search-section {
+  position: absolute;
+  display: block;
+  margin-left: 70%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #5e7c71; /* 연한 초록색 테두리 */
+  background-color: #ffffff; /* 연한 배경색 */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+  width: 20%;
+  top: 50%;
+}
+
+/* 검색 입력창 */
+#search-section input[type="search"] {
+  width: calc(200% - 0px);
+  padding: 1%;
+  border: none;
+  border-width: 0 0 2px solid #5e7c71;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+#search-section input[type="search"]:focus {
+  border-bottom-color: #5e7c71; /* 포커스 시 더 진한 초록색 */
+  width: 100%;
+}
+
+/* 검색 버튼 */
+#search-section #searchBtn {
+  background: none;
+  border: none;
+  color: #5e7c71; /* 버튼 색상 */
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  margin-right: -30%;
+  text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+}
+
+#search-section #searchBtn:hover {
+  background-color: #5e7c71; /* 호버 시 더 진한 초록색 */
+  color: #ffffff;
+}
+
+/* 열기/닫기 버튼 스타일 */
+.toggle-search-btn {
+  padding: 10px 15px;
+  background-color: #5e7c71;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.toggle-search-btn:hover {
+  background-color: #3d6e57;
+}
+
+/* ----------------------------------------------------------------------------------------------------------------------------------------------- */
+/* 드롭다운 메뉴 */
 .header-menu .dropdown {
   color: #ffffff;
   width: 100%;
@@ -142,7 +215,6 @@ main {
   top: -15px;
   color: #ffffff;
 }
-
 /* 드롭다운 메뉴 스타일 */
 .dropdown {
   width: 140px;
