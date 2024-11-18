@@ -5,15 +5,18 @@
 	<!-- 로그인 -->
 	<select id="signUp" resultType="Member">
 		SELECT
-			MEMBER_NO,
+			M.MEMBER_NO,
 			MEMBER_ID,
 			MEMBER_PW,
 			MEMBER_NAME,
 			MEMBER_EMAIL,
 			MEMBER_PHONE,
-			ARTIST_REG,
-			MEMBER_PENALTY
-		FROM "MEMBER"
+			MEMBER_PENALTY,
+			ARTIST_NICKNAME,
+			ARTIST_PROFILE,
+			A.ARTIST_REG
+		FROM "MEMBER" M
+		LEFT JOIN "ARTIST" A ON (M.MEMBER_NO = A.MEMBER_NO)
 		WHERE MEMBER_ID = #{memberId}
 		AND MEMBER_DEL_FL = 'N'
 	</select>

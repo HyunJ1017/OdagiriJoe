@@ -15,6 +15,9 @@ public interface MyPageService {
 	// 이름수정
 	int updateName(Member member);
 
+	// 작가 활동명 수정하기
+	int updateNickname(Member member);
+	
 	// 비밀번호 변경
 	int updatePw(Map<String, String> map);
 
@@ -59,6 +62,16 @@ public interface MyPageService {
 
 	// 현재입찰가 얻어오기
 	int getEndprice(int pieceNo);
+
+	// 작가 은행코드, 은행이름, 계좌번호 얻어오기
+	Member getArtistBank(int memberNo);
+
+	// 작가 계좌번호 변경
+	int setArtistBank(Member member);
+
+	// 작가 프로필사진 요청url 변경
+	int setArtistProfile(Member artist);
+
 	
 
 }

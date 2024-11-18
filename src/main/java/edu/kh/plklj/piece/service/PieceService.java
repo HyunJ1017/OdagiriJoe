@@ -24,6 +24,15 @@ public interface PieceService {
 
 	List<Category> getCategoryList();
 
+	// 작품 임시저장
+	int saveTemp(Piece piece);
+
+	// 임시저장작품 불러오기
+	Piece getTempPiece(int pieceNo);
+
+	// 이전 임시작품이 있으면 지우기
+	int searchTempiece(Piece piece);
+
 	
 	// 작품 상세 조회
 	Piece getPieceDetail(int pieceNo);

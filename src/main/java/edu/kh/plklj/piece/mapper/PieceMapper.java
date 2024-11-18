@@ -28,6 +28,14 @@ public interface PieceMapper {
 
 	List<Category> getCategoryList();
 
+	int saveTemp(Piece piece);
+
+	Piece getTempPiece(int pieceNo);
+
+	int searchTempiece(Piece piece);
+
+	int deleteTemp(Piece piece);
+  
 	Piece getPieceDetail(int pieceNo);
 
 	int checkOnlineWish(int pieceNo);

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.plklj.main.dto.BankCode;
@@ -26,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("member/myPage")
+@SessionAttributes({"memberLogin", "artistLogin"})
 @RequiredArgsConstructor
 public class MyPageController {
 
@@ -39,10 +41,14 @@ public class MyPageController {
 			@SessionAttribute(name = "memberLogin", required = false) Member memberLogin,
 			@SessionAttribute(name = "artistLogin", required = false) Member artistLogin
 			) {
+		
 		if(memberLogin != null) {
 			return "myPage/memberMyPage";
+		} else if(artistLogin != null) {
+			return "myPage/artistMyPage";
+		} else {
+			return "redirect:/";
 		}
-		return "myPage/artistMyPage";
 	}
 	
 	/** 구매내역 페이지로 이동(일반,작가)
@@ -136,7 +142,7 @@ public class MyPageController {
 		return "myPage/salesConfirmation";
 	}
 	
-	/** 작가 등록 페이지로 이동 (일반,작가)
+	/** 작가 등록 페이지로 이동 (작가)
 	 * @return 구매내역 페이지
 	 */
 	@GetMapping("artistRegistration")
@@ -151,8 +157,47 @@ public class MyPageController {
 	 */
 	@PostMapping("updateName")
 	@ResponseBody
-	public int updateName(@RequestBody Member member) {
-		return service.updateName(member);
+	public int updateName(
+			@SessionAttribute(name = "memberLogin", required = false) Member memberLogin,
+			@SessionAttribute(name = "artistLogin", required = false) Member artistLogin,
+			Model model,
+			@RequestBody Member member) {
+		
+		int result = service.updateName(member);
+		
+		if(result != 0) {
+			if(memberLogin != null) {
+				memberLogin.setMemberName(member.getMemberName());
+				model.addAttribute("memberLogin", memberLogin);
+			} else if (artistLogin != null) {
+				artistLogin.setMemberName(member.getMemberName());
+				model.addAttribute("artistLogin", artistLogin);
+			}
+		}
+		
+		return result;
+	}
+	
+	/** 작가활동명 수정하기
+	 * @param member
+	 * @return 1,0
+	 */
+	@PostMapping("updateNickname")
+	@ResponseBody
+	public int updateNickname(
+			@SessionAttribute(name = "artistLogin", required = false) Member artistLogin,
+			Model model,
+			@RequestBody Member member) {
+		int result = service.updateNickname(member);
+		
+		if(result != 0) {
+			if (artistLogin != null) {
+				artistLogin.setArtistNickname(member.getArtistNickname());
+				model.addAttribute("artistLogin", artistLogin);
+			}
+		}
+		
+		return result;
 	}
 	
 	/** 비밀번호 수정하기
@@ -171,8 +216,24 @@ public class MyPageController {
 	 */
 	@PostMapping("updatePhone")
 	@ResponseBody
-	public int updatePhone(@RequestBody Member member) {
-		return service.updatePhone(member);
+	public int updatePhone(
+			@SessionAttribute(name = "memberLogin", required = false) Member memberLogin,
+			@SessionAttribute(name = "artistLogin", required = false) Member artistLogin,
+			Model model,
+			@RequestBody Member member) {
+		
+		int result = service.updatePhone(member);
+		
+		if(result != 0) {
+			if(memberLogin != null) {
+				memberLogin.setMemberName(member.getMemberName());
+				model.addAttribute("memberLogin", memberLogin);
+			} else if (artistLogin != null) {
+				artistLogin.setMemberName(member.getMemberName());
+				model.addAttribute("artistLogin", artistLogin);
+			}
+		}
+		return result;
 	}
 	
 	
@@ -278,7 +339,7 @@ public class MyPageController {
 	}
 	
 	
-	/** 연재 입찰가 얻어오기
+	/** 현재 입찰가 얻어오기
 	 * @param pieceNo
 	 * @return
 	 */
@@ -287,5 +348,47 @@ public class MyPageController {
 	public int getEndprice(@RequestParam("pieceNo") int pieceNo) {
 		return service.getEndprice(pieceNo);
 	}
+	
+	
+	/** 작가 은행코드, 은행이름, 계좌번호 알아오기
+	 * @param memberNo
+	 * @return
+	 */
+	@PostMapping("getArtistBank")
+	@ResponseBody
+	public Member getArtistBank(@RequestBody int memberNo) {
+		return service.getArtistBank(memberNo);
+	}
+	
+	/** 작가 계좌번호 변경
+	 * @param member
+	 * @return
+	 */
+	@PostMapping("setArtistBank")
+	@ResponseBody
+	public int setArtistBank(@RequestBody Member member) {
+		return service.setArtistBank(member);
+	}
+	
+	
+	/** 작가 프로필사진 요청url 수정
+	 * @param artist
+	 * @return
+	 */
+	@PostMapping("setArtistProfile")
+	@ResponseBody
+	public int updateArtist(
+			@SessionAttribute(name = "artistLogin", required = false) Member artistLogin,
+			Model model,
+			@RequestBody Member artist) {
+		int result = service.setArtistProfile(artist);
+		if(result > 0) {
+			artist.setArtistProfile(artist.getArtistProfile());
+			model.addAttribute("artistLogin", artist);
+		}
+		return result;
+	}
+	
+	
 	
 }

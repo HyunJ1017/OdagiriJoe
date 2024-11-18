@@ -17,8 +17,7 @@
 
     <section class="content-section">
 
-      <!-- <h2>완료 경매</h2> -->
-
+      <!-- 완료(배달대기) 경매 -->
       <th:block th:each= "piece:${pieceList}">
         <th:block th:if= "${piece.pieceStatus == 'F'}" th:object="${piece}">
           
@@ -35,8 +34,12 @@
               <div class="loader"></div>
             </div>
           </div>
-
+          
         </th:block>
+      </th:block>
+
+      <!-- 완료(입금대기) 경매 -->
+      <th:block th:each= "piece:${pieceList}">
         <th:block th:if= "${piece.pieceStatus == 'D'}" th:object="${piece}">
           
           <div class="content-div auction-deposit">
@@ -56,12 +59,7 @@
         </th:block>
       </th:block>
 
-    <!-- </section>
-    
-    <section class="content-section">
-      <hr>
-      <h2>진행중 경매</h2> -->
-
+      <!-- 진행중인 경매 -->
       <th:block th:each= "piece:${pieceList}">
         <th:block th:if= "${piece.pieceStatus == 'S'}" th:object="${piece}">
           
@@ -70,6 +68,7 @@
               <h3 th:text="*{pieceTitle}">무제</h3>
               <p th:text="|경매일 *{startDate}|">11/09(토)</p>
               <p th:text="*{startPrice}" class="current-price" th:data-piece-no="*{pieceNo}"></p><!-- 현재 입찰가 -->
+              <p th:text="|시작가 *{startPrice}|" ></p>
               <hr>
               <div class="piece-btns detailBtn" th:data-piece-no="*{pieceNo}">상세보기</div>
             </div>
@@ -83,12 +82,7 @@
 
       </th:block>
 
-    <!-- </section>
-    
-    <section class="content-section">
-      <hr>
-      <h2>대기중 경매</h2> -->
-
+      <!-- 대기중인 경매 -->
       <th:block th:each= "piece:${pieceList}">
         <th:block th:if= "${piece.pieceStatus == 'A'}" th:object="${piece}">
           
@@ -107,7 +101,9 @@
           </div>
 
         </th:block>
+      </th:block>
 
+      <!--임시저장 -->
       <th:block th:each= "piece:${pieceList}">
         <th:block th:if= "${piece.pieceStatus == 'T'}" th:object="${piece}">
           
@@ -117,7 +113,7 @@
               <p th:text="|경매예정일 *{startDate}|">11/09(토)</p>
               <p th:text="|경매시작가 *{startPrice}|">12월 6일 14:00</p>
               <hr>
-              <div class="piece-btns detailBtn" th:data-piece-no="*{pieceNo}">작성하기</div>
+              <div class="piece-btns rewriteBtn" th:data-piece-no="*{pieceNo}">작성하기</div>
               <div class="piece-btns removeBtn" th:data-piece-no="*{pieceNo}">삭제하기</div>
             </div>
             <div class="image-container">

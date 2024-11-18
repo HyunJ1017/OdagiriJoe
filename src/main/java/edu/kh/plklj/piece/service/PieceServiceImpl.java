@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.plklj.common.util.Pagination;
 import edu.kh.plklj.piece.dto.Category;
@@ -16,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@Transactional
 @RequiredArgsConstructor
 public class PieceServiceImpl implements PieceService{
 	private final PieceMapper mapper;
@@ -68,14 +70,8 @@ public class PieceServiceImpl implements PieceService{
 	@Override
 	public int pieceInsert(Piece piece) {
 		int result = 0;
-		log.debug("piece.getPieceType() : {}", piece.getPieceType() + "");
-		log.debug("piece.getPieceType() > 1 : {}", piece.getPieceType() > 1);
-		if(piece.getPieceType() > 1) {
-			piece.setPieceStatus("A");
-		} else {
-			piece.setPieceStatus("N");
-		}
 		
+		// 작품 공통사항 등록	
 		result = mapper.pieceInsert(piece);
 		
 		
@@ -97,6 +93,10 @@ public class PieceServiceImpl implements PieceService{
 	}
 	
 
+	// 작품 임시저장
+	@Override
+	public int saveTemp(Piece piece) {
+		return mapper.saveTemp(piece);
 	
 	// 작품 상세 조회
 	@Override
@@ -142,10 +142,23 @@ public class PieceServiceImpl implements PieceService{
 		return map;
 	}
 
+	// 임시저장작품 불러오기
+	@Override
+	public Piece getTempPiece(int pieceNo) {
+		// TODO Auto-generated method stub
+		return mapper.getTempPiece(pieceNo);
+	}
 
-
-
-
+	// 임시저장작품 지우기
+	// 이전 임시저장작품이 있으면 지우기
+	@Override
+	public int searchTempiece(Piece piece) {
+		int result = mapper.searchTempiece(piece);
+		if(result > 0) {
+			result = mapper.deleteTemp(piece);
+		}
+		return result;
+	}
 
 
 

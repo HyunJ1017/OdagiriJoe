@@ -52,7 +52,7 @@ margin: 0 10px 0;
 #myPage-main>.myPage-sec>.canChangeBox>*{
   margin: 5px;
 }
-#myPage-main>.myPage-sec label{
+.myPage-main>.myPage-sec label{
   width: 97%;
   min-height: 30px;
   border: 2px solid rgb(130, 130, 130);
@@ -79,6 +79,14 @@ margin: 0 10px 0;
   align-items: center;
   margin: 0 10px 0;
 }
+#profileUpload, #artistProfileLabel { /* 이미지 변경 라벨 */
+  width: 380px;
+  height: 45px;
+  align-self: center;
+  border: 2px solid rgb(130, 130, 130);
+  border-radius: 3px;
+  margin: 10px;
+}
 #myPage-main>section>.member-hov{
   width: 380px;
   height: 45px;
@@ -102,3 +110,32 @@ margin: 0 10px 0;
   color: #5e7c71;
 }
 .confirm-red{color: red;}
+
+.hiddenInput{
+  display: none !important;
+}
+.image-container{/* 이미지 */
+  position: relative;
+  padding: 20px;
+  min-width: 820px;
+  min-height: 440px;
+  border: 1px solid #80808030;
+}
+.loader {/* 이미지 로딩전까지 보여줄 로딩이미지 */
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  object-fit: cover; /* 비율을 유지하며 크기에 맞게 잘라냄 */
+  top: 20px;
+  right: 0;
+  left: 0;
+  margin: auto;
+  background: url('/images/loading.gif') center center no-repeat;
+  background-size: contain;
+}
+.image-container>.content-img{
+  display: none; /* 처음에는 보이지 않게 */
+  width: 100%; /* 고정 가로 크기 */
+  height: auto; /* 고정 세로 크기 */
+  object-fit: cover; /* 비율을 유지하며 크기에 맞게 잘라냄 */
+}

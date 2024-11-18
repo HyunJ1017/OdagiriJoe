@@ -3,7 +3,9 @@
 /* url 모음 */
 const urls = {
   /* 상세보기 */ "detail" : "/",
-  /* 배달정보 */ "delivery" : "/"
+  /* 배달정보 */ "delivery" : "/",
+  /* 작성하기 */ "rewrite" : "/piece/upload?pieceNo=",
+  /* 삭제하기 */ "remove" : "/piece/removeTemp?pieceNo="
 }
 
 
@@ -20,6 +22,22 @@ const detailBtns = document.querySelectorAll(".detailBtn");
 detailBtns?.forEach(btn => {
   btn.addEventListener("click", () => {
     location.href = urls.detail;
+  })
+})
+
+// 작성하기 버튼 클릭시 작성 페이지로 이동
+const rewriteBtns = document.querySelectorAll(".rewriteBtn");
+rewriteBtns?.forEach(btn => {
+  btn.addEventListener("click", () => {
+    location.href = urls.rewrite + btn.dataset.pieceNo;
+  })
+})
+
+// 삭제하기 버튼 클릭시 상세정보 페이지로 이동
+const removeBtns = document.querySelectorAll(".removeBtn");
+removeBtns?.forEach(btn => {
+  btn.addEventListener("click", () => {
+    location.href = urls.remove + btn.dataset.pieceNo;
   })
 })
 

@@ -3,12 +3,14 @@ package edu.kh.plklj.member.service;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.plklj.main.dto.Member;
 import edu.kh.plklj.member.mapper.LogInMapper;
 import lombok.RequiredArgsConstructor;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class LogInServiceImpl implements LogInService {
 	
