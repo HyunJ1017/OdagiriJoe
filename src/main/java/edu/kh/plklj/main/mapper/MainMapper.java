@@ -25,5 +25,11 @@ public interface MainMapper {
 	 */
 	List<Piece> selectAuctionsList();
 
+	/** 작품 검색 리스트
+	 * @param listSearch
+	 * @return
+	 */
+	List<Piece> selectSearchList(String listSearch);
+
 
 }
