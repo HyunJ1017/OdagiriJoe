@@ -37,10 +37,10 @@ public class MainServiceImpl implements MainService{
 	
 	/* 검색 리스트 조회 */
 	@Override
-	public Map<String, Object> listSearch(String listSearch) {
-		List<Piece> searchList = mapper.selectSearchList(listSearch);
+	public Map<String, Object> searchList(String query) {
+		List<Piece> searchList = mapper.selectSearchList(query);
 		
-		Map<String, Object> map = Map.of(listSearch, searchList);
+		Map<String, Object> map = Map.of(query, searchList);
 		return map;
 	}
 	

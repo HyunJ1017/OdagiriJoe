@@ -42,11 +42,13 @@ public class MainController {
 
 		return "common/main";
 	}
+
 //검색 목록 조회
 	@GetMapping("/search")
 	public String search(@RequestParam(value = "query", required = false) String query, Model model) {
 		// 검색어가 비어 있는 경우 처리
 		if (query == null || query.trim().isEmpty()) {
+
 			model.addAttribute("errorMessage", "검색 키워드를 입력해주세요.");
 			return "common/search"; // 검색 결과 없는 화면 처리
 		}
@@ -81,23 +83,36 @@ public class MainController {
 	@GetMapping("search")
 	public String search(@RequestParam(value = "keyword", required = false) String listSearch, Model model) {
 		if (listSearch == null || listSearch.trim().isEmpty()) {
+
 			model.addAttribute("errorMessage", "검색 키워드를 입력해주세요.");
 			return "common/search"; // 검색 결과 없는 화면 처리
 		}
-		
-		Map<String, Object> map = service.listSearch(listSearch);
-		List<Piece> searchList = (List<Piece>) map.get(listSearch);
-		
-		if (searchList == null || searchList.isEmpty()) {
+
+		// 검색 서비스 호출
+		Map<String, Object> map = service.searchList(query);
+
+		// 검색 결과 가져오기
+		List<Piece> searchList = map.containsKey(query) ? (List<Piece>) map.get(query) : Collections.emptyList();
+
+		// 검색어를 포함하는 데이터만 필터링
+		List<Piece> filteredSearchList = searchList.stream()
+				.filter(piece -> piece.getPieceTitle().toLowerCase().contains(query.toLowerCase()) || // 작품 제목 검색
+						piece.getArtistNickname().toLowerCase().contains(query.toLowerCase()) || // 작가 이름 검색
+						piece.getPieceCategoryName().toLowerCase().contains(query.toLowerCase()) // 카테고리 검색
+				).collect(Collectors.toList());
+
+		// 필터링된 결과를 모델에 추가
+		model.addAttribute("query", query);
+		model.addAttribute("searchList", filteredSearchList);
+
+		// 검색 결과가 없는 경우 처리
+		if (filteredSearchList.isEmpty()) {
 			model.addAttribute("errorMessage", "검색 결과가 없습니다.");
-		} else {
-			model.addAttribute("searchList", searchList);
 		}
-//		model.addAttribute(searchList);
-		
+
+		// 검색 페이지로 이동
 		return "common/search";
 	}
-	
 	
 	// 아티스트 목록 조회 페이지 이동
 	@GetMapping("artist")
