@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
   <link rel="stylesheet" href="/css/reportPopup/reportPopup.css">
 
 </head>
+
 <body>
 
   <main>
@@ -30,6 +32,7 @@
         <h3>신고 내용</h3>
         <textarea placeholder="내용을 입력해 주세요"></textarea>
       </div>
+
       <div class="popup-footer">
         <button class="submit-btn">보내기</button>
       </div>
@@ -37,6 +40,13 @@
     </div>
 
   </main>
-  
+
+  <!-- JavaScript 변수 전달 -->
+  <script th:inline="javascript">
+    let loginMemberNo = /*[[${session.loginMember != null ? session.loginMember.memberNo : 'null'}]]*/ null;
+  </script>
+
+  <script src="/js/reportPopup/reportPopup.js"></script>
 </body>
+
 </html>

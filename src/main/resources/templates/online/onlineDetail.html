@@ -13,46 +13,50 @@
   
   <main class="onlinePurchase-main">
 
-   <section class="product-section">
+   <section class="product-section"  th:object="${piece}">
         
           <div class="product-container">
               <!-- 좌측 이미지 목록 -->
-              <div class="thumbnail-list">
+              <!-- <div class="thumbnail-list">
                   <img src="/images/onlineGallery1.jpg" >
                   <img src="/images/onlineGallery2.jpg">
                   <img src="/images/onlineGallery3.jpg" >
                   <img src="/images/onlineGallery4.jpg">
-              </div>
+              </div> -->
       
               <!-- 메인 이미지 및 상세 정보 -->
               <div class="main-image">
-                  <img src="/images/onlineGallery.jpg">
+                  <img th:src="*{pieceRename}">
               </div>
       
               <!-- 우측 정보 패널 -->
               <div class="product-info">
                   <div class="wishlist-button">
-                      <span><i class="fa-regular fa-heart"></i></span>
+                      <span><i class="fa-heart" id="online-wishList" aria-hidden="true"
+                        th:classappend="*{wishCheck == 1} ? fa-solid : fa-regular"></i></span>
                       <button id="online-reportBtn">신고하기</button>
                   </div>
-                  <h2>정호경</h2>
-                  <p>ReNameeeeeem</p>
-                  <h3>작살나게 잘 가기</h3>
-                  <p>25 x 32</p>
+                  <h2 th:text="*{artistNickname}">작가 이름</h2>
+                  <!-- <p>ReNameeeeeem</p> -->
+                  <h3 th:text="*{pieceTitle}">작품 제목</h3>
+                  <p>
+                    <span th:text="*{sizeX} + x + *{sizeY}">작품 사이즈</span>
+                    <span th:text="*{pieceCategoryName}">작품 카테고리</span>
+                  </p>
                   
                   <div class="price">
                     금액 : 
-                    <span style="margin-left: 210px;"> ₩380,000 (KRW)</span>
+                    <span style="margin-left: 190px;" th:text="'₩' + *{sellPrice} + ' (KRW)'">작품 가격</span>
                 </div>
                   
-                  <button class="purchase-button">구매하기</button>
+                  <button class="purchase-button" id="purchaseBtn">구매하기</button>
               </div>
           </div>
       
           <!-- 작품 내용 섹션 -->
           <section class="product-description">
               <h4>작품 내용</h4>
-              <p>작품 내용 설명인가?</p>
+              <p th:text="*{pieceDetail}">작품 내용 설명인가?</p>
           </section>
    </section>
  
@@ -63,10 +67,12 @@
 
   <th:block th:replace= "~{/common/footer.html}"></th:block>
 
-  <script inline="javascript">
+  <script th:inline="javascript">
     const loginCheck = /*[[${session.loginMember != null}]]*/ false;
+    let pieceNo = /*[[${piece.pieceNo}]]*/ null;
   </script>
 
   <script src="/js/online/onlineDetail.js"></script>
+  <script src="/js/reportPopup/reportPopup.js"></script>
 </body>
 </html>

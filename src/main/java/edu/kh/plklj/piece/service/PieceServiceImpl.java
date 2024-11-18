@@ -1,6 +1,8 @@
 package edu.kh.plklj.piece.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
@@ -95,6 +97,49 @@ public class PieceServiceImpl implements PieceService{
 	@Override
 	public int saveTemp(Piece piece) {
 		return mapper.saveTemp(piece);
+	
+	// 작품 상세 조회
+	@Override
+	public Piece getPieceDetail(int pieceNo) {
+		return mapper.getPieceDetail(pieceNo);
+	}
+	
+
+	// 위시 리스트 체크, 해제
+	@Override
+	public Map<String, Object> onlineWish(int pieceNo) {
+		
+		// 1) 좋아요 누른 적 있나 검사
+		int result = mapper.checkOnlineWish(pieceNo);
+		
+		// result == 1 : 누른 적 있음
+		// result == 0 : 누른 적 없음
+		
+		// 2) 좋아요 여부에 따라 INSERT/DELETE Mapper 호출
+		int result2 = 0;
+		if(result == 0) {
+			result2 = mapper.insertOnlineWish(pieceNo);
+		} else {
+			result2 = mapper.deleteOnlineWish(pieceNo);
+		}
+		
+		// 3. INSERT, DELETE 성공 시 해당 게시글의 개수 조회
+		int count = 0;
+		if(result2 > 0) {
+			count = mapper.getWishCount(pieceNo);
+		} else {
+			return null;
+		}
+		
+		// 4. 좋아요 결과를 Map에 저장해서 반환
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("count", count); // 위시 개수
+		
+		if(result == 0 ) map.put("check", "insert");
+		else             map.put("check", "delete");
+		
+		return map;
 	}
 
 	// 임시저장작품 불러오기

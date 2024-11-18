@@ -13,6 +13,7 @@
   max-width: 1200px;
   margin: auto;
   justify-content: space-between;
+  margin-top: 150px;
 }
 
 /* 좌측 이미지 목록 스타일 */
@@ -31,7 +32,7 @@
 
 /* 메인 이미지 스타일 */
 .main-image img {
-  width: 300px;
+  width: 380px;
   height: auto;
   margin-right: 40px;
 }
@@ -40,7 +41,7 @@
 .product-info {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 40px;
   width: 400px;
 }
 
@@ -115,4 +116,9 @@
 .product-description p {
   font-size: 16px;
   color: #333;
+}
+
+/* 위시 리스트 */
+#online-wishList {
+  color: red;
 }

@@ -15,9 +15,19 @@ public interface ManageMapper {
 	int getArtistListCount();
 	List<Map<String, Object>> getArtistList(RowBounds artistBounds);
 	
+	// 회원 목록
+	int getMemberListCount();
+	List<Map<String, Object>> getMemberList(RowBounds memberBounds);
+
+	
 	// 콘텐츠 관리
 	int getContentListCount();
 	List<Map<String, Object>> getContentList(RowBounds bounds);
+	
+	// 작가 승인 요청
+	int getRequestListCount();
+	List<Map<String, Object>> getRequestList(RowBounds requestBounds);
+	
 
 
 

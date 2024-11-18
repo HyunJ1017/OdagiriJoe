@@ -9,9 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import edu.kh.plklj.common.util.Pagination;
 import edu.kh.plklj.piece.dto.Category;
@@ -65,40 +67,42 @@ public class PieceController {
 	}
 		
 		
-		
-		
-		
-    
-    
-
 	@GetMapping("online/completed")
 	@ResponseBody
 	public Map<String, Object> completed(
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp
 			) {
-	// 완료 작품 데이터 및 페이지네이션 정보
-			int completeListCount = service.getCompletePieceCount();
+		// 완료 작품 데이터 및 페이지네이션 정보
+		int completeListCount = service.getCompletePieceCount();
 //			log.debug("completeListCount : {}", completeListCount);
-			
-			Pagination complPagination = new Pagination(cp, completeListCount, 10, 5);
-			
-			List<Piece> completedPiece = 
-					service.getCompletePieces(cp, completeListCount, complPagination);
-			
-			Map<String, Object> response = new HashMap<>();
-			response.put("completedPiece", completedPiece);
-	    response.put("complPagination", complPagination);
+		
+		Pagination complPagination = new Pagination(cp, completeListCount, 10, 5);
+		
+		List<Piece> completedPiece = 
+				service.getCompletePieces(cp, completeListCount, complPagination);
+		
+		Map<String, Object> response = new HashMap<>();
+		response.put("completedPiece", completedPiece);
+		response.put("complPagination", complPagination);
 		
 		return response;
 	}
-
 		
-	
+		
 	/** 온라인 갤러리 상세 조회 페이지
 	 *
 	 */
 	@GetMapping("onlineDetail")
-	public String onlineDetail() {
+	public String onlineDetail(
+			@RequestParam("pieceNo") int pieceNo,
+			Model model
+			) {
+		// 상세 조회를 위한 작품 정보 가져오기
+		Piece piece = service.getPieceDetail(pieceNo);
+		
+		// 가져온 작품 정보를 모델에 추가
+		model.addAttribute("piece", piece);
+		
 		return "online/onlineDetail";
 	}
 	
@@ -140,8 +144,29 @@ public class PieceController {
 		} else {
 			return "redirect:/piece/upload";
 		}
-		
 	}
+		
+    
+	/** 위시 리스트 체크 or 해제
+	 *  ***** 추후 @SessionAttribute("loginMember") Member loginMember 사용 예정!!
+	 */
+	@ResponseBody
+	@PostMapping("wish")
+	public Map<String, Object> onlineWish(
+			@RequestBody int pieceNo
+			){
+		
+		return service.onlineWish(pieceNo);
+	}
+	
+	/** 구매하기 팝업 창 열기
+	 */
+	@GetMapping("purchasePopup")
+	public String purchasePopup() {
+		return "online/purchasePopup";
+	}
+    
+	
 
 	/** 작품 임시저장
 	 * @param piece
