@@ -4,8 +4,9 @@ let nameSecBackUp;
 
 // 이름칸 클릭시
 nameSec.addEventListener("click", () => {
+  if(nameSec.classList.contains("active")) return;
   nameSecBackUp = nameSec.innerHTML;
-  const name = nameSec.innerTEXT;
+  const name = nameSec.innerHTML;
   nameSec.innerHTML = "";
 
   const label = document.createElement("label");
@@ -21,12 +22,24 @@ nameSec.addEventListener("click", () => {
   const div2 = document.createElement("div");
   div2.classList.add("member-hov");
   div2.innerText = "취소";
-  div2.addEventListener("click", () => { nameSec.innerHTML = nameSecBackUp; });
+  div2.addEventListener("click", () => {
+    nameCancle();
+  });
 
   label.append(input, div, div2);
   nameSec.append(label);
   input.focus();
+  nameSec.classList.add("active");
 })
+
+const nameCancle = () => {
+  nameSec.innerHTML = ""; // 비우기
+
+  setTimeout(() => {
+    nameSec.innerHTML = nameSecBackUp; // 백업된 HTML 복구
+    nameSec.classList.remove("active"); // 'active' 제거
+  }, 0);
+}
 
 // 이름 변경 요청
 const submitId = () => {
@@ -63,7 +76,8 @@ const submitId = () => {
   })
   .then(result => {
     if(result > 0){
-      nameSec.innerHTML = inputName;
+      nameSecBackUp = inputName;
+      nameCancle();
     } else {
       alert("다시 시도해 주새요");
       return;
@@ -77,10 +91,11 @@ const submitId = () => {
 /* 비밀번호변경 */
 const pwSec = document.querySelector("#myPage-pw");
 let pwSecBackUp;
-
+let pwCheck = false;
 
 // 비밀번호칸 클릭시
 pwSec.addEventListener("click", () => {
+  if(pwSec.classList.contains("active")) return;
   pwSecBackUp = pwSec.innerHTML;
   pwSec.innerHTML = "";
 
@@ -107,8 +122,16 @@ pwSec.addEventListener("click", () => {
   const div2 = document.createElement("div");
   div2.classList.add("member-hov");
   div2.innerText = "취소";
-  div2.addEventListener("click", () => { pwSec.innerHTML = pwSecBackUp; });
+  div2.addEventListener("click", () => {
+    pwSec.innerHTML = ""; // 비우기
+    
+    setTimeout(() => {
+       pwSec.innerHTML = pwSecBackUp; 
+       pwSec.classList.remove("active"); // 'active' 제거
+     }, 0);
+    });
   label1.append(input1, div, div2);
+  pwSec.classList.add("active");
 
   // 새 비밀번호 확인
   const label2 = document.createElement("label");
@@ -157,7 +180,6 @@ pwSec.addEventListener("click", () => {
   // Password Input 확인
   const inputPw = document.querySelector("#inputPw");
   const inputPwC = document.querySelector("#inputPwCheck");
-  let pwCheck = false;
   inputPw?.addEventListener("input", ()=>{
     pwInputCheck();
   });
@@ -286,8 +308,9 @@ let phoneSecBackUp;
 let lastCheckedPhone;
 let keyFl = false;
 
-// 이름칸 클릭시
+// 전화번호칸 클릭시
 phoneSec.addEventListener("click", () => {
+  if(phoneSec.classList.contains("active")) return;
   phoneSecBackUp = phoneSec.innerHTML;
   phoneSec.innerHTML = "";
 
@@ -304,7 +327,14 @@ phoneSec.addEventListener("click", () => {
   const div2 = document.createElement("div");
   div2.classList.add("member-hov");
   div2.innerText = "취소";
-  div2.addEventListener("click", () => { phoneSec.innerHTML = phoneSecBackUp; });
+  div2.addEventListener("click", () => {
+    phoneSec.innerHTML = ""; // 비우기
+    
+    setTimeout(() => {
+      phoneSec.innerHTML = pwSecBackUp; 
+      phoneSec.classList.remove("active"); // 'active' 제거
+     }, 0);
+    });
   label.append(input, div, div2);
 
   const label2 = document.createElement("label");
@@ -321,7 +351,7 @@ phoneSec.addEventListener("click", () => {
 
   phoneSec.append(label, label2);
   input.focus();
-
+  phoneSec.classList.add("active");
 })
 
 const initTime = "05:00"; // 인증 초기시간

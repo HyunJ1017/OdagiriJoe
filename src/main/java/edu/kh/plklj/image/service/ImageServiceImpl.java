@@ -21,8 +21,11 @@ public class ImageServiceImpl implements ImageService {
 	
 	private final Bucket bucket;
 	
-	@Value("${firebase.file.prePath}")
-	private String prePath;
+	@Value("${firebase.piece.prePath}")
+	private String piecePrePath;
+	
+	@Value("${firebase.profile.prePath}")
+	private String profilePrePath;
 	
 	@Value("${firebase.file.appPath}")
 	private String appPath;
@@ -44,7 +47,7 @@ public class ImageServiceImpl implements ImageService {
 	            bucket.create(blob, inputStream, image.getContentType());
 	        }
 	        
-            return prePath + fileName + appPath;
+            return profilePrePath + fileName + appPath;
 	        
 	    } catch (Exception e) {
 	        log.error("profile upload failed", e);
@@ -70,7 +73,7 @@ public class ImageServiceImpl implements ImageService {
 	        	existingBlob = bucket.create(blob, inputStream, image.getContentType());
 	        }
 	        
-	        return prePath + fileName + appPath;
+	        return piecePrePath + fileName + appPath;
 	        
 	    } catch (Exception e) {
 	        log.error("profile upload failed", e);

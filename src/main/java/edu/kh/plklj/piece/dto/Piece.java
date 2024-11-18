@@ -56,8 +56,13 @@ public class Piece {
 	private String previewStartDate;
 	private String previewEndDate;
 	
-	public String pieceCategoryName; // 카테고리 번호
 
+	// 작품 카테고리 이름
+	private String pieceCategoryName;
+	
+	// 위시리스트 관련
+	private int wishCount;
+	private int wishCheck; // 위시 체크 여부(1== 누른적 있음)
 	
 	
 }

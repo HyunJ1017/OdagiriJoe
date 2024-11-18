@@ -31,19 +31,30 @@
   height: 180px;
 }
 
+.hours-box {
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #D9D9D9;
+  font-size: 40px;
+  border-radius: 20px;
+}
+
+.hours-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+}
+
 
 .ongoingDetail-imageBox > img {
   width: 100%;
   height: 100%;
 }
 
-
-.ongoingDetail-imageBox > div {
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 
 /* ongoingDetail2 */
@@ -72,6 +83,7 @@
 
 .ongoingdetail2-textBox {
   display: flex;
+  margin-top: 20px;
   flex-direction: column;
   font-size: 21px;
   gap: 15px;

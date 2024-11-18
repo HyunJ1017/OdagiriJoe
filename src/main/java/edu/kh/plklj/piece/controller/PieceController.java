@@ -9,9 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import edu.kh.plklj.common.util.Pagination;
 import edu.kh.plklj.piece.dto.Category;
@@ -65,40 +67,42 @@ public class PieceController {
 	}
 		
 		
-		
-		
-		
-    
-    
-
 	@GetMapping("online/completed")
 	@ResponseBody
 	public Map<String, Object> completed(
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp
 			) {
-	// 완료 작품 데이터 및 페이지네이션 정보
-			int completeListCount = service.getCompletePieceCount();
+		// 완료 작품 데이터 및 페이지네이션 정보
+		int completeListCount = service.getCompletePieceCount();
 //			log.debug("completeListCount : {}", completeListCount);
-			
-			Pagination complPagination = new Pagination(cp, completeListCount, 10, 5);
-			
-			List<Piece> completedPiece = 
-					service.getCompletePieces(cp, completeListCount, complPagination);
-			
-			Map<String, Object> response = new HashMap<>();
-			response.put("completedPiece", completedPiece);
-	    response.put("complPagination", complPagination);
+		
+		Pagination complPagination = new Pagination(cp, completeListCount, 10, 5);
+		
+		List<Piece> completedPiece = 
+				service.getCompletePieces(cp, completeListCount, complPagination);
+		
+		Map<String, Object> response = new HashMap<>();
+		response.put("completedPiece", completedPiece);
+		response.put("complPagination", complPagination);
 		
 		return response;
 	}
-
 		
-	
+		
 	/** 온라인 갤러리 상세 조회 페이지
 	 *
 	 */
 	@GetMapping("onlineDetail")
-	public String onlineDetail() {
+	public String onlineDetail(
+			@RequestParam("pieceNo") int pieceNo,
+			Model model
+			) {
+		// 상세 조회를 위한 작품 정보 가져오기
+		Piece piece = service.getPieceDetail(pieceNo);
+		
+		// 가져온 작품 정보를 모델에 추가
+		model.addAttribute("piece", piece);
+		
 		return "online/onlineDetail";
 	}
 	
@@ -107,14 +111,20 @@ public class PieceController {
 	 * 
 	 */
 	@GetMapping("upload")
-	public String pieceUpload(Model model) {
+	public String pieceUpload(
+			@RequestParam(value = "pieceNo", required = false, defaultValue = "0") int pieceNo,
+			Model model) {
+		
+		if(pieceNo != 0) {
+			Piece tempPiece = service.getTempPiece(pieceNo);
+			model.addAttribute("tempPiece", tempPiece);
+		}
 		
 		List<Category> categoryList = service.getCategoryList();
 		model.addAttribute("categoryList", categoryList);
 		
 		return "online/pieceUpload";
 	}
-	
 	
 	/** 작품등록
 	 * @param piece : 작품번호, 작가번호, 작품호출경로 등등
@@ -123,18 +133,74 @@ public class PieceController {
 	@PostMapping("upload")
 	public String pieceInsert(
 			@ModelAttribute Piece piece) {
+
+		// 이전 임시저장작품이 있으면 지우기
+		int result = service.searchTempiece(piece);
 		
-		int result = service.pieceInsert(piece);
+		result = service.pieceInsert(piece);
 		
 		if(result > 0) {
 			return "redirect:/main";
 		} else {
 			return "redirect:/piece/upload";
 		}
+	}
 		
+    
+	/** 위시 리스트 체크 or 해제
+	 *  ***** 추후 @SessionAttribute("loginMember") Member loginMember 사용 예정!!
+	 */
+	@ResponseBody
+	@PostMapping("wish")
+	public Map<String, Object> onlineWish(
+			@RequestBody int pieceNo
+			){
+		
+		return service.onlineWish(pieceNo);
 	}
 	
+	/** 구매하기 팝업 창 열기
+	 */
+	@GetMapping("purchasePopup")
+	public String purchasePopup() {
+		return "online/purchasePopup";
+	}
+    
+	
 
+	/** 작품 임시저장
+	 * @param piece
+	 * @return
+	 */
+	@PostMapping("saveTemp")
+	public String saveTemp(
+			@ModelAttribute Piece piece) {
+		
+		// 이전 임시저장작품이 있으면 지우기
+		int result = service.searchTempiece(piece);
+		
+		result = service.saveTemp(piece);
+		
+		if(result > 0) {
+			return "redirect:/";
+		} else {
+			return "redirect:/";
+		}
+	}
+	
+	@GetMapping("removeTemp")
+	public String getMethodName(
+			@RequestParam("pieceNo") int pieceNo) {
+		
+		Piece piece = Piece.builder().pieceNo(pieceNo).build();
+		
+		int result = service.searchTempiece(piece);
+		
+		if(result > 0) {
+			return "redirect:/member/MyPage/artistAuction";
+		}
+		return "redirect:/member/MyPage/artistAuction";
+	}
 	
 	
 	

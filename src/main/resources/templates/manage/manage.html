@@ -172,6 +172,10 @@
       <!-- 작가 및 회원 관리 섹션 -->
       <div id="memberManage"></div><!-- 사이드바스크s롤 -->
       <h2>작가 및 회원 관리</h2>
+      <div class="button-group">
+        <button id="show-artist" class="toggle-btn">작가 보기</button>
+        <button id="show-member" class="toggle-btn">회원 보기</button>
+      </div>
       <section class="writer-row">
         <!-- 왼쪽 섹션: 작가 리스트 -->
 
@@ -189,8 +193,12 @@
               <button class="btn withdraw-btn">탈퇴</button>
             </div>
           </div>
-
         </div>
+
+        <!-- 페이지네이션 -->
+        <div class="pagination-box" id="paginationBoxArtist">
+        </div>
+
 
 
         <!-- 오른쪽 섹션: 회원 요약 -->
@@ -206,57 +214,19 @@
               </div>
             </div>
           </div>
-          <div class="artist-summary">
-            <div class="summary-item">
-              <h3>박현준 | 회원</h3>
-              <p>경매 금액: ₩1,890,000,000</p>
-              <div class="summary-actions">
-                <button class="btn suspend-btn">정지</button>
-                <button class="btn withdraw-btn">탈퇴</button>
-              </div>
-            </div>
-          </div>
-          <div class="artist-summary">
-            <div class="summary-item">
-              <h3>박현준 | 회원</h3>
-              <p>경매 금액: ₩1,890,000,000</p>
-              <div class="summary-actions">
-                <button class="btn suspend-btn">정지</button>
-                <button class="btn withdraw-btn">탈퇴</button>
-              </div>
-            </div>
-          </div>
-          <div class="artist-summary">
-            <div class="summary-item">
-              <h3>박현준 | 회원</h3>
-              <p>경매 금액: ₩1,890,000,000</p>
-              <div class="summary-actions">
-                <button class="btn suspend-btn">정지</button>
-                <button class="btn withdraw-btn">탈퇴</button>
-              </div>
-            </div>
-          </div>
-          <div class="artist-summary">
-            <div class="summary-item">
-              <h3>박현준 | 회원</h3>
-              <p>경매 금액: ₩1,890,000,000</p>
-              <div class="summary-actions">
-                <button class="btn suspend-btn">정지</button>
-                <button class="btn withdraw-btn">탈퇴</button>
-              </div>
-            </div>
-          </div>
-
         </div>
-
       </section>
+      <!-- 페이지네이션 -->
+      <div class="pagination-box" id="paginationBoxMember">
+      </div>
+
 
       <!-- 콘텐츠 관리 -->
       <div id="contentsManage"></div>
       <h2>콘텐츠 관리</h2>
       <section class="contents-manage" id="contentGrid">
 
-        <div class="content-grid">
+        <!-- <div class="content-grid">
           <div class="content-card">
             <img src="image1.jpg" alt="신운모" class="content-image">
             <div class="content-info">
@@ -348,34 +318,19 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 
       </section>
-  
-      <div class="pagination-box" id="paginationBox2">
-        <a href="#" class="page-btn"><<</a>
-        <a href="#" class="page-btn"><</a>
-        <a href="#" class="page-btn">1</a>
-        <a href="#" class="page-btn">2</a>
-        <a href="#" class="page-btn">3</a>
-        <a href="#" class="page-btn">4</a>
-        <a href="#" class="page-btn">5</a>
-        <a href="#" class="page-btn">6</a>
-        <a href="#" class="page-btn">7</a>
-        <a href="#" class="page-btn">8</a>
-        <a href="#" class="page-btn">9</a>
-        <a href="#" class="page-btn">10</a>
-        <a href="#" class="page-btn">>></a>
-        <a href="#" class="page-btn">></a>
-        
+      <!-- 페이지네이션 -->
+      <div class="pagination-box" id="paginationBoxContent">
       </div>
-    
+
 
       <div id="approval"></div>
       <!-- 승인 요청 내역 -->
       <h2>승인 요청 내역</h2>
       <section class="accept-list">
-        <div class="request-grid">
+        <div class="request-grid" id="requestGrid">
           <div class="request-card">
             <img src="image1.jpg" alt="박현준" class="profile-image">
             <div class="info">
@@ -390,6 +345,9 @@
                 </div>
               </div>
             </div>
+          </div>
+          <!-- 페이지네이션 -->
+          <div class="pagination-box" id="paginationBoxRequest">
           </div>
 
 
@@ -620,10 +578,10 @@
             <div class="details" style="display: none;">
               <label for="inquiry-content" class="label">문의 내용</label>
               <input type="text" id="inquiry-content" class="inquiry-content" placeholder="문의 내용을 입력하세요">
-              
+
               <label for="response-content" class="label">답변</label>
               <input type="text" id="response-content" class="response-content" placeholder="답변 내용을 입력하세요">
-              
+
               <div class="inquiry-buttons" style="display: none;">
                 <button class="answer-button">답변하기</button>
                 <button class="delete-button">삭제하기</button>

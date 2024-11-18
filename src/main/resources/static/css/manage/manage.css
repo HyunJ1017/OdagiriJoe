@@ -47,7 +47,7 @@
 }
 
 .sidebar{
-  width: 250px;
+  min-width: 210px;
   background-color: #5e7c71;
   color: white;
 }
@@ -55,7 +55,7 @@
   top: 0;
   font-size: 18px;
   position: fixed;
-  overflow-y: auto;
+  
   padding-top: 80px;
 }
 .nav-item {
@@ -114,13 +114,10 @@
     justify-items: center;
     margin-top: 5px;
     /* margin-left: 50px; */
-    width: 100%;
-}
-
-.writer-row {
-    display: flex;
 
 }
+
+
 
 .tab-content {
     flex: 1;
@@ -144,7 +141,7 @@
 
 .chart-container {
     height: 400px;
-    width: 700px;
+    width: 500px;
     border: 1px solid #ddd;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
@@ -152,7 +149,7 @@
 }
 
 .data-table {
-    width: 700px;
+    width: 500px;
     overflow-x: auto;
     margin-left: 50pxpx;
     border: 1px solid #ddd;
@@ -187,26 +184,28 @@ h2 {
     color: #3A4F48;
     font-size: 23px;
     margin-left: 70px;
-    margin-top: 70px;
+    margin-top: 150px;
 }
+
 
 
 .writer-row {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
-.writer-row>.member-list {
+.writer-row >.member-list {
     display: flex;
-    flex-direction: column;
+    width: 80%;
+    flex-wrap: wrap;
     justify-content: flex-start;
+    margin: 10px;
     padding: 30px;
 }
 
-.writer-row>.member-list:first-child {
-    border-right: 0.1px solid rgb(201, 200, 200);
-}
+
 
 
 /* 왼쪽 섹션: 작가 리스트 스타일 */
@@ -496,7 +495,7 @@ h2 {
 .faq-section {
     max-width: 1000px;
     max-height: 700px;
-    margin: 20px auto;
+    margin: 20px 250px;
     padding: 20px;
     background-color: #ffffff;
     border-radius: 8px;
@@ -671,7 +670,7 @@ h2 {
 .notice-section {
     max-width: 1000px;
     max-height: 900px;
-    margin: 20px auto;
+    margin: 20px 250px;
     padding: 20px;
     background-color: #ffffff;
     border-radius: 8px;
@@ -689,7 +688,7 @@ h2 {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 20px;
-    margin-right: 300px;
+    margin-right: 600px;
     gap: 20px;
     flex-direction: row;
 }
@@ -909,7 +908,7 @@ h2 {
 
 
 .inquiry-item {
-    display: flex;
+ 
     align-items: center;
     padding: 10px 20px;
     border-bottom: 1px solid #3A4F48;
@@ -938,6 +937,7 @@ h2 {
     margin-top: auto; /* 남은 공간만큼 아래로 이동 */
     width: 100%;
     margin-bottom: 50px;
+
   }
   .pagination-box > .page-btn {
     margin: 0 10px; /* 페이지 번호 간격 조절 (양쪽을 넓힘) */
@@ -976,6 +976,37 @@ h2 {
     padding: 5px; /* 패딩 추가하여 클릭 영역 확대 */
   }
   
+  /* 버튼 그룹 스타일 */
+.button-group {
+
+    
+    margin-bottom: 20px; /* 버튼 아래 공간 추가 */
+  }
   
+  .toggle-btn {
+    background-color: #f0f0f0; /* 버튼 배경색 */
+    border: 1px solid #ccc; /* 버튼 테두리 */
+    color: #333; /* 버튼 텍스트 색상 */
+    padding: 10px 20px; /* 버튼 내부 여백 */
+    font-size: 16px; /* 버튼 글꼴 크기 */
+    font-weight: bold; /* 텍스트 강조 */
+    cursor: pointer; /* 마우스 커서 변경 */
+    border-radius: 5px; /* 둥근 모서리 */
+    transition: all 0.3s ease; /* 부드러운 전환 효과 */
+    margin: 0 10px; /* 버튼 간격 추가 */
+  }
+  
+  /* 버튼 활성화 시 스타일 */
+  .toggle-btn.active {
+    background-color: #4CAF50; /* 활성화된 버튼 배경색 */
+    color: white; /* 활성화된 버튼 텍스트 색상 */
+    border-color: #4CAF50; /* 활성화된 버튼 테두리 색상 */
+  }
+  
+  /* 버튼 호버 시 스타일 */
+  .toggle-btn:hover {
+    background-color: #e0e0e0; /* 호버 시 배경색 변경 */
+  }
  
     
+  

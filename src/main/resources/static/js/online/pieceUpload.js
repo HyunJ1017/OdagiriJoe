@@ -3,6 +3,7 @@ const auctionBtn = document.querySelector(".auction-btn");
 const title = document.querySelector("#pieceTitle");
 const detail = document.querySelector("#pieceDetail");
 const pieceType = document.querySelector("#pieceType");
+const piceStatus = document.querySelector("#pieceStatus");
 const sizeX = document.querySelector("#sizeX");
 const sizeY = document.querySelector("#sizeY");
 const salePopup = document.querySelector(".sale-popup");
@@ -12,21 +13,32 @@ const sellCancel = document.querySelector("#sell-cancel");
 const auctionCancel = document.querySelector("#auction-cancel");
 const form = document.querySelector("#upload-form");
 let pieceNo = 0;
+let clickFl = false;
+let tempCheck = false;
+if(document.querySelector("#pieceNo")) {
+  pieceNo = document.querySelector("#pieceNo").value;
+  tempCheck = true;
+}
 
 // 판매버튼 클릭시 화면 보이기
 saleBtn.addEventListener("click", () => {
   clickConFirm();
+  if(!clickFl) return;
   pieceType.value = 1;
+  piceStatus.value = 'N';
   salePopup.classList.remove("display-none");
 });
 // 판매버튼 클릭시 화면 보이기2
 auctionBtn.addEventListener("click", () => {
   clickConFirm();
+  if(!clickFl) return;
   auctionPopup.classList.remove("display-none");
   pieceType.value = 2;
+  piceStatus.value = 'A';
 });
 const clickConFirm = () => {
-  if(imgInput.files[0] === undefined){
+  clickFl = false;
+  if(imgInput.files[0] === undefined && !tempCheck){
     alert("작품 이미지를 첨부해 주세요.");
     return;
   }
@@ -67,7 +79,8 @@ const clickConFirm = () => {
     return;
   }
   
-}
+  clickFl = true;
+} // clickConFirm end
 
 // 취소버튼
 sellCancel.addEventListener("click", () => {
@@ -166,11 +179,25 @@ const returnImig = () => {
   lastInputImg = null;
 }
 
+// 임시저장버튼 클릭시
+const saveBtn = document.querySelector("#save-button");
+saveBtn.addEventListener("click", () => {
+  if(!confirm("작품을 저장하실 건가요?")){
+    return;
+  }
+  piceStatus.value = 'T';
+  formSubmitSequence();
+})
 
 // 제출시
 form.addEventListener("submit", e => {
   e.preventDefault();
-  if(imgInput.files[0] === undefined){
+  formSubmitSequence();
+})
+
+const formSubmitSequence = () => {
+  
+  if(imgInput.files[0] === undefined && !tempCheck){
     alert("작품 이미지를 첨부해 주세요.");
     return;
   }
@@ -207,7 +234,7 @@ form.addEventListener("submit", e => {
 
   if (!regEx.test(sizeX.value)) { // sizeX 값 유효성 검사
     sizeX.value = "";
-    sizeX.placeholder = "소숫점을 포함한 숫자만 입력가능합니다.";
+    sizeX.placeholder = "작품 크기는 소숫점을 포함한 숫자만 입력가능합니다.";
     auctionPopup.classList.add("display-none");
     salePopup.classList.add("display-none");
     sizeX.focus();
@@ -216,11 +243,34 @@ form.addEventListener("submit", e => {
 
   if (!regEx.test(sizeY.value)) { // sizeY 값 유효성 검사
     sizeY.value = "";
-    sizeY.placeholder = "소숫점을 포함한 숫자만 입력가능합니다.";
+    sizeY.placeholder = "작품 크기는  소숫점을 포함한 숫자만 입력가능합니다.";
     auctionPopup.classList.add("display-none");
     salePopup.classList.add("display-none");
     sizeY.focus();
     return;
+  }
+
+  /* 임시저장 할 작품이면 바로 호출 */
+  // 작품번호 있을 수 있고 없을 수 있음
+  if(piceStatus.value === 'T'){
+    if(pieceNo !== 0) {
+      pieceUpload();
+      return;
+
+    } else {
+      /* 작품번호 얻어오기 */
+      fetch("/coolPiece/getPieceNo")
+      .then(response => {
+        if (response.ok) return response.json();
+        throw new Error("AJAX 통신 실패");
+      })
+      .then(result => {
+        pieceNo = result;
+        pieceUpload();
+      })
+      .catch(err => console.error(err));
+      return;
+    }
   }
 
   if(auctionPopup.classList.contains("display-none")){
@@ -253,6 +303,8 @@ form.addEventListener("submit", e => {
     }
   }
 
+  if(pieceNo !== 0) pieceUpload();
+  else 
   /* 작품번호 얻어오기 */
   fetch("/coolPiece/getPieceNo")
   .then(response => {
@@ -260,59 +312,84 @@ form.addEventListener("submit", e => {
     throw new Error("AJAX 통신 실패");
   })
   .then(result => {
-    console.log("pieceNo : " + result);
     pieceNo = result;
     pieceUpload();
   })
   .catch(err => console.error(err));
 
-  
-
-});
+};
 
 // 파일등록함수
 const pieceUpload = () => {
-  const formData = new FormData();
-  const fileRename = "piece" + pieceNo + "." +  imgInput.files[0].name.split(".").pop();
-  formData.append("image", imgInput.files[0]);
-  formData.append("fileName", fileRename);
+  if(imgInput.files[0] !== undefined) {
+    const formData = new FormData();
+    const fileRename = "piece" + pieceNo + "." +  imgInput.files[0].name.split(".").pop();
+    formData.append("image", imgInput.files[0]);
+    formData.append("fileName", fileRename);
 
-  alertM("작품 이미지를 등록하고 있습니다.");
-  fetch("/images/piece", {
-    method: "POST",
-    body: formData
-  })
-  .then(response => {
-    if (response.ok) return response.text();
-    throw new Error("AJAX 통신 실패");
-  })
-  .then(result => {
-    console.log(result);
-    if(result !== null){
-      alertM("작품 이미지 등록에 성공하였습니다.");
-      const input1 = document.createElement("input");
-      input1.type="hidden";
-      input1.name="memberNo";
-      input1.value=memberNo;
-      form.appendChild(input1);
-      
-      const input2 = document.createElement("input");
-      input2.type="hidden";
-      input2.name="pieceRename";
-      input2.value=result;
-      form.appendChild(input2);
-      
-      const input3 = document.createElement("input");
-      input3.type="hidden";
-      input3.name="pieceNo";
-      input3.value=pieceNo;
-      form.appendChild(input3);
+    alertM("작품 이미지를 등록하고 있습니다.");
+    fetch("/images/piece", {
+      method: "POST",
+      body: formData
+    })
+    .then(response => {
+      if (response.ok) return response.text();
+      throw new Error("AJAX 통신 실패");
+    })
+    .then(result => {
+      if(result !== null){
+        alertM("작품 이미지 등록에 성공하였습니다.");
+        const input1 = document.createElement("input");
+        input1.type="hidden";
+        input1.name="memberNo";
+        input1.value=memberNo;
+        form.appendChild(input1);
+        
+        const input2 = document.querySelector("#pieceRename");
+        input2.value=result;
+        form.appendChild(input2);
+        
+        const input3 = document.createElement("input");
+        input3.type="hidden";
+        input3.name="pieceNo";
+        input3.value=pieceNo;
+        form.appendChild(input3);
 
+        if(piceStatus.value === 'T') {
+          document.querySelector("#upload-form").action="/piece/saveTemp";
+          document.querySelector("#upload-form").submit();
+          return;
+        }
+
+        document.querySelector("#upload-form").submit();
+      } else {
+        alertM("프로필 이미지 등록에 실패하였습니다.");
+        return;
+      }
+    })
+    .catch(err => console.error(err));
+
+  } else {
+
+    alertM("작품을 등록하겠습니다.");
+    const input1 = document.createElement("input");
+    input1.type="hidden";
+    input1.name="memberNo";
+    input1.value=memberNo;
+    form.appendChild(input1);
+    
+    const input3 = document.createElement("input");
+    input3.type="hidden";
+    input3.name="pieceNo";
+    input3.value=pieceNo;
+    form.appendChild(input3);
+
+    if(piceStatus.value === 'T') {
+      document.querySelector("#upload-form").action="/piece/saveTemp";
       document.querySelector("#upload-form").submit();
-    } else {
-      alertM("프로필 이미지 등록에 실패하였습니다.");
       return;
     }
-  })
-  .catch(err => console.error(err));
+
+    document.querySelector("#upload-form").submit();
+  }
 };

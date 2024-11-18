@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "edu.kh.plklj.common.scheduling.mapper.ScheduleMapper">
+
+	<!-- 시작 날자인 경매 시작 -->
+	<update id="auctionStart">
+		UPDATE PIECE
+		SET PIECE_STATUS = 'S'
+		WHERE PIECE_NO IN (
+			SELECT PIECE_NO
+			FROM PIECE_AUCTION
+			WHERE START_DATE = TO_DATE(TO_CHAR(CURRENT_DATE, 'YYYYMMDD'), 'YYYYMMDD')
+			)
+	</update>
+	
+	<!-- 경매종료 물품중 낙찰된 경매풀 조회 -->
+	<select id="serchAuction" resultType="integer">
+		SELECT
+			P.PIECE_NO
+		FROM PIECE P
+		LEFT JOIN PIECE_AUCTION PA ON (P.PIECE_NO = PA.PIECE_NO)
+		WHERE
+			P.PIECE_STATUS = 'S'
+		AND	END_DATE = TO_DATE(TO_CHAR(CURRENT_DATE, 'YYYYMMDD'), 'YYYYMMDD')
+		AND P.PIECE_NO IN (
+			SELECT PIECE_NO
+			FROM AUCTION A
+			WHERE A.PIECE_NO = P.PIECE_NO 
+			)
+	</select>
+	
+	<!-- 날찰된 경매물품 상태 변경 -->
+	<update id="successfulAuction">
+		UPDATE PIECE P
+		SET PIECE_STATUS = 'D'
+		WHERE PIECE_NO = #{pieceNo}
+	</update>
+	
+	
+	
+	
+	<!-- 경매종료 물품중 유찰된 경매풀 조회 -->
+	<select id="serchAuction2" resultType="Integer">
+		SELECT
+			P.PIECE_NO
+		FROM PIECE P
+		LEFT JOIN PIECE_AUCTION PA ON (P.PIECE_NO = PA.PIECE_NO)
+		WHERE
+			P.PIECE_STATUS = 'S'
+		AND	END_DATE = TO_DATE(TO_CHAR(CURRENT_DATE, 'YYYYMMDD'), 'YYYYMMDD')
+		AND P.PIECE_NO NOT IN (
+			SELECT PIECE_NO
+			FROM AUCTION A
+			WHERE A.PIECE_NO = P.PIECE_NO 
+			)
+	</select>
+	
+	<!-- 유찰된 경매물품 상태 변경 -->
+	<update id="failAuction">
+		UPDATE PIECE P
+		SET PIECE_STATUS = 'N'
+		WHERE PIECE_NO = #{pieceNo}
+	</update>
+	
+	<!-- 유찰된 경매물품 판매 테이블에 등록 -->
+	<insert id="cellPice">
+		INSERT INTO PIECE_SELL
+		VALUES(#{pieceNo}, (SELECT HOPE_PRICE FROM PIECE_AUCTION WHERE PIECE_NO = #{pieceNo}))
+	</insert>
+		
+</mapper>

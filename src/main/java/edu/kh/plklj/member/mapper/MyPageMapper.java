@@ -55,4 +55,12 @@ public interface MyPageMapper {
 
 	Integer getEndprice(int pieceNo);
 
+	int updateNickname(Member member);
+
+	Member getArtistBank(int memberNo);
+
+	int setArtistBank(Member member);
+
+	int setArtistProfile(Member artist);
+
 }

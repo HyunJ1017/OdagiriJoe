@@ -2,9 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace = "edu.kh.plklj.member.mapper.MyPageMapper">
 
+	<!-- 회원 이름 수정 -->
 	<update id="updateName">
 		UPDATE "MEMBER"
 		SET MEMBER_NAME = #{memberName}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 작가 활동명 수정 -->
+	<update id="updateNickname">
+		UPDATE "ARTIST"
+		SET ARTIST_NICKNAME = #{artistNickname}
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
 	
@@ -54,7 +62,8 @@
 			#{artistNickname},
 			#{artistPortfolio},
 			#{bankCode},
-			#{bankNo}
+			#{bankNo},
+			DEFAULT
 		)
 	</insert>
 	
@@ -197,13 +206,18 @@
 			(TO_CHAR(PA.START_DATE - 1, 'MM/DD(DY)')) AS PREVIEW_END_DATE,
 			(TO_CHAR(END_DATE, 'MM/DD(DY)')) AS END_DATE,
 			TO_CHAR(PA.START_PRICE, 'FM999,999,999,999') AS START_PRICE,
-			TO_CHAR(PA.FINAL_PRICE, 'FM999,999,999,999') AS FINAL_PRICE,
-			D.DELIVERY_STATUS
+			D.DELIVERY_STATUS,
+			FINAL_PRICE
 		FROM "PIECE" P
 		LEFT JOIN PIECE_AUCTION PA ON (P.PIECE_NO = PA.PIECE_NO)
-		LEFT JOIN DELIVERY D ON (D.PIECE_NO = P.PIECE_NO) 
+		LEFT JOIN DELIVERY D ON (D.PIECE_NO = P.PIECE_NO)
+		LEFT JOIN (
+		     SELECT MAX(END_PRICE) FINAL_PRICE, PIECE_NO
+		     FROM AUCTION
+		     GROUP BY PIECE_NO      
+		    ) A ON (A.PIECE_NO = P.PIECE_NO)
 		WHERE
-			P.PIECE_TYPE = 2
+			P.PIECE_TYPE != 1
 		AND P.MEMBER_NO = #{memberNo}
 		AND PIECE_STATUS NOT IN ('F')
 		<![CDATA[
@@ -222,17 +236,21 @@
 			SIZE_Y,
 			(SELECT ARTIST_NICKNAME FROM ARTIST AR WHERE AR.MEMBER_NO = P.MEMBER_NO) AS ARTIST_NICKNAME,
 			PIECE_STATUS,
-			TO_CHAR(PA.FINAL_PRICE, 'FM999,999,999,999') AS FINAL_PRICE
+			TO_CHAR(A.END_PRICE, 'FM999,999,999,999') AS FINAL_PRICE
 		FROM PIECE P
-		LEFT JOIN PIECE_AUCTION PA ON (P.PIECE_NO = PA.PIECE_NO)
+		LEFT JOIN (
+				SELECT AC.PIECE_NO, AC.END_PRICE, AC.MEMBER_NO
+				FROM AUCTION AC
+				JOIN (
+				    SELECT PIECE_NO, MAX(END_PRICE) AS MAX_PRICE
+				    FROM AUCTION
+				    GROUP BY PIECE_NO
+					) B ON AC.PIECE_NO = B.PIECE_NO AND AC.END_PRICE = B.MAX_PRICE
+			) A ON (P.PIECE_NO = A.PIECE_NO)
 		WHERE
 			PIECE_TYPE = 2
 		AND P.PIECE_STATUS = 'D'
-		AND (SELECT A.MEMBER_NO
-			 FROM AUCTION A
-			 WHERE
-			 	 PA.FINAL_PRICE = A.END_PRICE
-			 AND A.PIECE_NO = P.PIECE_NO) = #{memberNo}
+		AND A.MEMBER_NO = #{memberNo}
 	</select>
 	
 	<!-- 오늘것중 입찰한 경매품 -->
@@ -261,6 +279,7 @@
 			 WHERE A.PIECE_NO = P.PIECE_NO)
 	</select>
 
+	<!-- 현재낙찰가 조회 -->
 	<select id="getEndprice" resultType="integer">
 		SELECT END_PRICE
 		FROM AUCTION
@@ -268,5 +287,34 @@
 		ORDER BY END_PRICE DESC
 		FETCH FIRST 1 ROWS ONLY
 	</select>
+	
+	<!-- 작가 은행정보 조회 -->
+	<select id="getArtistBank" resultType="Member">
+		SELECT
+			BANK_CODE,
+			BANK_NO
+		FROM
+			ARTIST A
+		WHERE A.MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 작가 계좌정보 변경 -->
+	<update id="setArtistBank">
+		UPDATE "ARTIST"
+		SET
+			BANK_CODE = #{bankCode},
+			BANK_NO = #{bankNo}
+		WHERE
+			MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 작가 프로필url 변경 -->
+	<update id="setArtistProfile">
+		UPDATE "ARTIST"
+		SET
+			ARTIST_PROFILE = #{artistProfile}
+		WHERE
+			MEMBER_NO = #{memberNo}
+	</update>
 	
 </mapper>
