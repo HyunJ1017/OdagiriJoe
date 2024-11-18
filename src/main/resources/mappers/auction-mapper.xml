@@ -3,7 +3,7 @@
 <mapper namespace = "edu.kh.plklj.auction.mapper.AuctionMapper">
 	
 	<select id="upCommingList" resultType="Piece">
-		SELECT
+		  SELECT
 	        *
 	    FROM
 	        "PIECE"

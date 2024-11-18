@@ -47,7 +47,8 @@ public class Piece {
 	private String deliveryAddress; // 배송 주소
 	private int deliveryStatus; // 배송 상태
 	private String deliveryDate; // 배송 등록일
-	
+
+	// 작품 카테고리 이름
 	private String pieceCategoryName;
 	
 	// 판매작품
@@ -57,10 +58,6 @@ public class Piece {
 	private String openDate;
 	private String previewStartDate;
 	private String previewEndDate;
-	
-
-	// 작품 카테고리 이름
-	private String pieceCategoryName;
 	
 	// 위시리스트 관련
 	private int wishCount;

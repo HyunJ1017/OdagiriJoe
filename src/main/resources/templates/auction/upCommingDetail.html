@@ -18,7 +18,7 @@
 
       <div class="ongoingDetail-imageBox">
         <div class="hours-box">
-          <span>11</span>
+          <span>00</span>
         </div>
         <div style="color: #5e7c71;" class="hours-text">
           <h3>Hours</h3>
@@ -30,10 +30,10 @@
       </div>
 
       <div class="ongoingDetail-imageBox">
-        <div class="hours-box">
-          <span>25</span>
+        <div class="minutes-box">
+          <span>00</span>
         </div>
-        <div style="color: #5e7c71;" class="hours-text">
+        <div style="color: #5e7c71;" class="minutes-text">
           <h3>Minutes</h3>
         </div>
       </div>
@@ -43,10 +43,10 @@
       </div>
 
       <div class="ongoingDetail-imageBox">
-        <div class="hours-box">
-          <span>30</span>
+        <div class="seconds-box">
+          <span>00</span>
         </div>
-        <div style="color: #5e7c71;" class="hours-text">
+        <div style="color: #5e7c71;" class="seconds-text">
           <h3>Seconds</h3>
         </div>
       </div>
@@ -69,7 +69,7 @@
         </span>
 
         <!-- 경매일 -->
-        <span id="auctionDate" th:text="'경매일: ' + (${pieceDetail.auctionDate ?: '경매일 정보 없음'})">
+        <span id="auctionDate" th:text="'경매일: ' + (${pieceDetail.auctionDateDisplay ?: '경매일 정보 없음'})">
           경매일 : 정보 없음
         </span>
 
@@ -79,7 +79,10 @@
         </div>
 
       </div>
+
     </section>
+
+    
 
 
     <section class="dummy">
@@ -91,8 +94,16 @@
   </main>
 
 
-
   <th:block th:replace= "~{/common/footer.html}"></th:block>
+
+
+
+  <script th:inline="javascript">
+    const auctionDate = new Date(/*[[${pieceDetail.auctionDate}]]*/ "2000-01-01T00:00:00");
+    let remainingHours = /*[[${pieceDetail.remainingHours}]]*/ 0; // 서버에서 전달된 총 남은 시간
+    let remainingMinutes = /*[[${pieceDetail.remainingMinutes}]]*/ 0; // 남은 분
+    let remainingSeconds = /*[[${pieceDetail.remainingSeconds}]]*/ 0; // 남은 초
+</script>
 
   <script src="/js/auction/upCommingDetail.js"></script>
 </body>

@@ -12,4 +12,5 @@ public interface AuctionService {
 	// piecNo대로 상세 조회
 	Map<String, Object> ongoingDetail(int pieceNo);
 
+
 }
