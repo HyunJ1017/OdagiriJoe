@@ -1,13 +1,13 @@
 
+// 정렬 상태 초기화(전역변수)
+let salesSortState = { field: "recent", direction: "desc" };
+let completedSortState = { field: "recent", direction: "desc" };
 
 /* 드롭 다운 */
 document.addEventListener("DOMContentLoaded", function() {
   // 판매 작품 정렬
   let salesSortBtn = document.getElementById("salesSortBtn");
   const salesDropdownContent = document.getElementById("salesDropdownContent");
-  // 정렬 상태 초기화
-	let salesSortState = { field: "recent", direction: "desc" };
-	let completedSortState = { field: "recent", direction: "desc" };
 
 	
 
@@ -68,30 +68,16 @@ document.addEventListener("DOMContentLoaded", function() {
 })
 
 // 작품 유형에 따라 로드 함수 호출
-function setType(type) {
-    const cp = 1; // 기본적으로 첫 페이지부터 로드
-    if (type === '판매작품') {
-        loadPieces(cp, '판매작품', sortState.field, sortState.direction);
-    } else if (type === '완료작품') {
-        loadPieces(cp, '완료작품');
-    } else {
-        console.error('유효하지 않은 type입니다:', type);
-    }
-}
-
-
-// 작품 유형에 따라 로드 함수 호출
-function setType(type) {
-    const cp = 1; // 기본적으로 첫 페이지부터 로드
-    if (type === '판매작품') {
-        loadPieces(cp, '판매작품');
-    } else if (type === '완료작품') {
-        loadPieces(cp, '완료작품');
-    } else {
-        console.error('유효하지 않은 type입니다:', type);
-    }
-}
-
+// function setType(type) {
+//     const cp = 1; // 기본적으로 첫 페이지부터 로드
+//     if (type === '판매작품') {
+//         loadPieces(cp, '판매작품');
+//     } else if (type === '완료작품') {
+//         loadPieces(cp, '완료작품');
+//     } else {
+//         console.error('유효하지 않은 type입니다:', type);
+//     }
+// }
 
 /* 판매 작품 목록 로드 및 페이지네이션 */
 function loadPieces(cp, type, sort = "recent", order = "desc") {
@@ -116,10 +102,10 @@ function loadPieces(cp, type, sort = "recent", order = "desc") {
 
 					if (type === '판매작품') {
             renderSalesList(data.salesPiece || []); // 판매 작품 목록 렌더링
-						renderPagination(data.salesPagination, 'salesPaginationBox', type);
+						renderPagination(data.salesPagination, 'salesPaginationBox', type, salesSortState);
 					} else if (type === '완료작품') {
 						renderCompletedList(data.completedPiece || []); // 완료 작품 목록 렌더링
-						renderPagination(data.complPagination, 'completedPaginationBox', type);
+						renderPagination(data.complPagination, 'completedPaginationBox', type, completedSortState);
 						
 					}
 						
@@ -140,7 +126,7 @@ function renderSalesList(items = []) {
     salesListContainer.innerHTML = items.map(item => `
         <article class="gallery-item">
             <div class="artwork-image" data-id="${item.pieceNo}">
-                <img src="">
+                <img src="${item.pieceRename}">
                 <div class="artwork-info">
                     <h3>${item.artistNickname}</h3>
                     <p class="artwork-title">작품 : ${item.pieceTitle}</p>
@@ -180,7 +166,7 @@ function renderCompletedList(items = []) {
 
 
 
-function renderPagination(pagination, paginationBoxId, type) {
+function renderPagination(pagination, paginationBoxId, type, sortState) {
 
     const paginationBox = document.getElementById(paginationBoxId);
 
@@ -199,11 +185,11 @@ function renderPagination(pagination, paginationBoxId, type) {
 				event.preventDefault();
 				const cp = parseInt(event.target.dataset.page);
 
-				 // 작품 유형에 따른 정렬 상태를 가져옴
+			  // 작품 유형에 따른 정렬 상태를 가져옴
 				//  const sortState = type === "판매작품" ? salesSortState : completedSortState;
 				
 				// 현재 정렬 상태를 유지하여 요청
-				loadPieces(cp, type);
+				loadPieces(cp, type, sortState.field, sortState.direction);
 			});
 
 			return button;
@@ -230,10 +216,30 @@ function renderPagination(pagination, paginationBoxId, type) {
 
 // 초기 로드 시 첫 페이지 로드
 document.addEventListener('DOMContentLoaded', () => {
-	setType('판매작품'); // 판매 작품 첫 페이지 로드
-	setType('완료작품'); // 완료 작품 첫 페이지 로드
-	// loadPieces(1, "판매작품", salesSortState.field, salesSortState.direction);
-  // loadPieces(1, "완료작품", completedSortState.field, completedSortState.direction);
+	// setType('판매작품'); // 판매 작품 첫 페이지 로드
+	// setType('완료작품'); // 완료 작품 첫 페이지 로드
+	loadPieces(1, "판매작품", salesSortState.field, salesSortState.direction);
+  loadPieces(1, "완료작품", completedSortState.field, completedSortState.direction);
+  
+  /* 상제 조회 페이지 이동 (판매 작품) */
+  const salesListContainer = document.querySelector(".online-list");
+  salesListContainer.addEventListener("click", (event) => {
+    const artwork = event.target.closest(".gallery-item"); // 클릭한 영역이 gallery-item인지 확인
+    if(artwork) {
+      const pieceNo = artwork.querySelector(".artwork-image").dataset.id; // 작품 번호 가져오기
+      window.location.href = `/piece/onlineDetail?pieceNo=${pieceNo}`; // 상세 조회 페이지 이동
+    }
+  });
+
+
+  // 상세 조회 페이지 이동 (완료 작품)
+  const completedListContainer = document.querySelector(".online-list1");
+  completedListContainer.addEventListener("click", (event) => {
+    const artwork = event.target.closest(".gallery-item");
+    if (artwork) {
+      const pieceNo = artwork.querySelector(".artwork-image").dataset.id;
+      window.location.href = `/piece/onlineDetail?pieceNo=${pieceNo}`;
+    }
+  });
+
 });
-
-

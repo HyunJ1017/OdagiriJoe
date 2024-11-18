@@ -27,6 +27,16 @@ public interface PieceMapper {
 	int pieceAuctionInert(Piece piece);
 
 	List<Category> getCategoryList();
+
+	Piece getPieceDetail(int pieceNo);
+
+	int checkOnlineWish(int pieceNo);
+
+	int insertOnlineWish(int pieceNo);
+
+	int deleteOnlineWish(int pieceNo);
+
+	int getWishCount(int pieceNo);
 	
 	
 
