@@ -17,9 +17,32 @@
     <h1>Auctions</h1>
 
     <section class="upcoming-auctions">
-      <div class="upcoming-title">예정 경매</div> 
+      <div class="upcoming-title">예정 경매</div>
+  
+      <!-- 리스트 반복 -->
+      <div th:each="piece, iterStat : ${upCommingList}" class="upcoming-box" style="border-right: 2px solid #aaaaaa;">
+        <div class="upcoming-imgbox">
+            <img th:src="@{${piece.pieceRename} ?: '/images/default.jpg'}" alt="경매 이미지">
+        </div>
+        <div class="upcoming-text">
+            <h1 th:text="${piece.pieceTitle ?: '제목 없음'}"></h1>
 
-      <div class="upcoming-box" style="border-right: 2px solid #aaaaaa;">
+            <div style="margin-top: 35px;">프리뷰</div>
+            <div th:text="${piece.previewPeriod}" style="margin-top: 8px;"></div>
+
+            <!-- 경매일 -->
+            <div style="margin-top: 25px;">경매일</div>
+            <div th:text="${piece.auctionDate}" style="margin-top: 8px;"></div>
+
+
+            <hr class="dotted-line">
+            <button class="detail-button" id="upCommingBtn" th:attr="data-id=${piece.pieceNo}">상세보기</button>
+        </div>
+      </div>
+
+      
+
+      <!-- <div class="upcoming-box" style="border-right: 2px solid #aaaaaa;">
         <div class="upcoming-imgbox">
           <img src="/images/onlineGallery3.jpg">
         </div>
@@ -67,7 +90,7 @@
           <hr class="dotted-line">
           <button class="detail-button" id="ongoingBtn">상세보기</button>
         </div>
-      </div>
+      </div> -->
       
     </section>
 
