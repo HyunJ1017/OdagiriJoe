@@ -27,6 +27,14 @@ public interface PieceMapper {
 	int pieceAuctionInert(Piece piece);
 
 	List<Category> getCategoryList();
+
+	int saveTemp(Piece piece);
+
+	Piece getTempPiece(int pieceNo);
+
+	int searchTempiece(Piece piece);
+
+	int deleteTemp(Piece piece);
 	
 	
 

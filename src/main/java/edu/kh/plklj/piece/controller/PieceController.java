@@ -107,14 +107,20 @@ public class PieceController {
 	 * 
 	 */
 	@GetMapping("upload")
-	public String pieceUpload(Model model) {
+	public String pieceUpload(
+			@RequestParam(value = "pieceNo", required = false, defaultValue = "0") int pieceNo,
+			Model model) {
+		
+		if(pieceNo != 0) {
+			Piece tempPiece = service.getTempPiece(pieceNo);
+			model.addAttribute("tempPiece", tempPiece);
+		}
 		
 		List<Category> categoryList = service.getCategoryList();
 		model.addAttribute("categoryList", categoryList);
 		
 		return "online/pieceUpload";
 	}
-	
 	
 	/** 작품등록
 	 * @param piece : 작품번호, 작가번호, 작품호출경로 등등
@@ -123,8 +129,11 @@ public class PieceController {
 	@PostMapping("upload")
 	public String pieceInsert(
 			@ModelAttribute Piece piece) {
+
+		// 이전 임시저장작품이 있으면 지우기
+		int result = service.searchTempiece(piece);
 		
-		int result = service.pieceInsert(piece);
+		result = service.pieceInsert(piece);
 		
 		if(result > 0) {
 			return "redirect:/main";
@@ -133,8 +142,40 @@ public class PieceController {
 		}
 		
 	}
-	
 
+	/** 작품 임시저장
+	 * @param piece
+	 * @return
+	 */
+	@PostMapping("saveTemp")
+	public String saveTemp(
+			@ModelAttribute Piece piece) {
+		
+		// 이전 임시저장작품이 있으면 지우기
+		int result = service.searchTempiece(piece);
+		
+		result = service.saveTemp(piece);
+		
+		if(result > 0) {
+			return "redirect:/";
+		} else {
+			return "redirect:/";
+		}
+	}
+	
+	@GetMapping("removeTemp")
+	public String getMethodName(
+			@RequestParam("pieceNo") int pieceNo) {
+		
+		Piece piece = Piece.builder().pieceNo(pieceNo).build();
+		
+		int result = service.searchTempiece(piece);
+		
+		if(result > 0) {
+			return "redirect:/member/MyPage/artistAuction";
+		}
+		return "redirect:/member/MyPage/artistAuction";
+	}
 	
 	
 	

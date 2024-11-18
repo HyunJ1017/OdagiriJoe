@@ -66,6 +66,57 @@
 			#{pieceCategoryNo}
 		)
 	</insert>
+	
+	<!-- 작품임시저장 -->
+	<insert id="saveTemp">
+		INSERT INTO "PIECE"
+		VALUES(
+			#{pieceNo},
+			#{memberNo},
+			#{pieceRename},
+			#{pieceTitle},
+			#{pieceDetail},
+			#{sizeX},
+			#{sizeY},
+			DEFAULT,
+			3,
+			#{pieceStatus},
+			#{pieceCategoryNo}
+		)
+	</insert>
+	<!-- 작품임시저장 불러오기 -->
+	<select id="getTempPiece" resultType="Piece">
+		SELECT
+			PIECE_NO,
+			PIECE_RENAME,
+			PIECE_TITLE,
+			PIECE_DETAIL,
+			SIZE_X,
+			SIZE_Y,
+			PIECE_CATEGORY_NO
+		FROM PIECE
+		WHERE
+			PIECE_STATUS = 'T'
+		AND PIECE_NO = #{pieceNo}
+	</select>
+	<!-- 임시저장작품 존재확인 -->
+	<select id="searchTempiece" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM PIECE
+		WHERE
+			PIECE_STATUS = 'T'
+		AND PIECE_NO = #{pieceNo}
+	</select>
+	<!-- 임시저장작품 삭제 -->
+	<delete id="deleteTemp">
+		DELETE FROM "PIECE"
+		WHERE
+			PIECE_STATUS = 'T'
+		AND PIECE_NO = #{pieceNo}
+	</delete>
+	
+	
 	<!-- 작품등록(즉시판매) -->
 	<insert id="pieceSellInert">
 		INSERT INTO "PIECE_SELL"
