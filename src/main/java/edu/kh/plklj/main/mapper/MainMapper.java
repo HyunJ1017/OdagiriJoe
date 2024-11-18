@@ -29,7 +29,7 @@ public interface MainMapper {
 	 * @param listSearch
 	 * @return
 	 */
-	List<Piece> selectSearchList(String listSearch);
+	List<Piece> selectSearchList(String query);
 
 
 }

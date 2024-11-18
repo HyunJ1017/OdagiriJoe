@@ -9,64 +9,83 @@
   <th:block th:replace="~{/common/common.html :: cssLinks}"></th:block>
 </head>
 
+
 <body>
   <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
-  <main>
-    <!-- 메인 헤더영역 -->
-    <section class="serach-container-main">
-      <h3>검색 결과.</h3>
-      <div class="search-header-main">
-        <input type="checkbox" class="search-checkbox">
-        <p>지난 경매</p>
-        <input type="checkbox" class="search-checkbox">
-        <p>진행 경매</p>
-        <select id="sortSelect" class="sort-select">
-          <option value="latest">최신순</option>
-          <option value="rating">과거순</option>
-          <option value="priceUp">추정가 높은순</option>
-          <option value="priceDown">추정가 낮은순</option>
-        </select>
-      </div>
-      <div class="custom-line"></div>
-    </section>
-
-    <!-- 메인 컨테이너 영역 -->
-    <section class="serach-container" th:each="artist, stat : ${searchList}" th:object="${searchList}">
-      <a th:href="@{/piece/online/{pieceNo} (memberNo= *{memberNo})}" th:object="${searchList}">
-        <img th:src="*{pieceRename}" alt="작품: *{pieceTitle}" class="serach-image" th:data-id="*{memberNo}">
-      </a>
-      <div class="serach-header">
-        <p th:text="*{artistNickname}" class="priceText">작가명</p>
-      </div>
-      <div class="custom-line"></div>
-      <article class="search-container">
-          <div class="search-detail">
-
-            <p th:text="|제목 : *{pieceTitle}|">제목</p>
-
-            <hr class="dotted-line">
-            <p th:text="|*{sizeX} x *{sizeY}|">22 x 22</p>
-            <p th:text="|*{pieceCategory}|">작품 타입</p>
-
-            <hr class="dotted-line">
-            <p th:text="|시작가 (KRW): *{startPrice}|">시작가(KRW)</p>
-
-            <p th:if="*{hopePrice != null}" th:text="|현재가 (KRW): *{hopePrice}|">현재가(KRW)</p>
-            <p th:if="*{hopePrice == null}" th:text="|낙찰가 (KRW): *{finalPrice}|">낙찰가(KRW)</p>
-
-            <hr class="dotted-line">
-            <div th:if="*{pieceStatus == 'A'}" th:text="|경매대기|">경매 대기</div>
-            <div th:if="*{pieceStatus == 'S'}" th:text="|경매중|">경매중</div>
-            <div th:if="*{pieceStatus == 'F'}" th:text="|경매종료|">경매 종료</div>
-
-            <p th:if="*{startDate != null}" th:text="|경매 시작일: *{startDate}|">경매 시작일</p>
-            <p th:if="*{startDate == null}" th:text="|경매 종료일: *{endDate}|">경매 종료일</p>
+  <div class="main-container">
+    <main>
+      <!-- 검색 결과 헤더 -->
+      <div class="search-container">
+        <h3 th:if="${searchList != null && searchList.size() > 0}" th:text="|${query} 검색 결과입니다.|">검색 결과.</h3>
+        <h3 th:if="${searchList == null || searchList.size() == 0}" th:text="|${query} 검색 결과가 없습니다.|">검색 결과가 없습니다.</h3>
+  
+        <!-- 메인 헤더 영역 -->
+        <section class="serach-container-main">
+          <div class="search-header-main">
+            <label><input type="checkbox" class="ongoingAuction" checked> 진행 경매</label>
+            <label><input type="checkbox" class="pastAuction" checked> 지난 경매</label>
+            <label><input type="checkbox" class="gallery" checked> 판매 작품</label>
+            <label><input type="checkbox" class="paseGallery" checked> 판매 종료</label>
           </div>
+          <select id="sortSelect" class="sort-select">
+            <option value="latest">최신순</option>
+            <option value="oldest">오래된순</option>
+            <option value="priceUp">추정가 높은순</option>
+            <option value="priceDown">추정가 낮은순</option>
+          </select>
+        </section>
+        <div class="custom-line"></div>
+      </div>
+    </main>
+  
+    <!-- 검색 결과 리스트 -->
+    <section class="detail-container">
+      <article class="serach-detail" th:each="piece : ${searchList}" th:if="${piece.pieceTitle}">
+        <div class="img-detail">
+        <a th:href="@{/piece/online/{pieceNo}(pieceNo=${piece.pieceNo})}">
+          <img th:src="${piece.pieceRename}" alt="작품: ${piece.pieceTitle}" />
+        </a>
+      </div>
+  
+        <!-- 작품 정보 -->
+        <div class="name-detail">
+          <p th:text="|작가명: ${piece.artistNickname}|"></p>
+          <hr class="dotted-line">
+        </div>
+  
+        <!-- 작품 제목 -->
+        <div class="title-detail">
+          <p th:text="|제목: ${piece.pieceTitle}|"></p>
+        </div>
+        <br>
+  
+        <!-- 작품 크기 및 카테고리 -->
+        <div class="size-detail">
+          <p th:text="|${piece.sizeX} x ${piece.sizeY}| + '  |  ' + |${pieceCategoryName}|">22 x 22 | 작품 타입</p>
+        </div>
+  
+        <!-- 가격 정보 -->
+        <div class="price-detail">
+          <hr class="dotted-line">
+          <p th:if="${piece.pieceStatus == 'N'}" th:text="|판매가 (KRW): ${piece.sellPrice}|">판매가(KRW)</p>
+          <p th:if="${piece.pieceStatus == 'A'}" th:text="|예정가 (KRW): ${piece.hopePrice}|">예정가(KRW)</p>
+          <p th:if="${piece.pieceStatus == 'S'}" th:text="|시작가 (KRW): ${piece.startPrice}|">시작가(KRW)</p>
+          <p th:if="${piece.pieceStatus == 'F'}" th:text="|낙찰가 (KRW): ${piece.endPrice}|">낙찰가(KRW)</p>
+        </div>
+  
+        <hr class="dotted-line">
+        <!-- 상태 정보 -->
+        <div class="status-detail" id="auctionList">
+          <p th:if="${piece.pieceStatus == 'N'}" th:text="|판매중|" data-category="gallery" id="auction-item">판매중</p>
+          <p th:if="${piece.pieceStatus == 'F'}" th:text="|판매|" data-category="paseGallery" id="auction-item">판매</p>
+          <p th:if="${piece.pieceStatus == 'S'}" th:text="|경매 시작일: ${piece.startDate}|" id="auction-item">경매 시작일</p>
+          <p th:if="${piece.pieceStatus == 'S'}" th:text="|경매중|" data-category="ongoing" id="auction-item">경매중</p>
+          <p th:if="${piece.pieceStatus == 'F'}" th:text="|경매 종료일: ${piece.endDate}|" data-category="past" id="auction-item">경매 종료일</p>
         </div>
       </article>
-      <div class="custom-line"></div>
     </section>
-  </main>
+  </div>
+
   <script src="/js/common/header.js"></script>
 </body>
 <th:block th:replace="~{/common/footer.html}"></th:block>
