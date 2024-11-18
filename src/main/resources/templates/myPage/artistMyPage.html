@@ -10,26 +10,32 @@
 <body>
   <th:block th:replace= "~{/common/common.html :: headerLinks}"></th:block>
 
-  <main id="myPage-main" class="myPage-main">
+  <main id="myPage-main" class="myPage-main" th:object="${session.artistLogin}">
 
     <h3 style="margin-top: 100px;">My Page</h3>
 
     <!-- 이름 -->
     <div class="myPage-sec">
       <div>이름</div>
-      <div class="common-box canChangeBox" id="myPage-name">바꿀 수 있음</div>
+      <div class="common-box canChangeBox" id="myPage-name" th:text="*{memberName}">바꿀 수 있음</div>
+    </div>
+
+    <!-- 작가명 -->
+    <div class="myPage-sec">
+      <div>작가명</div>
+      <div class="common-box canChangeBox" id="myPage-nickname" th:text="*{artistNickname}">바꿀 수 있음</div>
     </div>
 
     <!-- 아이디 -->
     <div class="myPage-sec">
       <div>아이디</div>
-      <div class="common-box">못바꿈</div>
+      <div class="common-box" th:text="*{memberId}">못바꿈</div>
     </div>
 
     <!-- 이메일 -->
     <div class="myPage-sec">
       <div>이메일</div>
-      <div class="common-box">못바꿈</div>
+      <div class="common-box" th:text="*{memberEmail}">못바꿈</div>
     </div>
 
     <!-- 비밀번호 -->
@@ -41,26 +47,29 @@
     <!-- 전화전호 -->
     <div class="myPage-sec">
       <div>전화번호</div>
-      <div class="common-box canChangeBox" id="myPage-phone">바꿀 수 있음</div>
+      <div class="common-box canChangeBox" id="myPage-phone" th:text="*{memberPhone}">바꿀 수 있음</div>
     </div>
 
     <!-- 대표작품 -->
     <div class="myPage-sec">
       <div>대표작품</div>
-      <img src="/images/profile/profile1.jpg" alt="대표작품" width="100%" height="auto">
-      <div class="member-hov" id="myPage-phone" style="width: 380px; margin-top: 50px; align-self: center;">사진첨부</div>
+      <div class="image-container">
+        <img th:src="*{artistProfile}" alt="대표작품" class="content-img" id="previewImg" onload="hideLoader(this)">
+        <div class="loader"></div>
+      </div>
+      <label for="artistProfile" class="member-hov" id="artistProfileLabel">
+        이미지 선택
+      </label>
+      <div class="member-hov" id="profileUpload" >
+        이미지 변경
+      </div>
+      <input class="hiddenInput" name="inputArtistProfile" type="file" id="artistProfile" accept="image/*">
     </div>
 
-    <!-- 포트폴리오 및 파일첨부 -->
-    <div class="myPage-sec">
-      <div>포트폴리오 및 파일첨부</div>
-      <div class="common-box canChangeBox" id="myPage-phone">바꿀 수 있음</div>
-    </div>
-
-    <!-- 계죄번호 -->
+    <!-- 계좌번호 -->
     <div class="myPage-sec">
       <div>계죄번호</div>
-      <div class="common-box canChangeBox" id="myPage-phone">바꿀 수 있음</div>
+      <div class="common-box canChangeBox" id="myPage-bank">계좌번호 변경하기</div>
     </div>
         
     <section>
@@ -70,6 +79,8 @@
   </main>
 
   <th:block th:replace= "~{/common/footer.html}"></th:block>
+  <th:block th:replace= "~{/myPage/popup.html}"></th:block>
+
   <script src="/js/myPage/artistMyPage.js"></script>
   <script th:inline="javascript">
     const memberNo = /*[[${session.artistLogin.memberNo}]]*/ "defaultMemberNo";

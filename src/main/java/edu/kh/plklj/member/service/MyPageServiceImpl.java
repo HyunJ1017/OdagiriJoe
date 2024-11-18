@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.cloud.storage.Blob;
@@ -26,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class MyPageServiceImpl implements MyPageService {
 	
@@ -39,6 +41,12 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public int updateName(Member member) {
 		return mapper.updateName(member);
+	}
+	
+	// 작가 활동명 수정
+	@Override
+	public int updateNickname(Member member) {
+		return mapper.updateNickname(member);
 	}
 
 	// 비밀번호 변경
@@ -271,4 +279,21 @@ public class MyPageServiceImpl implements MyPageService {
 		return endPrice;
 	}
 	
+	// 작가 은행코드, 계좌번호 불러오기
+	@Override
+	public Member getArtistBank(int memberNo) {
+		return mapper.getArtistBank(memberNo);
+	}
+	
+	// 작가 은행코드, 계좌번호 설정하기
+	@Override
+	public int setArtistBank(Member member) {
+		return mapper.setArtistBank(member);
+	}
+	
+	// 작가 프로필 요청url변경
+	@Override
+	public int setArtistProfile(Member artist) {
+		return mapper.setArtistProfile(artist);
+	}
 }

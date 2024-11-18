@@ -37,10 +37,12 @@ body {
 }
 
 .image-preview img {
-  max-width: 100%;
   height: auto;
   border-radius: 8px;
   margin-bottom: 10px;
+  display: block;
+  width: 480px; /* 고정 가로 크기 */
+  height: auto; /* 고정 세로 크기 */
 }
 
 #upload-form {

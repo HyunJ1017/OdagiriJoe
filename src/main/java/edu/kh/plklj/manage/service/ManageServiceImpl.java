@@ -28,36 +28,57 @@ public class ManageServiceImpl implements ManageService {
 
 		switch (code) {
 		case "1":
-			  listCount = mapper.getArtistListCount(); // 작가 목록 총 개수 가져오기
+			listCount = mapper.getArtistListCount(); // 작가 목록 총 개수 가져오기
 
-	             limit = 4; // 한 페이지당 보여줄 항목 수
-	            pg = new Pagination(cp, listCount, limit, 10);
+			limit = 6; // 한 페이지당 보여줄 항목 수
+			pg = new Pagination(cp, listCount, limit, 10);
 
-	             offset = (cp - 1) * limit; // 페이징 offset 계산
+			offset = (cp - 1) * limit; // 페이징 offset 계산
 
-	            RowBounds artistBounds = new RowBounds(offset, limit); // RowBounds로 페이징 설정
-	            resultList = mapper.getArtistList(artistBounds); // 작가 목록 가져오기
-	            break;
-	            
-//            case "2":
-//                List<Member> memberList = mapper.getMemberList();
-//                for (Member member : memberList) {
-//                    resultList.add(convertObjectToMap(member));
-//                }
-//                break;
+			RowBounds artistBounds = new RowBounds(offset, limit); // RowBounds로 페이징 설정
+
+			resultList = mapper.getArtistList(artistBounds); // 작가 목록 가져오기
+
+			break;
+
+		case "2":
+			listCount = mapper.getMemberListCount(); // 회원 목록 총 개수 가져오기
+
+			limit = 6; // 한페이지당 보여줄 항목 수
+			pg = new Pagination(cp, listCount, limit, 10);
+
+			offset = (cp - 1) * limit;
+
+			RowBounds memberBounds = new RowBounds(offset, limit);
+
+			resultList = mapper.getMemberList(memberBounds); // 회원 목록 가져오기
+
+			break;
+
 		case "3":
 
 			listCount = mapper.getContentListCount();
 
-			 limit = 4;
+			limit = 4;
 			pg = new Pagination(cp, listCount, limit, 10);
 
-			 offset = (cp - 1) * limit;
+			offset = (cp - 1) * limit;
 
-			RowBounds bounds = new RowBounds(offset, limit);
+			RowBounds contentBounds = new RowBounds(offset, limit);
 
-			resultList = mapper.getContentList(bounds);
+			resultList = mapper.getContentList(contentBounds);
 			break;
+
+		case "4":
+			listCount = mapper.getRequestListCount();
+
+			limit = 5;
+			pg = new Pagination(cp, listCount, limit, 10);
+			offset = (cp - 1) * limit;
+			RowBounds requestBounds = new RowBounds(offset, limit);
+			resultList = mapper.getRequestList(requestBounds);
+			break;
+			
 
 		default:
 			throw new IllegalArgumentException("Invalid code: " + code);
@@ -65,7 +86,8 @@ public class ManageServiceImpl implements ManageService {
 
 		Map<String, Object> map = Map.of("resultList", resultList, "pg", pg);
 
-		
+		System.out.println(resultList);
+
 		return map;
 	}
 

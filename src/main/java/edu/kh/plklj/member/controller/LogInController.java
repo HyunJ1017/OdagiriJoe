@@ -16,10 +16,12 @@ import org.springframework.web.bind.support.SessionStatus;
 import edu.kh.plklj.main.dto.Member;
 import edu.kh.plklj.member.service.LogInService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /* 로그인, 비밀번호 찾기, 아이디찾기
  */
 
+@Slf4j
 @Controller
 @RequestMapping("member/login")
 @RequiredArgsConstructor

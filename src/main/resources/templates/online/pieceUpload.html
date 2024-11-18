@@ -17,83 +17,172 @@
   <main id="pieceUpload-main">
     <div class="upload-container">
 
-      <!-- method POST로 변경 해야함!! -->
-      <form action="/piece/upload" method="POST" id="upload-form">
-        <div class="image-preview">
-          <img src="/images/online.jfif"  id="preview-image">
-          <label for="file-upload" class="upload-btn">작품 업로드</label>
-          <input type="file" id="file-upload" name="file" accept="image/*" class="display-none">
-        </div>
-        <div class="form-container">
-          <h2 id="upload-header">작품 기입
-            <button>임시저장</button>
-          </h2>
-          <div class="form-group">
-            <label for="pieceTitle">작품 이름</label>
-            <input type="text" id="pieceTitle" name="pieceTitle" placeholder="작품 이름">
-          </div>
-          <div class="form-group">
-            <label for="pieceDetail">작품 설명</label>
-            <input type="text" id="pieceDetail" name="pieceDetail" placeholder="작품 설명">
-          </div>
-          <div class="form-group">
-            <label for="sizeX">작품 규격</label>
-            <div id="sizeInputBox">
-              <input type="text" id="sizeX" name="sizeX" placeholder="가로">
-              <input type="text" id="sizeY" name="sizeY" placeholder="세로">
-            </div>
-          </div>
-          <div>
-            <label for="pieceCategory">작품 종류</label>
-            <select name="pieceCategoryNo" id="pieceCategory">
-              <!-- 카테고리 종류 -->
-              <th:block th:each="category : ${categoryList}" th:object="${category}">
-                <option th:value="*{categoryNo}" name="pieceCategoryNo" th:text="*{categoryName}">카테고리명</option>
-              </th:block>
-            </select>
-          </div>
-          <div class="button-group">
-            <button type="button" class="sale-btn">즉시 판매</button>
-            <button type="button" class="auction-btn">경매 판매</button>
-          </div>
-          
-          <input type="number" name="pieceType" id="pieceType" class="display-none">
+      <th:block th:if="${tempPiece}" th:object="${tempPiece}">
 
-          <section class="sale-popup display-none">
-            <h2 id="upload-header">추가 기입 사항</h2>
-            <div class="colstart">
-              <label for="sellPrice">희망 판매가</label>
-              <input type="number" name="sellPrice" id="sellPrice" placeholder="희망 판매가(KWG)">
+        <form action="/piece/upload" method="POST" id="upload-form">
+          <div class="image-preview">
+            <img th:src="*{pieceRename}"  id="preview-image">
+            <label for="file-upload" class="upload-btn">작품 업로드</label>
+            <input type="file" id="file-upload" name="file" accept="image/*" class="display-none">
+            <input id="pieceRename" name="pieceRename" class="display-none" th:value="*{pieceRename}">
+          </div>
+          <div class="form-container">
+            <h2 id="upload-header">작품 기입
+              <button type="button" id="save-button">임시저장</button>
+            </h2>
+            <div class="form-group">
+              <label for="pieceTitle">작품 이름</label>
+              <input type="text" id="pieceTitle" name="pieceTitle" placeholder="작품 이름" th:value="*{pieceTitle}">
+            </div>
+            <div class="form-group">
+              <label for="pieceDetail">작품 설명</label>
+              <input type="text" id="pieceDetail" name="pieceDetail" placeholder="작품 설명" th:value="*{pieceDetail}">
+            </div>
+            <div class="form-group">
+              <label for="sizeX">작품 규격</label>
+              <div id="sizeInputBox">
+                <input type="text" id="sizeX" name="sizeX" placeholder="가로" th:value="*{sizeX}">
+                <input type="text" id="sizeY" name="sizeY" placeholder="세로" th:value="*{sizeY}">
+              </div>
             </div>
             <div>
-              <button>등록하기</button>
-              <button type="button" id="sell-cancel">취소하기</button>
+              <label for="pieceCategory">작품 종류</label>
+              <select name="pieceCategoryNo" id="pieceCategory" th:value="*{pieceCategoryNo}">
+                <!-- 카테고리 종류 -->
+                <th:block th:each="category : ${categoryList}" th:object="${category}">
+                  <option th:value="*{categoryNo}" name="pieceCategoryNo" th:text="*{categoryName}">카테고리명</option>
+                </th:block>
+              </select>
             </div>
-          </section>
+            <div class="button-group">
+              <button type="button" class="sale-btn">즉시 판매</button>
+              <button type="button" class="auction-btn">경매 판매</button>
+            </div>
+            
+            <input type="number" name="pieceType" id="pieceType" class="display-none" value="3">
+            <input type="text" name="pieceStatus" id="pieceStatus" class="display-none" value="N">
+            <input type="number" name="pieceNo" id="pieceNo" class="display-none"
+             th:value="*{pieceNo > 0 ? pieceNo : 0}">
+  
+            <section class="sale-popup display-none">
+              <h2 id="upload-header">추가 기입 사항</h2>
+              <div class="colstart">
+                <label for="sellPrice">희망 판매가</label>
+                <input type="number" name="sellPrice" id="sellPrice" placeholder="희망 판매가(KWG)">
+              </div>
+              <div>
+                <button>등록하기</button>
+                <button type="button" id="sell-cancel">취소하기</button>
+              </div>
+            </section>
+  
+            <section class="auction-popup display-none">
+              <h2 id="upload-header">추가 기입 사항</h2>
+              <div class="colstart">
+                <label for="startDate">경매일자</label>
+                <input type="text" name="startDate" id="datePicker" placeholder="경매일정이 초과한 날자는 선택이 불가능합니다."/><!-- ---------------- -->
+              </div>
+              <div class="colstart">
+                <label for="startPrice">시작가</label>
+                <input type="number" name="startPrice" id="startPrice" placeholder="시작가(KWG)">
+              </div>
+              <div class="colstart">
+                <label for="hopePrice">희망 낙찰가</label>
+                <input type="number" name="hopePrice" id="hopePrice" placeholder="희망 작찰가(KWG)">
+              </div>
+              <div class="rowcenter">
+                <button>등록하기</button>
+                <button type="button" id="auction-cancel">취소하기</button>
+              </div>
+            </section>
+          </div>
+        </form>
 
-          <section class="auction-popup display-none">
-            <h2 id="upload-header">추가 기입 사항</h2>
-            <div class="colstart">
-              <label for="startDate">경매일자</label>
-              <input type="text" name="startDate" id="datePicker" placeholder="경매일정이 초과한 날자는 선택이 불가능합니다."/><!-- ---------------- -->
-            </div>
-            <div class="colstart">
-              <label for="startPrice">시작가</label>
-              <input type="number" name="startPrice" id="startPrice" placeholder="시작가(KWG)">
-            </div>
-            <div class="colstart">
-              <label for="hopePrice">희망 낙찰가</label>
-              <input type="number" name="hopePrice" id="hopePrice" placeholder="희망 작찰가(KWG)">
-            </div>
-            <div class="rowcenter">
-              <button>등록하기</button>
-              <button type="button" id="auction-cancel">취소하기</button>
-            </div>
-          </section>
-        </div>
+      </th:block>
 
 
-      </form>
+      <th:block th:unless="${tempPiece}">
+
+        <form action="/piece/upload" method="POST" id="upload-form">
+          <div class="image-preview">
+            <img src="/images/online.jfif"  id="preview-image">
+            <label for="file-upload" class="upload-btn">작품 업로드</label>
+            <input type="file" id="file-upload" name="file" accept="image/*" class="display-none">
+            <input id="pieceRename" name="pieceRename" class="display-none">
+          </div>
+          <div class="form-container">
+            <h2 id="upload-header">작품 기입
+              <button type="button" id="save-button">임시저장</button>
+            </h2>
+            <div class="form-group">
+              <label for="pieceTitle">작품 이름</label>
+              <input type="text" id="pieceTitle" name="pieceTitle" placeholder="작품 이름">
+            </div>
+            <div class="form-group">
+              <label for="pieceDetail">작품 설명</label>
+              <input type="text" id="pieceDetail" name="pieceDetail" placeholder="작품 설명">
+            </div>
+            <div class="form-group">
+              <label for="sizeX">작품 규격</label>
+              <div id="sizeInputBox">
+                <input type="text" id="sizeX" name="sizeX" placeholder="가로">
+                <input type="text" id="sizeY" name="sizeY" placeholder="세로">
+              </div>
+            </div>
+            <div>
+              <label for="pieceCategory">작품 종류</label>
+              <select name="pieceCategoryNo" id="pieceCategory">
+                <!-- 카테고리 종류 -->
+                <th:block th:each="category : ${categoryList}" th:object="${category}">
+                  <option th:value="*{categoryNo}" name="pieceCategoryNo" th:text="*{categoryName}">카테고리명</option>
+                </th:block>
+              </select>
+            </div>
+            <div class="button-group">
+              <button type="button" class="sale-btn">즉시 판매</button>
+              <button type="button" class="auction-btn">경매 판매</button>
+            </div>
+            
+            <input type="number" name="pieceType" id="pieceType" class="display-none" value="3">
+            <input type="text" name="pieceStatus" id="pieceStatus" class="display-none" value="N">
+  
+            <section class="sale-popup display-none">
+              <h2 id="upload-header">추가 기입 사항</h2>
+              <div class="colstart">
+                <label for="sellPrice">희망 판매가</label>
+                <input type="number" name="sellPrice" id="sellPrice" placeholder="희망 판매가(KWG)">
+              </div>
+              <div>
+                <button>등록하기</button>
+                <button type="button" id="sell-cancel">취소하기</button>
+              </div>
+            </section>
+  
+            <section class="auction-popup display-none">
+              <h2 id="upload-header">추가 기입 사항</h2>
+              <div class="colstart">
+                <label for="startDate">경매일자</label>
+                <input type="text" name="startDate" id="datePicker" placeholder="경매일정이 초과한 날자는 선택이 불가능합니다."/><!-- ---------------- -->
+              </div>
+              <div class="colstart">
+                <label for="startPrice">시작가</label>
+                <input type="number" name="startPrice" id="startPrice" placeholder="시작가(KWG)">
+              </div>
+              <div class="colstart">
+                <label for="hopePrice">희망 낙찰가</label>
+                <input type="number" name="hopePrice" id="hopePrice" placeholder="희망 작찰가(KWG)">
+              </div>
+              <div class="rowcenter">
+                <button>등록하기</button>
+                <button type="button" id="auction-cancel">취소하기</button>
+              </div>
+            </section>
+          </div>
+  
+        </form>
+
+      </th:block>
+
     </div>
     
     

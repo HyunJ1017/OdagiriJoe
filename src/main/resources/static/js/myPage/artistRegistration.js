@@ -133,7 +133,6 @@ selectBank.addEventListener("click", () => {
     throw new Error("AJAX 통신 실패");
   })
   .then(result => {
-    console.log(result);
     showBankList(result);
   })
   .catch(err => console.error(err));
@@ -316,6 +315,8 @@ artistSubmit?.addEventListener("submit", (e) => {
   profileUpload();
 });
 
+// 경력사항 입력칸 추가
+let MaxCount = 0;
 document.getElementById('workDetailSection').addEventListener('input', function (e) {
   const inputs = document.querySelectorAll('.workDetail');
   let allFilled = true;
@@ -326,6 +327,12 @@ document.getElementById('workDetailSection').addEventListener('input', function 
       allFilled = false;
     }
   });
+  // 최대 2+2 줄까지 출력
+  if(MaxCount > 1){
+    return;
+  }
+
+  MaxCount ++;
 
   if (allFilled) {
     const newInput = document.createElement('input');

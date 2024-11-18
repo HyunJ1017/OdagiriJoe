@@ -10,26 +10,26 @@
 <body>
   <th:block th:replace= "~{/common/common.html :: headerLinks}"></th:block>
 
-  <main id="myPage-main" class="myPage-main">
+  <main id="myPage-main" class="myPage-main" th:object="${session.memberLogin}">
 
     <h3 style="margin-top: 100px;">My Page</h3>
 
     <!-- 이름 -->
     <div class="myPage-sec">
       <div>이름</div>
-      <div class="common-box canChangeBox" id="myPage-name">바꿀 수 있음</div>
+      <div class="common-box canChangeBox" id="myPage-name"  th:text="*{memberName}">바꿀 수 있음</div>
     </div>
 
     <!-- 아이디 -->
     <div class="myPage-sec">
       <div>아이디</div>
-      <div class="common-box">못바꿈</div>
+      <div class="common-box" th:text="*{memberId}">못바꿈</div>
     </div>
 
     <!-- 이메일 -->
     <div class="myPage-sec">
       <div>이메일</div>
-      <div class="common-box">못바꿈</div>
+      <div class="common-box" th:text="*{memberEmail}">못바꿈</div>
     </div>
 
     <!-- 비밀번호 -->
@@ -41,7 +41,7 @@
     <!-- 전화전호 -->
     <div class="myPage-sec">
       <div>전화번호</div>
-      <div class="common-box canChangeBox" id="myPage-phone">바꿀 수 있음</div>
+      <div class="common-box canChangeBox" id="myPage-phone" th:text="*{memberPhone}">바꿀 수 있음</div>
     </div>
         
     <section>

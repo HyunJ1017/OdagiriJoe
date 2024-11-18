@@ -24,12 +24,11 @@ public interface MainMapper {
 	 * @return
 	 */
 	List<Piece> selectAuctionsList();
-
+  
 	/** 검색
 	 * @param query
 	 * @return
 	 */
 	List<Piece> selectSearchList(String query);
-
 
 }

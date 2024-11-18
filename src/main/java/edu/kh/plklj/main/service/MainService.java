@@ -15,4 +15,5 @@ public interface MainService {
 	 */
 	Map<String, Object> searchList(String query);
 
+
 }

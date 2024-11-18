@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 public class MainServiceImpl implements MainService{
 	private final MainMapper mapper;
 
-	/* 메인 리스트 */
+	/* 메인 페이지 리스트 조회 */
 	@Override
 	public Map<String, Object> mainPage() {
 		List<Piece> showViewing = mapper.selectShowViewing();
@@ -32,6 +32,15 @@ public class MainServiceImpl implements MainService{
 		List<Piece> searchList = mapper.selectSearchList(query);
 
 		Map<String, Object> map = Map.of(query, searchList);
+		return map;
+	}
+	
+	/* 검색 리스트 조회 */
+	@Override
+	public Map<String, Object> listSearch(String listSearch) {
+		List<Piece> searchList = mapper.selectSearchList(listSearch);
+		
+		Map<String, Object> map = Map.of(listSearch, searchList);
 		return map;
 	}
 	
