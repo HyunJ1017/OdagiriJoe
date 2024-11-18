@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ongoing Auction Detail</title>
+
+  <link rel="stylesheet" href="/css/auction/upCommingDetail.css">
+  <!-- <link rel="stylesheet" href="/css/howto/howToMain.css"> -->
+</head>
+<body>
+  <th:block th:replace="~{common/common}"></th:block>
+    
+  <main id="ongoinAuction"> 
+
+    <section class="ongoingDetail">
+      <h1 class="ongoing-status" style="font-size: 26px; color: #5e7c71;">무제 :: OPEN</h1>
+
+      <div class="ongoingDetail-imageBox">
+        <div class="hours-box">
+          <span>11</span>
+        </div>
+        <div style="color: #5e7c71;" class="hours-text">
+          <h3>Hours</h3>
+        </div>
+      </div>
+
+      <div style="font-size: 50px;">
+        :
+      </div>
+
+      <div class="ongoingDetail-imageBox">
+        <div class="hours-box">
+          <span>25</span>
+        </div>
+        <div style="color: #5e7c71;" class="hours-text">
+          <h3>Minutes</h3>
+        </div>
+      </div>
+
+      <div style="font-size: 50px;">
+        :
+      </div>
+
+      <div class="ongoingDetail-imageBox">
+        <div class="hours-box">
+          <span>30</span>
+        </div>
+        <div style="color: #5e7c71;" class="hours-text">
+          <h3>Seconds</h3>
+        </div>
+      </div>
+    </section>
+
+    <section class="ongoingDetail2">
+      <div class="ongoingDetail2-imageBox">
+
+        <img th:src="@{${pieceDetail.pieceRename} ?: '/images/default.jpg'}" alt="경매 이미지">
+
+        <div class="like-box">
+          <i class="fa-regular fa-heart" style="font-size: 30px; margin-right: 15px; cursor: pointer;"></i>
+        </div>
+
+        <div class="ongoingdetail2-textBox">
+
+        <!-- <span>오픈일 11/08(금)</span> -->
+        <span id="previewDate" th:text="'프리뷰: ' + (${pieceDetail.previewPeriod ?: '프리뷰 정보 없음'})">
+          프리뷰 : 정보 없음
+        </span>
+
+        <!-- 경매일 -->
+        <span id="auctionDate" th:text="'경매일: ' + (${pieceDetail.auctionDate ?: '경매일 정보 없음'})">
+          경매일 : 정보 없음
+        </span>
+
+        <div class="button-container">
+          <button class="ongoing-list-btn" id="listBtn">목록보기</button>
+          <button class="ongoing-report-btn" id="repoortBtn">신고</button>
+        </div>
+
+      </div>
+    </section>
+
+
+    <section class="dummy">
+
+    </section>
+
+
+    
+  </main>
+
+
+
+  <th:block th:replace= "~{/common/footer.html}"></th:block>
+
+  <script src="/js/auction/upCommingDetail.js"></script>
+</body>
+</html>
