@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>구매 추가 정보 입력</title>
+  <link rel="stylesheet" href="/css/online/purchasePopup.css">
+</head>
+<body>
+  <main>
+    <div class="popup-container">
+      <h2>추가 기입 사항</h2>
+
+      <!-- 수령 방법 -->
+      <div class="form-group">
+        <label>수령 방법</label>
+        <div>
+          <label><input type="radio" name="receiveMethod" value="delivery"> 배송</label>
+          <label><input type="radio" name="receiveMethod" value="pickup"> 직접수령</label>
+        </div>
+      </div>
+
+      <!-- 결제 방법 -->
+      <div class="form-group">
+        <label>결제 방법</label>
+        <div>
+          <label><input type="radio" name="paymentMethod" value="onSite"> 현장결제</label>
+          <label><input type="radio" name="paymentMethod" value="bankTransfer"> 계좌이체</label>
+        </div>
+      </div>
+
+      <p>배송을 원하시는 분께서만 기입해주세요.</p>
+
+      <!-- 주소 -->
+      <div class="form-group">
+        <label for="address">주소</label>
+        <input type="text" id="address" placeholder="주소">
+        <input type="text" id="detailAddress" placeholder="상세주소">
+      </div>
+
+      <!-- 전화번호 -->
+      <div class="form-group">
+        <label for="phone">전화번호</label>
+        <input type="text" id="phone" placeholder="전화번호">
+      </div>
+
+      <!-- 등록 버튼 -->
+      <div class="form-group">
+        <button id="registerButton">등록하기</button>
+      </div>
+    </div>
+  </main>
+
+ 
+</body>
+</html>
