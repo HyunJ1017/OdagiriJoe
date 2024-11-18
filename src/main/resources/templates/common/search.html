@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>화사 :: 愛 :: 화공</title>
+  <link rel="stylesheet" href="/css/common/search.css">
+  <th:block th:replace="~{/common/common.html :: cssLinks}"></th:block>
+</head>
+
+<body>
+  <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
+  <main>
+    <!-- 메인 헤더영역 -->
+    <section class="serach-container-main">
+      <h3>검색 결과.</h3>
+      <div class="search-header-main">
+        <input type="checkbox" class="search-checkbox">
+        <p>지난 경매</p>
+        <input type="checkbox" class="search-checkbox">
+        <p>진행 경매</p>
+        <select id="sortSelect" class="sort-select">
+          <option value="latest">최신순</option>
+          <option value="rating">과거순</option>
+          <option value="priceUp">추정가 높은순</option>
+          <option value="priceDown">추정가 낮은순</option>
+        </select>
+      </div>
+      <div class="custom-line"></div>
+    </section>
+
+    <!-- 메인 컨테이너 영역 -->
+    <section class="serach-container" th:each="artist, stat : ${searchList}" th:object="${searchList}">
+      <a th:href="@{/piece/online/{pieceNo} (memberNo= *{memberNo})}" th:object="${searchList}">
+        <img th:src="*{pieceRename}" alt="작품: *{pieceTitle}" class="serach-image" th:data-id="*{memberNo}">
+      </a>
+      <div class="serach-header">
+        <p th:text="*{artistNickname}" class="priceText">작가명</p>
+      </div>
+      <div class="custom-line"></div>
+      <article class="search-container">
+          <div class="search-detail">
+
+            <p th:text="|제목 : *{pieceTitle}|">제목</p>
+
+            <hr class="dotted-line">
+            <p th:text="|*{sizeX} x *{sizeY}|">22 x 22</p>
+            <p th:text="|*{pieceCategory}|">작품 타입</p>
+
+            <hr class="dotted-line">
+            <p th:text="|시작가 (KRW): *{startPrice}|">시작가(KRW)</p>
+
+            <p th:if="*{hopePrice != null}" th:text="|현재가 (KRW): *{hopePrice}|">현재가(KRW)</p>
+            <p th:if="*{hopePrice == null}" th:text="|낙찰가 (KRW): *{finalPrice}|">낙찰가(KRW)</p>
+
+            <hr class="dotted-line">
+            <div th:if="*{pieceStatus == 'A'}" th:text="|경매대기|">경매 대기</div>
+            <div th:if="*{pieceStatus == 'S'}" th:text="|경매중|">경매중</div>
+            <div th:if="*{pieceStatus == 'F'}" th:text="|경매종료|">경매 종료</div>
+
+            <p th:if="*{startDate != null}" th:text="|경매 시작일: *{startDate}|">경매 시작일</p>
+            <p th:if="*{startDate == null}" th:text="|경매 종료일: *{endDate}|">경매 종료일</p>
+          </div>
+        </div>
+      </article>
+      <div class="custom-line"></div>
+    </section>
+  </main>
+  <script src="/js/common/header.js"></script>
+</body>
+<th:block th:replace="~{/common/footer.html}"></th:block>
+
+</html>
