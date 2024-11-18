@@ -49,6 +49,8 @@ public class Piece {
 	private int deliveryStatus;
 	private String deliveryDate;
 	
+	private String pieceCategoryName;
+	
 	// 판매작품
 	private String sellPrice;
 	

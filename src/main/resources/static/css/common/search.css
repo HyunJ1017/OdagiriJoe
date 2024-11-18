@@ -1,0 +1,156 @@
+
+/* 검색 아래 구분선 */
+.custom-line {
+  border-bottom: 1px solid #acacac;
+  width: 100%;
+  margin: 1% 0% 2% 0%;
+}
+
+/* 구분선 */
+.dotted-line {
+  width: 90%;
+  margin: 3% 0% 3% 0%;
+  border: none; /* 기본 선 제거 */
+  height: 1px; /* 선의 높이 */
+  background-image: linear-gradient(to right, #333 30%, rgba(255, 255, 255, 0) 0%);
+  background-size: 5px 5px; /* 점과 점 사이 간격 설정 */
+}
+
+/* ----------------------------------------------------------------------------------------------------------------------- */
+/* 메인 컨테이너 */
+.main-container {
+  width: 90%;
+  margin-left: 5%;
+  padding: 1%;
+  /* border: 1px solid #5e7c71; */
+  top: 1%;
+}
+
+.search-container {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  margin-left: 5%;
+}
+
+/* 검색 타이틀 */
+h3{
+  color: #414141;
+  text-align: center;
+}
+
+/* ----------------------------------------------------------------------------------------------------------------------- */
+/* 헤더 영역 */
+.serach-container-main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 체크박스, 옵션 */
+.search-header-main {
+  display: flex;
+  justify-content: space-between;
+  width: 30%;
+  color: #414141;
+}
+
+.sort-select {
+  text-align: center;
+  border-radius: 5px;
+  height: 10%;
+  width: 6%;
+  cursor: pointer;
+  background-color: #5e7c71;
+  color: white;
+  padding: 0.5%;
+}
+
+.sort-select:hover {
+  border: 1px solid  #5e7c71;
+  color:#5e7c71;
+  background-color: white;
+}
+
+/* ----------------------------------------------------------------------------------------------------------------------- */
+/* 내용 영역 */
+.detail-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 2% 0% 2% 0%;
+  margin-left: 5%;
+  margin-right: 5%;
+  width: calc(100% - 11%);
+}
+
+.search-detail {
+  width: 18%;
+}
+
+.header-detail {
+  margin: 2%;
+}
+.serach-header {
+  text-align: left;
+}
+
+/* 이미지 상세 컨테이너 */
+.img-detail {
+  width: 250px; /* 고정된 너비 */
+  height: 250px; /* 고정된 높이 */
+  overflow: hidden; /* 이미지가 컨테이너 밖으로 넘치지 않도록 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+  position: relative; /* 내부 이미지 위치 조정을 위한 기준 */
+  margin-bottom: 10%;
+}
+
+/* 이미지 스타일 */
+.img-detail img {
+  width: 100%; /* 컨테이너 너비에 맞추기 */
+  height: 100%; /* 컨테이너 높이에 맞추기 */
+  object-fit: cover; /* 이미지가 비율을 유지하며 잘리도록 */
+  transition: transform 0.3s ease, opacity 0.3s ease; /* 부드러운 전환 효과 */
+}
+
+/* 확대 효과 */
+.img-detail img:hover {
+  transform: scale(1.2); /* 이미지 내부 확대 */
+  opacity: 0.9; /* 살짝 투명해지기 */
+}
+
+
+/* 이름 영역 */
+.name-detail {
+  font-size: 25px;
+  color: #414141;
+}
+
+/* 제목 영역 */
+.title-detail {
+  font-size: 20px;
+  color: #414141;
+}
+
+.size-detail {
+  font-size: 14px;
+  color: #414141;
+}
+
+.price-detail {
+  font-size: 14px;
+  color: #414141;
+}
+
+.status-detail {
+  font-size: 14px;
+  color: #414141;
+  margin-bottom: 30%;
+}
+
