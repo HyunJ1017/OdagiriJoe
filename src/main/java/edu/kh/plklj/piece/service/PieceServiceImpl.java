@@ -97,6 +97,7 @@ public class PieceServiceImpl implements PieceService{
 	@Override
 	public int saveTemp(Piece piece) {
 		return mapper.saveTemp(piece);
+	}
 	
 	// 작품 상세 조회
 	@Override
