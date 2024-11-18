@@ -13,28 +13,31 @@
 
 	<select id="getArtistList" resultType="map">
 		SELECT
-		A.MEMBER_NO AS
-		"memberNo",
+		A.MEMBER_NO AS "memberNo",
 		A.ARTIST_PROFILE AS "artistProfile",
-		A.ARTIST_NICKNAME AS
-		"artistNickname",
-		PA.END_PRICE AS "endPrice",
-		PS.SELL_PRICE AS
-		"sellPrice"
-		FROM
-		ARTIST A
-		LEFT JOIN
-		PIECE P
-		ON
-		A.MEMBER_NO = P.MEMBER_NO
-		LEFT JOIN
-		PIECE_AUCTION PA
-		ON
-		P.PIECE_NO = PA.PIECE_NO
-		LEFT JOIN
-		PIECE_SELL PS
-		ON
-		P.PIECE_NO = PS.PIECE_NO
+		A.ARTIST_NICKNAME AS "artistNickname",
+		(
+		SELECT SUM(END_PRICE)
+		FROM PIECE P
+		LEFT JOIN AUCTION AU ON P.PIECE_NO = AU.PIECE_NO
+		WHERE P.MEMBER_NO = A.MEMBER_NO
+		) AS "endPrice",
+
+		(
+		SELECT SUM(SELL_PRICE)
+		FROM PIECE P2
+
+		JOIN PIECE_SELL PS
+		ON (P2.PIECE_NO = PS.PIECE_NO)
+
+		JOIN PAYMENT_RECORD PR
+		ON (P2.PIECE_NO = PR.PIECE_NO)
+
+		WHERE P2.MEMBER_NO = A.MEMBER_NO
+		) AS "sellPrice"
+
+
+		FROM ARTIST A
 
 	</select>
 
@@ -43,19 +46,20 @@
 		SELECT COUNT(*)
 		FROM MEMBER
 		WHERE MEMBER_DEL_FL = 'N'
-	
+
 	</select>
 	<select id="getMemberList" resultType="map">
 		SELECT
 		M.MEMBER_NO AS "memberNo",
 		M.MEMBER_NAME AS "memberName",
-		P.END_PRICE AS "endPrice"
-		FROM "MEMBER" M
-		LEFT JOIN AUTION P
-		ON P.MEMBER_NO = M.MEMBER_NO
+		COALESCE(SUM(A.END_PRICE), 0) AS "endPrice"
+		FROM MEMBER M
+		LEFT JOIN AUCTION A
+		ON M.MEMBER_NO = A.MEMBER_NO
 		WHERE M.MEMBER_DEL_FL = 'N'
+		GROUP BY M.MEMBER_NO, M.MEMBER_NAME
 
-</select>
+	</select>
 
 	<!--콘텐츠 관리 -->
 	<select id="getContentListCount" resultType="_int">
@@ -93,18 +97,18 @@
 		R.REPORT_DEL_FL ='N'
 
 	</select>
-	
+
 	<!--작가 승인 요청  -->
 	<select id="getRequestListCount" resultType="_int">
-	SELECT COUNT(*) 
-	FROM ARTIST 
-	WHERE ARTIST_REG = 'N'
+		SELECT COUNT(*)
+		FROM ARTIST
+		WHERE ARTIST_REG = 'N'
 	</select>
-	
+
 	<select id="getRequestList" resultType="map">
-	SELECT ARTIST_NICKNAME AS "artistNickname"
-	FROM ARTIST 
-	WHERE ARTIST_REG = 'N'
+		SELECT ARTIST_NICKNAME AS "artistNickname"
+		FROM ARTIST
+		WHERE ARTIST_REG = 'N'
 	</select>
 
 
