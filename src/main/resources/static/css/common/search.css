@@ -1,3 +1,9 @@
+/* 검색 타이틀 */
+h3{
+  color: #414141;
+  text-align: center;
+}
+
 
 /* 검색 아래 구분선 */
 .custom-line {
@@ -153,4 +159,3 @@ h3{
   color: #414141;
   margin-bottom: 30%;
 }
-

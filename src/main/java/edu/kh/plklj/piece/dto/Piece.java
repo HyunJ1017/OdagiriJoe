@@ -48,6 +48,8 @@ public class Piece {
 	private int deliveryStatus; // 배송 상태
 	private String deliveryDate; // 배송 등록일
 	
+	private String pieceCategoryName;
+	
 	// 판매작품
 	private String sellPrice; // 판매 가격
 	

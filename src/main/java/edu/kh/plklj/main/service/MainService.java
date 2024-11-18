@@ -9,10 +9,11 @@ public interface MainService {
 	 */
 	Map<String, Object> mainPage();
 
-	/** 검색 리스트 조회
-	 * @param listSearch
+	/** 검색
+	 * @param query
 	 * @return
 	 */
-	Map<String, Object> searchList(String listSearch);
+	Map<String, Object> searchList(String query);
+
 
 }

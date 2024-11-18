@@ -25,6 +25,15 @@ public class MainServiceImpl implements MainService{
 		Map<String, Object> map = Map.of("showViewing", showViewing, "onlineGallery", onlineGallery, "auctions", auctions);
 	return map;
 	}
+
+	/* 검색 */
+	@Override
+	public Map<String, Object> searchList(String query) {
+		List<Piece> searchList = mapper.selectSearchList(query);
+
+		Map<String, Object> map = Map.of(query, searchList);
+		return map;
+	}
 	
 	/* 검색 리스트 조회 */
 	@Override

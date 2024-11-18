@@ -74,7 +74,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-// -----------------------------------------------------------------------------------------------------------------
 /* 검색 */
 document.addEventListener('DOMContentLoaded', () => {
   // 검색 아이콘과 특정 검색 섹션 가져오기
