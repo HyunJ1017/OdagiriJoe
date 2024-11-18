@@ -12,8 +12,8 @@
 
 	<select id="getArtistList" resultType="_int">
 		SELECT
-		A.MEMBER_NO AS 회원번호,
-		A.ARTIST_PROFILE AS 아티스트프로필,
+		A.MEMBER_NO AS "memberNo",
+		A.ARTIST_PROFILE AS "artistProfile",
 		A.ARTIST_NICKNAME AS "artistNickname",
 		PA.FINAL_PRICE AS "auctionPrice",
 		PS.SELL_PRICE AS "sellPrice"

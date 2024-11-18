@@ -200,6 +200,83 @@ document.querySelectorAll(".inquiry-section .inquiry-row").forEach(row => {
 
 
 
+/* 목록 불러오기 */
+document.addEventListener('DOMContentLoaded', () => {
+  const artistList = document.getElementById("artist-list");
+  const memberList = document.getElementById("member-list");
+  const showArtistBtn = document.getElementById("show-artist");
+  const showMemberBtn = document.getElementById("show-member");
+
+  // 초기 상태: 작가 목록 표시, 회원 목록 숨기기
+  artistList.style.display = "block";
+  memberList.style.display = "none";
+
+  // "작가 보기" 버튼 클릭 이벤트
+  showArtistBtn.addEventListener("click", () => {
+    artistList.style.display = "block";
+    memberList.style.display = "none";
+    console.log("작가 보기 활성화");
+  });
+
+  // "회원 보기" 버튼 클릭 이벤트
+  showMemberBtn.addEventListener("click", () => {
+    artistList.style.display = "none";
+    memberList.style.display = "block";
+    console.log("회원 보기 활성화");
+  });
+
+  getList(1); // 작가목록
+  getList(3,1); // 콘텐츠관리
+});
+
+// 작가 목록 표시 함수
+function displayArtistList(contents) {
+  const artistList  = document.getElementById('artist-list'); // 작가 목록을 표시할 컨테이너
+  if (!artistList) {
+    console.error("artist-list 요소를 찾을 수 없습니다.");
+    return;
+  }
+  
+  artistList.innerHTML = ''; // 기존 콘텐츠 초기화
+
+  contents.forEach(content => {
+    const artistItem = document.createElement('div');
+    artistItem.classList.add('artist-item');
+    artistItem.innerHTML = `
+      <img src="${content.artistProfile || '/images/profile/default.jpg'}" alt="작가 이미지">
+      <div class="artist-info">
+        <h3>${content.artistNickname} | 작가</h3>
+        <p>경매 금액: ₩${content.auctionPrice?.toLocaleString() || '0'}</p>
+        <p>판매 금액: ₩${content.sellPrice?.toLocaleString() || '0'}</p>
+      </div>`;
+    artistList.appendChild(artistItem);
+  });
+}
+// 콘텐츠 표시 함수
+function displayReportContents(contents) {
+  const contentGrid = document.getElementById('contentGrid');
+  contentGrid.innerHTML = ''; // 기존 콘텐츠 초기화
+
+  contents.forEach(content => {
+    const contentCard = document.createElement('div');
+    contentCard.classList.add('content-card');
+    contentCard.innerHTML = `
+      <img src="/images/profile/${content.artistNickname || 'default.jpg'}" alt="${content.artistNickname}" class="content-image">
+      <div class="content-info">
+          <h2>${content.artistNickname}</h2>
+          <p>작품명: ${content.pieceName}</p>
+          <p>낙찰가: ₩${content.auctionPrice.toLocaleString()}</p>
+          <p>크기: ${content.pieceSize}</p>
+          <div class="buttons">
+              <button class="view-button">상세보기</button>
+              <button class="warn-button">정지</button>
+              <button class="release-button">해제</button>
+          </div>
+      </div>`;
+    contentGrid.appendChild(contentCard);
+  });
+}
+
 // /* /* 콘텐츠 관리 */
 // document.addEventListener('DOMContentLoaded', () => {
 //   getList(1)
@@ -364,23 +441,21 @@ function getList(code, page = 1) {
       throw new Error("AJAX 통신 실패");
     })
     .then(result => {
-      console.log(`응답 데이터 (code=${code}):`, result);
+      console.log("응답데이터:", result);
 
       // 데이터 렌더링
-      displayContents(code, result.resultList);
+      displayArtistList(result.resultList); // 작가목록 푯시
+      displayReportContents(result.resultList); // 콘텐츠 표시
 
-      // 페이지네이션 설정
-      setupPagination(result.pg, code);
+      setupPagination(result.pg, code); // 페이지네이션 설정
+      
     })
     .catch(err => console.error(err));
 }
 
 // 페이지네이션 설정 함수
 function setupPagination(pg, code) {
-  const { paginationId } = codeSettings[code] || {};
-  if (!paginationId) return; // 해당 code에 대한 설정이 없으면 처리 중단
-
-  const paginationContainer = document.getElementById(paginationId);
+  const paginationContainer = document.getElementById("paginationBox2");
   paginationContainer.innerHTML = ""; // 기존 버튼 초기화
 
   const createPageButton = (page, text, isActive = false, isDisabled = false) => {
@@ -407,6 +482,7 @@ function setupPagination(pg, code) {
   // < 버튼 (이전 페이지로 이동)
   paginationContainer.appendChild(createPageButton(pg.prevPage, "<", false, pg.currentPage === 1));
 
+
   // 페이지 번호 버튼
   for (let i = pg.startPage; i <= pg.endPage; i++) {
     paginationContainer.appendChild(createPageButton(i, i, i === pg.currentPage));
@@ -418,6 +494,3 @@ function setupPagination(pg, code) {
   // >> 버튼 (마지막 페이지로 이동)
   paginationContainer.appendChild(createPageButton(pg.totalPageCount, ">>", false, pg.currentPage === pg.totalPageCount));
 }
-
-
-
