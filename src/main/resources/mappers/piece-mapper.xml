@@ -12,7 +12,14 @@
         LEFT JOIN ARTIST A ON (P.MEMBER_NO = A.MEMBER_NO)
         WHERE PIECE_STATUS = 'N'
         AND   PIECE_TYPE = 1
-        ORDER BY P.PIECE_NO DESC
+        ORDER BY 
+        	<choose>
+        		<when test="sort == 'name'">A.ARTIST_NICKNAME</when>
+        		<when test="sort == 'price'">S.SELL_PRICE</when>
+        		<otherwise>P.PIECE_NO</otherwise>
+        	</choose>
+        	<if test="order == 'asc'">ASC</if>
+        	<if test="order == 'desc'">DESC</if>
     </select>
 
     <!-- 완료 작품 페이징 조회 쿼리 -->

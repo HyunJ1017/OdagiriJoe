@@ -49,4 +49,10 @@ public interface MyPageMapper {
 
 	List<Piece> artistAuction(int memberNo);
 
+	List<Piece> getBuyList(int memberNo);
+
+	List<Piece> getAuctionList(int memberNo);
+
+	Integer getEndprice(int pieceNo);
+
 }

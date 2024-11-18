@@ -40,32 +40,36 @@ public class PieceController {
 	@GetMapping("online/sales")
 	@ResponseBody
 	public Map<String, Object> getPiece(
-			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam(value = "sort", required = false, defaultValue = "recent") String sort,
+			@RequestParam(value = "order", required = false, defaultValue = "asc") String order
 			) {
 		
 		// 판매 작품 데이터 및 페이지네이션 정보
 		int salesListCount = service.getsalesPieceCount();
-		
 		Pagination salesPagination = new Pagination(cp, salesListCount, 10, 5);
 		
+		// 판매 작품 목록 조회
 		List<Piece> salesPiece = 
-				service.getSalesPieces(cp, salesListCount, salesPagination);
+				service.getSalesPieces(cp, salesListCount, salesPagination, sort, order);
+		
+		// JSON 형태로 두 데이터를 하나의 Map에 담아서 반환
+		Map<String, Object> response = new HashMap<>();
+		response.put("salesPiece", salesPiece);
+		response.put("salesPagination", salesPagination);
 		
 		
+		log.debug("Sort: {}, Order: {}", sort, order);
 		
-		
-		
-		
-	// JSON 형태로 두 데이터를 하나의 Map에 담아서 반환
-    Map<String, Object> response = new HashMap<>();
-    response.put("salesPiece", salesPiece);
-    response.put("salesPagination", salesPagination);
-    
-    
-    log.debug("response : {}", response);
-
-    return response;
+		return response;
 	}
+		
+		
+		
+		
+		
+    
+    
 
 	@GetMapping("online/completed")
 	@ResponseBody

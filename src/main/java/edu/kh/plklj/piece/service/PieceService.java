@@ -13,7 +13,8 @@ public interface PieceService {
 
 	int getCompletePieceCount();
 
-	List<Piece> getSalesPieces(int cp, int salesListCount, Pagination salesPagination);
+	//판매 작품 목록 조회
+	List<Piece> getSalesPieces(int cp, int salesListCount, Pagination salesPagination, String sort, String order);
 
 	List<Piece> getCompletePieces(int cp, int completeListCount, Pagination complPagination);
 

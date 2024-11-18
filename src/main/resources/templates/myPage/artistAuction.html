@@ -22,32 +22,34 @@
       <th:block th:each= "piece:${pieceList}">
         <th:block th:if= "${piece.pieceStatus == 'F'}" th:object="${piece}">
           
-          <div class="content-div">
+          <div class="content-div auction-end">
             <div>
               <h3 th:text="*{pieceTitle}">무제</h3>
               <p th:text="|경매일 *{startDate}|">11/09(토)</p>
-              <p th:text="|낙찰가 *{finalPrice}|">12월 6일 14:00</p>
+              <p th:text="|낙찰가 *{finalPrice}|">10000000</p>
               <hr>
-              <div class="piece-btns deliveryBtn">배달정보</div>
+              <div class="piece-btns deliveryBtn" th:data-piece-no="*{pieceNo}">배달정보</div>
             </div>
-            <div>
-              <img th:src="*{pieceRename}" alt="사진" class="content-img">
+            <div class="image-container">
+              <img th:src="*{pieceRename}" alt="사진" class="content-img" onload="hideLoader(this)">
+              <div class="loader"></div>
             </div>
           </div>
 
         </th:block>
-        <th:block th:if= "${piece.pieceStatus == 'N'}" th:object="${piece}">
+        <th:block th:if= "${piece.pieceStatus == 'D'}" th:object="${piece}">
           
-          <div class="content-div">
+          <div class="content-div auction-deposit">
             <div>
               <h3 th:text="*{pieceTitle}">무제</h3>
               <p th:text="|경매일 *{startDate}|">11/09(토)</p>
-              <p th:text="|낙찰가 *{finalPrice}|">12월 6일 14:00</p>
+              <p th:text="|낙찰가 *{finalPrice}|">100000000</p>
               <hr>
-              <div class="piece-btns detailBtn">입금대기</div>
+              <div class="piece-btns detailBtn" th:data-piece-no="*{pieceNo}">입금대기</div>
             </div>
-            <div>
-              <img th:src="*{pieceRename}" alt="사진" class="content-img">
+            <div class="image-container">
+              <img th:src="*{pieceRename}" alt="사진" class="content-img" onload="hideLoader(this)">
+              <div class="loader"></div>
             </div>
           </div>
 
@@ -63,16 +65,17 @@
       <th:block th:each= "piece:${pieceList}">
         <th:block th:if= "${piece.pieceStatus == 'S'}" th:object="${piece}">
           
-          <div class="content-div">
+          <div class="content-div auction-start">
             <div>
               <h3 th:text="*{pieceTitle}">무제</h3>
               <p th:text="|경매일 *{startDate}|">11/09(토)</p>
-              <p th:text="|입찰가 *{finalPrice}|">12월 6일 14:00</p>
+              <p th:text="*{startPrice}" class="current-price" th:data-piece-no="*{pieceNo}"></p><!-- 현재 입찰가 -->
               <hr>
-              <div class="piece-btns detailBtn">상세보기</div>
+              <div class="piece-btns detailBtn" th:data-piece-no="*{pieceNo}">상세보기</div>
             </div>
-            <div>
-              <img th:src="*{pieceRename}" alt="사진" class="content-img">
+            <div class="image-container">
+              <img th:src="*{pieceRename}" alt="사진" class="content-img" onload="hideLoader(this)">
+              <div class="loader"></div>
             </div>
           </div>
 
@@ -89,16 +92,17 @@
       <th:block th:each= "piece:${pieceList}">
         <th:block th:if= "${piece.pieceStatus == 'A'}" th:object="${piece}">
           
-          <div class="content-div">
+          <div class="content-div auction-auction">
             <div>
               <h3 th:text="*{pieceTitle}">무제</h3>
-              <p th:text="|경매일 *{startDate}|">11/09(토)</p>
-              <p th:text="|시작가 *{finalPrice}|">12월 6일 14:00</p>
-              <hr>
-              <div class="piece-btns detailBtn">상세보기</div>
+              <P th:text="|오픈일 *{openDate}|">11/09(금)</P>
+              <p th:text="|프리뷰 *{previewStartDate} ~ *{previewEndDate}|">11/09(토) ~ 11/20(수)</p>
+              <p th:text="|경매일 *{startDate}|">12월 6일 14:00</p>
+              <div class="piece-btns piece-detales" th:data-piece-no="*{pieceNo}">상세보기</div>
             </div>
-            <div>
-              <img th:src="*{pieceRename}" alt="사진" class="content-img">
+            <div class="image-container">
+              <img th:src="*{pieceRename}" alt="사진" class="content-img" onload="hideLoader(this)">
+              <div class="loader"></div>
             </div>
           </div>
 
@@ -107,17 +111,18 @@
       <th:block th:each= "piece:${pieceList}">
         <th:block th:if= "${piece.pieceStatus == 'T'}" th:object="${piece}">
           
-          <div class="content-div">
+          <div class="content-div auction-temp">
             <div>
               <h3 th:text="*{pieceTitle}">무제</h3>
-              <p th:text="|경매일 *{startDate}|">11/09(토)</p>
-              <p th:text="|입찰가 *{finalPrice}|">12월 6일 14:00</p>
+              <p th:text="|경매예정일 *{startDate}|">11/09(토)</p>
+              <p th:text="|경매시작가 *{startPrice}|">12월 6일 14:00</p>
               <hr>
-              <div class="piece-btns detailBtn">작성하기</div>
-              <div class="piece-btns removeBtn">삭제하기</div>
+              <div class="piece-btns detailBtn" th:data-piece-no="*{pieceNo}">작성하기</div>
+              <div class="piece-btns removeBtn" th:data-piece-no="*{pieceNo}">삭제하기</div>
             </div>
-            <div>
-              <img th:src="*{pieceRename}" alt="사진" class="content-img">
+            <div class="image-container">
+              <img th:src="*{pieceRename}" alt="사진" class="content-img" onload="hideLoader(this)">
+              <div class="loader"></div>
             </div>
           </div>
 

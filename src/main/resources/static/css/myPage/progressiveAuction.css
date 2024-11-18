@@ -1,10 +1,13 @@
-*{
-  box-sizing: border-box;
+body{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 .myPage-main{
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-grow: 1;
 }
 .myPage-main>h1{
   color: #5e7c71;
@@ -28,21 +31,34 @@
 }
 
 /* 컨탠츠 내용 */
-.content-div>div{
-  flex-grow: 1;
-  padding: 10px;
+.image-container{
+  padding: 10px; 
+  position: relative;
+  min-width: 202px;
+  min-height: 274px;
+  border: 1px solid #80808030;
 }
-.content-div>div>.content-img{
-
+.loader { /* 이미지 로딩전까지 보여줄 로딩이미지 */
+  position: absolute;
+  width: 180px;
+  height: 252px;
+  top: 10;
+  right: 10;
+  background: url('/images/loading.gif') center center no-repeat;
+  background-size: contain;
+}
+.content-img{ /* 로딩할 이미지 */
+  display: none; /* 처음에는 보이지 않게 */
   width: 180px; /* 고정 가로 크기 */
-  height: 191px; /* 고정 세로 크기 */
+  height: 252px; /* 고정 세로 크기 */
   object-fit: cover; /* 비율을 유지하며 크기에 맞게 잘라냄 */
-  display: block; /* 상속된 여백 제거 */
 }
 .content-div>div:last-child{
   display: flex;
+  flex-grow: 1;
+  padding: 10px;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: space-between;
 }
 .content-div>div>p{
   margin: 5px;
@@ -75,8 +91,8 @@
   color: #5e7c71;
 }
 /* 임금 대기품, 입금 완료 */
-.content-div>div>.piece-waiting,
-.content-div>div>.piece-deposit{
+.content-div>div>.auction-end,
+.content-div>div>.auction-deposit{
   align-self: center;
   margin: 10px 0 5px;
   border-radius: 10px;
@@ -92,8 +108,13 @@
   align-items: center;
   cursor: pointer;
 }
-.content-div>div>.piece-waiting:hover,
-.content-div>div>.piece-deposit:hover{
+.content-div>div>.auction-end:hover,
+.content-div>div>.auction-deposit:hover{
   background-color: #5e7c71;
   color: white;
+}
+.no-content>p{
+  margin-top:230px;
+  font-size: 35px;
+  color: grey;
 }

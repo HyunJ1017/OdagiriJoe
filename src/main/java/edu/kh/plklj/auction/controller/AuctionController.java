@@ -18,6 +18,10 @@ public class AuctionController {
 		public String auctionMain() {
 			return "auction/auctionMain";
 		}
+		
+		// 메인페이지 이미지 조회
+		// 메인페이지 이미지 조회
+		// 메인페이지 이미지 조회
 	
 		
 		/** 진행 경매 작품 상세 조회 페이지
