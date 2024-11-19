@@ -1,6 +1,7 @@
 package edu.kh.plklj.member.controller;
 
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.plklj.main.dto.Member;
 import edu.kh.plklj.member.service.LogInService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -60,15 +63,16 @@ public class LogInController {
 	@PostMapping("")
 	public String logIn(
 			@ModelAttribute Member member,
+			RedirectAttributes ra,
 			Model model) {
 		
 		Member result = service.logIn(member);
 		
 		if(result == null ) {
-			model.addAttribute("message", "아이디 또는 비밀번호가 잘못되었습니다.");
+			ra.addFlashAttribute("message", "아이디 또는 비밀번호가 잘못되었습니다.");
 			return "redirect:/member/login";
 		} else if ( result.getMemberPenalty() > 1) {
-			model.addAttribute("message", "정지 해제까지 " + result.getMemberPenalty() + "일 남으셨습니다.");
+			ra.addFlashAttribute("message", "정지 해제까지 " + result.getMemberPenalty() + "일 남으셨습니다.");
 			return "redirect:/member/login";
 		} else if ( result.getArtistReg() == null || result.getArtistReg().equals("N")) {
 			model.addAttribute("memberLogin", result);
@@ -115,5 +119,6 @@ public class LogInController {
 		
 		return "redirect:/";
 	}
+	
 	
 }

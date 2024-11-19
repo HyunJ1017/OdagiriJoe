@@ -14,4 +14,6 @@ public interface ImageService {
 
 	byte[] getPiece(String filename);
 
+	int deleteImage();
+
 }
