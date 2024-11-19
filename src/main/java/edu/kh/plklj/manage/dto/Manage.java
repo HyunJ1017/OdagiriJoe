@@ -58,5 +58,8 @@ public class Manage {
 		
 		// 판매작품
 		private String sellPrice;
+		
+		
+	
 
 }

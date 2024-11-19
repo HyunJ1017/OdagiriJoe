@@ -181,16 +181,16 @@
 
         <div class="member-list" id="artist-list">
 
-          <div class="artist-item">
+          <div class="artist-item" data-member-no="123">
             <img src="/images/profile/profile1.jpg" alt="작가 이미지">
             <div class="artist-info">
               <h3>박현준 | 작가</h3>
               <p>경매 금액: ₩20,000,000</p>
               <p>판매 금액: ₩980,000,000</p>
             </div>
-            <div class="artist-actions">
-              <button class="btn suspend-btn">정지</button>
-              <button class="btn withdraw-btn">탈퇴</button>
+            <div class="artist-actions" > 
+              <button class="btn artist-suspend-btn" >정지</button>
+              <button class="btn artist-withdraw-btn" >탈퇴</button>
             </div>
           </div>
         </div>
@@ -204,13 +204,13 @@
         <!-- 오른쪽 섹션: 회원 요약 -->
 
         <div class="member-list" id="member-list">
-          <div class="member-summary">
+          <div class="member-summary" data-member-no="123">
             <div class="summary-item">
               <h3>박현준 | 회원</h3>
               <p>경매 금액: ₩1,890,000,000</p>
               <div class="summary-actions">
-                <button class="btn suspend-btn">정지</button>
-                <button class="btn withdraw-btn">탈퇴</button>
+                <button class="btn member-suspend-btn">정지</button>
+                <button class="btn member-withdraw-btn">탈퇴</button>
               </div>
             </div>
           </div>
@@ -593,7 +593,10 @@
 
 
     </section>
+
+    <th:block th:replace= "~{/manage/reportPopup.html}"></th:block>
     <script src="/js/manage/manage.js"></script>
+    <script src="/js/manage/suspend.js"></script>
 </body>
 
 </html>
