@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="/css/myPage/salesConfirmation.css">
   </head>
   <body>
-  <script src="https://kit.fontawesome.com/8695e357e4.js" crossorigin="anonymous"></script>
   <th:block th:replace= "~{/common/common.html :: headerLinks}"></th:block>
 
   <main id="myPage-main" class="myPage-main">
@@ -21,7 +20,7 @@
       <section>
         <p>매출현황</p>
         <input type="month" id="selectMonth">
-        <p>385,000,000,000</p>
+        <span>385,000,000,000</span>
       </section>
       <section>
         <table border="1" class="sales-table">
@@ -69,6 +68,7 @@
   <th:block th:replace= "~{/common/footer.html}"></th:block>
   <script src="/js/myPage/salesConfirmation.js"></script>
   <script th:inline="javascript">
+    const loginMember = /*[[${session.artistLogin}]]*/ "loginMember";
     const memberNo = /*[[${session.artistLogin.memberNo}]]*/ "defaultMemberNo";
   </script>
 

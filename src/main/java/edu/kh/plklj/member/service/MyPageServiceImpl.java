@@ -296,4 +296,28 @@ public class MyPageServiceImpl implements MyPageService {
 	public int setArtistProfile(Member artist) {
 		return mapper.setArtistProfile(artist);
 	}
+	
+	// 이전 신청내역 불러오기
+	@Override
+	public Member getArtistInfo(int memberNo) {
+		return mapper.getArtistInfo(memberNo);
+	}
+	
+	// 작가 월별 판매작품목록 및 총 판매량
+	@Override
+	public Map<String, Object> getSalesConfirmation(int memberNo, String selectedMonth) {
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		// 작가 월별 판매작품목록 작품이름,낙찰가,입금상태, 작품타입
+		List<Piece> sellList = mapper.getSellList(memberNo, selectedMonth);
+		
+		// 작가 총 판매량
+		int sellAmount = mapper.getSellAmount(memberNo, selectedMonth);
+		
+		resultMap.put("sellList", sellList);
+		resultMap.put("sellAmount", sellAmount);
+		
+		return resultMap;
+	}
 }

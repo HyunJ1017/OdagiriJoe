@@ -8,6 +8,7 @@
 }
 .myPage-main>h1{
   color: #5e7c71;
+  margin: 30px 0 50px;
 }
 .myPage-main>.content-section{
   display: flex;

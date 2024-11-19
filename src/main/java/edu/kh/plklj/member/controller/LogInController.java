@@ -66,7 +66,7 @@ public class LogInController {
 		
 		if(result == null ) {
 			return "redirect:/logIn";
-		} else if (result.getArtistReg().equals("N")) {
+		} else if ( result.getArtistReg() == null || result.getArtistReg().equals("N")) {
 			model.addAttribute("memberLogin", result);
 			return "redirect:/";
 		} else {
