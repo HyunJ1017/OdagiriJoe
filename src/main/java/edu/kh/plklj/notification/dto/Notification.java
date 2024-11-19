@@ -1,5 +1,7 @@
 package edu.kh.plklj.notification.dto;
 
+import java.time.LocalDateTime;
+
 import edu.kh.plklj.main.dto.Member;
 import edu.kh.plklj.piece.dto.Category;
 import edu.kh.plklj.piece.dto.Piece;
@@ -23,7 +25,7 @@ public class Notification {
 	private int memberNo; // 회원 번호
 	private String readCheck; // 알림 읽음 여부
 	private String notiContent; // 알림 내용
-	private String notiDate; // 알림날짜
+	private LocalDateTime notiDate; // 알림날짜
 	private String notiUrl; // 연결 페이지 주소
 	private String notiType; // 알림 유형
 	private int receiveMemberNo; // 알림 받는 회원

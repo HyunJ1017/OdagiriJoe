@@ -47,7 +47,7 @@
 		    ELSE TO_CHAR(NOTI_DATE, 'YYYY-MM-DD HH24:MI:SS')
 			END AS NOTI_DATE
       FROM "NOTIFICATION"
-      JOIN "MEMBER" ON (SEND_MEMBER_NO = MEMBER_NO)
+      JOIN "MEMBER" ON (SEND_MEMBER_NO = "MEMBER".MEMBER_NO)
       WHERE RECEIVE_MEMBER_NO = #{memberNo}
       ORDER BY NOTI_NO DESC
 	</select>
@@ -67,7 +67,7 @@
 		WHERE NOTI_NO = #{notiNo}
 	</delete>
 	
-	<!-- 알림 읽음 여부 변경 (N -> Y) -->
+	<!-- 알림 읽음 여부 변경 -->
 	<update id="updateNotification">
 		UPDATE "NOTIFICATION"
 		SET READ_CHECK = 'Y'
@@ -75,11 +75,28 @@
 	</update>
 	
 	<!-- 팔로우 작가 게시물 알림 -->
-	<select id="selectFollowerIds" resultType="int">
-    SELECT MEMBER_NO
-    FROM FOLLOW
-    WHERE ARTIST_NO = #{artistNo}
-</select>
+	<select id="followList" resultType="int">
+	    SELECT MEMBER_NO
+	    FROM FOLLOW
+	    WHERE ARTIST_NO = #{artistNo}
+	</select>
 	
-
+	<!-- 팔로우 작가 알림 삽입 쿼리 -->
+	<insert id="followedArtistNotification" parameterType="Notification">
+	    INSERT INTO "NOTIFICATION" (
+		NOTI_NO, MEMBER_NO, READ_CHECK, NOTI_CONTENT, NOTI_URL, RECEIVE_MEMBER_NO, SEND_MEMBER_NO, NOTI_TYPE)
+		VALUES (
+		SEQ_NOTI_NO.NEXTVAL, #{memberNo}, 'N', '팔로우한 작가가 새로운 작품을 업로드했습니다.', #{notiUrl},  #{receiveMemberNo}, #{sendMemberNo}, #{notiType}
+		)
+	</insert>
+	
+	<!-- 찜한 게시물 알림 삽입 쿼리 -->
+	<select id="selectAuctionNotifications" resultType="Notification">
+		SELECT MEMBER_NO AS receiveMemberNo, PIECE_NO, '경매 알림' AS notiContent, '/auction/details/' || PIECE_NO AS notiUrl
+        FROM PIECE_LIKE PL
+        JOIN PIECE P ON PL.PIECE_NO = P.PIECE_NO
+        WHERE P.START_DATE = TRUNC(SYSDATE + #{daysBefore})
+    </select>
+	
+	
 </mapper>
