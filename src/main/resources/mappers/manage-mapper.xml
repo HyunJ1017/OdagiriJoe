@@ -7,37 +7,37 @@
 	<select id="getArtistListCount" resultType="_int">
 		SELECT
 		COUNT(*)
-		FROM
-		ARTIST
+		FROM ARTIST A
+		JOIN MEMBER M ON A.MEMBER_NO = M.MEMBER_NO
+		WHERE M.MEMBER_PENALTY = 1
+		AND A.ARTIST_REG = 'Y'
+		AND M.MEMBER_DEL_FL = 'N'
+		
 	</select>
 
 	<select id="getArtistList" resultType="map">
-		SELECT
-		A.MEMBER_NO AS "memberNo",
-		A.ARTIST_PROFILE AS "artistProfile",
-		A.ARTIST_NICKNAME AS "artistNickname",
-		(
-		SELECT SUM(END_PRICE)
-		FROM PIECE P
-		LEFT JOIN AUCTION AU ON P.PIECE_NO = AU.PIECE_NO
-		WHERE P.MEMBER_NO = A.MEMBER_NO
-		) AS "endPrice",
-
-		(
-		SELECT SUM(SELL_PRICE)
-		FROM PIECE P2
-
-		JOIN PIECE_SELL PS
-		ON (P2.PIECE_NO = PS.PIECE_NO)
-
-		JOIN PAYMENT_RECORD PR
-		ON (P2.PIECE_NO = PR.PIECE_NO)
-
-		WHERE P2.MEMBER_NO = A.MEMBER_NO
-		) AS "sellPrice"
-
-
-		FROM ARTIST A
+	SELECT
+    A.MEMBER_NO AS "memberNo",
+    A.ARTIST_PROFILE AS "artistProfile",
+    A.ARTIST_NICKNAME AS "artistNickname",
+    (
+        SELECT SUM(END_PRICE)
+        FROM PIECE P
+        LEFT JOIN AUCTION AU ON P.PIECE_NO = AU.PIECE_NO
+        WHERE P.MEMBER_NO = A.MEMBER_NO
+    ) AS "endPrice",
+    (
+        SELECT SUM(SELL_PRICE)
+        FROM PIECE P2
+        JOIN PIECE_SELL PS ON (P2.PIECE_NO = PS.PIECE_NO)
+        JOIN PAYMENT_RECORD PR ON (P2.PIECE_NO = PR.PIECE_NO)
+        WHERE P2.MEMBER_NO = A.MEMBER_NO
+    ) AS "sellPrice"
+	FROM ARTIST A
+	JOIN MEMBER M ON A.MEMBER_NO = M.MEMBER_NO
+	WHERE M.MEMBER_PENALTY = 1
+	AND A.ARTIST_REG = 'Y'
+	AND M.MEMBER_DEL_FL = 'N'
 
 	</select>
 
@@ -46,6 +46,7 @@
 		SELECT COUNT(*)
 		FROM MEMBER
 		WHERE MEMBER_DEL_FL = 'N'
+		AND MEMBER_PENALTY = 1
 
 	</select>
 	<select id="getMemberList" resultType="map">
@@ -57,6 +58,7 @@
 		LEFT JOIN AUCTION A
 		ON M.MEMBER_NO = A.MEMBER_NO
 		WHERE M.MEMBER_DEL_FL = 'N'
+		AND M.MEMBER_PENALTY = 1
 		GROUP BY M.MEMBER_NO, M.MEMBER_NAME
 
 	</select>
@@ -68,7 +70,7 @@
 		FROM
 		REPORT R
 		JOIN PIECE P ON R.PIECE_NO = P.PIECE_NO
-		LEFT JOIN PIECE_AUCTION
+		LEFT JOIN AUCTION
 		A ON P.PIECE_NO = A.PIECE_NO
 		LEFT JOIN ARTIST D ON R.MEMBER_NO =
 		D.MEMBER_NO
@@ -84,14 +86,13 @@
 		R.MEMBER_NO "memberNo",
 		P.PIECE_TITLE AS "pieceName",
 		P.SIZE_X || ' x ' || P.SIZE_Y AS "pieceSize",
-		A.END_PRICE AS "auctionPrice",
+	    TO_CHAR(A.END_PRICE, 'FM999,999,999,999') AS "auctionPrice",
 		D.ARTIST_NICKNAME AS "artistNickname"
 		FROM
 		REPORT R
 		JOIN
 		PIECE P ON R.PIECE_NO = P.PIECE_NO
-		LEFT JOIN PIECE_AUCTION A ON
-		P.PIECE_NO = A.PIECE_NO
+		LEFT JOIN AUCTION A ON P.PIECE_NO = A.PIECE_NO
 		LEFT JOIN ARTIST D ON R.MEMBER_NO = D.MEMBER_NO
 		WHERE
 		R.REPORT_DEL_FL ='N'
@@ -112,4 +113,44 @@
 	</select>
 
 
+	<!-- 회원 정지  -->
+	<update id="suspendMember">
+	UPDATE "MEMBER"
+	SET MEMBER_PENALTY = 31
+	WHERE MEMBER_PENALTY = 1
+	AND MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 회원 탈퇴  -->
+	<update id="withdrawMember">
+	UPDATE "MEMBER"
+	SET MEMBER_DEL_FL = 'Y'
+	WHERE MEMBER_NO = #{memberNo}
+	
+	</update>
+	
+	<!-- 작가 정지  -->
+	<update id="suspendAritist">
+	UPDATE "MEMBER"
+	SET MEMBER_PENALTY = 31	
+	WHERE MEMBER_NO = #{memberNo}
+	AND MEMBER_NO IN(
+  	SELECT M.MEMBER_NO
+  	FROM "MEMBER" M
+  	LEFT JOIN ARTIST A ON A.MEMBER_NO = M.MEMBER_NO
+ 	WHERE A.ARTIST_REG = 'Y')
+	
+	</update>
+	<!-- 작가 탈퇴 -->
+	<update id="withdrawArtist">
+	UPDATE "MEMBER"
+	SET MEMBER_DEL_FL = 'Y'
+	WHERE MEMBER_NO IN (
+  	SELECT M.MEMBER_NO
+  	FROM "MEMBER" M
+  	LEFT JOIN ARTIST A ON M.MEMBER_NO = A.MEMBER_NO
+  	WHERE A.MEMBER_NO = #{memberNo}
+  	AND A.ARTIST_REG = 'Y')
+	</update>
+	
 </mapper>

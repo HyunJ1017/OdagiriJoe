@@ -26,6 +26,8 @@ public class Notification {
 	private String notiDate; // 알림날짜
 	private String notiUrl; // 연결 페이지 주소
 	private String notiType; // 알림 유형
+	private int receiveMemberNo; // 알림 받는 회원
+	private int sendMemberNo; // 알림 보내는 회원 
 	
 	private Member member; // 회원 정보
 	private Piece piece; // 작품 정보

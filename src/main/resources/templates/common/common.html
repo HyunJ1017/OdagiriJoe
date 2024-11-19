@@ -2,13 +2,13 @@
   <link rel="stylesheet" th:href="@{/css/common/header.css}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script th:src="@{/js/common/header.js}"></script>
+  <script>const notificationLoginCheck = /*[[${session.memberLogin != null}]]*/ false;</script>
 </th:block>
 
 <th:block th:fragment="headerLinks">
-
   <!-- 상태에 따른 조각 회원, 작가, 관리자 -->
   <!-- 로그인이 안 된 경우 -->
-  <th:block th:if="${session.memberLogin == null && session.artistsLogin == null}">
+  <th:block th:if="${session.memberLogin == null && session.artistLogin == null}">
     <header th:replace="~{common/header :: header}"></header>
   </th:block>
 

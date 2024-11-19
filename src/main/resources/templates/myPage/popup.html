@@ -18,6 +18,10 @@
   </section>
 </section>
 
+<script th:inline="javascript">
+  const messageCheck = /*[[${message} ? true : false]]*/ false;
+  const messageContent = /*[[${message}]]*/ "메시지내용";
+</script>
 <script>
   const alertM = (message)=>{
     const massageWindow = document.querySelector(".msg-body");
@@ -32,5 +36,11 @@
   };
   document.querySelector("#msg-closeBtn").addEventListener("click", () => {
     document.querySelector(".msg-body").classList.add("display-none");
+  });
+  document.addEventListener("DOMContentLoaded", ()=>{
+    // 전달받은 메시지가 있으면 메시지창 띄우기
+    if(messageCheck) {
+      alertM(messageContent);
+    }
   });
 </script>

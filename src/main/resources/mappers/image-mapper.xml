@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "edu.kh.plklj.image.mapper.ImageMapper">
+
+	<select id="selectFileUrlList" resultType="string">
+		SELECT
+			ARTIST_PORTFOLIO AS "FILENAME"
+		FROM ARTIST
+		UNION
+		SELECT
+			ARTIST_PROFILE AS "FILENAME"
+		FROM ARTIST
+		UNION
+		SELECT
+			PIECE_RENAME AS "FILENAME"
+		FROM PIECE
+	</select>
+		
+</mapper>

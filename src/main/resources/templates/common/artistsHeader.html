@@ -12,11 +12,64 @@
       <!-- 오른쪽 사용자 액션 영역 -->
       <div class="header-actions">
         <a href="/member/login/logout" class="header-item">Logout</a>
-        <i class="fa-solid fa-bell header-item"></i>
-        <i class="fa-solid fa-magnifying-glass header-item"></i>
+        <!-- 알림 아이콘 -->
+        <i class="fa-solid fa-bell header-item" id="notification-icon"></i>
+        <!-- 검색 아이콘 -->
+        <i class="fa-solid fa-magnifying-glass header-item" id="search-icon"></i>
+        <!-- 사이드메뉴 아이콘 -->
         <i class="fa-solid fa-bars header-item" id="menu-icon"></i>
       </div>
     </section>
+
+          <!-- 검색 영역 -->
+          <section id="search-section" style="display: none;">
+            <article class="search-area">
+              <form id="search-form" action="/search" method="GET">
+                <!-- 검색어 입력 -->
+                <input type="search" id="query" name="query" placeholder="작가명, 작품명, 카테고리명으로 검색." autocomplete="off">
+          
+                <!-- 검색 버튼 -->
+                <button type="submit" id="searchBtn" class="fa-solid fa-magnifying-glass header-item"></button>
+              </form>
+            </article>
+          </section>
+          
+      <!-- 알림 영역 -->
+      <section id="notification-section" style="display: none;">
+        <!-- 알림 컨테이너 -->
+        <div class="notification-container" th:if="${session.artistLogin}">
+      
+          <!-- 알림 버튼 -->
+          <button class="notification-btn fa-regular fa-bell" id="notification">
+      
+            <!-- 알림 개수 표시 -->
+            <div class="notification-count"></div>
+          </button>
+      
+          <!-- 알림 목록 -->
+          <ul class="notification-list">
+              <!-- 읽지 않은 알림 -->
+              <!-- <li th:if="${notification.readCheck == 'N'}" th:text="|읽지 않은 알림 [${notificationCount}]|">읽지 않은 알림</li> -->
+              <li>읽지 않은 알림</li>
+              <hr class="dotted-line">
+          
+              <!-- 어제 알림 -->
+              <!-- <li th:if="${#dates.format(notification.notiDate, 'yyyy-MM-dd') == #dates.format(#dates.createNow().minusDays(1), 'yyyy-MM-dd')}" th:text="'어제'">어제</li> -->
+              <li>어제</li>
+              <hr class="dotted-line">
+          
+              <!-- 7일 이내 알림 -->
+              <!-- <li th:if="${notification.notiDate >= #dates.createNow().minusDays(7)}" th:text="'7일전'">7일전</li> -->
+              <li>7일전</li>
+              <hr class="dotted-line">
+          
+              <!-- 30일 이내 알림 -->
+              <!-- <li th:if="${notification.notiDate >= #dates.createNow().minusDays(30)}" th:text="'30일전'">30일전</li> -->
+              <li>30일전</li>
+          </ul>
+        </div>
+      </section>
+
     <!-- 중앙 메뉴 -->
     <nav class="header-menu">
       <ul>
@@ -27,7 +80,7 @@
           <a href="/artist/artistList">Artists</a>
         </li>
         <li class="nav-item">
-          <a href="/actions">Auctions</a>
+          <a href="/action/main">Auctions</a>
         </li>
         <li class="nav-item">
           <a href="/howTo/main">How To</a>
@@ -62,7 +115,7 @@
     <!-- 사이드 메뉴 영역 -->
     <div id="side-menu" class="side-menu">
       <!-- 사이드 메뉴 열기/닫기 아이콘 -->
-        <i class="fa-solid fa-bars close-icon" style="font-size: 30px;"></i>
+      <i class="fa-solid fa-bars close-icon" style="font-size: 30px;"></i>
       <!-- 사이드 메뉴 항목 -->
       <nav>
         <div class="side-bar">

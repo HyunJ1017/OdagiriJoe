@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +7,7 @@
   <link rel="stylesheet" href="/css/common/search.css">
   <th:block th:replace="~{/common/common.html :: cssLinks}"></th:block>
 </head>
+
 <body>
   <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
   <div class="main-container">
@@ -16,21 +16,23 @@
       <div class="search-container">
         <h3 th:if="${searchList != null && searchList.size() > 0}" th:text="|${query} 검색 결과입니다.|">검색 결과.</h3>
         <h3 th:if="${searchList == null || searchList.size() == 0}" th:text="|${query} 검색 결과가 없습니다.|">검색 결과가 없습니다.</h3>
-  
+
         <!-- 메인 헤더 영역 -->
-        <section class="serach-container-main">
+        <section class="search-container-main">
           <div class="search-header-main">
-            <label><input type="checkbox" class="ongoingAuction" checked> 진행 경매</label>
-            <label><input type="checkbox" class="pastAuction" checked> 지난 경매</label>
-            <label><input type="checkbox" class="gallery" checked> 판매 작품</label>
-            <label><input type="checkbox" class="paseGallery" checked> 판매 종료</label>
+            <label th:if= "${session.pieceStatus == 'N' ? 'unchecked' : ''}"><input type="checkbox" class="filter-checkbox" data-category="ongoingAuction" checked> 진행 경매</label>
+            <label th:if="${session.pieceStatus == 'F' ? 'unchecked' : ''}"><input type="checkbox" class="filter-checkbox" data-category="pastAuction" checked> 종료 경매</label>
+            <label th:if="${session.pieceStatus == 'S' ? 'unchecked' : ''}"><input type="checkbox" class="filter-checkbox" data-category="ongoingGallery" checked> 판매 작품</label>
+            <label th:if="${session.pieceStatus == 'F' ? 'unchecked' : ''}"><input type="checkbox" class="filter-checkbox" data-category="paseGallery" checked> 종료 작품</label>
           </div>
-          <select id="sortSelect" class="sort-select">
-            <option value="latest">최신순</option>
-            <option value="oldest">오래된순</option>
-            <option value="priceUp">추정가 높은순</option>
-            <option value="priceDown">추정가 낮은순</option>
-          </select>
+          <div class="sort-dropdown">
+            <select id="sort" class="sort-select" onChange={onSelected}>
+              <option id="latest">최신순</option>
+              <option id="oldest">오래된순</option>
+              <option id="priceUp">추정가 높은순</option>
+              <option id="priceDown">추정가 낮은순</option>
+            </select>
+          </div>
         </section>
         <div class="custom-line"></div>
       </div>
@@ -38,7 +40,7 @@
   
     <!-- 검색 결과 리스트 -->
     <section class="detail-container">
-      <article class="serach-detail" th:each="piece : ${searchList}" th:if="${piece.pieceTitle}">
+      <article class="search-detail" th:each="piece : ${searchList}" th:if="${piece.pieceTitle}">
         <div class="img-detail">
         <a th:href="@{/piece/online/{pieceNo}(pieceNo=${piece.pieceNo})}">
           <img th:src="${piece.pieceRename}" alt="작품: ${piece.pieceTitle}" />
@@ -66,19 +68,22 @@
         <div class="price-detail">
           <hr class="dotted-line">
           <p th:if="${piece.pieceStatus == 'N'}" th:text="|판매가 (KRW): ${piece.sellPrice}|">판매가(KRW)</p>
-          <p th:if="${piece.pieceStatus == 'A'}" th:text="|예정가 (KRW): ${piece.hopePrice}|">예정가(KRW)</p>
+          <p th:if="${piece.pieceStatus == 'A'}" th:text="|예정가 (KRW): ${piece.hopePrice}|" >예정가(KRW)</p>
           <p th:if="${piece.pieceStatus == 'S'}" th:text="|시작가 (KRW): ${piece.startPrice}|">시작가(KRW)</p>
           <p th:if="${piece.pieceStatus == 'F'}" th:text="|낙찰가 (KRW): ${piece.endPrice}|">낙찰가(KRW)</p>
         </div>
   
         <hr class="dotted-line">
         <!-- 상태 정보 -->
-        <div class="status-detail" id="auctionList">
-          <p th:if="${piece.pieceStatus == 'N'}" th:text="|판매중|" data-category="gallery" id="auction-item">판매중</p>
-          <p th:if="${piece.pieceStatus == 'F'}" th:text="|판매|" data-category="paseGallery" id="auction-item">판매</p>
-          <p th:if="${piece.pieceStatus == 'S'}" th:text="|경매 시작일: ${piece.startDate}|" id="auction-item">경매 시작일</p>
-          <p th:if="${piece.pieceStatus == 'S'}" th:text="|경매중|" data-category="ongoing" id="auction-item">경매중</p>
-          <p th:if="${piece.pieceStatus == 'F'}" th:text="|경매 종료일: ${piece.endDate}|" data-category="past" id="auction-item">경매 종료일</p>
+        <div id="auction-items-container">
+          <div class="status-detail" id="auctionList">
+            <p th:if="${piece.pieceType == 1 and piece.pieceStatus == 'N'}" th:text="|판매중|" data-category="ongoingGallery">판매중</p>
+            <p th:if="${piece.pieceType == 1 and piece.pieceStatus == 'F'}" th:text="|판매|" data-category="paseGallery">판매</p>
+            <p th:if="${piece.pieceType == 2 and piece.pieceStatus == 'S'}" th:text="|경매중|" data-category="ongoingAuction">경매중</p>
+            <p th:if="${piece.pieceType == 2 and piece.pieceStatus == 'F'}" th:text="|경매 종료일: ${piece.endDate}|" data-category="pastAuction">경매 종료일</p>
+            <p th:if="${piece.pieceType == 2 and piece.pieceStatus == 'S'}" th:text="|경매 시작일: ${piece.startDate}|">경매 시작일</p>
+          </div>
+          
         </div>
       </article>
     </section>

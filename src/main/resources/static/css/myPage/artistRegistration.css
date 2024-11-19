@@ -87,6 +87,7 @@
   height: 29px;
 }
 #myPage-main>section>.member-hov{
+  user-select: none;
   margin-top: 40px;
   width: 380px;
   height: 45px;
