@@ -22,6 +22,7 @@ public class LogInServiceImpl implements LogInService {
 	@Override
 	public Member logIn(Member member) {
 		Member getMember =  mapper.signUp(member.getMemberId());
+		if(getMember == null) return null;
 		
 		if( encoder.matches( member.getMemberPw(), getMember.getMemberPw()) ) {
 			getMember.setMemberPw(null);

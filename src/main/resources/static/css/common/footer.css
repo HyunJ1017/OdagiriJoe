@@ -27,3 +27,27 @@
   color : #ffffff;
   background-color: #5e7c71;
 }
+
+/* 왼쪽눈금 */
+#leftSide-barBox{
+  position: fixed;
+  left: 0;
+  top: 300px;
+  margin-left: 8px;
+  width: 36px;
+  max-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+#leftSide-barBox>*{
+  flex-shrink: 1;
+  margin: 0 0 7px;
+  padding: 0;
+  width: 80%;
+  border-bottom: 1px solid #5e7c71;
+}
+#leftSide-barBox>.currentHeight{
+  width: 100%;
+  border-bottom: 2px solid #0e6948;
+}

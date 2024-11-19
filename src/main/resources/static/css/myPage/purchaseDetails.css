@@ -59,6 +59,7 @@
   margin: 5px;
 }
 .content-div>div>.piece-detales{
+  user-select: none;
   align-self: center;
   margin: 10px 0 5px;
   border-radius: 10px;

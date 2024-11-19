@@ -34,14 +34,14 @@ body{
 .image-container{
   padding: 10px; 
   position: relative;
-  min-width: 202px;
-  min-height: 274px;
+  min-width: 182px;
+  min-height: 222px;
   border: 1px solid #80808030;
 }
 .loader { /* 이미지 로딩전까지 보여줄 로딩이미지 */
   position: absolute;
-  width: 180px;
-  height: 252px;
+  width: 160px;
+  height: 200px;
   top: 10;
   right: 10;
   background: url('/images/loading.gif') center center no-repeat;
@@ -49,8 +49,8 @@ body{
 }
 .content-img{ /* 로딩할 이미지 */
   display: none; /* 처음에는 보이지 않게 */
-  width: 180px; /* 고정 가로 크기 */
-  height: 252px; /* 고정 세로 크기 */
+  width: 160px; /* 고정 가로 크기 */
+  height: 200px; /* 고정 세로 크기 */
   object-fit: cover; /* 비율을 유지하며 크기에 맞게 잘라냄 */
 }
 .content-div>div:last-child{
@@ -71,47 +71,28 @@ body{
   margin: 10px 0 10px;
 }
 /* 경매 진행품 */
-.content-div>div>.piece-detales{
-  align-self: center;
-  margin: 10px 0 5px;
-  border-radius: 10px;
-  width: 135px;
-  height: 50px;
-  background-color: #5e7c71;
-  color: white;
-  text-shadow: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.content-div>div>.piece-detales:hover{
-  border: 2px solid #5e7c71;
-  background-color: white;
-  color: #5e7c71;
-}
-/* 임금 대기품, 입금 완료 */
-.content-div>div>.auction-end,
-.content-div>div>.auction-deposit{
-  align-self: center;
-  margin: 10px 0 5px;
-  border-radius: 10px;
-  width: 135px;
-  height: 50px;
-  border: 2px solid #5e7c71;
-  background-color: white;
-  color: #5e7c71;
-  text-shadow: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.content-div>div>.piece-detales,
+.content-div>div>.piece-payment{
+  user-select: none;
   cursor: pointer;
-}
-.content-div>div>.auction-end:hover,
-.content-div>div>.auction-deposit:hover{
+  align-self: center;
+  margin: 10px 0 5px;
+  border-radius: 10px;
+  width: 135px;
+  height: 50px;
   background-color: #5e7c71;
   color: white;
+  text-shadow: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.content-div>div>.piece-detales:hover,
+.content-div>div>.piece-payment:hover{
+  border: 2px solid #5e7c71;
+  background-color: white;
+  color: #5e7c71;
 }
 .no-content>p{
   margin-top:230px;

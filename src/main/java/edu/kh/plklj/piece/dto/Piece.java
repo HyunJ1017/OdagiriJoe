@@ -1,6 +1,5 @@
 package edu.kh.plklj.piece.dto;
 
-import edu.kh.plklj.main.dto.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -40,6 +39,7 @@ public class Piece {
 	private int auctionNo; // 입찰 번호
 	private String bidDate; // 입찰 시간
 	private String endPrice; // 입찰 가격
+	private String finalPrice; // SQL호출용
 	
 	// 배송
 	private int deliveryNo; // 송장 번호

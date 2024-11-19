@@ -55,4 +55,10 @@ public class ScheduleServiceImpl implements ScheduleService {
 		
 		return count;
 	}
+	
+	// 오늘치 정지회원 풀어주기
+	@Override
+	public int prisoners() {
+		return mapper.prisoners();
+	}
 }

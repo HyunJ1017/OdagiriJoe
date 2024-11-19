@@ -19,4 +19,6 @@ public interface ScheduleMapper {
 
 	int cellPice(int pieceNo);
 
+	int prisoners();
+
 }

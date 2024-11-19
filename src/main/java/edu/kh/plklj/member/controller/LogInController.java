@@ -65,7 +65,11 @@ public class LogInController {
 		Member result = service.logIn(member);
 		
 		if(result == null ) {
-			return "redirect:/logIn";
+			model.addAttribute("message", "아이디 또는 비밀번호가 잘못되었습니다.");
+			return "redirect:/member/login";
+		} else if ( result.getMemberPenalty() > 1) {
+			model.addAttribute("message", "정지 해제까지 " + result.getMemberPenalty() + "일 남으셨습니다.");
+			return "redirect:/member/login";
 		} else if ( result.getArtistReg() == null || result.getArtistReg().equals("N")) {
 			model.addAttribute("memberLogin", result);
 			return "redirect:/";

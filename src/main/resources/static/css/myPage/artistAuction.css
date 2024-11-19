@@ -93,6 +93,7 @@ body{
 
 /* 클릭버튼 */
 .content-div>div>.piece-btns{
+  user-select: none;
   cursor: pointer;
   margin: 10px 0 5px;
   border-radius: 10px;
