@@ -18,46 +18,42 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class NotificationServiceImpl implements NotificationService {
 	private final NotificationMapper mapper;
+	 @Override
+   public Map<String, Object> notificationInsert(Notification notification) {
+       int result = mapper.insertNotification(notification);
+       if (result > 0) {
+           return mapper.selectReceiveMember(notification.getNotiNo());
+       }
+       return null;
+   }
 
-	/* 알림 전송 */
-	@Override
-	public Map<String, Object> notificationInsert(Notification notification) {
-		int result = mapper.insertNotification(notification);
-		Map<String, Object> map = null;
-		if(result > 0) { 
-			map = mapper.selectReceiveMember(notification.getNotiNo());
-		}
-		return map;
-	}
+   @Override
+   public List<Notification> selectNotification(int memberNo) {
+       return mapper.selectNotificationList(memberNo);
+   }
 
-	/* 로그인한 회원의 알림 목록 */
-	@Override
-	public List<Notification> selectNotification(int memberNo) {
-	return mapper.selectNotificationList(memberNo);
-	}
+   @Override
+   public int readCheck(int memberNo) {
+       return mapper.readCheck(memberNo);
+   }
 
-		/* 안읽은 알림 목록 */
-		@Override
-		public int readCheck(int memberNo) {
-			return mapper.readCheck(memberNo);
-		}
+   @Override
+   public void deleteNotification(int notiNo) {
+       mapper.deleteNotification(notiNo);
+   }
 
-		/* 알림 삭제 */
-		@Override
-		public void deleteNotification(int notiNo) {
-			mapper.deleteNotification(notiNo);
-		}
+   @Override
+   public void updateNotification(int notiNo) {
+       mapper.updateNotification(notiNo);
+   }
 
-		/* 알림 읽음 여부 변경 */
-		@Override
-		public void updateNotification(int notiNo) {
-			mapper.updateNotification(notiNo);
-		}
+   @Override
+   public List<Member> followList(int sendMemberNo) {
+       return mapper.followList(sendMemberNo);
+   }
 
-		/* 팔로우 작가 게시물 알림 */
-		@Override
-		public List<Member> followList(int sendMemberNo) {
-			return mapper.followList(sendMemberNo);
-		}
-
+   @Override
+   public List<Notification> getAuctionNotification(int daysBefore) {
+       return mapper.getAuctionNotification(daysBefore);
+   }
 }
