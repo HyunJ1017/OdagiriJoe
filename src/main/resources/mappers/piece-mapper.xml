@@ -133,8 +133,7 @@
 			TO_DATE(#{startDate}, 'YYYYMMDD'),
 			TO_DATE(#{startDate} + 1, 'YYYYMMDD'),
 			#{startPrice},
-			#{hopePrice},
-			DEFAULT
+			#{hopePrice}
 		)
 	</insert>
 	
