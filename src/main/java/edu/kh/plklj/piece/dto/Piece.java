@@ -29,6 +29,7 @@ public class Piece {
 	private int pieceCategoryNo; // 카테고리 번호
 	
 	private String artistNickname; // 작가 닉네임
+	private String pieceCategoryName; // 작품 카테고리 이름
 	
 	// 경매 작품 
 	private String startDate; // 경매 시작 날짜
@@ -47,9 +48,6 @@ public class Piece {
 	private String deliveryAddress; // 배송 주소
 	private int deliveryStatus; // 배송 상태
 	private String deliveryDate; // 배송 등록일
-
-	// 작품 카테고리 이름
-	private String pieceCategoryName;
 	
 	// 판매작품
 	private String sellPrice; // 판매 가격

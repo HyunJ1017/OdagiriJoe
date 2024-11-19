@@ -13,26 +13,26 @@
       <div class="header-actions">
         <a href="/member/signUp" class="header-item">SignUp</a>
         <a href="/member/login" class="header-item">Login</a>
-        <i class="fa-solid fa-bell header-item" id="bell-icon"></i>
         <!-- 검색 아이콘 -->
         <i class="fa-solid fa-magnifying-glass header-item" id="search-icon"></i>
+        <!-- 사이드메뉴 아이콘 -->
         <i class="fa-solid fa-bars header-item" id="menu-icon"></i>
       </div>
     </section>
 
-    <!-- 검색 영역 -->
-    <section id="search-section" style="display: none;">
-      <article class="search-area">
-        <form id="search-form" action="/search" method="GET">
+      <!-- 검색 영역 -->
+      <section id="search-section" style="display: none;">
+        <article class="search-area">
+          <form id="search-form" action="/search" method="GET">
             <!-- 검색어 입력 -->
             <input type="search" id="query" name="query" placeholder="작가명, 작품명, 카테고리명으로 검색." autocomplete="off">
+      
+            <!-- 검색 버튼 -->
+            <button type="submit" id="searchBtn" class="fa-solid fa-magnifying-glass header-item"></button>
+          </form>
+        </article>
+      </section>
 
-          <!-- 검색 버튼 -->
-          <button type="submit" id="searchBtn" class="fa-solid fa-magnifying-glass header-item"></button>
-        </form>
-      </article>
-    </section>
-  
     <!-- 중앙 메뉴 -->
     <nav class="header-menu">
       <ul>
@@ -43,7 +43,7 @@
           <a href="/artist/artistList">Artists</a>
         </li>
         <li class="nav-item">
-          <a href="/auction/main">Auctions</a>
+          <a href="/action/main">Auctions</a>
         </li>
         <li class="nav-item">
           <a href="/howTo/main">How To</a>
@@ -53,10 +53,8 @@
       <nav class="subMenu">
         <div class="sub-bg"></div>
         <ul class="dropdown">
-
           <li><a href="/piece/gallery">즉시 구매 </a></li>
           <li><a href="/piece/gallery">판매 완료</a></li>
-
         </ul>
         <ul class="dropdown">
           <li><a href="/artist/artistList">신진 작가</a></li>

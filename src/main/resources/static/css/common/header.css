@@ -180,6 +180,61 @@ main {
   background-color: #3d6e57;
 }
 
+
+/* ----------------------------------------------------------------------------------------------------------------------------------------------- */
+/* 알림 영역 */
+.notification-section {
+  width: 75%;
+  display:flex;
+  justify-content: space-between;
+  height: 30%;
+}
+
+.notification-container {
+  position: absolute;
+  display: block;
+  margin-left: 30%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #5e7c71;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  width: 16%;
+  top: 50%;
+  max-height: 45vh;
+}
+
+/* 알림 왔을 때 */
+.notification-count {
+
+}
+
+/* 알림 리스트 */
+.notification-list {
+  position: relative;
+  background-color: #ffffff;
+  color: #414141;
+  font-size: 16px;
+}
+
+.notification-list > li {
+  visibility: visible;
+  list-style: none; /* 점 없음 */
+}
+
+/* 구분선 */
+.dotted-line {
+  width: 90%;
+  margin: 3% 0% 3% 0%;
+  border: none;
+  /* 기본 선 제거 */
+  height: 1px;
+  /* 선의 높이 */
+  background-image: linear-gradient(to right, #333 30%, rgba(255, 255, 255, 0) 0%);
+  background-size: 5px 5px;
+  /* 점과 점 사이 간격 설정 */
+}
+
 /* ----------------------------------------------------------------------------------------------------------------------------------------------- */
 /* 드롭다운 메뉴 */
 .header-menu .dropdown {
@@ -294,6 +349,8 @@ main {
   cursor: pointer;
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------------------------------- */
+
 /* 사이드 메뉴 CSS */
 .side-menu {
   position: fixed;
@@ -308,6 +365,7 @@ main {
   padding-top: 60px;
   z-index: 2501;
   text-shadow: 1px 1px #c9c9c9;
+  padding-left: 1%;
 }
 
 .side-menu.open {
