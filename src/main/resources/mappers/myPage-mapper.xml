@@ -292,9 +292,11 @@
 	<select id="getArtistBank" resultType="Member">
 		SELECT
 			BANK_CODE,
+			BANK_NAME,
 			BANK_NO
 		FROM
 			ARTIST A
+		LEFT JOIN BANK_CODE_LIST USING (BANK_CODE)
 		WHERE A.MEMBER_NO = #{memberNo}
 	</select>
 	
@@ -316,5 +318,20 @@
 		WHERE
 			MEMBER_NO = #{memberNo}
 	</update>
+	
+	<!-- 작가 신청여부 확인 -->
+	<select id="getArtistInfo" resultType="Member">
+		SELECT MEMBER_NO
+		FROM ARTIST
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 월별 판매목록 조회 -->
+	<select id="getSellList" resultType="Piece"></select>
+	
+	<!-- 월별 판개금액 조회 -->
+	<select id="getSellAmount" resultType="_int"></select>
+	
+	
 	
 </mapper>

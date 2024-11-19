@@ -146,7 +146,17 @@ public class MyPageController {
 	 * @return 구매내역 페이지
 	 */
 	@GetMapping("artistRegistration")
-	public String artistRegistration() {
+	public String artistRegistration(
+			@SessionAttribute("memberLogin") Member memberLogin,
+			Model model) {
+		
+		Member getArtistInfo = service.getArtistInfo(memberLogin.getMemberNo());
+		
+		if(getArtistInfo != null) {
+			model.addAttribute("message", "이전 신청내역이 아직 처리중입니다.");
+			return "redirect:/member/myPage";
+		}
+		
 		return "myPage/artistRegistration";
 	}
 	
@@ -390,5 +400,27 @@ public class MyPageController {
 	}
 	
 	
+	/** 작가 월별 매출액 확인
+	 * @param map 요청 회원번호, 요청 월
+	 * @return
+	 */
+	@PostMapping("getSalesConfirmation")
+	@ResponseBody
+	public Map<String, Object> getSalesConfirmation(
+			@RequestBody Map<String, String> map) {
+		
+		int memberNo = Integer.parseInt( map.get("memberNo") );
+		String selectedMonth = map.get("selectedMonth");
+		
+		// 작가 계좌정보
+		Member artistBankInfo = service.getArtistBank(memberNo);
+		
+		// 월별 작가 판매작품 및 총액
+		Map<String, Object> resultMap = service.getSalesConfirmation(memberNo, selectedMonth);
+		
+		resultMap.put("artistBankInfo", artistBankInfo);
+		
+		return resultMap;
+	}
 	
 }

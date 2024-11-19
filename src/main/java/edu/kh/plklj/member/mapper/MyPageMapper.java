@@ -63,4 +63,10 @@ public interface MyPageMapper {
 
 	int setArtistProfile(Member artist);
 
+	Member getArtistInfo(int memberNo);
+
+	List<Piece> getSellList(@Param("memberNo") int memberNo, @Param("selectedMonth") String selectedMonth);
+
+	int getSellAmount(@Param("memberNo") int memberNo, @Param("selectedMonth") String selectedMonth);
+
 }

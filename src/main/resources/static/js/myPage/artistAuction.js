@@ -2,7 +2,7 @@
 
 /* url 모음 */
 const urls = {
-  /* 상세보기 */ "detail" : "/",
+  /* 상세보기 */ "detail" : "/auction/main",
   /* 배달정보 */ "delivery" : "/",
   /* 작성하기 */ "rewrite" : "/piece/upload?pieceNo=",
   /* 삭제하기 */ "remove" : "/piece/removeTemp?pieceNo="
@@ -65,7 +65,7 @@ const getEndprice = () => {
     .then(result => {
       currentPrice.innerHTML = '';
       const getPrice = new Intl.NumberFormat('ko-KR').format(result);
-      currentPrice.innerHTML = getPrice;
+      currentPrice.innerHTML = '현재경매가 ' + getPrice;
     })
     .catch(err => console.error(err));
   });

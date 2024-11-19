@@ -14,12 +14,13 @@ body{
 }
 .myPage-main>h1{
   color: #5e7c71;
+  margin-bottom: 50px;
 }
 .myPage-main>.content-section{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 1000px;
+  width: 767px;
   margin-bottom: 50px;
 }
 .myPage-main>.content-section>hr{
@@ -32,11 +33,11 @@ body{
 .myPage-main>.content-section>.content-div{
   align-self: center;
   width: 100%;
-  margin: 20px;
+  margin: 10px;
   padding: 10px;
-  border: 1px solid #80808030;
+  border: 1px solid #8080806b;
   border-radius: 10px;
-  box-shadow: 2px 2px 1px #00000061;
+  box-shadow: 4px 5px 8px 2px #00000080;
   display: flex;
   flex-direction: row;
 }
@@ -59,6 +60,7 @@ body{
 }
 .content-div>div>p{
   margin: 5px;
+  color: rgb(63, 63, 63);
 }
 .content-div>div>h3{
   margin-top: 19px;
@@ -69,14 +71,14 @@ body{
 }
 .content-div>.image-container{/* 이미지 */
   position: relative;
-  min-width: 202px;
-  min-height: 274px;
+  min-width: 182px;
+  min-height: 222px;
   border: 1px solid #80808030;
 }
 .loader {/* 이미지 로딩전까지 보여줄 로딩이미지 */
   position: absolute;
-  width: 180px;
-  height: 252px;
+  width: 160px;
+  height: 200px;
   top: 10;
   right: 10;
   background: url('/images/loading.gif') center center no-repeat;
@@ -84,8 +86,8 @@ body{
 }
 .content-div>div>.content-img{
   display: none; /* 처음에는 보이지 않게 */
-  width: 180px; /* 고정 가로 크기 */
-  height: 252px; /* 고정 세로 크기 */
+  width: 160px; /* 고정 가로 크기 */
+  height: 200px; /* 고정 세로 크기 */
   object-fit: cover; /* 비율을 유지하며 크기에 맞게 잘라냄 */
 }
 
@@ -111,16 +113,16 @@ body{
 }
 
 /* 입금 완료 후 배달중인 작품 */
-.content-section>.auction-end:hover{box-shadow: 0 0 3px 3px #33ff0061;}
+.content-section>.auction-end:hover{box-shadow: 4px 5px 8px 2px #092900;}
 
 /* 입금대기작품 */
-.content-section>.auction-deposit:hover{box-shadow: 0 0 3px 3px #f5760061;}
+.content-section>.auction-deposit:hover{box-shadow: 4px 5px 8px 2px #693606;}
 
 /* 경매 진행작 */
-.content-section>.auction-start:hover{box-shadow: 0 0 3px 3px #ffe60061;}
+.content-section>.auction-start:hover{box-shadow: 4px 5px 8px 2px #554d08;}
 
 /* 경매 대기작 */
-.content-section>.auction-auction:hover{box-shadow: 0 0 3px 3px #33ff0061;}
+.content-section>.auction-auction:hover{box-shadow: 4px 5px 8px 2px #092900;}
 
 /* 임시저장작품 */
 .content-section>.auction-temp{border: 2px solid #ffe60030;}

@@ -41,7 +41,7 @@
       </section>
 
       <!-- 위시리스트 페이지네이션 -->
-      <ul th:if= "${wishPagination}" class="pagination-box" id="paginationBox1" th:object="${wishPagination}">
+      <ul th:if="${!#lists.isEmpty(wishList)}" class="pagination-box" id="paginationBox1" th:object="${wishPagination}">
 
         <th:block th:if= "*{maxPage > pageSize}">
           <li><a href="#" class="page-btn">&lt;&lt;</a></li>
@@ -68,6 +68,14 @@
         </th:block>
       </ul>
 
+      <th:block th:if="${#lists.isEmpty(wishList)}">
+        <div class="content-div" style="width: 100%;">
+          <div style="width: 100%; display: flex; justify-content: center;">
+            <a href="/auction/main" style="color: grey; margin: 70px 0 70px; font-size: 1.17em; font-weight: bold;">현재 찜한 작품이 없습니다.</a>
+          </div>
+        </div>
+      </th:block>
+
     </section>
 
     <section class="content-section">
@@ -89,7 +97,7 @@
       </section>
 
       <!-- 페이지네이션 -->
-      <ul th:if="${followPagination}" class="pagination-box" id="paginationBox2" th:object="${followPagination}">
+      <ul th:if="${!#lists.isEmpty(followList)}" class="pagination-box" id="paginationBox2" th:object="${followPagination}">
 
         <!-- <th:block th:if= "*{maxPage > pageSize}"> -->
           <li><a href="#" class="page-btn">&lt;&lt;</a></li>
@@ -115,6 +123,14 @@
           <li><a href="#" class="page-btn">&gt;&gt;</a></li>
         </th:block>
       </ul>
+
+      <th:block th:if="${#lists.isEmpty(followList)}">
+        <div class="content-div" style="width: 100%;">
+          <div style="width: 100%; display: flex; justify-content: center;">
+            <a href="/artist/artistList" style="color: grey; margin: 70px 0 70px; font-size: 1.17em; font-weight: bold;">현재 팔로우 하는 작가가 없습니다.</a>
+          </div>
+        </div>
+      </th:block>
 
     </section>
     

@@ -72,6 +72,12 @@ public interface MyPageService {
 	// 작가 프로필사진 요청url 변경
 	int setArtistProfile(Member artist);
 
+	// 이전 신청내역 불러오기
+	Member getArtistInfo(int memberNo);
+
+	// 작가 월별 판매작 및 총액
+	Map<String, Object> getSalesConfirmation(int memberNo, String selectedMonth);
+
 	
 
 }
