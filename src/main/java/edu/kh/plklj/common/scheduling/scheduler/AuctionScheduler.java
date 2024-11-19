@@ -16,7 +16,8 @@ public class AuctionScheduler {
 	
 	private final ScheduleService service;
 	
-	@Scheduled(cron = "0 0 0/1 * * *")
+	// 10시마다 실행 할 스캐줄러
+	@Scheduled(cron = "0 0 10 * * *")
 	public void actionScheduling() {
 		
 		int result = service.auctionStartScheduling();
@@ -25,18 +26,27 @@ public class AuctionScheduler {
 		
 		int result3 = service.failAuction();
 		
-		int result4 = service.prisoners();
 		
 		log.info(">> ------------------------------- >>");
-		
 		log.info(">> 새 경매 관리자 실행");
 		log.info(">> 시작된 경매 수 : {} 건", result);
 		log.info(">> 낙찰된 경매 수 : {} 건", result2);
 		log.info(">> 유찰된 경매 수 : {} 건", result3);
-		log.info(">> 줄어든 정지일 수 : {} 건", result4);
 		log.info(">> ------------------------------- <<");
 		
-		
 	}
+	
+	// 00시마다 실행 할 스캐줄러
+	@Scheduled(cron = "0 0 0 * * *")
+	public void penaltyScheduling() {
+		
+		int result4 = service.prisoners();
+		
+		log.info(">> ------------------------------- >>");
+		log.info(">> 새 경매 관리자 실행");
+		log.info(">> 줄어든 정지 회원 수 : {} 건", result4);
+		log.info(">> ------------------------------- <<");
+	}
+	
 
 }
