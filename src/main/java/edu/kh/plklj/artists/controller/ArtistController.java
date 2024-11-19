@@ -8,7 +8,7 @@ import edu.kh.plklj.artists.service.ArtistsService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/artist")
+@RequestMapping("artist")
 @RequiredArgsConstructor
 public class ArtistController {
 
@@ -17,7 +17,7 @@ public class ArtistController {
 	/** 작가 목록 조회 페이지 이동
 	 * @return
 	 */
-	@GetMapping("/artistList")
+	@GetMapping("artistList")
 	public String artistList() {
 		return "artist/artistList";
 	}

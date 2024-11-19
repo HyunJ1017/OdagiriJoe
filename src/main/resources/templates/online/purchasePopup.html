@@ -15,8 +15,8 @@
       <div class="form-group">
         <label>수령 방법</label>
         <div>
-          <label><input type="radio" name="receiveMethod" value="delivery"> 배송</label>
-          <label><input type="radio" name="receiveMethod" value="pickup"> 직접수령</label>
+          <label><input type="radio" name="receiveMethod" value="delivery" id="deliveryOption"> 배송</label>
+          <label><input type="radio" name="receiveMethod" value="pickup" id="pickupOption"> 직접수령</label>
         </div>
       </div>
 
@@ -34,14 +34,14 @@
       <!-- 주소 -->
       <div class="form-group">
         <label for="address">주소</label>
-        <input type="text" id="address" placeholder="주소">
-        <input type="text" id="detailAddress" placeholder="상세주소">
+        <input type="text" id="address" placeholder="주소" disabled>
+        <input type="text" id="detailAddress" placeholder="상세주소" disabled>
       </div>
 
       <!-- 전화번호 -->
       <div class="form-group">
         <label for="phone">전화번호</label>
-        <input type="text" id="phone" placeholder="전화번호">
+        <input type="text" id="phone" placeholder="전화번호(-제외)">
       </div>
 
       <!-- 등록 버튼 -->
@@ -52,5 +52,6 @@
   </main>
 
  
+  <script src="/js/online/purchasePopup.js"></script>
 </body>
 </html>

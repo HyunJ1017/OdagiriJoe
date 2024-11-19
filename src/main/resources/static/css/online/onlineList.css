@@ -19,7 +19,7 @@ body {
 }
 
 .online-gallery-list {
-    max-width: 1200px;
+  max-width: 1200px;
   margin: 150px auto;
   padding: 0 61px;
   color: #333;
@@ -234,11 +234,11 @@ body {
 
 /* 완료 작품 리스트 */
 .online-list1 {
+    width: 1080px;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: space-between;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .online-header1 h3 {
@@ -246,6 +246,18 @@ body {
     color: #4a6741;
     font-size: 28px;
     margin-top: 50px;
+}
+
+.online-header1 button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #5e7c53;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    visibility: visible;
+    margin-left: auto;
 }
 
 hr {

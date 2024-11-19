@@ -83,6 +83,7 @@ document.addEventListener("DOMContentLoaded", function() {
 function loadPieces(cp, type, sort = "recent", order = "desc") {
 		// console.log(type);
 
+    
 		const url =
     type === "판매작품"
       ? `/piece/online/sales?cp=${cp}&sort=${sort}&order=${order}`
@@ -147,7 +148,7 @@ function renderCompletedList(items = []) {
     completedListContainer.innerHTML = items.map(item => `
         <article class="gallery-item">
             <div class="artwork-image" data-id="${item.pieceNo}">
-                <img src="">
+                <img src="${item.pieceRename}">
                 <div class="artwork-info">
                     <h3>${item.artistNickname}</h3>
                     <p class="artwork-title">작품 : ${item.pieceTitle}</p>

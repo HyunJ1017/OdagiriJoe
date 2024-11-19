@@ -57,13 +57,13 @@ public class PieceServiceImpl implements PieceService{
 	}
 	
 	@Override
-	public List<Piece> getCompletePieces(int cp, int completeListCount, Pagination complPagination) {
+	public List<Piece> getCompletePieces(int cp, int completeListCount, Pagination complPagination, String sort, String order) {
 		
 		int offset = (cp - 1) * complPagination.getLimit(); // 현재 페이지에 따른 시작 위치 계산
 		
 		RowBounds rowBounds = new RowBounds(offset, complPagination.getLimit());
 		
-		return mapper.selectCompletedPiece(rowBounds);
+		return mapper.selectCompletedPiece(rowBounds, sort, order);
 	}
 	
 	// 작품 등록
@@ -101,17 +101,17 @@ public class PieceServiceImpl implements PieceService{
 	
 	// 작품 상세 조회
 	@Override
-	public Piece getPieceDetail(int pieceNo) {
-		return mapper.getPieceDetail(pieceNo);
+	public Piece getPieceDetail(Map<String, Integer> map) {
+		return mapper.getPieceDetail(map);
 	}
 	
 
 	// 위시 리스트 체크, 해제
 	@Override
-	public Map<String, Object> onlineWish(int pieceNo) {
+	public Map<String, Object> onlineWish(int pieceNo, int memberNo) {
 		
 		// 1) 좋아요 누른 적 있나 검사
-		int result = mapper.checkOnlineWish(pieceNo);
+		int result = mapper.checkOnlineWish(pieceNo, memberNo);
 		
 		// result == 1 : 누른 적 있음
 		// result == 0 : 누른 적 없음
@@ -119,9 +119,9 @@ public class PieceServiceImpl implements PieceService{
 		// 2) 좋아요 여부에 따라 INSERT/DELETE Mapper 호출
 		int result2 = 0;
 		if(result == 0) {
-			result2 = mapper.insertOnlineWish(pieceNo);
+			result2 = mapper.insertOnlineWish(pieceNo, memberNo);
 		} else {
-			result2 = mapper.deleteOnlineWish(pieceNo);
+			result2 = mapper.deleteOnlineWish(pieceNo, memberNo);
 		}
 		
 		// 3. INSERT, DELETE 성공 시 해당 게시글의 개수 조회
@@ -140,6 +140,8 @@ public class PieceServiceImpl implements PieceService{
 		if(result == 0 ) map.put("check", "insert");
 		else             map.put("check", "delete");
 		
+		
+		System.out.println(map);
 		return map;
 	}
 

@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import edu.kh.plklj.common.util.Pagination;
+import edu.kh.plklj.main.dto.Member;
 import edu.kh.plklj.piece.dto.Category;
 import edu.kh.plklj.piece.dto.Piece;
 import edu.kh.plklj.piece.service.PieceService;
@@ -26,17 +28,22 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @RequestMapping("piece")
 @Slf4j
+@SessionAttributes({"memberLogin"})
 public class PieceController {
 	private final PieceService service;
 	
-	
+	/** 온라인 갤러리 조회 페이지 이동
+	 * @return
+	 */
 	@GetMapping("gallery")
-	public String onlineGallery() {
+	public String onlineGallery(
+			
+			) {
 		return "online/onlineList";
 	}
 	
 	
-	/** 온라인 갤러리 조회 페이지 이동
+	/** 판매 작품 목록 조회
 	 * @return
 	 */
 	@GetMapping("online/sales")
@@ -66,11 +73,16 @@ public class PieceController {
 		return response;
 	}
 		
-		
+	/** 완료 작품 목록 조회
+	 * @param cp
+	 * @return
+	 */
 	@GetMapping("online/completed")
 	@ResponseBody
 	public Map<String, Object> completed(
-			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam(value = "sort", required = false, defaultValue = "recent") String sort,
+			@RequestParam(value = "order", required = false, defaultValue = "asc") String order
 			) {
 		// 완료 작품 데이터 및 페이지네이션 정보
 		int completeListCount = service.getCompletePieceCount();
@@ -79,7 +91,7 @@ public class PieceController {
 		Pagination complPagination = new Pagination(cp, completeListCount, 10, 5);
 		
 		List<Piece> completedPiece = 
-				service.getCompletePieces(cp, completeListCount, complPagination);
+				service.getCompletePieces(cp, completeListCount, complPagination, sort, order);
 		
 		Map<String, Object> response = new HashMap<>();
 		response.put("completedPiece", completedPiece);
@@ -95,10 +107,23 @@ public class PieceController {
 	@GetMapping("onlineDetail")
 	public String onlineDetail(
 			@RequestParam("pieceNo") int pieceNo,
-			Model model
+			Model model,
+			@SessionAttribute(name = "memberLogin", required = false) Member loginMember,
+      @SessionAttribute(name = "artistLogin", required = false) Member loginArtist
 			) {
-		// 상세 조회를 위한 작품 정보 가져오기
-		Piece piece = service.getPieceDetail(pieceNo);
+		
+		
+		
+		Map<String, Integer> map = new HashMap<>();
+		map.put("pieceNo", pieceNo);
+		
+		if (loginMember != null) {
+			map.put("memberNo", loginMember.getMemberNo());
+		} else if (loginArtist != null) {
+			map.put("memberNo", loginArtist.getMemberNo());
+		}
+		
+		Piece piece = service.getPieceDetail(map);
 		
 		// 가져온 작품 정보를 모델에 추가
 		model.addAttribute("piece", piece);
@@ -148,15 +173,27 @@ public class PieceController {
 		
     
 	/** 위시 리스트 체크 or 해제
-	 *  ***** 추후 @SessionAttribute("loginMember") Member loginMember 사용 예정!!
 	 */
 	@ResponseBody
 	@PostMapping("wish")
 	public Map<String, Object> onlineWish(
-			@RequestBody int pieceNo
+			@RequestBody int pieceNo,
+			 @SessionAttribute(name = "memberLogin", required = false) Member loginMember,
+       @SessionAttribute(name = "artistLogin", required = false) Member loginArtist
 			){
 		
-		return service.onlineWish(pieceNo);
+		
+		int memberNo = 0;
+		
+		if(loginMember == null ) {
+			memberNo = loginArtist.getMemberNo();
+		} else {
+			memberNo = loginMember.getMemberNo();
+		}
+		
+//		int memberNo = loginMember.getMemberNo();
+		
+		return service.onlineWish(pieceNo, memberNo);
 	}
 	
 	/** 구매하기 팝업 창 열기

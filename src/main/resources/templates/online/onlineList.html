@@ -7,10 +7,11 @@
 
     <link rel="stylesheet" href="/css/online/onlineList.css">
 
-    <th:block th:replace= "~{/common/common}"></th:block>
-</head>
-<body>
-  <th:block th:replace= "~{/common/header}"></th:block>
+    <th:block th:replace="~{/common/common.html :: cssLinks}"></th:block>
+  </head>
+  
+  <body>
+    <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
     <main id="onlinePage-main">
   
       <section class="online-gallery-list">
@@ -30,7 +31,7 @@
           </div>
 
   
-       <div class="online-list">
+       <div class="online-list" id="salesListContainer">
             <!-- 판매 작품 목록이 렌더링될 영역 -->
         </div>
 
@@ -40,7 +41,7 @@
 
           <hr>
 
-          <div class="online-header1">
+          <div class="online-header">
             
               <h3>완료 작품</h3>
               <div class="online-dropdown">
@@ -56,7 +57,7 @@
      
 
 
-        <div class="online-list1">
+      <div class="online-list1" id="completedListContainer">
           <!-- 완료 작품 목록이 렌더링될 영역 -->
       </div>
       <div id="completedPaginationBox" class="pagination-box">
@@ -84,6 +85,8 @@
     </main>
 
     <th:block th:replace= "~{/common/footer.html}"></th:block>
+
+    
 
     <script src="/js/online/onlineList.js"></script>
 </body>

@@ -122,3 +122,13 @@
 #online-wishList {
   color: red;
 }
+
+.product-info p {
+  display: flex;
+  justify-content: space-between;
+}
+
+.price p {
+  display: flex;
+  justify-content: space-between;
+}
