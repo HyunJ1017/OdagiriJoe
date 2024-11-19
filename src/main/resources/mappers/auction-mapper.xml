@@ -31,13 +31,18 @@
 	        P.PIECE_TITLE,
 	        P.PIECE_RENAME,
 	        PA.START_DATE,
-	        (SELECT COUNT(*) FROM "WISH" WHERE PIECE_NO = #{pieceNo} AND MEMBER_NO = #{loginNo}) AS LIKE_CHECK
-	    FROM
-	        "PIECE" P
-	    JOIN
-	        "PIECE_AUCTION" PA
-	    ON
-	        P.PIECE_NO = PA.PIECE_NO
+	        (SELECT COUNT(*) FROM "WISH" WHERE PIECE_NO = #{pieceNo} AND MEMBER_NO = #{loginNo}) AS LIKE_CHECK,
+          A.ARTIST_NICKNAME
+    	 FROM
+            "PIECE" P
+        JOIN
+            "PIECE_AUCTION" PA
+        ON
+            P.PIECE_NO = PA.PIECE_NO
+        JOIN
+            "ARTIST" A
+        ON
+            P.MEMBER_NO = A.MEMBER_NO
 	    WHERE
 	        P.PIECE_NO = #{pieceNo}
 	</select>
@@ -79,8 +84,8 @@
 	</select>
 	
 	<select id="getLikeCheck" resultType="_int">
-		SELECT 
-			COUNT(*)
+		  SELECT 
+			  COUNT(*)
    		FROM 
    			"WISH"
    		WHERE 
@@ -88,6 +93,19 @@
  			AND
    			MEMBER_NO = #{loginNo}
 	</select>
+    
+    
+   <insert id="reportInsert" parameterType="Report">
+        INSERT INTO REPORT
+        VALUES(
+            SEQ_REPORT_NO.NEXTVAL,
+            #{memberNo},
+            #{pieceNo},
+            #{reportType},
+            #{reportContent},
+            DEFAULT, DEFAULT, DEFAULT
+        )
+    </insert>
     
     
     

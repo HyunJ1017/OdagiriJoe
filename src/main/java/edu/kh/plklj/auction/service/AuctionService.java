@@ -2,6 +2,8 @@ package edu.kh.plklj.auction.service;
 
 import java.util.Map;
 
+import edu.kh.plklj.report.dto.Report;
+
 public interface AuctionService {
 
 	// 진행,예정 리스트 조회
@@ -12,6 +14,9 @@ public interface AuctionService {
 
 	// 회원이 누른 좋아요 insert,delete
 	Map<String, Object> pieceLike(int pieceNo, int loginNo);
+
+	// 경매예정 신고 처리
+	int reportInsert(Report report);
 
 
 }

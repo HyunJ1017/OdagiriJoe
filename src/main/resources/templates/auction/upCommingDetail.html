@@ -14,7 +14,7 @@
   <main id="ongoinAuction"> 
 
     <section class="ongoingDetail">
-      <h1 class="ongoing-status" style="font-size: 26px; color: #5e7c71;">무제 :: OPEN</h1>
+      <h1 class="ongoing-status" style="font-size: 26px; color: #5e7c71;">OPEN :: TIME</h1>
 
       <div class="ongoingDetail-imageBox">
         <div class="hours-box">
@@ -60,27 +60,28 @@
         <div class="like-box">
           <i class="fa-heart" 
           th:classappend="${pieceDetail.likeCheck == 1} ? 'fa-solid' : 'fa-regular'" 
-          style="font-size: 30px; margin-right: 15px; cursor: pointer;" 
+          style="font-size: 30px; margin-top: 20px; cursor: pointer;" 
           id="likePiece"></i>
         </div>
 
-        <div class="ongoingdetail2-textBox">
+      <div class="ongoingdetail2-textBox">
+
+        <span th:text="'작가 : ' + (${pieceDetail.artistNickName ?: '닉네임 정보 없음'})"></span>
 
         <!-- <span>오픈일 11/08(금)</span> -->
-        <span id="previewDate" th:text="'프리뷰: ' + (${pieceDetail.previewPeriod ?: '프리뷰 정보 없음'})">
+        <span id="previewDate" th:text="'프리뷰 : ' + (${pieceDetail.previewPeriod ?: '프리뷰 정보 없음'})">
           프리뷰 : 정보 없음
         </span>
 
         <!-- 경매일 -->
-        <span id="auctionDate" th:text="'경매일: ' + (${pieceDetail.auctionDateDisplay ?: '경매일 정보 없음'})">
+        <span id="auctionDate" th:text="'경매일 : ' + (${pieceDetail.auctionDateDisplay ?: '경매일 정보 없음'})">
           경매일 : 정보 없음
         </span>
 
         <div class="button-container">
           <button class="ongoing-list-btn" id="listBtn">목록보기</button>
-          <button class="ongoing-report-btn" id="repoortBtn">신고</button>
+          <button class="ongoing-report-btn" id="reportBtn">신고</button>
         </div>
-
       </div>
 
 
@@ -108,8 +109,9 @@
     let remainingMinutes = /*[[${pieceDetail.remainingMinutes}]]*/ 0; // 남은 분
     let remainingSeconds = /*[[${pieceDetail.remainingSeconds}]]*/ 0; // 남은 초
 
-    const loginCheck = /*[[${session.loginMember != null}]]*/ false;
+    const loginCheck = /*[[${session.memberLogin != null || session.artistLogin != null}]]*/ false;
     const pieceNo = /*[[${pieceDetail.pieceNo}]]*/ 0; // 서버에서 전달된 pieceNo
+
 </script>
 
   <script src="/js/auction/upCommingDetail.js"></script>

@@ -1,4 +1,5 @@
 
+/* *******************  예정경매 상세페이지 ******************* */
 /* 목록으로 가기 */
 const listBtn = document.querySelector("#listBtn");
 
@@ -12,6 +13,11 @@ const likePiece = document.querySelector("#likePiece");
 
 // 좋아요 버튼 클릭
 likePiece.addEventListener("click", e => {
+
+  if (!loginCheck) {
+    alert("로그인이 필요합니다. 로그인 후 이용해 주세요.");
+    location.href = "/member/login";
+  }
 
   // 비동기로 좋아요 요청
   fetch("/auction/like", {
@@ -40,43 +46,88 @@ likePiece.addEventListener("click", e => {
 });
 
 
-document.addEventListener("DOMContentLoaded", () => {
-  const updateCountdown = () => {
-      // 남은 시간이 모두 0이 되었을 때 처리
-      if (remainingHours === 0 && remainingMinutes === 0 && remainingSeconds === 0) {
-          handleCountdownEnd();
-          return;
+
+
+// 남은 시간을 업데이트하는 함수
+function updateCountdown(remainingTime, onCountdownEnd) {
+  const { hours, minutes, seconds } = remainingTime;
+
+  // 남은 시간이 모두 0이 되었을 때 처리
+  if (hours === 0 && minutes === 0 && seconds === 0) {
+      onCountdownEnd(); // 카운트다운 종료 처리
+      return;
+  }
+
+  // 초 감소
+  if (remainingTime.seconds > 0) {
+      remainingTime.seconds--;
+  } else {
+      remainingTime.seconds = 59;
+      if (remainingTime.minutes > 0) {
+          remainingTime.minutes--;
+      } else {
+          remainingTime.minutes = 59;
+          if (remainingTime.hours > 0) {
+              remainingTime.hours--;
+          }
       }
+  }
 
-           // 초 감소
-           if(remainingSeconds > 0) {
-               remainingSeconds--;
-            }else {
-              remainingSeconds = 59;
-              if (remainingMinutes > 0) {
-                  remainingMinutes--;
-              } else {
-                remainingMinutes = 59;
-                if (remainingHours > 0) {
-                    remainingHours--;
-                }
-              }
-         }
+  // DOM 업데이트
+  document.querySelector(".hours-box span").textContent = String(remainingTime.hours).padStart(2, "0");
+  document.querySelector(".minutes-box span").textContent = String(remainingTime.minutes).padStart(2, "0");
+  document.querySelector(".seconds-box span").textContent = String(remainingTime.seconds).padStart(2, "0");
+}
 
-      // console.log(`Remaining Time: ${remainingHours}h ${remainingMinutes}m ${remainingSeconds}s`); // 디버깅용
+// 카운트다운 종료 시 처리
+function handleCountdownEnd() {
+  clearInterval(countdownTimer); // 타이머 종료
+  alert("경매가 시작되었습니다!");
+  location.href = "/auction/main";
+}
 
-      // DOM 업데이트
-      document.querySelector(".hours-box span").textContent = String(remainingHours).padStart(2, "0");
-      document.querySelector(".minutes-box span").textContent = String(remainingMinutes).padStart(2, "0");
-      document.querySelector(".seconds-box span").textContent = String(remainingSeconds).padStart(2, "0");
-  };
+// 초기 실행 함수
+function initializeCountdown(hours, minutes, seconds) {
+  const remainingTime = { hours, minutes, seconds };
 
-  const handleCountdownEnd = () => {
-      clearInterval(countdownTimer); // 타이머 종료
-      alert("경매가 시작되었습니다!");
-      location.href = "/auction/main";
-  };
+  // 1초마다 카운트다운 업데이트
+  const countdownTimer = setInterval(() => {
+      updateCountdown(remainingTime, handleCountdownEnd);
+  }, 1000);
 
-  const countdownTimer = setInterval(updateCountdown, 1000);
-  updateCountdown(); // 초기 실행
+  // 즉시 한 번 실행
+  updateCountdown(remainingTime, handleCountdownEnd);
+}
+
+
+/* 신고하기 버튼 가져오기 */
+const reportBtn = document.querySelector("#reportBtn");
+
+reportBtn.addEventListener("click", () => {
+  const width = 520;
+  const height = 400;
+  const left = (window.screen.width / 2) - (width / 2);
+  const top = (window.screen.height / 2) - (height / 2);
+
+  // pieceNo 값을 URL에 포함시켜 팝업 창에 전달
+  window.open(
+    `/auction/upCommingReport?pieceNo=${pieceNo}`,
+    'reportPopup',
+    `width=${width}, height=${height}, left=${left}, top=${top}, scrollbars=no, location=no, status=no, menubar=no`
+  );
+});
+
+/* *******************  예정경매 상세페이지 ******************* */
+
+
+
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    // 초기화 함수 호출
+    initializeCountdown(remainingHours, remainingMinutes, remainingSeconds);
 });
