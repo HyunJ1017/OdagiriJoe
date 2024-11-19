@@ -136,9 +136,12 @@
 	<!-- 전체 위시리스트 수 조회 -->
 	<select id="getWishListCount" resultType="_int">
 		SELECT COUNT(*)
-		FROM "WISH"
+		FROM "WISH" W
+		LEFT JOIN PIECE P ON (W.PIECE_NO = P.PIECE_NO)
 		WHERE
-			MEMBER_NO = #{memberNo}
+			W.MEMBER_NO = #{memberNo}
+		AND	P.PIECE_TYPE = 2
+		AND P.PIECE_STATUS IN ('A', 'S')
 	</select>
 	
 	<!-- 팔로우 목록 조회 -->

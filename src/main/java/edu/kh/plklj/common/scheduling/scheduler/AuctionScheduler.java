@@ -25,10 +25,15 @@ public class AuctionScheduler {
 		
 		int result3 = service.failAuction();
 		
+		int result4 = service.prisoners();
+		
+		log.info(">> ------------------------------- >>");
+		
 		log.info(">> 새 경매 관리자 실행");
 		log.info(">> 시작된 경매 수 : {} 건", result);
 		log.info(">> 낙찰된 경매 수 : {} 건", result2);
 		log.info(">> 유찰된 경매 수 : {} 건", result3);
+		log.info(">> 줄어든 정지일 수 : {} 건", result4);
 		log.info(">> ------------------------------- <<");
 		
 		

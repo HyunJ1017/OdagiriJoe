@@ -4,6 +4,11 @@ const inquiryClickEvent = () => {
 
   items.forEach((item) => {
     item.addEventListener("click", () => {
+      // 클릭한 아이템의 아이콘을 90도 회전
+      const icon = item.querySelector(".icon");
+
+      icon.classList.toggle("rotate");
+
       const details = item.querySelectorAll(".detail");
 
       details.forEach((detail) => {

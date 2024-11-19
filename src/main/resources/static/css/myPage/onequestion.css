@@ -10,6 +10,7 @@
 .myPage-main>h1{
   color: #5e7c71;
   margin: 30px 0 50px;
+  user-select: none;
 }
 .inquiryInsert{
   display: flex;
@@ -103,6 +104,7 @@
   height: 30px;
 }
 .member-hov{
+  user-select: none;
   border-radius: 8px;
   cursor: pointer;
   display: flex;
@@ -142,6 +144,7 @@
 
 /* 페이지네이션 */
 .pagination *{
+  user-select: none;
   color: black;
   text-decoration: none;
 }
@@ -158,4 +161,13 @@
 }
 .pagination > li > a{
   display: block;
+}
+
+
+/* 글자 방향을 90도 회전 */
+.rotate{
+  margin-left: 20px;
+  display: inline-block; /* 또는 block */
+  transform: rotate(90deg);
+  transform-origin: left top; /* 기준점을 설정할 수 있음 */
 }

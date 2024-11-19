@@ -36,9 +36,6 @@
 		WHERE PIECE_NO = #{pieceNo}
 	</update>
 	
-	
-	
-	
 	<!-- 경매종료 물품중 유찰된 경매풀 조회 -->
 	<select id="serchAuction2" resultType="Integer">
 		SELECT
@@ -67,5 +64,12 @@
 		INSERT INTO PIECE_SELL
 		VALUES(#{pieceNo}, (SELECT HOPE_PRICE FROM PIECE_AUCTION WHERE PIECE_NO = #{pieceNo}))
 	</insert>
+	
+	<!-- 정지회원 정지일 -1 -->
+	<update id="prisoners">
+		UPDATE "MEMBER"
+		SET MEMBER_PENALTY = MEMBER_PENALTY - 1
+		WHERE MEMBER_PENALTY > 1
+	</update>
 		
 </mapper>

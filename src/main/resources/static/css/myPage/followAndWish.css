@@ -13,6 +13,7 @@ body{
   align-items: center;
 }
 .myPage-main>h1{
+  user-select: none;
   color: #5e7c71;
   margin-bottom: 50px;
 }
@@ -36,7 +37,7 @@ body{
 }
 .myPage-main>.content-section>section>.content-div{
   align-self: center;
-  width: 100%;
+  width: 86%;
   margin: 20px;
   border: 1px solid #80808036;
   border-radius: 10px;
@@ -54,14 +55,14 @@ body{
 .image-container{
   padding: 10px; 
   position: relative;
-  min-width: 202px;
-  min-height: 274px;
+  min-width: 182px;
+  min-height: 222px;
   border: 1px solid #80808030;
 }
 .loader { /* 이미지 로딩전까지 보여줄 로딩이미지 */
   position: absolute;
-  width: 180px;
-  height: 252px;
+  width: 160px;
+  height: 200px;
   top: 10;
   right: 10;
   background: url('/images/loading.gif') center center no-repeat;
@@ -69,8 +70,8 @@ body{
 }
 .content-img{ /* 로딩할 이미지 */
   display: none; /* 처음에는 보이지 않게 */
-  width: 180px; /* 고정 가로 크기 */
-  height: 252px; /* 고정 세로 크기 */
+  width: 160px; /* 고정 가로 크기 */
+  height: 200px; /* 고정 세로 크기 */
   object-fit: cover; /* 비율을 유지하며 크기에 맞게 잘라냄 */
 }
 #wishList-section>section>.content-div>div:first-child{
@@ -180,4 +181,5 @@ body{
   align-items: center; /* 세로 중앙 정렬 */
   justify-content: center; /* 가로 중앙 정렬 */
   padding: 5px; /* 패딩 추가하여 클릭 영역 확대 */
+  user-select: none;
 }

@@ -24,6 +24,7 @@ public class Member {
 	private String memberPhone; // 회원 전화번호
 	private String artistReg; // 작가 회원 구분
 	private String memberDelFl; // 회원 탈퇴 상태
+	private int memberPenalty; // 회원 정지 상태
 	
 	// 작가
 	private String artistProfile; // 작가 프로필 사진
