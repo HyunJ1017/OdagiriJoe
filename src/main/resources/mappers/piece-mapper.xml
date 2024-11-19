@@ -14,7 +14,7 @@
         AND   PIECE_TYPE = 1
         ORDER BY 
         	<choose>
-        		<when test="sort == 'name'">A.ARTIST_NICKNAME</when>
+        		<when test="sort == 'name'">P.PIECE_TITLE</when>
         		<when test="sort == 'price'">S.SELL_PRICE</when>
         		<otherwise>P.PIECE_NO</otherwise>
         	</choose>
@@ -26,13 +26,20 @@
     <select id="selectCompletedPiece" resultType="Piece">
 		SELECT 
         	P.PIECE_NO, PIECE_TITLE, SIZE_X, SIZE_Y,
-        	PIECE_STATUS, SELL_PRICE, ARTIST_NICKNAME
+        	PIECE_STATUS, SELL_PRICE, ARTIST_NICKNAME, P.PIECE_RENAME
         FROM PIECE P
         LEFT JOIN PIECE_SELL S ON (P.PIECE_NO = S.PIECE_NO)
         LEFT JOIN ARTIST A ON (P.MEMBER_NO = A.MEMBER_NO)
         WHERE PIECE_STATUS = 'F'
         AND   PIECE_TYPE = 1
-        ORDER BY P.PIECE_NO DESC
+        ORDER BY 
+        	<choose>
+        		<when test="sort == 'name'">P.PIECE_TITLE</when>
+        		<when test="sort == 'price'">S.SELL_PRICE</when>
+        		<otherwise>P.PIECE_NO</otherwise>
+        	</choose>
+        	<if test="order == 'asc'">ASC</if>
+        	<if test="order == 'desc'">DESC</if>
     </select>
 
     <!-- 판매 작품 전체 개수 조회 쿼리 -->
@@ -149,7 +156,15 @@
 		SELECT
 			P.PIECE_NO, P.PIECE_TITLE, P.SIZE_X, P.SIZE_Y,
 			P.PIECE_DETAIL, S.SELL_PRICE, A.ARTIST_NICKNAME,
-			PC.PIECE_CATEGORY_NAME, P.PIECE_RENAME
+			PC.PIECE_CATEGORY_NAME, P.PIECE_RENAME,
+			
+			(SELECT COUNT(*) FROM WISH WHERE PIECE_NO = P.PIECE_NO) AS WISH_COUNT,
+			
+			(SELECT COUNT(*)
+				FROM WISH
+				WHERE PIECE_NO = #{pieceNo}
+				AND   MEMBER_NO = #{memberNo}) AS WISH_CHECK
+			
 		FROM PIECE P
 		JOIN PIECE_CATEGORY PC ON (P.PIECE_CATEGORY_NO = PC.PIECE_CATEGORY_NO)
 		LEFT JOIN PIECE_SELL S ON (P.PIECE_NO = S.PIECE_NO)
@@ -162,25 +177,24 @@
 		SELECT COUNT(*)
 		FROM WISH
 		WHERE PIECE_NO = #{pieceNo}
-		AND   MEMBER_NO = 2
+		AND   MEMBER_NO = #{memberNo}
 	</select>
 	
 	<insert id="insertOnlineWish">
 		INSERT INTO WISH
-		VALUES(2, #{pieceNo})
+		VALUES(#{memberNo}, #{pieceNo})
 	</insert>
 	
 	<insert id="deleteOnlineWish">
 		DELETE FROM WISH
 		WHERE PIECE_NO = #{pieceNo}
-		AND   MEMBER_NO = 2
+		AND   MEMBER_NO = #{memberNo}
 	</insert>
 	
 	<select id="getWishCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM WISH
 		WHERE PIECE_NO = #{pieceNo}
-		AND   MEMBER_NO = 2
 	</select>
 	
 

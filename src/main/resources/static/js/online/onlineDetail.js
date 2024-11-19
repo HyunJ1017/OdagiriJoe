@@ -4,10 +4,10 @@ const reportBtn = document.querySelector("#online-reportBtn");
 /* 신고하기 버튼 클릭 시 신고 팝업 창 열기 */
 reportBtn.addEventListener("click", () => {
 
-  // if(!loginCheck) {
-  //   alert("로그인 후 사용할 수 있습니다.");
-  //   return;
-  // } // 로그인 하지 않으면 신고하기 불가
+  if(!loginCheck) {
+    alert("로그인 후 사용할 수 있습니다.");
+    return;
+  } // 로그인 하지 않으면 신고하기 불가
 
   // peiceNo를 URL 파라미터로 추가해서 팝업 창으로 전달
   const width = 520;
@@ -31,10 +31,10 @@ const purchaseBtn = document.querySelector("#purchaseBtn");
 /* 구매하기 버튼 클릭 시 구매 팝업 창 열기 */
 purchaseBtn.addEventListener("click", () => {
   
-  // if(!loginCheck) {
-  //   alert("로그인 후 사용할 수 있습니다.");
-  //   return;
-  // } // 로그인 하지 않으면 구매하기 불가
+  if(!loginCheck) {
+    alert("로그인 후 사용할 수 있습니다.");
+    return;
+  } // 로그인 하지 않으면 구매하기 불가
 
   // peiceNo를 URL 파라미터로 추가해서 팝업 창으로 전달
   const width = 520;
@@ -56,16 +56,16 @@ const wishList = document.querySelector("#online-wishList");
 wishList.addEventListener("click", e => {
 
   // 로그인 여부
-  // if(!loginCheck) {
-  //   alert("로그인 후 사용할 수 있습니다.");
-  //   return;
-  // }
+  if(!loginCheck) {
+    alert("로그인 후 사용할 수 있습니다.");
+    return;
+  }
 
   // 비동기로 좋아요 요청
   fetch("/piece/wish", {
     method : "POST",
     headers : {"Content-Type" : "application/json"},
-    body : pieceNo
+    body : pieceNo 
   })
   .then(response => {
     if(response.ok) return response.json();

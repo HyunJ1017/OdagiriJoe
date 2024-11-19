@@ -62,4 +62,6 @@ public class Piece {
 	private int wishCheck; // 위시 체크 여부(1== 누른적 있음)
 	
 	
+	
+	
 }

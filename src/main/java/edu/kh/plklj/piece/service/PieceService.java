@@ -17,7 +17,7 @@ public interface PieceService {
 	//판매 작품 목록 조회
 	List<Piece> getSalesPieces(int cp, int salesListCount, Pagination salesPagination, String sort, String order);
 
-	List<Piece> getCompletePieces(int cp, int completeListCount, Pagination complPagination);
+	List<Piece> getCompletePieces(int cp, int completeListCount, Pagination complPagination, String sort, String order);
 
 
 	int pieceInsert(Piece piece);
@@ -35,10 +35,13 @@ public interface PieceService {
 
 	
 	// 작품 상세 조회
-	Piece getPieceDetail(int pieceNo);
-
+	Piece getPieceDetail(Map<String, Integer> map);
+	
 	// 위시 리스트 체크, 해제
-	Map<String, Object> onlineWish(int pieceNo);
+	Map<String, Object> onlineWish(int pieceNo, int memberNo);
+
+
+
 
 	
 

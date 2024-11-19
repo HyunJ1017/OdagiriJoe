@@ -1,6 +1,7 @@
 package edu.kh.plklj.piece.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -18,7 +19,7 @@ public interface PieceMapper {
 
 	int countCompletedPiece();
 
-	List<Piece> selectCompletedPiece(RowBounds rowBounds);
+	List<Piece> selectCompletedPiece(RowBounds rowBounds, @Param("sort") String sort, @Param("order") String order);
 
 	int pieceInsert(Piece piece);
 
@@ -36,15 +37,19 @@ public interface PieceMapper {
 
 	int deleteTemp(Piece piece);
   
-	Piece getPieceDetail(int pieceNo);
+	Piece getPieceDetail(Map<String, Integer> map);
 
-	int checkOnlineWish(int pieceNo);
+	int checkOnlineWish(@Param("pieceNo") int pieceNo,@Param("memberNo")  int memberNo);
 
-	int insertOnlineWish(int pieceNo);
+	int insertOnlineWish(@Param("pieceNo") int pieceNo,@Param("memberNo")  int memberNo);
 
-	int deleteOnlineWish(int pieceNo);
+	int deleteOnlineWish(@Param("pieceNo") int pieceNo,@Param("memberNo")  int memberNo);
 
 	int getWishCount(int pieceNo);
+
+
+
+
 	
 	
 
