@@ -1,6 +1,3 @@
-.myPage-main *{
-  color: black;
-}
 #myPage-main{
   display: flex;
   flex-direction: column;
@@ -86,6 +83,7 @@ margin: 0 10px 0;
   margin: 15px;
 }
 .member-hov{
+  user-select: none;
   margin: 2px;
   cursor: pointer;
   display: flex;

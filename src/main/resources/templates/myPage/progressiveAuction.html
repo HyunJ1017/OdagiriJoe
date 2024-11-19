@@ -25,8 +25,8 @@
           <div>
             <h3 th:text="*{pieceTitle}">무제</h3>
             <h4 th:text="*{artistNickname}">작가명</h4>
-            <p th:text="|경매액 *{finalPrice}|">경매액 ₩50,000,000</p>
-            <p th:text="*|{sizeX} x *{sizeY}|">15 x 30</p>
+            <p th:text="|경매액 \₩*{finalPrice}|">경매액 ₩50,000,000</p>
+            <p th:text="|*{sizeX} x *{sizeY}|">15 x 30</p>
             <div class="piece-payment">입금하기</div>
           </div>
         </div>

@@ -8,5 +8,7 @@ public interface ScheduleService {
 
 	int failAuction();
 
+	int prisoners();
+
 
 }

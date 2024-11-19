@@ -45,4 +45,9 @@ public class FireBaseConfig {
         return StorageClient.getInstance(firebaseApp()).bucket();
     }
     
+    @Bean
+    public StorageClient storage() throws IOException {
+    	return StorageClient.getInstance();
+    }
+    
 }
