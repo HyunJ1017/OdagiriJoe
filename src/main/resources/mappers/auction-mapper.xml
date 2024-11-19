@@ -3,26 +3,92 @@
 <mapper namespace = "edu.kh.plklj.auction.mapper.AuctionMapper">
 	
 	<select id="upCommingList" resultType="Piece">
-		  SELECT
-	        *
+		 SELECT
+	        P.PIECE_NO,
+	        P.PIECE_TITLE,
+	        P.PIECE_RENAME,
+	        P.REG_DATE,
+	        PA.START_DATE
 	    FROM
-	        "PIECE"
+	        "PIECE" P
+	    JOIN
+	        "PIECE_AUCTION" PA
+	    ON
+	        P.PIECE_NO = PA.PIECE_NO
 	    WHERE
-	        PIECE_STATUS = 'A'
+	        P.PIECE_STATUS = 'A'
+	        AND
+	        P.PIECE_TYPE = 2
 	    ORDER BY
-	        REG_DATE ASC
-	        
+	        P.REG_DATE ASC 
 	    FETCH FIRST 3 ROWS ONLY
-    </select>
+	</select>
+	
+	
+	<select id="ongoingDetail" resultType="Piece">
+	    SELECT
+	        P.PIECE_NO,
+	        P.PIECE_TITLE,
+	        P.PIECE_RENAME,
+	        PA.START_DATE,
+	        (SELECT COUNT(*) FROM "WISH" WHERE PIECE_NO = #{pieceNo} AND MEMBER_NO = #{loginNo}) AS LIKE_CHECK
+	    FROM
+	        "PIECE" P
+	    JOIN
+	        "PIECE_AUCTION" PA
+	    ON
+	        P.PIECE_NO = PA.PIECE_NO
+	    WHERE
+	        P.PIECE_NO = #{pieceNo}
+	</select>
+	
+	
+	
+	<select id="checkPieceLike" resultType="_int">
+		SELECT 
+			COUNT(*)
+   		FROM 
+   			"WISH"
+   		WHERE 
+   			PIECE_NO  = #{pieceNo}
+ 			AND
+   			MEMBER_NO = #{loginNo}
+	</select>
+	
+	
+	
+	<insert id="insertPieceLike">
+		INSERT INTO "WISH"
+   		VALUES( #{loginNo}, #{pieceNo})
+	</insert>
+
+	
+	<insert id="deletePieceLike">
+		DELETE FROM "WISH"
+   		WHERE 
+   			PIECE_NO  = #{pieceNo}
+   			AND  
+   			MEMBER_NO = #{loginNo}
+	</insert>
+	
+	<select id="getLikeCount" resultType="_int">
+		SELECT COUNT(*)
+   		FROM "WISH"
+   		WHERE
+   		 PIECE_NO = #{pieceNo}
+	</select>
+	
+	<select id="getLikeCheck" resultType="_int">
+		SELECT 
+			COUNT(*)
+   		FROM 
+   			"WISH"
+   		WHERE 
+   			PIECE_NO  = #{pieceNo}
+ 			AND
+   			MEMBER_NO = #{loginNo}
+	</select>
     
     
-    <select id="ongoingDetail">
-    	SELECT
-    		*
-    	FROM
-    		"PIECE"
-    	WHERE
-    		PIECE_NO = #{pieceNo}
-    </select>
     
 </mapper>

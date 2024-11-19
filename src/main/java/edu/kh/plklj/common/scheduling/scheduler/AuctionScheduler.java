@@ -1,7 +1,5 @@
 package edu.kh.plklj.common.scheduling.scheduler;
 
-import java.util.List;
-
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -30,8 +28,8 @@ public class AuctionScheduler {
 		log.info(">> 낙찰된 경매 수 : {} 건", result2);
 		log.info(">> 유찰된 경매 수 : {} 건", result3);
 		log.info(">> ------------------------------- <<");
-		
-		
 	}
+	
+		
 
 }

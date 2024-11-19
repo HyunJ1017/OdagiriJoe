@@ -53,73 +53,105 @@ public class AuctionServiceImpl implements AuctionService {
 	
   // 작품 상세 조회 (날짜 계산 포함)
   @Override
-  public Map<String, Object> ongoingDetail(int pieceNo) {
-      // DB에서 단일 작품 상세 조회
-      Piece piece = mapper.ongoingDetail(pieceNo);
+  public Map<String, Object> ongoingDetail(int pieceNo, int loginNo) {
+  	
+  	Piece piece = mapper.ongoingDetail(pieceNo, loginNo);
+    Map<String, Object> pieceData = calculatePieceData(piece);
 
-      // 공통 날짜 계산 메서드 호출
-      return calculatePieceData(piece);
+    // 추가로 likeCheck를 포함
+    int likeCheck = mapper.getLikeCheck(pieceNo, loginNo);
+    pieceData.put("likeCheck", likeCheck);
+    
+    return pieceData;
   }
+  
+  
+  
+  @Override
+  public Map<String, Object> pieceLike(int pieceNo, int loginNo) {
+  	
+  	// 1) 좋아요 누른적 있나 검사
+		int result = mapper.checkPieceLike(pieceNo, loginNo);
+		
+		// result == 1 == 누른 적 있음
+		// result == 0 == 누른 적 없음
+		
+		// 2. 좋아요 여부에 따라 INSERT/DELETE Mapper 호출
+		int result2 = 0;
+		if(result == 0) {
+			result2 = mapper.insertPieceLike(pieceNo, loginNo);
+		} else {
+			result2 = mapper.deletePieceLike(pieceNo, loginNo);
+		}
+		
+		// 3. INSERT, DELETE 성공 시 해당 게시글의 좋아요 개수 조회
+		int count = 0;
+		if(result2 > 0) {
+			count = mapper.getLikeCount(pieceNo);
+		} else {
+			return null; // INSERT, DELETE 실패 시
+		}
+		
+		// 4) 좋아요 결과를 Map에 저장해서 반환
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("count", count); // 좋아요 개수
+		
+		if(result == 0 ) map.put("check", "insert");
+		else             map.put("check", "delete");
+		
+		
+		return map;
+  }
+  
+  
 	
 	
-	
-	
-	
-	
-	//공통 날짜 계산 메서드
   private Map<String, Object> calculatePieceData(Piece piece) {
-      Map<String, Object> pieceData = new HashMap<>();
+    Map<String, Object> pieceData = new HashMap<>();
+    
+    
+    pieceData.put("pieceNo", piece.getPieceNo());
+    pieceData.put("pieceTitle", piece.getPieceTitle());
+    pieceData.put("pieceRename", piece.getPieceRename());
 
-      pieceData.put("pieceNo", piece.getPieceNo());
-      pieceData.put("pieceTitle", piece.getPieceTitle());
-      pieceData.put("pieceRename", piece.getPieceRename());
+    
+    // LocalDateTime startDate = LocalDateTime.now().plusSeconds(20); // 테스트를 위해 20초 뒤로 설정
+    
+    // START_DATE(String) → LocalDateTime 변환
+    LocalDateTime startDate = LocalDateTime.parse(piece.getStartDate(), FORMATTER);
+    
 
-      
-      // regDate(String) → LocalDateTime 변환
-      LocalDateTime registerDate = LocalDateTime.parse(piece.getRegDate(), FORMATTER);
+    // 프리뷰 시작일 계산: START_DATE 기준 7일 전
+    LocalDateTime previewStart = startDate.minusDays(7);
 
-      // 프리뷰 시작 및 종료
-      LocalDateTime previewStart = registerDate.plusDays(7);
-      LocalDateTime previewEnd = registerDate.plusDays(17);
+    // 현재 시간
+    LocalDateTime now = LocalDateTime.now();
 
-      
-      // 현재 시간
-      LocalDateTime now = LocalDateTime.now();
-      
-      
-    	// 경매일 설정: 현재 날짜 기준으로 다음 날 14:00
-      // LocalDateTime auctionDate = now.plusDays(1).withHour(14).withMinute(0).withSecond(0).withNano(0);
+    // 남은 시간 계산
+    long totalSeconds = java.time.Duration.between(now, startDate).getSeconds();
+    long hours = totalSeconds / 3600;
+    long minutes = (totalSeconds % 3600) / 60;
+    long seconds = totalSeconds % 60;
+    
+    
 
-      // 20초 테스트 설정
-      // 경매일 설정: 고정된 값으로 현재 시간 기준 20초 뒤
-     LocalDateTime auctionDate = LocalDateTime.now().plusSeconds(20);
-      
-      // 남은 시간 계산
-      long totalSeconds = java.time.Duration.between(now, auctionDate).getSeconds();
-      long hours = totalSeconds / 3600; // 남은 총 시간
-      long minutes = (totalSeconds % 3600) / 60; // 남은 분
-      long seconds = totalSeconds % 60; // 남은 초
+    // ISO 8601 형식으로 저장
+    piece.setStartDate(startDate.toLocalDate().toString() + "T" + startDate.toLocalTime().withNano(0).toString());
+    pieceData.put("auctionDate", piece.getStartDate());
 
-      // ISO 8601 형식으로 변환하여 저장
-      piece.setStartDate(auctionDate.toLocalDate().toString() + "T" + auctionDate.toLocalTime().withNano(0).toString());
-      pieceData.put("auctionDate", piece.getStartDate());
-      
-      System.out.println(piece.getStartDate());
+    // 사용자 친화적인 경매일 표현
+    pieceData.put("auctionDateDisplay", startDate.format(DISPLAY_FORMATTER));
 
-      // 사용자 친화적인 경매일 표현
-      pieceData.put("auctionDateDisplay", auctionDate.format(DISPLAY_FORMATTER) + " 14:00");
+    // 프리뷰 기간 저장
+    pieceData.put("previewPeriod", previewStart.format(DISPLAY_FORMATTER) + " ~ " + startDate.format(DISPLAY_FORMATTER));
 
-      // 남은 시간 표현
-      pieceData.put("remainingHours", hours);
-      pieceData.put("remainingMinutes", minutes);
-      pieceData.put("remainingSeconds", seconds);
+    // 남은 시간 표현
+    pieceData.put("remainingHours", hours);
+    pieceData.put("remainingMinutes", minutes);
+    pieceData.put("remainingSeconds", seconds);
 
-      // 프리뷰 기간 저장
-      pieceData.put("previewPeriod",previewStart.format(DISPLAY_FORMATTER) + " ~ " + previewEnd.format(DISPLAY_FORMATTER));
-      															
-
-
-      return pieceData;
-  }
+    return pieceData;
+}
 
 }
