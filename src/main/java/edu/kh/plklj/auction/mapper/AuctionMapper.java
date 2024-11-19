@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import edu.kh.plklj.piece.dto.Piece;
+import edu.kh.plklj.report.dto.Report;
 
 @Mapper
 public interface AuctionMapper {
@@ -29,6 +30,9 @@ public interface AuctionMapper {
 	int getLikeCount(int pieceNo);
 
 	int getLikeCheck(@Param("pieceNo") int pieceNo, @Param("loginNo") int loginNo);
+
+	// 경매 신고 처리
+	int reportInsert(Report report);
 	
 	
 

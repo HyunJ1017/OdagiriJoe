@@ -123,7 +123,7 @@
 
 .ongoingdetail2-textBox {
   display: flex;
-  margin-top: 20px;
+  margin-top: 8px;
   flex-direction: column;
   font-size: 21px;
   gap: 15px;
@@ -180,13 +180,39 @@
 }
 
 
-
 /* dummy */
 .dummy {
   width: 100%;
   height: 630px;
 }
 
+
+
+/* 하트의 기본 스타일 */
 #likePiece {
-  color: rgb(255, 81, 81);
+  color: rgb(200, 200, 200); /* 기본 색상 */
+  font-size: 30px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease; /* 부드러운 전환 효과 */
+}
+
+/* 하트가 활성화(좋아요 상태) 되었을 때 */
+#likePiece.fa-solid {
+  color: rgb(255, 81, 81); /* 좋아요 시 색상 */
+  transform: scale(1.2); /* 약간 커지도록 */
+  animation: heartBeat 0.4s ease; /* 클릭 시 애니메이션 */
+}
+
+/* 클릭 시 하트가 커졌다가 작아지는 애니메이션 */
+@keyframes heartBeat {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

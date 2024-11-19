@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.plklj.auction.mapper.AuctionMapper;
 import edu.kh.plklj.piece.dto.Piece;
+import edu.kh.plklj.report.dto.Report;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -105,13 +106,21 @@ public class AuctionServiceImpl implements AuctionService {
   }
   
   
+  // 경매예정 신고 처리
+  @Override
+  public int reportInsert(Report report) {
+  	return mapper.reportInsert(report);
+  }
+  
+  
 	
 	
   private Map<String, Object> calculatePieceData(Piece piece) {
     Map<String, Object> pieceData = new HashMap<>();
     
     
-    pieceData.put("pieceNo", piece.getPieceNo());
+    pieceData.put("pieceNo", piece.getPieceNo()); 
+    pieceData.put("artistNickName", piece.getArtistNickname()); 
     pieceData.put("pieceTitle", piece.getPieceTitle());
     pieceData.put("pieceRename", piece.getPieceRename());
 
@@ -120,6 +129,9 @@ public class AuctionServiceImpl implements AuctionService {
     
     // START_DATE(String) → LocalDateTime 변환
     LocalDateTime startDate = LocalDateTime.parse(piece.getStartDate(), FORMATTER);
+    
+    // START_DATE를 오전 10시로 변경
+    startDate = startDate.withHour(10).withMinute(0).withSecond(0).withNano(0);
     
 
     // 프리뷰 시작일 계산: START_DATE 기준 7일 전
