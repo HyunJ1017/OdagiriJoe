@@ -91,4 +91,35 @@ public class ManageServiceImpl implements ManageService {
 		return map;
 	}
 
+	
+	
+	// 회원 정지
+	@Override
+	public int suspendMember(int memberNo) {
+	
+		return mapper.suspendMember(memberNo);
+	}
+
+
+	// 회원 탈퇴
+	@Override
+	public int withdrawMember(int memberNo) {
+		
+		return mapper.withdrawMember(memberNo);
+	}
+
+	// 작가 정지
+	@Override
+	public int suspendAritist(int memberNo) {
+		
+		return mapper.suspendAritist(memberNo);
+	}
+
+	// 작가 탈퇴
+	@Override
+	public int withdrawArtist(int memberNo) {
+		
+		return mapper.withdrawArtist(memberNo);
+	}
+
 }

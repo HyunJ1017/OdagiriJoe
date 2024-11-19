@@ -1,3 +1,7 @@
+let page1 = 1;
+let page2 = 1;
+let page3 = 1;
+let page4 = 1;
 
 function showTab(tabId, button) {
   // 모든 탭 버튼에서 'active' 클래스 제거
@@ -63,6 +67,9 @@ document.querySelectorAll(".inquiry-section .inquiry-row").forEach(row => {
     }
   });
 });
+
+
+
 
 // /* /* 페이지네이션 */
 // // 공통 페이지네이션 함수
@@ -250,16 +257,17 @@ function displayArtistList(contents) {
   contents.forEach(content => {
     const artistItem = document.createElement('div');
     artistItem.classList.add('artist-item');
+    artistItem.dataset.memberNo= content.memberNo;
     artistItem.innerHTML = `
       <img src="/images/profile/profile1.jpg" alt="작가 이미지">
       <div class="artist-info">
         <h3>${content.artistNickname} | 작가</h3>
-        <p>경매 금액: ₩${content.finalPrice?.toLocaleString() || '0'}</p>
+        <p>경매 금액: ₩${content.endPrice?.toLocaleString() || '0'}</p>
         <p>판매 금액: ₩${content.sellPrice?.toLocaleString() || '0'}</p>
       </div>
         <div class="artist-actions">
-              <button class="btn suspend-btn">정지</button>
-              <button class="btn withdraw-btn">탈퇴</button>
+              <button class="btn artist-suspend-btn">정지</button>
+              <button class="btn artist-withdraw-btn">탈퇴</button>
             </div>`;
     artistList.appendChild(artistItem);
   });
@@ -276,13 +284,14 @@ function displayMemberList(contents) {
     contents.forEach(content => {
     const memberItem = document.createElement('div');
     memberItem.classList.add('member-summary');
+    memberItem.dataset.memberNo = content.memberNo;
     memberItem.innerHTML = `
     <div class="summary-item">
         <h3>${content.memberName} | 회원</h3>
         <p>경매 금액: ₩${content.endPrice?.toLocaleString() || '0'}</p>
         <div class="summary-actions">
-          <button class="btn suspend-btn">정지</button>
-          <button class="btn withdraw-btn">탈퇴</button>
+          <button class="btn member-suspend-btn">정지</button>
+          <button class="btn member-withdraw-btn">탈퇴</button>
         </div>  
       </div>`;  
       memberList.appendChild(memberItem);
@@ -302,7 +311,7 @@ function displayReportContents(contents) {
       <div class="content-info">
           <h2>${content.artistNickname}</h2>
           <p>작품명: ${content.pieceName}</p>
-          <p>낙찰가: ₩${content.auctionPrice.toLocaleString()}</p>
+          <p>낙찰가: ₩${content.auctionPrice}</p>
           <p>크기: ${content.pieceSize}</p>
           <div class="buttons">
               <button class="view-button">상세보기</button>
@@ -377,18 +386,23 @@ function getList(code, page) {
       console.log("응답데이터:", result.pg);
 
       if (code === 1) {
+        page1 = page;
         displayArtistList(result.resultList); // 아티스트 리스트 렌더링
         setupPagination(result.pg, code, "paginationBoxArtist"); // 아티스트 페이지네이션 설정
       } else if (code === 2) {
+        page2 = page;
         displayMemberList(result.resultList); // 회원 목록 리스트 렌더링
         setupPagination(result.pg, code, "paginationBoxMember"); // 회원 목록 페이지네이션 설정
       } else if (code === 3) {
+        page3 = page;
         displayReportContents(result.resultList); // 콘텐츠 리스트 렌더링
         setupPagination(result.pg, code, "paginationBoxContent"); // 콘텐츠 페이지네이션 설정
       } else if (code === 4) {
+        page4 = page;
         displayRequestContents(result.resultList); // 승인요청내역 리스트 렌더링
         setupPagination(result.pg, code, "paginationBoxRequest"); // 승인요청내역 페이지네이션 설정
       } else {
+        console.log("기타 코드값을 불러와 실행됨");
         console.error("알 수 없는 코드:", code);
       }  
     })  

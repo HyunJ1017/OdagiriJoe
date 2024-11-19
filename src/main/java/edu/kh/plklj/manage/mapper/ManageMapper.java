@@ -28,6 +28,18 @@ public interface ManageMapper {
 	int getRequestListCount();
 	List<Map<String, Object>> getRequestList(RowBounds requestBounds);
 	
+	// 회원 정지
+	int suspendMember(int memberNo);
+	
+	// 회원 탈퇴
+	int withdrawMember(int memberNo);
+	
+	// 작가 정지
+	int suspendAritist(int memberNo);
+	
+	// 작가 탈퇴
+	int withdrawArtist(int memberNo);
+	
 
 
 
