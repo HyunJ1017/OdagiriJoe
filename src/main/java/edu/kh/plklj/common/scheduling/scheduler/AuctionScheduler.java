@@ -37,7 +37,7 @@ public class AuctionScheduler {
 	}
 	
 	// 00시마다 실행 할 스캐줄러
-	@Scheduled(cron = "0 0 10 * * *")
+	@Scheduled(cron = "0 1 10 * * *")
 	public void penaltyScheduling() {
 		
 		int result4 = service.prisoners();
@@ -49,7 +49,7 @@ public class AuctionScheduler {
 	}
 	
 	// 00시마다 실행 할 스캐줄러
-	@Scheduled(cron = "0 0 10 * * *")
+	@Scheduled(cron = "0 2 10 * * *")
 	public void dataServerScheduling() {
 		
 		int result = bucketService.deleteImage();

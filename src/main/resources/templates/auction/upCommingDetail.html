@@ -58,7 +58,10 @@
         <img th:src="@{${pieceDetail.pieceRename} ?: '/images/default.jpg'}" alt="경매 이미지">
 
         <div class="like-box">
-          <i class="fa-regular fa-heart" style="font-size: 30px; margin-right: 15px; cursor: pointer;"></i>
+          <i class="fa-heart" 
+          th:classappend="${pieceDetail.likeCheck == 1} ? 'fa-solid' : 'fa-regular'" 
+          style="font-size: 30px; margin-right: 15px; cursor: pointer;" 
+          id="likePiece"></i>
         </div>
 
         <div class="ongoingdetail2-textBox">
@@ -79,6 +82,7 @@
         </div>
 
       </div>
+
 
     </section>
 
@@ -103,6 +107,9 @@
     let remainingHours = /*[[${pieceDetail.remainingHours}]]*/ 0; // 서버에서 전달된 총 남은 시간
     let remainingMinutes = /*[[${pieceDetail.remainingMinutes}]]*/ 0; // 남은 분
     let remainingSeconds = /*[[${pieceDetail.remainingSeconds}]]*/ 0; // 남은 초
+
+    const loginCheck = /*[[${session.loginMember != null}]]*/ false;
+    const pieceNo = /*[[${pieceDetail.pieceNo}]]*/ 0; // 서버에서 전달된 pieceNo
 </script>
 
   <script src="/js/auction/upCommingDetail.js"></script>
