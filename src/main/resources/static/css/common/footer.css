@@ -34,7 +34,7 @@
   position: fixed;
   left: 0;
   top: 300px;
-  margin-left: 8px;
+  margin-left: 17px;
   width: 36px;
   max-height: 500px;
   display: flex;
@@ -50,5 +50,6 @@
 }
 #leftSide-barBox>.currentHeight{
   width: 100%;
-  border-bottom: 2px solid #0e6948;
+  border-bottom: 3px solid #0e6948;
+  border-radius: 3px;
 }

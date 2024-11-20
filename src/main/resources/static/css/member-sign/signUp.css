@@ -57,6 +57,9 @@
 
   width: 820px;
 }
+#member-main>.signUp-sec>*{
+  margin: 0 0 5px;
+}
 #member-main>.signUp-sec>label{
   height: 32px;
 }
