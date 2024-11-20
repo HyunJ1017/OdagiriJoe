@@ -82,16 +82,10 @@ h3 {
   height: 10%;
   width: 12%;
   cursor: pointer;
-  background-color: #5e7c71;
-  color: white;
-  padding: 0.5%;
-  border: 1px solid #ffffff;
-}
-
-.sort-select:hover {
-  border: 1px solid #5e7c71;
-  color: #5e7c71;
   background-color: white;
+  color: #414141;
+  padding: 0.5%;
+  border: 1px solid #5e7c71;
 }
 
 option {
@@ -173,6 +167,11 @@ option {
 }
 
 .size-detail {
+  font-size: 14px;
+  color: #414141;
+}
+
+.regdate-detail {
   font-size: 14px;
   color: #414141;
 }
