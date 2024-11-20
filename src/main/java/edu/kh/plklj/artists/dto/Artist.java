@@ -24,4 +24,25 @@ public class Artist {
 	private int    bankNo; // 환전 은행 번호
 	private String artistReg; // 작가 승인 여부
 	
+	// 작가 이름
+	private String memberName;
+	
+	// 경력 사항
+	private String workDetail;
+	
+  //작품
+	private int pieceNo; // 작품 번호
+	private String pieceRename; // 작품 사진
+	private String pieceTitle; // 작품 제목
+	private String pieceDetail; // 작품 설명
+	private double sizeX; // 사이즈 
+	private double sizeY; // 사이즈
+	private String regDate; // 등록일
+	private int pieceType; // 판매 종류(1. 즉시판매 2. 경매) 
+	private String pieceStatus; // 작품 상태(N 판매 등록, T 임시저장, B 블라인드, A 경매 대기, S 경매 진행중, D 입금 대기, F 입금(판매) 완료)
+	private int pieceCategoryNo; // 카테고리 번호
+	
+//판매작품
+	private String sellPrice; // 판매 가격
+	
 }

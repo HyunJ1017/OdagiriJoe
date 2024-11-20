@@ -71,7 +71,7 @@
   <th:block th:replace= "~{/common/footer.html}"></th:block>
 
   <script th:inline="javascript">
-    let loginCheck = /*[[${session.memberLogin != null}]]*/ false;
+    let loginCheck = /*[[${session.memberLogin != null || session.artistLogin != null}]]*/ false;
     let pieceNo = /*[[${piece.pieceNo}]]*/ null;
   </script>
 

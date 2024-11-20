@@ -7,7 +7,7 @@
 		INSERT INTO REPORT
 		VALUES(
 			SEQ_REPORT_NO.NEXTVAL,
-			14,
+			#{memberNo},
 			#{pieceNo},
 			#{reportType},
 			#{reportContent},
