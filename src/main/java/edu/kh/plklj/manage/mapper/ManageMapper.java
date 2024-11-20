@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
+import edu.kh.plklj.manage.dto.Manage;
+
 import java.util.Map;
 
 @Mapper
@@ -39,6 +41,20 @@ public interface ManageMapper {
 	
 	// 작가 탈퇴
 	int withdrawArtist(int memberNo);
+	
+	// 콘텐츠 관리 상세보기
+	List<Map<String, Object>> getContentsDetailList();
+	
+	// 상세보기 신고목록 불러오기
+	List<Manage> contentsDetailList(int reportNo);
+	
+	// 신고목록 삭제
+	void deleteReportList(int reportNo);
+	
+	// 게시글 삭제
+	void deletePieceList(int pieceNo);
+	
+
 	
 
 

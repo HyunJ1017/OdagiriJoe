@@ -153,4 +153,22 @@
   	AND A.ARTIST_REG = 'Y')
 	</update>
 	
+	<!--콘텐츠 관리 상세보기  -->
+ 	<select id="contentsDetailList">
+	SELECT REPORT_NO, REPORT_TYPE, REPORT_CONTENT
+	FROM REPORT
+	WHERE REPORT_NO = #{reportNo}
+	</select>  
+	
+	<!--신고 목록 삭제  -->
+	<delete id="deleteReportList">
+	DELETE FROM REPORT
+	WHERE REPORT_NO=#{reportNo}
+	</delete>
+	
+	<!-- 게시글 삭제  -->
+	<delete id="deletePieceList">
+	DELETE FROM PIECE
+	WHERE PIECE_NO = #{pieceNo}
+	</delete>
 </mapper>

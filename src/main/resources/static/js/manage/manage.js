@@ -242,6 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   getList(3,1); // 콘텐츠관리
   getList(4,1) // 승인 요청 내역
+
 });
 
 // 작가 목록 표시 함수
@@ -314,9 +315,9 @@ function displayReportContents(contents) {
           <p>낙찰가: ₩${content.auctionPrice}</p>
           <p>크기: ${content.pieceSize}</p>
           <div class="buttons">
-              <button class="view-button">상세보기</button>
-              <button class="warn-button">정지</button>
-              <button class="release-button">해제</button>
+              <button class="view-button" data-id="${content.reportNo}">상세보기</button>
+          
+            
           </div>    
       </div>`;    
     contentGrid.appendChild(contentCard);  
@@ -348,6 +349,43 @@ function displayRequestContents(contents) {
     requestGrid.appendChild(requestCard);  
   });  
 }  
+/* 
+// 콘텐츠 상세내용 표시 함수
+function displayDetailContents(contents) {
+  const detailGrid = document.getElementById('reportPopup');
+  detailGrid.innerHTML = ''; // 기존 콘텐츠 초기화
+
+  contents.forEach(content => {
+    const detailContents = document.createElement('div');
+    detailContents.classList.add('popup-content');
+    detailContents.innerHTML = `
+    div class="popup display-none" id="reportPopup">
+  <div class="popup-content">
+    <h2 class="popup-title">신고 사유</h2>
+    
+    <div class="popup-section">
+      <button class="popup-close-btn" id="closePopupBtn">✖</button>
+      <label for="reportDetail">신고 사유</label>
+      <input type="text" class="report-input" value="${content.reportType}" placeholder="신고 사유">
+    
+    </div>
+    
+    <div class="popup-section">
+      <label for="reportDetail">신고 상세내용</label>
+      <div class="report-detail">
+      ${content.reportContent}
+      </div>
+    </div>
+    
+    <div class="popup-actions">
+      <button class="btn" id="confirmReport">신고 반려</button>
+      <button class="btn" id="cancelReport">게시글 삭제</button>
+    </div>
+  </div>
+</div>
+`;    
+    detailGrid.appendChild(detailContents);  
+  });   */
 
 
 // 데이터 표시 함수
@@ -373,6 +411,8 @@ function displayContents(code, contents) {
     container.appendChild(item);
   });  
 }  
+
+
 
 // 리스트 가져오기 함수
 function getList(code, page) {
@@ -401,6 +441,9 @@ function getList(code, page) {
         page4 = page;
         displayRequestContents(result.resultList); // 승인요청내역 리스트 렌더링
         setupPagination(result.pg, code, "paginationBoxRequest"); // 승인요청내역 페이지네이션 설정
+
+      
+       
       } else {
         console.log("기타 코드값을 불러와 실행됨");
         console.error("알 수 없는 코드:", code);

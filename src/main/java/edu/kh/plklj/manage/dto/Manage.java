@@ -59,6 +59,15 @@ public class Manage {
 		// 판매작품
 		private String sellPrice;
 		
+		// 신고
+		private int reportNo;
+		private String reportType;
+		private String reportContent;
+		private String reportDate;
+		private String reportReadFl;
+		private String reportDelFl;
+
+		
 		
 	
 

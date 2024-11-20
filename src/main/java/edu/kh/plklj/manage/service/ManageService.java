@@ -1,7 +1,10 @@
 package edu.kh.plklj.manage.service;
 
 
+import java.util.List;
 import java.util.Map;
+
+import edu.kh.plklj.manage.dto.Manage;
 
 public interface ManageService {
 
@@ -21,6 +24,15 @@ public interface ManageService {
 
 	// 작가 탈퇴
 	int withdrawArtist(int memberNo);
-	
+
+	// 신고내용 불러오기
+	List<Manage> contentsDetailList(int reportNo);
+
+	// 신고내용 삭제
+	void deleteReportList(int reportNo);
+
+	// 게시글 삭제
+	void deletePieceList(int pieceNo);
+
 
 }
