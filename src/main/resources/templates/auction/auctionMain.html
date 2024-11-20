@@ -23,7 +23,7 @@
   
       <!-- 리스트 반복 -->
       <div th:each="piece, iterStat : ${upCommingList}" class="upcoming-box" style="border-right: 2px solid #aaaaaa;">
-        <div class="upcoming-imgbox">
+        <div class="upcoming-imgbox" th:classappend="${iterStat.last } ? '' : 'border-right'">
             <img th:src="@{${piece.pieceRename} ?: '/images/default.jpg'}" alt="경매 이미지">
         </div>
         <div class="upcoming-text">
