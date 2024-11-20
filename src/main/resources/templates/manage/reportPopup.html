@@ -1,22 +1,27 @@
-
 <link rel="stylesheet" href="/css/manage/reportPopup.css">
 
- <!-- 신고 사유 팝업 -->
+<!-- 신고 사유 팝업 -->
 <div class="popup display-none" id="reportPopup">
   <div class="popup-content">
-    <h2>신고 사유</h2>
+    <h2 class="popup-title">신고 사유</h2>
+    
     <div class="popup-section">
-      <label for="reportReason">신고 사유</label>
-      <textarea id="reportReason" rows="2" placeholder="사유를 입력하세요"></textarea>
+      <button class="popup-close-btn" id="closePopupBtn">✖</button>
+      <label for="reportDetail">신고 사유</label>
+
+      <input type="text" class="report-input" placeholder="신고 사유" readonly > 
     </div>
+    
     <div class="popup-section">
-      <label for="reportDetail">신고 내용</label>
-      <textarea id="reportDetail" rows="5" readonly>
-      </textarea>
+      <label for="reportDetail">신고 상세내용</label>
+      <div class="report-detail">
+       
+      </div>
     </div>
+    
     <div class="popup-actions">
-      <button class="btn confirm-btn" id="confirmReport">게시글 확인</button>
-      <button class="btn cancel-btn" id="cancelReport">게시글 삭제</button>
+      <button class="btn" id="confirmReport" data-id="${reportNo}">신고 반려</button>
+      <button class="btn" id="cancelReport" data-id="${pieceNo}">게시글 삭제</button>
     </div>
   </div>
 </div>

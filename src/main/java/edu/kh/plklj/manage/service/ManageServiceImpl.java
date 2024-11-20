@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 
 import edu.kh.plklj.common.util.Pagination;
+import edu.kh.plklj.manage.dto.Manage;
 import edu.kh.plklj.manage.mapper.ManageMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -78,7 +79,7 @@ public class ManageServiceImpl implements ManageService {
 			RowBounds requestBounds = new RowBounds(offset, limit);
 			resultList = mapper.getRequestList(requestBounds);
 			break;
-			
+
 
 		default:
 			throw new IllegalArgumentException("Invalid code: " + code);
@@ -91,35 +92,54 @@ public class ManageServiceImpl implements ManageService {
 		return map;
 	}
 
-	
-	
 	// 회원 정지
 	@Override
 	public int suspendMember(int memberNo) {
-	
+
 		return mapper.suspendMember(memberNo);
 	}
-
 
 	// 회원 탈퇴
 	@Override
 	public int withdrawMember(int memberNo) {
-		
+
 		return mapper.withdrawMember(memberNo);
 	}
 
 	// 작가 정지
 	@Override
 	public int suspendAritist(int memberNo) {
-		
+
 		return mapper.suspendAritist(memberNo);
 	}
 
 	// 작가 탈퇴
 	@Override
 	public int withdrawArtist(int memberNo) {
-		
+
 		return mapper.withdrawArtist(memberNo);
 	}
 
+	//  상세보기 신고목록 불러오기
+	@Override
+	public List<Manage> contentsDetailList(int reportNo) {
+
+		return mapper.contentsDetailList(reportNo);
+	}
+
+	// 신고내용 삭제
+	@Override
+	public void deleteReportList(int reportNo) {
+		mapper.deleteReportList(reportNo);
+		
+	}
+
+	// 게시글 삭제
+	@Override
+	public void deletePieceList(int pieceNo) {
+		mapper.deletePieceList(pieceNo);
+		
+	}
+
+	
 }

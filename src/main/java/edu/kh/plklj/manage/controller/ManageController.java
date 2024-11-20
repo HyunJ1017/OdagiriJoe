@@ -1,9 +1,13 @@
 package edu.kh.plklj.manage.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,17 +77,47 @@ public class ManageController {
 
 		return "정지 실패";
 	}
-	
+
 	// 작가 탈퇴
 	@PostMapping("/withdraw2")
 	@ResponseBody
 	public String withdrawArtist(@RequestBody int memberNo) {
 		int result = service.withdrawArtist(memberNo);
-		if(result > 0 ) {
+		if (result > 0) {
 			return "탈퇴 완료 되었습니다";
 		}
 		return "탈퇴 실패";
 	}
+	
+	//  상세보기 신고목록 불러오기
+	@GetMapping("/report/{reportNo}")
+	@ResponseBody
+	public List<Manage> contentsDetail(@PathVariable("reportNo") int reportNo) {
+		System.out.println("reportNo :" + reportNo);
+		return service.contentsDetailList(reportNo);
+			 
+		 }
+	
+	/** 신고목록 제거
+	 * @param reportNo
+	 */
+	@DeleteMapping("/report/{reportNo}")
+	@ResponseBody
+	public void deleteReportList(@PathVariable("reportNo") int reportNo) {
+		System.out.println("reportNo :" + reportNo);
+		service.deleteReportList(reportNo);
+	}
+	
+	/** 게시글 삭제
+	 * @param pieceNo
+	 */
+	@DeleteMapping("/delete/{pieceNo}")
+	@ResponseBody
+	public void deletePieceList(@PathVariable("pieceNo") int pieceNo) {
+		service.deletePieceList(pieceNo);
+	}
+ 
+	 
 
 	// 공지사항 수정 페이지
 	@GetMapping("revise")
