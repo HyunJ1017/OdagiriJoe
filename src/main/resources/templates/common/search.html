@@ -26,11 +26,12 @@
             <label th:if="${session.pieceStatus == 'F' ? 'unchecked' : ''}"><input type="checkbox" class="filter-checkbox" data-category="paseGallery" checked> 종료 작품</label>
           </div>
           <div class="sort-dropdown">
-            <select id="sort" class="sort-select" onChange={onSelected}>
-              <option id="latest">최신순</option>
-              <option id="oldest">오래된순</option>
-              <option id="priceUp">추정가 높은순</option>
-              <option id="priceDown">추정가 낮은순</option>
+            <select id="sort" class="sort-select" onChange="onSortChange(event)">
+              <option value="latest" th:selected="${currentOrder == 'latest'}">최신순</option>
+              <option value="oldest" th:selected="${currentOrder == 'oldest'}">오래된순</option>
+              <option value="priceUp" th:selected="${currentOrder == 'priceUp'}">추정가 높은순</option>
+              <option value="priceDown" th:selected="${currentOrder == 'priceDown'}">추정가 낮은순</option>
+          </select>
             </select>
           </div>
         </section>
@@ -61,14 +62,15 @@
   
         <!-- 작품 크기 및 카테고리 -->
         <div class="size-detail">
-          <p th:text="|${piece.sizeX} x ${piece.sizeY}| + '  |  ' + |${pieceCategoryName}|">22 x 22 | 작품 타입</p>
+          <p th:text="|${piece.sizeX} x ${piece.sizeY}| + '  |  ' + |${pieceCategoryName}|">22 x 22 | 작품 타입 | 작품 등록 날짜</p>
+          <p th:text="|업로드 날짜 : ${piece.regDate}|" class="reg-date">작품 업로드 날짜</p>
         </div>
-  
+
         <!-- 가격 정보 -->
         <div class="price-detail">
           <hr class="dotted-line">
           <p th:if="${piece.pieceStatus == 'N'}" th:text="|판매가 (KRW): ${piece.sellPrice}|">판매가(KRW)</p>
-          <p th:if="${piece.pieceStatus == 'A'}" th:text="|예정가 (KRW): ${piece.hopePrice}|" >예정가(KRW)</p>
+          <p th:if="${piece.pieceStatus == 'A'}" th:text="|예정가 (KRW): ${piece.hopePrice}|" class="hope-price" >예정가(KRW)</p>
           <p th:if="${piece.pieceStatus == 'S'}" th:text="|시작가 (KRW): ${piece.startPrice}|">시작가(KRW)</p>
           <p th:if="${piece.pieceStatus == 'F'}" th:text="|낙찰가 (KRW): ${piece.endPrice}|">낙찰가(KRW)</p>
         </div>
@@ -83,7 +85,6 @@
             <p th:if="${piece.pieceType == 2 and piece.pieceStatus == 'F'}" th:text="|경매 종료일: ${piece.endDate}|" data-category="pastAuction">경매 종료일</p>
             <p th:if="${piece.pieceType == 2 and piece.pieceStatus == 'S'}" th:text="|경매 시작일: ${piece.startDate}|">경매 시작일</p>
           </div>
-          
         </div>
       </article>
     </section>

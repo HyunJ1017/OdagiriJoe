@@ -28,11 +28,9 @@ public class Manage {
 		private String pieceStatus;
 		private int pieceCategoryNo;
 		
-		private String artistNickname;
-		
 		// 작가
 		private String artistProfile;
-
+		private String artistNickname;
 		private String artistPortfolio;
 		private String bankCode;
 		private String bankNo;
@@ -55,6 +53,8 @@ public class Manage {
 		private String deliveryAddress;
 		private int deliveryStatus;
 		private String deliveryDate;
+		private String deliveryIngDate;
+		private String deliveryEndDate;
 		
 		// 판매작품
 		private String sellPrice;

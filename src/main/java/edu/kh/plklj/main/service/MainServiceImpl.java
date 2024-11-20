@@ -35,5 +35,34 @@ public class MainServiceImpl implements MainService{
 		Map<String, Object> map = Map.of(query, searchList);
 		return map;
 	}
+
+	/* 검색 리스트 최신순 */
+	@Override
+	public List<Piece> getSearchListOrderByDateAsc() {
+		return mapper.selectSearchListOrderByDateAsc();
+	}
+
+	/* 검색 리스트 오래된순 */
+	@Override
+	public List<Piece> getSearchListOrderByDateDesc() {
+		return mapper.selectSearchListOrderByDateDesc();
+	}
+
+	/* 검색 리스트 추정가 높은순 */
+	@Override
+	public List<Piece> getPriceListOrderByPriceDesc() {
+		return mapper.selectPriceListOrderByPriceDesc();
+	}
+
+
+	/* 검색 리스트 추정가 낮은순 */
+	@Override
+	public List<Piece> getPriceListOrderByPriceAsc() {
+		return mapper.selectPriceListOrderByPriceAsc();
+	}
+
+
+
+
 	
 }

@@ -31,4 +31,27 @@ public interface MainMapper {
 	 */
 	List<Piece> selectSearchList(String query);
 
+	/** 검색 리스트 최신순
+	 * @return
+	 */
+	List<Piece> selectSearchListOrderByDateAsc();
+
+	/** 검색 리스트 오래된순
+	 * @return
+	 */
+	List<Piece> selectSearchListOrderByDateDesc();
+
+	/** 검색 리스트 추정가 높은순
+	 * @return
+	 */
+	List<Piece> selectPriceListOrderByPriceDesc();
+
+	/** 검색 리스트 추정가 낮은순
+	 * @return
+	 */
+	List<Piece> selectPriceListOrderByPriceAsc();
+
+
+
+
 }

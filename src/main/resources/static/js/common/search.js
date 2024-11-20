@@ -43,42 +43,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ---------------------------------------------------------------------------------------------------------------
 /* 정렬 기준 변경 이벤트 */
-// document.addEventListener('DOMContentLoaded', () => {
-//   const sort = document.getElementById('sort');
-//   const sortSelect = document.querySelector('.sort-select');
+function onSortChange(event) {
+  const order = event.target.value; // 선택된 정렬 기준
+  const container = document.querySelector(".detail-container"); // 정렬 대상 컨테이너
+  const articles = Array.from(container.querySelectorAll(".search-detail")); // 정렬 대상 요소들
 
-//   // 정렬 함수
-//   const sortItems = (criteria) => {
-//     const items = Array.from(sortSelect.querySelectorAll('option')); // 모든 항목 가져오기
+  // 정렬 로직
+  articles.sort((a, b) => {
+    if (order === "latest" || order === "oldest") {
+      // 날짜 정렬
+      const dateA = new Date(a.querySelector(".reg-date").textContent);
+      const dateB = new Date(b.querySelector(".reg-date").textContent);
+      return order === "latest" ? dateB - dateA : dateA - dateB;
+    } else if (order === "priceUp" || order === "priceDown") {
+      // 가격 정렬
+      const priceA = parseFloat(a.querySelector(".hope-price").textContent.replace(/[^\d]/g, ''));
+      const priceB = parseFloat(b.querySelector(".hope-price").textContent.replace(/[^\d]/g, ''));
+      return order === "priceUp" ? priceB - priceA : priceA - priceB;
+    }
+  });
 
-//     // 정렬 기준에 따른 정렬 로직
-//     items.sort((a, b) => {
-//       if (criteria === 'latest') {
-//         // 최신순 (날짜 내림차순)
-//         return new Date(b.dataset.date) - new Date(a.dataset.date);
-//       } else if (criteria === 'oldest') {
-//         // 오래된순 (날짜 오름차순)
-//         return new Date(a.dataset.date) - new Date(b.dataset.date);
-//       } else if (criteria === 'priceUp') {
-//         // 추정가 높은순 (가격 내림차순)
-//         return b.dataset.price - a.dataset.price;
-//       } else if (criteria === 'priceDown') {
-//         // 추정가 낮은순 (가격 오름차순)
-//         return a.dataset.price - b.dataset.price;
-//       }
-//     });
+  // 정렬된 요소를 다시 DOM에 추가
+  articles.forEach(article => container.appendChild(article));
+}
 
-//     // 기존 목록 제거 및 정렬된 항목 다시 추가
-//     sortSelect.innerHTML = '';
-//     items.forEach(item => itemList.appendChild(item));
-//   };
-//       // 이벤트 핸들러 추가
-//       sort.addEventListener('change', (event) => {
-//         const selectedValue = event.target.value; // 선택된 값 가져오기
-//         sortItems(selectedValue); // 정렬 수행
-//       });
-
-
-//       // 초기 정렬 (최신순)
-//       sortItems('latest');
-//     });

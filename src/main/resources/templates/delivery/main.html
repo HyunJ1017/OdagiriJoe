@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>주문 내역 조회</title>
+  <link rel="stylesheet" href="/css/delivery/delivery.css">
+  <th:block th:replace="~{/common/common.html :: cssLinks}"></th:block>
+</head>
+
+<body>
+  <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
+  <main>
+    <section class="main-container">
+      <div class="session-container">
+        <h3>주문 내역 조회</h3>
+      </div>
+      <div class="custom-line"></div>
+      <div class="dateType-container">
+        <div class="arr-container">
+          <select id="sort" class="sort-select" onChange="onSortChange(event)">
+            <option id="latest" value="desc">최신순</option>
+            <option id="oldest" value="asc">오래된순</option>
+          </select>
+        </div>
+        <div class="date-container">
+          <p th:text="|총 합 : ${selectDeliveryList.size()}개|">총합</p>
+        </div>
+        <div class="calendar-container">
+          <div class="search">직접 설정 : </div>
+          <div class="search">월별 조회</div><input type="month" class="calendar" id="month">
+          <div class="search">주별 조회</div><input type="week" class="calendar" id="week">
+          <div class="search">일별 조회</div><input type="date" class="calendar" id="date">
+          <button class="selectBtn" id="select">조회</button>
+        </div>
+      </div>
+      <table class="table-container">
+        <thead class="table-header">
+          <tr>
+            <th>송장 번호</th>
+            <th>주문 일자</th>
+            <th>작품명</th>
+            <th>입찰 금액</th>
+            <th>주소</th>
+            <th>배송 예정일</th>
+            <th>배송 완료일</th>
+            <th>주문 처리 상태</th>
+          </tr>
+        </thead>
+        <tbody class="table-content">
+          <tr th:each="manage : ${selectDeliveryList}">
+            <td th:text="${manage.deliveryNo}">송장번호</td>
+            <td  th:text="${manage.deliveryDate}">주문 일자</td>
+            <td th:text="${manage.pieceTitle}">작품 제목</td>
+
+            <td th:if="${manage.pieceType == 1 and manage.pieceStatus == 'F'}" th:text="|${manage.sellPrice} 원|">입찰 금액(갤러리)</td>
+            <td th:if="${manage.pieceType == 2 and manage.pieceStatus == 'F'}" th:text="|${manage.endPrice} 원|">입찰 금액(경매)</td>
+            
+            <td th:text="${manage.deliveryAddress}">주소</td>
+            
+            <!-- 배송 예정 일자 -->
+            <td th:if="${manage.deliveryIngDate == null and (manage.deliveryStatus == 0 or manage.deliveryStatus == 1)}" th:text="|배송 예정이 없습니다.|">배송 예정 일자</td>
+            <td th:if="${manage.deliveryIngDate != null and (manage.deliveryStatus == 1 or manage.deliveryStatus == 2)}" th:text="${manage.deliveryIngDate}">배송 예정 일자</td>
+            <td th:if="${manage.deliveryIngDate != null and manage.deliveryStatus == 3}" th:text="${manage.deliveryIngDate}">배송 예정
+              일자</td>
+            
+            <!-- 배송 완료 일자 -->
+            <td th:if="${manage.deliveryIngDate == null and (manage.deliveryStatus == 0 or manage.deliveryStatus == 1)}" th:text="|배송 예정이 없습니다.|">배송 완료 일자</td>
+            <td th:if="${manage.deliveryIngDate != null and (manage.deliveryStatus == 1 or manage.deliveryStatus == 2)}" th:text="|${manage.deliveryIngDate} 도착 예정입니다.|">배송 완료 일자</td>
+            <td th:if="${manage.deliveryStatus == 3}" th:text="${manage.deliveryEndDate}">배송 완료 일자</td>
+            
+            <td th:if="${manage.deliveryStatus == 0}" th:text="|방문 수령|">주문 처리 상태</td>
+            <td th:if="${manage.deliveryStatus == 1}" th:text="|배송 준비중|">주문 처리 상태</td>
+            <td th:if="${manage.deliveryStatus == 2}" th:text="|배송중|">주문 처리 상태</td>
+            <td th:if="${manage.deliveryStatus == 3}" th:text="|배송 완료|">주문 처리 상태</td>
+            </tr>
+            </tbody>
+      </table>
+    </section>
+  </main>
+
+
+  <script src="/js/delivery/delivery.js"></script>
+</body>
+<th:block th:replace="~{/common/footer.html}"></th:block>
+
+</html>
