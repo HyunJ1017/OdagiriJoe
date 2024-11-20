@@ -104,6 +104,12 @@ function initializeCountdown(hours, minutes, seconds) {
 const reportBtn = document.querySelector("#reportBtn");
 
 reportBtn.addEventListener("click", () => {
+
+  if (!loginCheck) {
+    alert("로그인이 필요합니다. 로그인 후 이용해 주세요.");
+    location.href = "/member/login";
+  }
+
   const width = 520;
   const height = 400;
   const left = (window.screen.width / 2) - (width / 2);

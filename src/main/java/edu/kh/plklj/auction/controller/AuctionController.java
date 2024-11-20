@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import edu.kh.plklj.auction.service.AuctionService;
 import edu.kh.plklj.main.dto.Member;
+import edu.kh.plklj.piece.dto.Piece;
 import edu.kh.plklj.report.dto.Report;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +40,9 @@ public class AuctionController {
 			Map<String, Object> list = service.auctionMain();
 			
 			model.addAttribute("upCommingList", list.get("upCommingList"));
+			model.addAttribute("currentList", list.get("currentList"));
+			
+			System.out.println(list.get("currentList"));
 			
 			return "auction/auctionMain";
 		}
@@ -78,7 +82,12 @@ public class AuctionController {
 				@SessionAttribute(value = "artistLogin", required = false) Member artistLogin
 				){
 			
-			 // 세션이 없는 경우 처리
+			 // 로그 출력
+	    log.info("pieceNo: {}", pieceNo);
+	    log.info("memberLogin: {}", memberLogin);
+	    log.info("artistLogin: {}", artistLogin);
+
+	    // 세션 체크
 	    if (memberLogin == null && artistLogin == null) {
 	        throw new IllegalStateException("로그인이 필요합니다.");
 	    }
@@ -146,10 +155,39 @@ public class AuctionController {
 		 * 
 		 */
 		@GetMapping("currentDetail")
-		public String auctionDetail() {
+		public String currentDetail(
+				 	@RequestParam("pieceNo") int pieceNo,
+				  @SessionAttribute(value = "memberLogin", required = false) Member memberLogin,
+	        @SessionAttribute(value = "artistLogin", required = false) Member artistLogin,
+					Model model
+				) {
+			
+			int loginNo = (memberLogin != null) ? memberLogin.getMemberNo() : (artistLogin != null) ? artistLogin.getMemberNo() : 0;
+			
+			Piece piece = service.currentDetail(pieceNo);
+			System.out.println(piece);
+			
+			Map<String, Object> pieceDetail = service.ongoingDetail(pieceNo, loginNo);
+      // 뷰에 전달
+      model.addAttribute("currentDetail", piece);
+      model.addAttribute("pieceDetail", pieceDetail);
+      
+      // 추가: 세션 값 모델에 포함
+      model.addAttribute("memberLogin", memberLogin);
+      model.addAttribute("artistLogin", artistLogin);
+      
+      log.info("memberLogin: {}", memberLogin);
+      log.info("artistLogin: {}", artistLogin);
+      log.info("loginNo: {}", loginNo);
+      
 			return "auction/currentDetail";
 		}
 		
+		
+		
+		
+		
+	
 		
 		
 		

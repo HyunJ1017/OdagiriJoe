@@ -8,9 +8,11 @@
   <link rel="stylesheet" href="/css/howto/howToMain.css">
   <link rel="stylesheet" href="/css/auction/auctionMain.css">
   <link rel="stylesheet" href="/css/howto/notice.css">
+  <th:block th:replace="~{/common/common.html :: cssLinks}"></th:block>
 </head>
+
 <body>
-  <th:block th:replace="~{common/common}"></th:block>
+  <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
     
   <main id="howTo"> 
 
@@ -32,7 +34,7 @@
 
             <!-- 경매일 -->
             <div style="margin-top: 25px;">경매일</div>
-            <div th:text="${piece.auctionDateDisplay}" style="margin-top: 8px;"></div>
+            <div th:text="${piece.auctionDateDisplay + ' 10:00'}" style="margin-top: 8px;"></div>
 
 
             <hr class="dotted-line">
@@ -40,58 +42,6 @@
         </div>
       </div>
 
-      
-
-      <!-- <div class="upcoming-box" style="border-right: 2px solid #aaaaaa;">
-        <div class="upcoming-imgbox">
-          <img src="/images/onlineGallery3.jpg">
-        </div>
-        
-        <div class="upcoming-text">
-          <h1>무제</h1>
-          <div style="margin-top: 35px;">프리뷰</div>
-          <div style="margin-top: 8px;">11월 09일(수) ~ 11월 19일(월)</div>
-          <div style="margin-top: 25px;">경매일</div>
-          <div style="margin-top: 8px;">12월 10일 14:00</div>
-          <hr class="dotted-line">
-          <button class="detail-button" id="ongoingBtn">상세보기</button>
-        </div>
-      </div>
-
-      
-      <div class="upcoming-box" style="border-right: 2px solid #aaaaaa;">
-        <div class="upcoming-imgbox">
-          <img src="/images/onlineGallery3.jpg">
-        </div>
-        
-        <div class="upcoming-text">
-          <h1>무제</h1>
-          <div style="margin-top: 35px;">프리뷰</div>
-          <div style="margin-top: 8px;">11월 09일(수) ~ 11월 19일(월)</div>
-          <div style="margin-top: 25px;">경매일</div>
-          <div style="margin-top: 8px;">12월 10일 14:00</div>
-          <hr class="dotted-line">
-          <button class="detail-button" id="ongoingBtn">상세보기</button>
-        </div>
-      </div>
-      
-
-      <div class="upcoming-box">
-        <div class="upcoming-imgbox">
-          <img src="/images/onlineGallery3.jpg">
-        </div>
-        
-        <div class="upcoming-text">
-          <h1>무제</h1>
-          <div style="margin-top: 35px;">프리뷰</div>
-          <div style="margin-top: 8px;">11월 09일(수) ~ 11월 19일(월)</div>
-          <div style="margin-top: 25px;">경매일</div>
-          <div style="margin-top: 8px;">12월 10일 14:00</div>
-          <hr class="dotted-line">
-          <button class="detail-button" id="ongoingBtn">상세보기</button>
-        </div>
-      </div> -->
-      
     </section>
 
 
@@ -99,50 +49,32 @@
     <section class="ongoing-auctions">
       <div class="ongoing-title">진행 경매</div> 
 
-      <div class="ongoing-section1">
+      <div th:each="auction : ${currentList}" class="ongoing-section1">
         <div class="ongoing-text">
-          <h1>성윤모</h1>
-          <div style="margin-top: 68px;">오픈일 11월 08일(금)</div>
-          <div style="margin-top: 8px;">프리뷰 11/09(토) ~ 11/20(수)</div>
-          <div style="margin-top: 8px;">경매일 12월 06일 14:00</div>
-          <hr class="dotted-line2">
-          <button class="detail-button2" id="currentBtn">상세보기</button>
+            <!-- 작품 제목 -->
+            <h1 th:text="${auction.pieceTitle ?: '제목 없음'}"></h1>
+
+            <!-- 프리뷰 (등록 날짜로 대체) -->
+            <div style="margin-top: 60px;">프리뷰</div>
+            <div th:text="${auction.previewPeriod}" style="margin-top: 8px;"></div>
+
+            <!-- 경매일 -->
+            <div style="margin-top: 30px;">경매일</div>
+            <div th:text="${auction.auctionDateDisplay + ' 10:00'}" style="margin-top: 8px;"></div>
+
+            <!-- 구분선 -->
+            <hr class="dotted-line2">
+
+            <!-- 상세보기 버튼 -->
+            <button class="detail-button2" id="currentBtn" th:attr="data-id=${auction.pieceNo}">상세보기</button>
         </div>
 
         <div class="ongoing-imgbox">
-          <img src="/images/onlineGallery5.jpg">
+            <!-- 작품 이미지 -->
+            <img th:src="@{${auction.pieceRename} ?: '/images/default.jpg'}" alt="경매 이미지">
         </div>
       </div>
 
-      <div class="ongoing-section1">
-        <div class="ongoing-text">
-          <h1>성윤모</h1>
-          <div style="margin-top: 68px;">오픈일 11월 08일(금)</div>
-          <div style="margin-top: 8px;">프리뷰 11/09(토) ~ 11/20(수)</div>
-          <div style="margin-top: 8px;">경매일 12월 06일 14:00</div>
-          <hr class="dotted-line2">
-          <button class="detail-button2" id="currentBtn">상세보기</button>
-        </div>
-
-        <div class="ongoing-imgbox">
-          <img src="/images/onlineGallery5.jpg">
-        </div>
-      </div>
-
-      <div class="ongoing-section1">
-        <div class="ongoing-text">
-          <h1>성윤모</h1>
-          <div style="margin-top: 68px;">오픈일 11월 08일(금)</div>
-          <div style="margin-top: 8px;">프리뷰 11/09(토) ~ 11/20(수)</div>
-          <div style="margin-top: 8px;">경매일 12월 06일 14:00</div>
-          <hr class="dotted-line2">
-          <button class="detail-button2" id="currentBtn">상세보기</button>
-        </div>
-
-        <div class="ongoing-imgbox">
-          <img src="/images/onlineGallery5.jpg">
-        </div>
-      </div>
 
 
     </section>

@@ -3,91 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Current Auction Detail</title>
   <link rel="stylesheet" href="/css/auction/currentDetail.css">
 
-  <th:block th:replace= "~{/common/common}"></th:block>
+  <th:block th:replace="~{/common/common.html :: cssLinks}"></th:block>
 </head>
+
 <body>
-  <th:block th:replace= "~{/common/header}"></th:block>
+  <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
   
   <main class="auctionDetail-main">
 
    <section class="product-section">
         
-      <div class="product-container">
-          <!-- 좌측 이미지 목록 -->
-          <div class="thumbnail-list">
-              <img src="/images/onlineGallery1.jpg" >
-              <img src="/images/onlineGallery2.jpg">
-              <img src="/images/onlineGallery3.jpg" >
-              <img src="/images/onlineGallery4.jpg">
-          </div>
+    <div class="product-container">
   
-          <!-- 메인 이미지 및 상세 정보 -->
-          <div class="main-image">
-              <img src="/images/onlineGallery5.jpg">
-          </div>
-  
-          <!-- 우측 정보 패널 -->
-          <div class="product-info">
-              <div class="wishlist-button">
-                  <span><i class="fa-regular fa-heart"></i></span>
-                  <button class="auction-reportBtn">신고</button>
-              </div>
-              <h2>이동현</h2>
-              <p>ReNameeeeeem</p>
-              <h3>Burnt Umber * Ultramarine Blue</h3>
-              <p>25 x 32 <Strong>추상화</Strong></p>
-              
-            <div class="price">
-              <span>추정가 :</span> 
-              <span>KRW 209,000,00 ~ 400,000,00 </span>
-              <!-- <div class="price-usa">
-                <span>USD 207,00 ~ 286,00</span>
-              </div> -->
-            </div>
-
-          
-
-            <div class="start-date">
-              시작일 :
-              <span style="margin-left: 275px;">11/13(수)</span>
-            </div>
-            
-            <div class="end-date">
-              종료일 :
-              <span style="margin-left: 275px;">11/15(금)</span>
-            </div>
-              
-              <button class="purchase-button">입찰 신청</button>
-          </div>
+      <!-- 메인 이미지 및 상세 정보 -->
+      <div class="main-image">
+          <img th:src="${currentDetail.pieceRename}" alt="작품 이미지">
       </div>
-  
-      <!-- 작품 내용 섹션 -->
-      <section class="product-description">
-          <h4 style="color: #5e7c71;">작품 내용</h4>
-          <p>
-            작품 내용 설명인가설명인가설명인가설명인가설명인가설명인가설명인가설명인가설명인가
-            작품 내용 설명인가설명인가설명인가설명인가설명인가설명인가설명인가설명인가설명인가
-            작품 내용 설명인가설명인가설명인가설명인가설명인가설명인가설명인가설명인가설명인가
-            작품 내용 설명인가설명인가설명인가설명인가설명인가설명인가설명인가설명인가설명인가
-            작품 내용 설명인가설명인가설명인가설명인가설명인가설명인가설명인가설명인가설명인가
-          </p>
-      </section>
 
-   </section>
+      <!-- 우측 정보 패널 -->
+      <div class="product-info">
+          <div class="wishlist-button">
+              <span>
+                  <!-- <i class="fa-regular fa-heart" id="likeCurrentBtn"></i> -->
+                  <i class="fa-heart" 
+                  th:classappend="${pieceDetail.likeCheck == 1} ? 'fa-solid' : 'fa-regular'"
+                  id="likeCurrentBtn">
+                  </i>  
+              </span>
+              <button class="auction-reportBtn" id="currentReportBtn">신고</button>
+          </div>
+          <h2 th:text="${currentDetail.artistNickname}">이동현</h2>
+          <p th:text="${currentDetail.pieceTitle}">ReNameeeeeem</p>
+
+          <div class="content-size-category">
+            <p th:text="'사이즈 : ' + ${currentDetail.sizeX} + ' x ' + ${currentDetail.sizeY}">사이즈 : 25 x 32</p>
+            <strong th:text="${currentDetail.pieceCategoryName}">추상화</strong>
+          </div>
+          
+          
+        <div class="price">
+          <span>추정가 :</span> 
+          <span th:text="${currentDetail.hopePrice}">KRW 209,000,000</span>
+        </div>
+
+        <div class="price">
+          <span>시작가 :</span> 
+          <span th:text="${currentDetail.startPrice}">KRW 5,000</span>
+        </div>
+
+        <div class="price">
+          <span>현재 입찰가 :</span> 
+          <span>5,000 (KRW)</span>
+        </div>
+
+        <div class="start-date">
+          시작일 :
+          <span th:text="${currentDetail.startDate}">11월 17일(금) 10:00</span>
+        </div>
+        
+        <div class="end-date">
+          종료일 :
+          <span th:text="${currentDetail.endDate}">11월 18일(토) 10:00</span>
+        </div>
+          
+          <button class="purchase-button">입찰 신청</button>
+      </div>
+  </div>
+
+  <!-- 작품 내용 섹션 -->
+  <section class="product-description">
+      <h4 style="color: #5e7c71;">작품 내용</h4>
+      <p th:text="${currentDetail.pieceDetail}">
+        작품 내용 설명입니다.
+      </p>
+
+  </section>
  
 
   </main>
 
+  <div id="pieceContainer" th:data-pieceNo="${currentDetail.pieceNo}"></div>
+
 
   <th:block th:replace= "~{/common/footer.html}"></th:block>
 
-  <script inline="javascript">
-    const loginCheck = /*[[${session.loginMember != null}]]*/ false;
+  <script th:inline="javascript">
+    const loginCheck = /*[[${session.memberLogin != null || session.artistLogin != null}]]*/ false;
   </script>
 
-  <script src="/js/auction/auctionDetail.js"></script>
+
+  <script src="/js/auction/currentDetail.js"></script>
 </body>
 </html>
