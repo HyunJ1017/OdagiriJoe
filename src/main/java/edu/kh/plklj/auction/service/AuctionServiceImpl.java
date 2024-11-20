@@ -32,6 +32,7 @@ public class AuctionServiceImpl implements AuctionService {
   
   
 	
+  /************************** 메인페이지, 예정경매 상세  **************************/
   @Override
   public Map<String, Object> auctionMain() {
   	
@@ -39,13 +40,25 @@ public class AuctionServiceImpl implements AuctionService {
 
     // DB에서 예정 경매 리스트 조회
     List<Piece> upCommingList = mapper.upCommingList();
-
+    
+    List<Piece> currentList = mapper.currentList();
+    
     // 공통 메서드 호출로 변환
     List<Map<String, Object>> calculatedUpCommingList = upCommingList.stream()
         .map(this::calculatePieceData) // 메서드 참조
         .collect(Collectors.toList());
+    
+    // 진행 경매 리스트도 동일하게 변환
+    List<Map<String, Object>> calculatedCurrentList = currentList.stream()
+        .map(this::calculatePieceData)
+        .collect(Collectors.toList());
 
+    // 예정경매
     result.put("upCommingList", calculatedUpCommingList);
+    
+    // 진행경매
+    result.put("currentList", calculatedCurrentList);
+    
 
     return result;
   }
@@ -57,10 +70,12 @@ public class AuctionServiceImpl implements AuctionService {
   public Map<String, Object> ongoingDetail(int pieceNo, int loginNo) {
   	
   	Piece piece = mapper.ongoingDetail(pieceNo, loginNo);
+  	
     Map<String, Object> pieceData = calculatePieceData(piece);
 
     // 추가로 likeCheck를 포함
     int likeCheck = mapper.getLikeCheck(pieceNo, loginNo);
+    
     pieceData.put("likeCheck", likeCheck);
     
     return pieceData;
@@ -113,9 +128,68 @@ public class AuctionServiceImpl implements AuctionService {
   }
   
   
+  
+  /************************** 진행경매 상세 페이지 **************************/
+  @Override
+  public Piece currentDetail(int pieceNo) {
+      Piece piece = mapper.currentDetail(pieceNo);
+
+      // 날짜 가공 - startDate
+      // 날짜 가공 - startDate (10시 고정)
+      LocalDateTime startDate = LocalDateTime.parse(piece.getStartDate(), FORMATTER)
+                                             .withHour(10)
+                                             .withMinute(0)
+                                             .withSecond(0)
+                                             .withNano(0);
+      piece.setStartDate(startDate.format(DateTimeFormatter.ofPattern("M월 d일(E) HH:mm")));
+
+      // 날짜 가공 - endDate (DB에서 가져온 값 사용, 10시 고정)
+      if (piece.getEndDate() != null) {
+          LocalDateTime endDate = LocalDateTime.parse(piece.getEndDate(), FORMATTER)
+                                               .withHour(10)
+                                               .withMinute(0)
+                                               .withSecond(0)
+                                               .withNano(0);
+          piece.setEndDate(endDate.format(DateTimeFormatter.ofPattern("M월 d일(E) HH:mm")));
+      } else {
+          piece.setEndDate("종료일 없음");
+      }
+
+      // 금액 가공 - startPrice
+      long startPrice = Long.parseLong(piece.getStartPrice());
+      long hopePrice = Long.parseLong(piece.getHopePrice());
+      
+      long estimatedPrice = (long) (hopePrice * 1.3);
+
+      piece.setStartPrice(String.format("%,d (KRW)", startPrice));
+      piece.setHopePrice(String.format("%,d (KRW)", estimatedPrice));
+
+      return piece;
+  }
+  
+  
+  
+  
+  /************************** 메인페이지, 예정경매 상세  **************************/
+  
+  
 	
 	
-  private Map<String, Object> calculatePieceData(Piece piece) {
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  /* 날짜 계산 함수 */
+  public Map<String, Object> calculatePieceData(Piece piece) {
+  	
     Map<String, Object> pieceData = new HashMap<>();
     
     
@@ -133,6 +207,8 @@ public class AuctionServiceImpl implements AuctionService {
     // START_DATE를 오전 10시로 변경
     startDate = startDate.withHour(10).withMinute(0).withSecond(0).withNano(0);
     
+    // END_DATE를 경매 시작일(startDate) 기준 하루 뒤로 설정
+    LocalDateTime endDate = startDate.plusDays(1);
 
     // 프리뷰 시작일 계산: START_DATE 기준 7일 전
     LocalDateTime previewStart = startDate.minusDays(7);
@@ -151,9 +227,11 @@ public class AuctionServiceImpl implements AuctionService {
     // ISO 8601 형식으로 저장
     piece.setStartDate(startDate.toLocalDate().toString() + "T" + startDate.toLocalTime().withNano(0).toString());
     pieceData.put("auctionDate", piece.getStartDate());
+    pieceData.put("endDate", piece.getEndDate());
 
     // 사용자 친화적인 경매일 표현
     pieceData.put("auctionDateDisplay", startDate.format(DISPLAY_FORMATTER));
+    pieceData.put("endDateDisplay", endDate.format(DISPLAY_FORMATTER));
 
     // 프리뷰 기간 저장
     pieceData.put("previewPeriod", previewStart.format(DISPLAY_FORMATTER) + " ~ " + startDate.format(DISPLAY_FORMATTER));

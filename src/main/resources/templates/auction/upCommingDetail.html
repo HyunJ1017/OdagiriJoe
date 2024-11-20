@@ -3,13 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ongoing Auction Detail</title>
+  <title>UpComming Auction Detail</title>
 
   <link rel="stylesheet" href="/css/auction/upCommingDetail.css">
-  <!-- <link rel="stylesheet" href="/css/howto/howToMain.css"> -->
+
+  <th:block th:replace="~{/common/common.html :: cssLinks}"></th:block>
 </head>
+
 <body>
-  <th:block th:replace="~{common/common}"></th:block>
+  <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
     
   <main id="ongoinAuction"> 
 
@@ -111,8 +113,7 @@
 
     const loginCheck = /*[[${session.memberLogin != null || session.artistLogin != null}]]*/ false;
     const pieceNo = /*[[${pieceDetail.pieceNo}]]*/ 0; // 서버에서 전달된 pieceNo
-
-</script>
+  </script>
 
   <script src="/js/auction/upCommingDetail.js"></script>
 </body>

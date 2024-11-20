@@ -33,6 +33,13 @@ public interface AuctionMapper {
 
 	// 경매 신고 처리
 	int reportInsert(Report report);
+
+	// 현재 경매 리스트 조회
+	List<Piece> currentList();
+
+	// 현재 경매 상세 페이지
+	Piece currentDetail(int pieceNo);
+
 	
 	
 

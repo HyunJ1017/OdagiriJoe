@@ -2,6 +2,7 @@ package edu.kh.plklj.auction.service;
 
 import java.util.Map;
 
+import edu.kh.plklj.piece.dto.Piece;
 import edu.kh.plklj.report.dto.Report;
 
 public interface AuctionService {
@@ -17,6 +18,12 @@ public interface AuctionService {
 
 	// 경매예정 신고 처리
 	int reportInsert(Report report);
+	
+	// 현재 경매 상세 페이지
+	Piece currentDetail(int pieceNo);
+
+	
+
 
 
 }

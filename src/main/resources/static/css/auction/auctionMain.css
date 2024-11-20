@@ -169,7 +169,7 @@
 
 .dotted-line2 {
   width: 90%;
-  margin-top: 41px;
+  margin-top: 23px;
   border: none; /* 기본 선 제거 */
   height: 1px; /* 선의 높이 */
   background-image: linear-gradient(to right, #333 30%, rgba(255, 255, 255, 0) 0%);
