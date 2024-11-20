@@ -2,6 +2,80 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace = "edu.kh.plklj.artists.mapper.ArtistsMapper">
 
+
+	<!-- 신진 작가 조회 -->
+	<select id="getRookieArtists" resultType="Artist">
+		SELECT
+			A.MEMBER_NO,
+			A.ARTIST_PROFILE,
+			M.MEMBER_NAME
+		FROM 
+			ARTIST A
+		JOIN MEMBER M ON (A.MEMBER_NO = M.MEMBER_NO)
+		WHERE 
+			A.ARTIST_REG = 'Y'
+		ORDER BY
+			A.MEMBER_NO ASC
+	</select>
 	
+	<!-- 인기 작가 조회 -->
+	<select id="getPopularArtists" resultType="ARTIST">
+		SELECT
+			A.MEMBER_NO,
+			A.ARTIST_PROFILE,
+			M.MEMBER_NAME,
+			A.ARTIST_NICKNAME,
+			COUNT(F.ARTIST_NO) AS FOLLOW_COUNT
+		FROM
+			ARTIST A
+		LEFT JOIN FOLLOW F ON (A.MEMBER_NO = F.ARTIST_NO )
+		JOIN MEMBER M ON (A.MEMBER_NO = M.MEMBER_NO)
+		GROUP BY A.MEMBER_NO, A.ARTIST_PROFILE, A.ARTIST_NICKNAME, M.MEMBER_NAME
+		ORDER BY FOLLOW_COUNT DESC 
+	</select>
 	
+	<!-- 전체 작가 조회 -->
+	<select id="getAllArtists" resultType="Artist">
+	SELECT
+		A.MEMBER_NO,
+		A.ARTIST_PROFILE,
+		M.MEMBER_NAME
+	FROM
+		ARTIST A
+	JOIN MEMBER M ON (A.MEMBER_NO = M.MEMBER_NO)
+	</select>
+	
+	<select id="getTotalArtistCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM ARTIST
+	</select>
+	
+	<select id="getArtistDetail" resultType="Artist">
+		SELECT
+			A.MEMBER_NO, A.ARTIST_PROFILE, A.ARTIST_NICKNAME,
+			W.WORK_NO, W.WORK_DETAIL, P.PIECE_NO,
+			P.PIECE_TITLE, P.SIZE_X, P.SIZE_Y,
+			P.PIECE_RENAME, PS.SELL_PRICE, M.MEMBER_NAME
+		FROM 
+			ARTIST A
+		JOIN 
+			MEMBER M ON (A.MEMBER_NO = M.MEMBER_NO)
+		JOIN 
+			WORK W ON (A.MEMBER_NO = W.MEMBER_NO)
+		LEFT JOIN
+			PIECE P ON (A.MEMBER_NO = P.MEMBER_NO)
+		LEFT JOIN
+			PIECE_SELL PS ON (P.PIECE_NO = PS.PIECE_NO)
+		WHERE
+			A.MEMBER_NO = #{memberNo}
+	</select>
+
+
+
+
+
+
+
+
+
 </mapper>

@@ -1,95 +1,130 @@
-/* main {
-  width: 100%;
-  height: 100vh;
-} */
+/* artistList.css */
 
-#artistPage-main{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
-/* * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-} */
-
+/* 기본 설정 */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  background-color: #f8f8f8;
 }
 
 .container {
-  width: 80%;
-  margin: 0 auto;
-  margin-top: 150px;
+  max-width: 1200px;
+  margin: 150px auto;
+  padding: 0 61px;
+  color: #333;
 }
 
 h1 {
   text-align: center;
-  margin: 20px 0;
-  font-size: 2em;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
 }
 
 .artist-category {
-  margin: 40px 0;
+  margin-bottom: 30px;
 }
 
+.artist-category-title h2,
 .artist-category h2 {
-  font-size: 1.5em;
-  color: #444;
+  font-size: 1.5rem;
+  color: #555;
   margin-bottom: 15px;
+  text-align: left;
+  border-left: 5px solid #4CAF50;
   padding-left: 10px;
 }
 
+/* 그리드 설정 */
 .artist-grid {
+  width: 1290px;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
 }
 
 .artist-card {
-  flex: 1 1 calc(20% - 20px); /* 5개씩 나열을 위한 설정 */
-  text-align: center;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: calc(20% - 20px);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  width: 200px;
+  justify-content: center;
+  align-items: center;
+}
+
+.artist-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .artist-card img {
   width: 100%;
-  height: 200px;
-  border-radius: 5px;
+  height: 300px;
+  display: block;
+  border-bottom: 1px solid #e0e0e0;
 }
 
-.artist-card p {
-  margin-top: 10px;
-  font-size: 1em;
-  color: #555;
-  text-align: left;
+.artist-name p {
+  margin: 10px 0;
+  font-size: 1rem;
+  color: #333;
+  font-weight: bold;
 }
 
-.highlighted {
-  border: 2px solid #00f;
-  padding: 5px;
-  border-radius: 5px;
+/* ***************** 페이지네이션 *************************** */
+.pagination-box {
+  display: flex;
+  justify-content: center; /* 중앙 정렬 */
+  margin-top: auto; /* 남은 공간만큼 아래로 이동 */
+  padding: 20px 0; /* 상하 여백 추가 */
+  width: 100%;
 }
 
-.pagination {
+
+
+.pagination-box > .page-btn {
+  margin: 0 10px; /* 페이지 번호 간격 조절 (양쪽을 넓힘) */
+  cursor: pointer; /* 마우스 포인터를 클릭 가능으로 변경 */
+  padding: 5px; /* 패딩 추가하여 클릭 영역 확대 */
+  display: flex; /* Flexbox 사용 */
+  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: center; /* 가로 중앙 정렬 */
+  width: 30px; /* 고정된 너비 */
+  height: 30px; /* 고정된 높이 */
+  transition: color 0.3s; /* 부드러운 색상 전환 */
   text-align: center;
-  margin: 30px 0;
 }
 
-.pagination a {
-  color: #555;
-  padding: 8px 12px;
-  margin: 0 5px;
+.pagination-box >.page-btn:hover {
+  border-radius: 50%; /* 원형으로 만들기 */
+  background-color: #5e7c71; /* 원형의 배경색 */
+  color: #fff; /* 글자색 흰색 */
+}
+
+   /* 페이지 네이션 색상 */
+.pagination-box > .page-btn.active {
+  border-radius: 50%; /* 원형으로 만들기 */
+  background-color: #5e7c71; /* 원형의 배경색 */
+  color: #fff; /* 글자색 흰색 */
+  font-weight: bold;
+}
+
+.pagination-box a {
+  color: inherit; /* 부모 요소의 색상으로 설정 */
   text-decoration: none;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  margin: 0 10px; /* 링크 간격 조절 */
+  display: flex; /* Flexbox 사용 */
+  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: center; /* 가로 중앙 정렬 */
+  padding: 5px; /* 패딩 추가하여 클릭 영역 확대 */
 }
 
-.pagination a:hover {
-  background-color: #ddd;
+hr {
+  margin-top: 50px;
+  margin-bottom: 50px;
 }

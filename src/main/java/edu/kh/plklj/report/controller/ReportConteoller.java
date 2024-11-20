@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
+import edu.kh.plklj.main.dto.Member;
 import edu.kh.plklj.report.dto.Report;
 import edu.kh.plklj.report.service.ReportService;
 import lombok.RequiredArgsConstructor;
@@ -40,9 +42,22 @@ public class ReportConteoller {
 	@ResponseBody
 	@PostMapping("report")
 	public ResponseEntity<?> reportInsert(
-			@RequestBody Report report
+			@RequestBody Report report,
+			@SessionAttribute(value = "memberLogin", required = false) Member memberLogin,
+			@SessionAttribute(value = "artistLogin", required = false) Member artistLogin
 			){
 		try {
+			
+			int loginNo = 0;
+			
+			if(memberLogin != null) {
+				loginNo = memberLogin.getMemberNo();
+			} else {
+				loginNo = artistLogin.getMemberNo();
+			}
+			
+			report.setMemberNo(loginNo);
+			
 			int result = service.reportInsert(report);
 			
 

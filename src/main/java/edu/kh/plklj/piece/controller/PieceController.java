@@ -68,7 +68,7 @@ public class PieceController {
 		response.put("salesPagination", salesPagination);
 		
 		
-		log.debug("Sort: {}, Order: {}", sort, order);
+//		log.debug("Sort: {}, Order: {}", sort, order);
 		
 		return response;
 	}

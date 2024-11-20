@@ -6,24 +6,23 @@
     <title>Artist Profile</title>
     <link rel="stylesheet" href="/css/artist/artistDetail.css">
 
-    <th:block th:replace= "~{/common/common}"></th:block>
+    <th:block th:replace="~{/common/common.html :: cssLinks}"></th:block>
 </head>
 
-
 <body>
-  <th:block th:replace= "~{/common/header}"></th:block>
+  <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
     <main id="artist-profile-container">
         <!-- Left side with profile image and details -->
-        <section class="profile-section">
-            <img src="/images/artist1.jpg" alt="Profile Image" class="profile-image">
+        <section class="profile-section" th:object="${artist}">
+            <img th:src="*{artistProfile}" class="profile-image">
             <div class="artist-info">
-                <h2>이동현</h2>
+                <h2 th:text="*{memberName}">이동현</h2>
                 <!-- <p class="artist-name">Donghyeon Lee</p> -->
                 <button class="follow-button">FOLLOW
                   <i class="fa-regular fa-star"></i>
                 </button>
-                <p class="artist-career">경력 사항</p>
-                <p class="exhibition-info">발 묻히기 2024~<br>뉴욕 여행 2주</p>
+                <p class="artist-career" >경력 사항</p>
+                <p class="exhibition-info" th:text="*{workDetail}">발 묻히기 2024~<br>뉴욕 여행 2주</p>
             </div>
         </section>
 
@@ -40,11 +39,11 @@
             <div class="artwork-list">
                 <div class="artwork-item">
                   <div class="artwork-info">
-                    <h4>성윤모</h4>
-                    <p>낙찰가: ₩930,000<br>크기: 20 x 25</p>
+                    <h4 th:text="*{pieceTitle}">성윤모</h4>
+                    <p th:text="*{sellPrice} *{sizeX} + ' x ' + *{sizeY}">낙찰가: ₩930,000<br>크기: 20 x 25</p>
                     <button class="view-button">자세히 보기</button>
                   </div>
-                  <img src="/images/image1.png" alt="Artwork 1" class="artwork-image">
+                  <img th:src="*{pieceRename}" class="artwork-image">
                 </div>
 
                 <div class="artwork-item">
