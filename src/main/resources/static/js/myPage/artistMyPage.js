@@ -319,7 +319,7 @@ let phoneSecBackUp;
 let lastCheckedPhone;
 let keyFl = false;
 
-// 이름칸 클릭시
+// 전화번호칸 클릭시
 phoneSec.addEventListener("click", () => {
   if(phoneSec.classList.contains("active")) return;
   phoneSec.classList.add("active");

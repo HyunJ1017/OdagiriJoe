@@ -29,7 +29,7 @@
 			)
 	</select>
 	
-	<!-- 날찰된 경매물품 상태 변경 -->
+	<!-- 낙찰된 경매물품 상태 변경 -->
 	<update id="successfulAuction">
 		UPDATE PIECE P
 		SET PIECE_STATUS = 'D'

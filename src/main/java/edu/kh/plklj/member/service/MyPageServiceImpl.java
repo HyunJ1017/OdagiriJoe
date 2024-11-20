@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.ibatis.session.RowBounds;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @Transactional
+@PropertySource("classpath:/config.properties")
 @RequiredArgsConstructor
 public class MyPageServiceImpl implements MyPageService {
 	
@@ -36,6 +39,12 @@ public class MyPageServiceImpl implements MyPageService {
 	private final Bucket bucket;
 	
 	private final BCryptPasswordEncoder encoder;
+	
+	@Value("${firebase.portfolio.prePath}")
+	private String portfolioPrePath;
+	
+	@Value("${firebase.file.appPath}")
+	private String appPath;
 	
 	// 이름수정
 	@Override
@@ -106,7 +115,8 @@ public class MyPageServiceImpl implements MyPageService {
 	        throw new RuntimeException("ErrorCode.IMAGE_UPLOAD_FAILED");
 	    }
 		
-	    artist.setArtistPortfolio("portfolio/" + "portpolio" + artist.getMemberNo() + ext);
+	    // https://firebasestorage.googleapis.com/v0/b/ 프로젝트ID .firebasestorage.app/o/ 파일경로 / 파일명$.확장자 ?alt=media
+	    artist.setArtistPortfolio( portfolioPrePath + "portpolio" + artist.getMemberNo() + ext + appPath);
 	    
 	    int result = mapper.insertArtist(artist);
 	    

@@ -58,6 +58,7 @@ public class ImageServiceImpl implements ImageService {
 	            bucket.create(blob, inputStream, image.getContentType());
 	        }
 	        
+		    // https://firebasestorage.googleapis.com/v0/b/ 프로젝트ID .firebasestorage.app/o/ 파일경로 / 파일명$.확장자 ?alt=media
             return profilePrePath + fileName + appPath;
 	        
 	    } catch (Exception e) {
@@ -84,6 +85,7 @@ public class ImageServiceImpl implements ImageService {
 	        	existingBlob = bucket.create(blob, inputStream, image.getContentType());
 	        }
 	        
+		    // https://firebasestorage.googleapis.com/v0/b/ 프로젝트ID .firebasestorage.app/o/ 파일경로 / 파일명$.확장자 ?alt=media
 	        return piecePrePath + fileName + appPath;
 	        
 	    } catch (Exception e) {
