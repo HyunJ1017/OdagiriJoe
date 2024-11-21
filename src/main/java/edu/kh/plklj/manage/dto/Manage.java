@@ -1,5 +1,7 @@
 package edu.kh.plklj.manage.dto;
 
+import java.util.List;
+
 import edu.kh.plklj.main.dto.BankCode;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -66,6 +68,10 @@ public class Manage {
 		private String reportDate;
 		private String reportReadFl;
 		private String reportDelFl;
+		
+		// 경력 사항
+		private int workNo;
+		private List<String> workDetail;
 
 		
 		

@@ -20,6 +20,7 @@
     A.MEMBER_NO AS "memberNo",
     A.ARTIST_PROFILE AS "artistProfile",
     A.ARTIST_NICKNAME AS "artistNickname",
+    A.ARTIST_PROFILE AS "artistProfile",
     (
         SELECT SUM(END_PRICE)
         FROM PIECE P
@@ -87,7 +88,9 @@
 		P.PIECE_TITLE AS "pieceName",
 		P.SIZE_X || ' x ' || P.SIZE_Y AS "pieceSize",
 	    TO_CHAR(A.END_PRICE, 'FM999,999,999,999') AS "auctionPrice",
-		D.ARTIST_NICKNAME AS "artistNickname"
+		D.ARTIST_NICKNAME AS "artistNickname",
+		R.PIECE_NO AS "pieceNo",
+		P.PIECE_RENAME AS "pieceRename"
 		FROM
 		REPORT R
 		JOIN
@@ -107,7 +110,10 @@
 	</select>
 
 	<select id="getRequestList" resultType="map">
-		SELECT ARTIST_NICKNAME AS "artistNickname"
+		SELECT ARTIST_NICKNAME AS "artistNickname",
+			MEMBER_NO AS "memberNo",
+			ARTIST_PROFILE AS "artistProfile"
+			
 		FROM ARTIST
 		WHERE ARTIST_REG = 'N'
 	</select>
@@ -171,4 +177,51 @@
 	DELETE FROM PIECE
 	WHERE PIECE_NO = #{pieceNo}
 	</delete>
+	
+	<!-- 승인요청내역 프로필 불러오기  -->
+	<select id="getprofileList" resultMap="ProfileResultMap">
+	SELECT W.WORK_NO, W.MEMBER_NO, A.ARTIST_NICKNAME, A.ARTIST_PORTFOLIO, A.ARTIST_PROFILE
+	FROM "WORK" W
+	LEFT JOIN ARTIST A ON A.MEMBER_NO=W.MEMBER_NO
+	WHERE W.MEMBER_NO = #{memberNo}
+	</select>
+	
+	<resultMap type="Manage" id="ProfileResultMap">
+	<id property = "memberNo" column="MEMBER_NO"/> 
+	<collection property="workDetail" select="getworkDetail" column="MEMBER_NO"
+	javaType="java.util.ArrayList" ofType="string">
+	</collection>
+	</resultMap>
+	
+	
+	<select id="getworkDetail" resultType="string">
+	SELECT WORK_DETAIL
+	FROM WORK
+	WHERE MEMBER_NO = #{memberNo}
+	
+	</select>
+	
+	<!--승인 요청 승인 -->
+	<update id="getapproveArtist">
+	UPDATE ARTIST
+	SET ARTIST_REG='Y'
+	WHERE ARTIST_REG='N'
+	AND
+	MEMBER_NO = #{memberNo} 
+	</update>
+	
+	<!-- 승인 요청 거절  -->
+	
+
+    <!-- ARTIST 테이블에서 데이터 삭제 -->
+    <delete id="getrejectArtist">
+    DELETE FROM ARTIST
+    WHERE MEMBER_NO = #{memberNo}
+    </delete>
+	<delete id="getrejectArtist2">  <!-- 먼저 실행 -->
+ 	DELETE FROM WORK
+    WHERE MEMBER_NO = #{memberNo}
+	</delete>
 </mapper>
+
+ 

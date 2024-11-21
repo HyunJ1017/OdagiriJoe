@@ -78,3 +78,7 @@
   width: 20px;
 }
 
+.profile-container{
+  display: flex;
+  flex-direction: row;
+}

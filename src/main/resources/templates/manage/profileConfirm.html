@@ -15,20 +15,23 @@
 
   <main class="main-content">
     <section class="profile-section">
+     <div th:each= "profile:${profileList}" style="display: flex; flex-direction: row;">
         <div class="profile-image">
-            <img src="profile.jpg" alt="대표 이미지">
+            <img th:src="${profile.artistProfile}" alt="대표 이미지">
         </div>
         <div class="profile-info">
-            <h2 class="name">정호정</h2>
-            <p class="description">hohohohohohoho</p>
+            <h2 class="name" th:text = "${profile.artistNickname}"></h2>
 
             <h3 class="section-title">작가 경력 사항</h3>
-            <p>경력경력</p>
-            <p>경력경력</p>
+            <th:block th:each= "detail:${profile.workDetail}">
+              <p th:text ="${detail}"></p>
+            </th:block>
+          
 
             <h3 class="section-title">포트폴리오</h3>
-            <a href="artist_resume.pdf" class="pdf-link" download>정호정.pdf (클릭 시 다운로드)</a>
+            <a th:if= "${profile.artistPortfolio}" th:href="${profile.artistPortfolio}"  class="pdf-link" download="|포트폴리오${profile.memberNo}|">포트폴리오 다운로드</a>
         </div>
+      </div>
     </section>
 </main>
 
