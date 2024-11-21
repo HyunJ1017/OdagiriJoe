@@ -1,5 +1,5 @@
 // 팝업 열기
-function openPopup(reportNo) {
+function openPopup(reportNo, pieceNo) {
   const popup = document.getElementById("reportPopup");
   if (!popup) {
     console.log("팝업 요소를 찾을 수 없음");
@@ -7,8 +7,10 @@ function openPopup(reportNo) {
   }
 
   const confirmButton = popup.querySelector("#confirmReport");
+  const cancelButton = popup.querySelector("#cancelReport");
   const reportReasonInput = popup.querySelector(".report-input");
   const reportDetailDiv = popup.querySelector(".report-detail");
+
 
 
 
@@ -32,6 +34,9 @@ function openPopup(reportNo) {
       console.log(data);
       if (confirmButton) {
         confirmButton.dataset.id = reportNo;
+      }
+      if (cancelButton) {
+        cancelButton.dataset.pieceNo = pieceNo;
       }
       // 팝업에 데이터 표시
       if (reportReasonInput) {
@@ -65,7 +70,8 @@ function closePopup() {
 document.addEventListener("click", (event) => {
   if (event.target.classList.contains("view-button")) {
     const reportNo = event.target.dataset.id; // data-id에서 reportNo 가져오기
-    openPopup(reportNo); // 팝업 열기
+    const pieceNo = event.target.dataset.pieceNo; // data-id에서 reportNo 가져오기
+    openPopup(reportNo, pieceNo); // 팝업 열기
   }
 });
 
@@ -74,12 +80,8 @@ document.getElementById("closePopupBtn").addEventListener("click", closePopup);
 
 // "게시글 삭제" 버튼 클릭 이벤트
 document.getElementById("cancelReport").addEventListener("click", (event) => {
-  const pieceNo = event.target.dataset.id; // data-id 속성에서 pieceNo 가져오기
-  if (!pieceNo) {
-    alert("유효한 게시글 번호를 찾을 수 없습니다.");
-    return;
-  }
-
+  const pieceNo = event.target.dataset.pieceNo; // data-id 속성에서 pieceNo 가져오기
+ 
   // 서버로 DELETE 요청 보내기
   fetch(`/manage/delete/${pieceNo}`, {
     method: "DELETE",

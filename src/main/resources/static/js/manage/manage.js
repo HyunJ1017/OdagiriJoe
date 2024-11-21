@@ -68,6 +68,28 @@ document.querySelectorAll(".inquiry-section .inquiry-row").forEach(row => {
   });
 });
 
+/* 공지사항 토글기능 */
+document.querySelectorAll(".notice-item .notice-row").forEach(row => {
+  row.addEventListener("click", () => {
+    const noticeAnswer = row.nextElementSibling; // 현재 행의 다음 요소
+    const noticeButtons = noticeAnswer.nextElementSibling; // 답변의 다음 요소 (버튼들)
+
+    // answer 요소가 숨겨져 있거나 스타일이 지정되어 있지 않을 경우
+    if (noticeAnswer.style.display === "none" || !noticeAnswer.style.display) {
+      // answer 요소를 보이도록 설정
+      noticeAnswer.style.display = "block";
+      // buttons 요소를 보이도록 설정
+      noticeButtons.style.display = "flex";
+      row.querySelector(".icon").textContent = "▼"; // 아이콘 변경
+    } else {
+      // answer 요소를 숨기도록 설정
+      noticeAnswer.style.display = "none";
+      // buttons 요소를 숨기도록 설정
+      noticeButtons.style.display = "none";
+      row.querySelector(".icon").textContent = "▶"; // 아이콘 변경
+    }
+  });
+});
 
 
 
@@ -221,7 +243,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // "작가 보기" 버튼 클릭 이벤트
   showArtistBtn.addEventListener("click", () => {
     artistList.style.display = "flex";
-    paginationBoxArtist.style.display = "flex";
     memberList.style.display = "none";
     paginationBoxMember.style.display = "none"; 
     console.log("작가 보기 활성화");
@@ -260,7 +281,7 @@ function displayArtistList(contents) {
     artistItem.classList.add('artist-item');
     artistItem.dataset.memberNo= content.memberNo;
     artistItem.innerHTML = `
-      <img src="/images/profile/profile1.jpg" alt="작가 이미지">
+      <img src="${content.artistProfile}" alt="작가 이미지">
       <div class="artist-info">
         <h3>${content.artistNickname} | 작가</h3>
         <p>경매 금액: ₩${content.endPrice?.toLocaleString() || '0'}</p>
@@ -308,14 +329,14 @@ function displayReportContents(contents) {
     const contentCard = document.createElement('div');
     contentCard.classList.add('content-card');
     contentCard.innerHTML = `
-      <img src="" class="content-image">
+      <img src="${content.pieceRename}" class="content-image">
       <div class="content-info">
           <h2>${content.artistNickname}</h2>
           <p>작품명: ${content.pieceName}</p>
           <p>낙찰가: ₩${content.auctionPrice}</p>
           <p>크기: ${content.pieceSize}</p>
           <div class="buttons">
-              <button class="view-button" data-id="${content.reportNo}">상세보기</button>
+              <button class="view-button" data-id="${content.reportNo}" data-piece-no="${content.pieceNo}">상세보기</button>
           
             
           </div>    
@@ -330,25 +351,120 @@ function displayRequestContents(contents) {
   requestGrid.innerHTML = ''; // 기존 콘텐츠 초기화'
 
   contents.forEach(content => {
+    console.log("콘텐츠로딩");
     const requestCard = document.createElement('div');
     requestCard.classList.add('request-card');
+    requestCard.dataset.memberNo = content.memberNo;
     requestCard.innerHTML = `
-      <img src="" class="profile-image">
+      <img src="${content.artistProfile}" class="profile-image" width="157" height="157">
       <div class="info">
-          <h2>${content.artistNickname}</h2>
+          <h1>${content.artistNickname}</h1>
           <div class="action-buttons">
               <div class="detail-btn">
-                  <button class="detail-button">정보 상세보기</button>
+                  <button id="detailButton" class="detail-button" data-member-no="${content.memberNo}">정보 상세보기</button>
               </div>    
               <div class="two-btn">
-                  <button class="approve-button">승인</button>
-                  <button class="reject-button">거절</button>
+                  <button class="approve-button" data-member-no="${content.memberNo}">승인</button>
+                  <button class="reject-button" data-member-no="${content.memberNo}">거절</button>
               </div>    
           </div>    
       </div>`;    
     requestGrid.appendChild(requestCard);  
+    
   });  
+  
+  // 승인요청내역 정보상세보기
+  const detailButtons = document.querySelectorAll(".detail-button");
+    if (detailButtons) {
+    detailButtons.forEach(detailButton => {
+      detailButton.addEventListener("click", (event) => {
+        console.log("디테일버튼클릭됨");
+        const memberNo = event.target.dataset.memberNo;
+        console.log("memberNo : ", memberNo);
+        if (!memberNo) {
+          alert("해당 회원 번호를 찾을 수 없습니다.");
+          return;
+        }
+        window.location.href = `/manage/confirm/${memberNo}`;
+      });
+    })
+  } else {
+    console.error("detailButton 요소를 찾을 수 없습니다.");
+  }
+
+  // 작가 거절
+  document.addEventListener("click", (event) => {
+  if(event.target.classList.contains("reject-button")){
+      const memberNo = event.target.dataset.memberNo;
+      if(!memberNo){
+        alert("memberNo를 찾을 수 없습니다.");
+        return;
+      }
+      rejectArtists(memberNo);
+    }else{
+      console.log("거절 불가");
+    }
+  })
+
+  // 작가 승인
+  document.addEventListener("click", (event) => {
+    if(event.target.classList.contains("approve-button")){
+      const memberNo = event.target.dataset.memberNo;
+      if (!memberNo) {
+        alert("memberNo를 찾을 수 없습니다.");
+        return;
+      }
+      approveArtist(memberNo);
+    }else{
+      console.log("승인 불가");
+    }
+  })
 }  
+
+
+
+function approveArtist(memberNo){
+  if(!confirm("이 작가을 승인하시겠습니까?")) return;
+  fetch(`/manage/approve`, {
+    method : "POST",
+    headers : {
+      "Content-Type" : "application/json",
+    },
+    body : memberNo
+  })
+  .then((response) => {
+    if(!response.ok) {throw new Error("승인 실패")}
+    return response.text();
+
+  })
+  .then((data) => {
+    alert(`승인 성공 : ${data}`);
+    getList(4, page4);
+  })
+  .catch(error => alert(`승인 실패: ${error.message}`));
+}
+
+
+function rejectArtists(memberNo){
+  if(!confirm("이 작가를 거절하시겠습니까?"))  return;
+  fetch(`/manage/reject`, {
+    method : "POST",
+    headers : {
+      "Content-Type" : "application/json",
+    },
+    body : memberNo
+  })
+  .then((response) => {
+    if(!response.ok) {throw new Error("승인 실패")}
+    return response.text();
+  })
+  .then((data) => {
+    alert(`거절 성공 : ${data}`);
+    getList(4, page4);
+  })
+  .catch(error => alert(`거절 실패 : ${error.message}`));
+}
+
 /* 
 // 콘텐츠 상세내용 표시 함수
 function displayDetailContents(contents) {
@@ -536,6 +652,15 @@ function getList(code, page) {
     }  
   }  
   
+
+  
+
+
+
+
+
+
+
 
   // /* /* 콘텐츠 관리 */
   // document.addEventListener('DOMContentLoaded', () => {

@@ -34,5 +34,15 @@ public interface ManageService {
 	// 게시글 삭제
 	void deletePieceList(int pieceNo);
 
+	// 승인요청내역 프로필 불러오기
+	List<Manage> getprofileList(int memberNo);
+
+	// 승인요청 승인
+	int getapproveArtist(int memberNo);
+
+	// 승인요청 거절
+	int getrejectArtist(int memberNo);
+
+
 
 }

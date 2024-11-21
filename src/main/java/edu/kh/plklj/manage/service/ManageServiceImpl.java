@@ -141,5 +141,30 @@ public class ManageServiceImpl implements ManageService {
 		
 	}
 
-	
+	// 승인요청내역 프로필 불러오기
+	@Override
+	public List<Manage> getprofileList(int memberNo) {
+
+		return mapper.getprofileList(memberNo);
+	}
+
+	// 승인 요청 승인
+	@Override
+	public int getapproveArtist(int memberNo) {
+		return mapper.getapproveArtist(memberNo);
+	}
+
+	// 승인 요청 거절
+	@Override
+	public int getrejectArtist(int memberNo) {
+				int result = mapper.getrejectArtist2(memberNo);
+				result += mapper.getrejectArtist(memberNo);
+		return result;
+		
+	}
+
+
+
+
+
 }

@@ -132,9 +132,51 @@ public class ManageController {
 	}
 
 	// 승인 요청 시 프로필 페이지
-	@GetMapping("confirm")
-	public String profileConfirm() {
+	@GetMapping("/confirm/{memberNo}")
+
+	public String profileConfirm(@PathVariable("memberNo") int memberNo, Model model) {
+		
+		List<Manage> profileList = service.getprofileList(memberNo);
+		
+		for(Manage portfolio : profileList) {
+			log.info(portfolio.toString());
+		}
+
+		model.addAttribute("profileList", profileList);
+		 
+		
 		return "manage/profileConfirm";
 	}
+	
+	// 승인 요청 승인
+	@PostMapping("/approve")
+	@ResponseBody
+	public String approveArtist(@RequestBody int memberNo) {
+		int result = service.getapproveArtist(memberNo);
+		if(result>0) {
+
+			return "승인 성공";
+		}else {
+			return "승인 실패";
+		}
+		
+
+	}
+	
+	// 승인 요청 거절
+	@PostMapping("/reject")
+	@ResponseBody
+	public String rejectArtist(@RequestBody int memberNo) {
+		int result = service.getrejectArtist(memberNo);
+		if(result>0) {
+			return "거절 성공";
+		}else {
+			return "거절 실패";
+		}
+	
+		
+	}
+	
+	
 
 }

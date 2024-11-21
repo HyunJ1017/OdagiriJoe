@@ -54,6 +54,21 @@ public interface ManageMapper {
 	// 게시글 삭제
 	void deletePieceList(int pieceNo);
 	
+	// 승인요청내역 프로필 불러오기
+	List<Manage> getprofileList(int memberNo);
+	
+	// 승인요청 승인
+	int getapproveArtist(int memberNo);
+	
+	// 승인 요청 거절
+	int getrejectArtist(int memberNo2);
+	int getrejectArtist2(int memberNo);
+	
+	
+	
+	
+	
+
 
 	
 

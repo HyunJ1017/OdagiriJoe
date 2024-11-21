@@ -416,10 +416,12 @@ h2 {
 }
 
 .profile-image {
-    width: 100%;
-    height: auto;
+    width: 157px;
+    height: 157px;
+ 
     border-radius: 8px;
     margin-bottom: 10px;
+    object-fit: cover;
 }
 
 .info h2 {
@@ -529,6 +531,7 @@ h2 {
     margin-left: 10px;
     justify-items: flex-end;
 }
+
 
 .faq-list {
     list-style-type: none;
@@ -658,106 +661,135 @@ h2 {
     cursor: pointer;
     border-radius: 5px;
   }
+
   
   .delete-button:hover {
     background-color: #556473;
+  }
+  .edit-button{
+    padding: 8px 15px;
+    border: none;
+    background-color: #6c7a89;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
   }
   
 
 
 
 /* 공지사항 */
+
 .notice-section {
     max-width: 1000px;
-    max-height: 900px;
+    max-height: 700px;
     margin: 20px 250px;
     padding: 20px;
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
 }
 
 .notice-section h2 {
-    font-size: 24px;
+    font-size: 20px;
     color: #3A4F48;
     margin-bottom: 10px;
+    display: inline-block;
 
 }
 
-.button-group {
+.notice-header {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 20px;
-    margin-right: 600px;
-    gap: 20px;
-    flex-direction: row;
+    margin-bottom: 10px;
 }
 
-.add-button2,
-.delete-button {
+.revise-button{
+    padding: 8px 15px;
+    border: none;
+    background-color: #6c7a89;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.erase-button{
+    padding: 8px 15px;
+    border: none;
+    background-color: #6c7a89;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+}
 
-    padding: 8px 16px;
-  
-    background-color: #5e7c71;
+.notice-buttons{
+    margin-top: 50px;
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+}
+.notice-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+  }
+/* .add-button {
+    background-color: #526D64;
     color: white;
-
+    padding: 5px 10px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 14px;
-}
+    font-size: 16px;
+    position: absolute;
+    margin-left: 10px;
+    justify-items: flex-end;
+} */
 
 .notice-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    list-style-type: none;
+    margin-top: 20px;
 }
 
 .notice-item {
-    position: relative;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.notice-row {
     display: flex;
     align-items: center;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.notice-image {
-    width: 100px;
-    height: 100%;
-    object-fit: cover;
-}
-
-.notice-content {
-    flex: 1;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.notice-content h3 {
-    font-size: 18px;
-    color: #3A4F48;
-}
-
-.edit-button {
-    background-color: white;
-    color: #3A4F48;
-    border: 1px solid #5e7c71;
-   
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
     cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s, color 0.3s;
 }
 
-.edit-button:hover {
-    background-color: #3A4F48;
-    color: white;
+.icon {
+    font-size: 20px;
+    color: #3A4F48;
+    margin-right: 40px;
+}
+
+.notice-question {
+    font-size: 20px;
+    color: #3A4F48;
+}
+
+.notice-answer {
+    font-size: 16px;
+    color: #555;
+    margin-top: 20px;
+    margin-top: 22px;
+    text-align: center;
+
+}
+
+.label {
+  font-size: 14px;
+  color: #5e7c71;
+  margin-top: 20px;
+ 
 }
 
 /* 작가 환전 */
@@ -885,7 +917,8 @@ h2 {
 /* 1:1 문의 */
 .inquiry-section {
     max-width: 1000px;
-    margin: 20px auto;
+    max-height: 700px;
+    margin: 20px 250px;
     padding: 20px;
     background-color: #ffffff;
     border-radius: 8px;
@@ -1010,3 +1043,27 @@ h2 {
  
     
   
+  /* 공지사항  */
+/*   .notice-item {
+    max-width: 1000px;
+    max-height: 700px;
+    margin: 20px 250px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .notice-title {
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  .notice-content {
+    display: none;
+    padding-top: 10px;
+  }
+  
+  .toggle-icon {
+    margin-right: 5px;
+  } */

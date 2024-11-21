@@ -447,39 +447,29 @@
 
       <!--공지사항 -->
       <h2>공지사항</h2>
-      <section>
-        <div class="button-group">
-          <button class="add-button2">추가하기</button>
-          <button class="delete-button">삭제하기</button>
+      <section class="notice-section">
+        <div class="notice-header">
+          <button class="add-button">작성하기</button>
         </div>
-
-        <div class="notice-section">
-          <div class="notice-list">
-            <div class="notice-item">
-              <img src="notice1.jpg" alt="경매 입찰 방법" class="notice-image">
-              <div class="notice-content">
-                <h3>경매 입찰 방법</h3>
-                <button class="edit-button">수정하기</button>
-              </div>
+      
+        <ul class="notice-list">
+          <li class="notice-item">
+            <div class="notice-row">
+              <span class="icon">&#9654;</span>
+              <span class="notice-question">공지사항</span>
             </div>
-            <div class="notice-item">
-              <img src="notice2.jpg" alt="미술 경매 용어" class="notice-image">
-              <div class="notice-content">
-                <h3>미술 경매 용어</h3>
-                <button class="edit-button">수정하기</button>
-              </div>
+            <div class="notice-answer" style="display: none;">
+             공지사항입니다
             </div>
-            <div class="notice-item">
-              <img src="notice3.jpg" alt="공지사항" class="notice-image">
-              <div class="notice-content">
-                <h3>공지사항</h3>
-                <button class="edit-button">수정하기</button>
-
-              </div>
+            <div class="notice-buttons" style="display: none;">
+              <button class="revise-button">수정하기</button>
+              <button class="erase-button">삭제하기</button>
             </div>
-          </div>
-        </div>
+          </li>
+        </ul>
       </section>
+
+      
 
       <!-- 작가 환전 -->
       <div id="back"></div><!-- 사이드바 스크롤 -->
