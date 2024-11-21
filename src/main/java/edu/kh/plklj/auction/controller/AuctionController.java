@@ -60,7 +60,9 @@ public class AuctionController {
 				) {
 			
 			int loginNo = (memberLogin != null) ? memberLogin.getMemberNo() : (artistLogin != null) ? artistLogin.getMemberNo() : 0;
+			
 	    Map<String, Object> pieceDetail = service.ongoingDetail(pieceNo, loginNo);
+	    
 	    System.out.println(pieceDetail);
 	    
 	    model.addAttribute("pieceDetail", pieceDetail);

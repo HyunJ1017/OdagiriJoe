@@ -1,8 +1,12 @@
-//package edu.kh.plklj.bid.service;
-//
-//public interface BidService {
-//
-//    void processBid(int pieceNo, int memberNo, double bidPrice);
-//    double getCurrentBidPrice(int pieceNo);
-//}
-//
+package edu.kh.plklj.bid.service;
+
+import edu.kh.plklj.bid.dto.BidRequest;
+import edu.kh.plklj.bid.dto.BidResponse;
+
+public interface BidService {
+	
+  BidResponse processBid(BidRequest bidRequest);
+
+	Double getHighestBid(int pieceNo);
+}
+

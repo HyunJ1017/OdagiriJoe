@@ -66,36 +66,13 @@ likeCurrentBtn.addEventListener("click", e => {
 
 
 
-// 웹소켓 설정
-const socket = new WebSocket("ws://localhost:8080/websocket/bidding");
-
-// 서버에서 메시지를 받아와 현재 입찰 금액 갱신
-socket.onmessage = (event) => {
-  const data = JSON.parse(event.data); // JSON 형태로 파싱
-  if (data.pieceNo === parseInt(pieceNo)) { // 해당 작품에 대한 업데이트만 처리
-    document.querySelector(".current-bid span").textContent = `${data.currentBidPrice} (KRW)`;
-  }
-};
-
-// 웹소켓 연결 성공
-socket.onopen = () => {
-  console.log("웹소켓 연결 성공");
-};
-
-// 웹소켓 오류 처리
-socket.onerror = (error) => {
-  console.error("웹소켓 오류 발생:", error);
-};
-
-// 웹소켓 닫힘 처리
-socket.onclose = () => {
-  console.log("웹소켓 연결 종료");
-};
 
 /* 모달창 */
 const modal = document.getElementById('modal');
 const bidApplyBtn = document.getElementById('bidApplyBtn');
 const closeBtn = document.querySelector('.close-btn');
+const bidAmountInput = document.getElementById('bidAmount'); // 입력 필드 참조 추가
+const confirmBidBtn = document.getElementById('confirmBidBtn'); // 입찰 버튼 참조 추가
 
 // 모달 열기
 bidApplyBtn.addEventListener('click', function () {
@@ -114,20 +91,125 @@ window.addEventListener('click', function (event) {
   }
 });
 
-  // 입찰 금액 제출 이벤트
+
+// 현재 최고 입찰가를 저장할 변수
+let currentHighestBid = 0;
+
+document.addEventListener('DOMContentLoaded', function () {
+
+  // 페이지 로드 시 서버에서 최신 데이터를 가져옴
+  const pieceNo = parseInt(document.getElementById('pieceContainer').getAttribute('data-pieceNo'), 10);
+
+  fetch(`/api/bid/current?pieceNo=${pieceNo}`)
+    .then((response) => {
+      if (!response.ok) throw new Error("Failed to fetch current bid data.");
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Fetched current bid data:", data);
+
+      // 받아온 금액 전역변수로 할당
+      currentHighestBid = data.currentBidPrice;
+
+      console.log("Current Highest Bid:", currentHighestBid);
+
+      // 최신 데이터로 초기화
+      const currentBidPriceDiv = document.getElementById('currentBidPrice');
+      if (currentBidPriceDiv) {
+        currentBidPriceDiv.innerHTML = `${data.currentBidPrice.toLocaleString()} (KRW)`;
+      }
+
+      const currentBidAmountSpan = document.getElementById('currentBidAmount');
+      if (currentBidAmountSpan) {
+        currentBidAmountSpan.innerText = `${data.currentBidPrice.toLocaleString()} (KRW)`;
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching current bid data:", error);
+    });
+});
+
+// WebSocket 연결
+const socket = new WebSocket("ws://localhost/bid");
+
+// WebSocket 메시지 수신 및 업데이트
+socket.onmessage = function (event) {
+  console.log("WebSocket message received:", event.data);
+  const response = JSON.parse(event.data);
+
+  // 에러 메시지 처리
+  if (response.error) {
+    console.error("Error from WebSocket:", response.error);
+    alert(`입찰 처리 중 문제가 발생했습니다: ${response.error}`);
+    return; // 에러일 경우 로직 중단
+  }
+
+
+  // 성공 메시지 처리
+  if (response.currentBidPrice !== undefined) {
+    currentHighestBid = response.currentBidPrice; // 현재 최고 입찰가 업데이트
+    alert("입찰이 완료 되었습니다.");
+    
+
+
+    // '현재 입찰가' 업데이트
+    const currentBidPriceDiv = document.getElementById('currentBidPrice');
+    if (currentBidPriceDiv) {
+      currentBidPriceDiv.innerHTML = `${response.currentBidPrice.toLocaleString()} (KRW)`;
+    }
+
+    // '현재 입찰 금액' 업데이트
+    const currentBidAmountSpan = document.getElementById('currentBidAmount');
+    if (currentBidAmountSpan) {
+      currentBidAmountSpan.innerText = `${response.currentBidPrice.toLocaleString()} (KRW)`;
+    }
+
+    if (bidAmountInput) {
+      bidAmountInput.value = ''; // 값 초기화
+    }
+
+  } else {
+    console.warn("No currentBidPrice in WebSocket message:", response);
+  }
+};
+
 confirmBidBtn.addEventListener('click', function () {
+  const bidAmountInput = document.getElementById('bidAmount');
   const bidAmount = parseFloat(bidAmountInput.value);
 
-  if (bidAmount > 0) {
-    // 웹소켓으로 입찰 정보 전송
-    const bidData = {
-      pieceNo: parseInt(pieceNo), // 작품 번호
-      memberNo: loginNo, // 로그인한 사용자 번호
-      bidPrice: bidAmount
-    };
-    socket.send(JSON.stringify(bidData)); // JSON 형태로 서버에 전송
-    modal.style.display = 'none'; // 모달 닫기
+  console.log("Bid Amount Entered:", bidAmount);
+  console.log("Current Highest Bid:", currentHighestBid);
+
+  if (isNaN(bidAmount) || bidAmount <= 0) {
+    alert("유효한 금액을 입력하세요!");
+    return; // 금액이 0이거나 유효하지 않은 경우 로직 중단
+  }
+
+  if (bidAmount <= currentHighestBid) {
+    alert(`입찰 금액은 현재 최고 입찰가 (${currentHighestBid.toLocaleString()} KRW)보다 높아야 합니다.`);
+    return; // 현재 최고 입찰가보다 낮거나 같을 경우 로직 중단
+  }
+
+  const pieceNo = parseInt(document.getElementById('pieceContainer').getAttribute('data-pieceNo'), 10);
+
+  const bidData = {
+    pieceNo: pieceNo,   // 작품 번호
+    memberNo: loginNo,  // 사용자 번호
+    bidPrice: bidAmount // 입찰 금액
+  };
+
+  // WebSocket으로 입찰 데이터 전송
+  if (socket.readyState === WebSocket.OPEN) {
+    socket.send(JSON.stringify(bidData));
+    const modal = document.getElementById('modal');
+    modal.style.display = 'none';
   } else {
-    alert('유효한 금액을 입력하세요!');
+    console.error("WebSocket is not open. Current state:", socket.readyState);
+    alert("WebSocket 연결이 완료되지 않았습니다. 다시 시도하세요.");
   }
 });
+
+
+
+
+
