@@ -51,7 +51,7 @@
 
         <div class="price">
           <span>시작가 :</span> 
-          <span th:text="${currentDetail.startPrice}">KRW 5,000</span>
+          <span th:attr="data-startPrice=${currentDetail.startPrice}" th:text="${currentDetail.startPrice}" id="startPrice">KRW 5,000</span>
         </div>
 
         <div class="price">
@@ -87,7 +87,7 @@
       <i class="fa-solid fa-times close-btn"></i>
       <h2 style="margin-bottom: 30px;">입찰 신청</h2>
       <p>입찰 금액을 입력하세요.</p>
-      <input type="number" id="bidAmount" placeholder="금액 입력 (KRW)" />
+      <input type="text" id="bidAmount" placeholder="금액 입력 (KRW)" />
       <div class="current-bid">
         <span>현재 입찰 금액: </span>
         <span id="currentBidAmount"></span>
@@ -107,7 +107,7 @@
 
   <script th:inline="javascript">
     const loginCheck = /*[[${session.memberLogin != null || session.artistLogin != null}]]*/ false;
-    let loginNo = /*[[${session.memberLogin != null ? session.memberLogin.memberNo : 'null'}]]*/ null;
+    const loginNo = /*[[${memberLogin != null ? memberLogin.memberNo : (artistLogin != null ? artistLogin.memberNo : 0)}]]*/ 0;
   </script>
 
 

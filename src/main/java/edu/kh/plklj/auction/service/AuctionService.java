@@ -22,6 +22,9 @@ public interface AuctionService {
 	// 현재 경매 상세 페이지
 	Piece currentDetail(int pieceNo);
 
+	// 종료 경매 리스트 조회
+	Map<String, Object> completedList(int cp);
+
 	
 
 

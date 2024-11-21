@@ -45,6 +45,7 @@
 	JOIN MEMBER M ON (A.MEMBER_NO = M.MEMBER_NO)
 	</select>
 	
+	
 	<select id="getTotalArtistCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM ARTIST
