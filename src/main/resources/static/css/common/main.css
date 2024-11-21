@@ -7,10 +7,18 @@
   font-family: "Shilla_CultureB-Bold", Helvetica;
 }
 
+a {
+  text-decoration: none;
+}
+
+main{
+  padding-top: 14vh;
+}
+
 /* 메인 슬라이드쇼 스타일 */
 .slider-container {
   width: 100%;
-  height: 78vh;
+  height: 90vh;
   overflow: hidden;
   position: relative;
 }
@@ -33,7 +41,7 @@
 .main-container {
   position: relative;
   width: 100%;
-  height: 78vh;
+  height: 90vh;
   /* align-items: center; */
 }
 
@@ -44,7 +52,6 @@
 
 /* 이미지와 텍스트를 포함하는 내부 컨테이너 */
 .main-item {
-  width: 100vw;
   height: 100%;
   position: relative;
   width: 25%;
@@ -52,7 +59,7 @@
 
 .main-image {
   width: 100%;
-  height: 78vh;
+  height: 90vh;
   object-fit: cover;
   position: relative;
   z-index: 1; /* 이미지가 뒤에 위치하도록 설정 */
@@ -145,7 +152,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 2px;
   text-align: center;
 }
 
@@ -155,6 +162,7 @@
   width: 90%;
   max-width: 90%;
   margin: 0 auto;
+  margin-top: 6%;
 }
 
 /* 제목과 버튼 섹션 설정 */
@@ -273,6 +281,7 @@ h3 {
   width: 100%;
   overflow: hidden;
   position: relative;
+      margin-top: 6%;
 }
 
 .auctions-slides {
@@ -295,6 +304,7 @@ h3 {
   position: relative;
   width: 100%;
   height: 40%;
+  margin-top: 6%;
 }
 
 /* 이미지 내부 컨테이너 */

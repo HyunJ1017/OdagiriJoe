@@ -17,38 +17,4 @@ public interface DeliveryMapper {
 	 */
 	List<Manage> selectDeliveryList(int memberNo);
 
-	/** 배송 리스트 최신순 정렬
-	 * @return
-	 */
-	List<Manage> selectDeliveryListOrderByDateDesc();
-	
-	/** 배송 리스트 오래순 정렬
-	 * @return
-	 */
-	List<Manage> selectDeliveryListOrderByDateAsc();
-
-	/** 일별 날짜 조회 목록
-	 * @param date
-	 * @return
-	 */
-	List<Manage> findByDate(String date);
-
-	/** 월별 날짜 조회 목록
-	 * @param month
-	 * @return
-	 */
-	List<Manage> findByMonth(String month);
-
-	/** 주별 날짜 조회 목록
-	 * @param week
-	 * @return
-	 */
-	List<Manage> findByWeek(String week);
-
-	/** 전체 조회
-	 * @return
-	 */
-	List<Manage> findAll();
-
-
 }

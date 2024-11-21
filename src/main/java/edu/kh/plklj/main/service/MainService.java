@@ -18,27 +18,6 @@ public interface MainService {
 	 */
 	Map<String, Object> searchList(String query);
 
-	/** 검색 목록 최신순
-	 * @return
-	 */
-	List<Piece> getSearchListOrderByDateAsc();
-
-	/** 검색 목록 오래된순
-	 * @return
-	 */
-	List<Piece> getSearchListOrderByDateDesc();
-
-	/** 검색 목록 추정가 높은순
-	 * @return
-	 */
-	List<Piece> getPriceListOrderByPriceDesc();
-
-	/** 검색 목록 추정가 작은순
-	 * @return
-	 */
-	List<Piece> getPriceListOrderByPriceAsc();
-
-
 
 
 }

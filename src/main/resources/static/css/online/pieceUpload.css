@@ -6,13 +6,6 @@
   width: 100%;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 /* 업로드 컨테이너 스타일 */
 .upload-container {
   display: flex;
@@ -54,7 +47,7 @@ body {
 }
 
 .upload-btn {
-  background-color: #336633;
+  background-color: #5e7c71;
   color: #ffffff;
   border: none;
   padding: 8px 16px;
@@ -66,7 +59,7 @@ body {
 }
 
 .upload-btn:hover {
-  background-color: #285228;
+  background-color: #5e7c71;
 }
 
 /* 폼 컨테이너 */
@@ -81,7 +74,7 @@ body {
 }
 
 .form-container h2 {
-  color: #336633;
+  color: #5e7c71;
   margin-bottom: 20px;
 }
 
@@ -102,14 +95,14 @@ body {
 .form-group label {
   display: block;
   font-size: 1em;
-  color: #555;
+  color: #414141;
   margin-bottom: 5px;
 }
 
 .form-group input[type="text"] {
   width: 100%;
   padding: 8px;
-  border: 1px solid #d3d3d3;
+  border: 1px solid #414141;
   border-radius: 4px;
   box-sizing: border-box;
   font-size: 1em;
@@ -132,7 +125,7 @@ body {
 
 .sale-btn,
 .auction-btn {
-  background-color: #336633;
+  background-color: #5e7c71;
   color: #ffffff;
   border: none;
   padding: 10px 20px;
@@ -146,7 +139,7 @@ body {
 
 .sale-btn:hover,
 .auction-btn:hover {
-  background-color: #285228;
+  background-color: #5e7c71;
 }
 
 /* 작품 기입, 임시저장 섹션 */
@@ -160,14 +153,14 @@ body {
   background-color: white;
   padding: 8px;
   border-radius: 10px;
-  color: #336633;
-  border: 1px solid #336633;
+  color: #5e7c71;
+  border: 1px solid #5e7c71;
   height: 30px;
   cursor: pointer;
 }
 
 #upload-header button:hover {
-  background-color: #336633;
+  background-color: #5e7c71;
   color: white;
 }
 
@@ -198,7 +191,7 @@ body {
   height: 35px;
   margin: 0 10px 0;
   flex-grow: 1;
-  background-color: #336633;
+  background-color: #5e7c71;
   color: #ffffff;
   border: none;
   padding: 10px 20px;
@@ -229,7 +222,7 @@ body {
 
 /* 날자입력 */
 #startDate {
-  border: 1px solid #ccc;
+  border: 1px solid #ffffff;
   padding: 5px;
   border-radius: 4px;
 }

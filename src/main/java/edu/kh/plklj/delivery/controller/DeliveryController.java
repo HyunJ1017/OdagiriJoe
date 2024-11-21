@@ -40,33 +40,5 @@ public class DeliveryController {
 	    model.addAttribute("selectDeliveryList", selectDeliveryList);
 	    return "/delivery/main";
 	}
-	
-	
-		@GetMapping("/delivery")
-  public String getDeliveryListSorted(@RequestParam(defaultValue = "desc") String order, Model model) {
-      List<Manage> deliveryList;
-
-      if ("asc".equals(order)) {
-          deliveryList = service.getDeliveryListOrderByDateAsc();
-      } else {
-          deliveryList = service.getDeliveryListOrderByDateDesc();
-      }
-
-      model.addAttribute("selectDeliveryList", deliveryList);
-      model.addAttribute("currentOrder", order);
-      return "/delivery/main"; // Thymeleaf 템플릿 경로
-  }
-
-  // 날짜 필터링된 배송 리스트 조회
-		@GetMapping("/delivery/main/filter")
-		public String getDeliveryListFiltered(
-		        @RequestParam(required = false) String month,
-		        @RequestParam(required = false) String week,
-		        @RequestParam(required = false) String date,
-		        Model model) {
-		    List<Manage> deliveryList = service.filterDeliveriesByDate(month, week, date);
-		    model.addAttribute("selectDeliveryList", deliveryList);
-		    return "/delivery/main"; // Thymeleaf 템플릿 경로
-		}
 
 }

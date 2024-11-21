@@ -11,13 +11,14 @@
   text-decoration-line: none;
 }
 
-a{
+header a {
   text-decoration-line: none;
+  color: #ffffff;
 }
 
 main {
   flex-grow: 1;
-  padding-top: 15vh;
+  padding-top: 9vh;
 }
 
 /* 헤더 영역 */
@@ -30,7 +31,7 @@ main {
   padding: 0% 5%;
   width: 100%;
   z-index: 1000;
-  height: 13vh;
+  height: 10vh;
   /* 뷰포트 높이에 비례한 헤더 높이 */
   background-color: #ffffff;
   box-sizing: border-box;
@@ -255,7 +256,7 @@ main {
   display: flex;
   justify-content: center;
   position: absolute;
-  bottom: -177px;
+  bottom: -176px;
   left: -5%;
   visibility: hidden;
   opacity: 0;

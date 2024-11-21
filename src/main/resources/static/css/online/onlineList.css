@@ -4,296 +4,319 @@
     position: relative;
   } */
 
-  #onlinePage-main{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+#onlinePage-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .online-gallery-list {
-  max-width: 1200px;
-  margin: 150px auto;
-  padding: 0 61px;
-  color: #333;
+  width: 85%;
+  margin: 4% auto;
+  padding: 0 0%;
+  color: #5c7a72;
 }
 
 
 .online-header {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .online-header h2 {
-    font-size: 2rem;
-    color: #4a6741;
-    visibility: visible;
+  font-size: 2rem;
+  color: #5c7a72;
+  visibility: visible;
 }
 
 .online-header h3 {
-    margin-right: auto;
-    color: #4a6741;
-    font-size: 28px;
-    margin-top: 10px;
+  margin-right: auto;
+  color: #5c7a72;
+  font-size: 28px;
+  margin-top: 10px;
 }
 
 .online-header button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    background-color: #5e7c53;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    visibility: visible;
-    margin-left: auto;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #5c7a72;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+  visibility: visible;
+  margin-left: auto;
 }
 
- /* 드롭다운 버튼 스타일 */
- .online-dropdown {
-    margin-left: auto;
-    position: relative;
-    display: inline-block;
-    flex-direction: row; /* 버튼을 오른쪽으로 이동하도록 설정 */
+/* 드롭다운 버튼 스타일 */
+.online-dropdown {
+  margin-left: auto;
+  position: relative;
+  display: inline-block;
+  flex-direction: row;
+  /* 버튼을 오른쪽으로 이동하도록 설정 */
 }
 
 /* 드롭다운 메뉴 스타일 */
 .online-dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 
 /* 드롭다운 항목 스타일 */
 .online-dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
+  color: #414141;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
 }
 
 /* 드롭다운 항목 hover 스타일 */
-.online-dropdown-content a:hover {background-color: #f1f1f1;}
+.online-dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
 
 /* 드롭다운 표시 */
 .online-dropdown:hover .dropdown-content {
-    display: block;
+  display: block;
 }
 
 .online-list {
-    width: 1290px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    /* justify-content: space-between; */
+  display: flex;
+  gap: 7%;
 }
 
 .gallery-item {
-    background: #ffffff;
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: calc(20% - 20px);
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-    width: 200px;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: calc(20% - 20px);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  width: 15%;
+  margin-top: 5%;
 }
 
 .gallery-item:hover {
-    transform: translateY(-5px);
+  transform: translateY(-5px);
 }
 
 .artwork-image {
-    position: relative;
-    overflow: hidden;
+  position: relative;
+  overflow: hidden;
 }
 
 .artwork-image img {
-    width: 100%;
-    height: 300px;
-    display: block;
-    border-bottom: 1px solid #e0e0e0;
+  width: 100%;
+  height: 300px;
+  display: block;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 /* 마우스 오버 시 정보 표시 스타일 */
 .artwork-info {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* 반투명 배경 */
-    color: white;
-    opacity: 0;
-    visibility: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  /* 반투명 배경 */
+  color: white;
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 /* gallery-item에 마우스를 올렸을 때 정보가 나타나도록 설정 */
 .gallery-item:hover .artwork-info {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 
 .artwork-info h3 {
-    font-size: 1.2rem;
-    margin: 0;
-    color: #fff;
+  font-size: 1.2rem;
+  margin: 0;
+  color: #fff;
 }
 
 .artwork-title {
-    font-size: 1rem;
-    margin: 5px 0;
-    color: #ddd;
+  font-size: 1rem;
+  margin: 5px 0;
+  color: #ddd;
 }
 
 .artwork-details {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .artwork-details .size {
-    font-size: 0.9rem;
-    color: #ccc;
+  font-size: 0.9rem;
+  color: #ccc;
 }
 
 .artwork-details .price,
 .artwork-details .amount {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
 }
 
 /* ***************** 페이지네이션 *************************** */
 .pagination-box {
-    display: flex;
-    justify-content: center; /* 중앙 정렬 */
-    margin-top: auto; /* 남은 공간만큼 아래로 이동 */
-    padding: 20px 0; /* 상하 여백 추가 */
-    width: 100%;
-  }
-  
-  
-  
-  .pagination-box > .page-btn {
-    margin: 0 10px; /* 페이지 번호 간격 조절 (양쪽을 넓힘) */
-    cursor: pointer; /* 마우스 포인터를 클릭 가능으로 변경 */
-    padding: 5px; /* 패딩 추가하여 클릭 영역 확대 */
-    display: flex; /* Flexbox 사용 */
-    align-items: center; /* 세로 중앙 정렬 */
-    justify-content: center; /* 가로 중앙 정렬 */
-    width: 30px; /* 고정된 너비 */
-    height: 30px; /* 고정된 높이 */
-    transition: color 0.3s; /* 부드러운 색상 전환 */
-    text-align: center;
-  }
-  
-  .pagination-box >.page-btn:hover {
-    border-radius: 50%; /* 원형으로 만들기 */
-    background-color: #5e7c71; /* 원형의 배경색 */
-    color: #fff; /* 글자색 흰색 */
-  }
-  
-     /* 페이지 네이션 색상 */
-  .pagination-box > .page-btn.active {
-    border-radius: 50%; /* 원형으로 만들기 */
-    background-color: #5e7c71; /* 원형의 배경색 */
-    color: #fff; /* 글자색 흰색 */
-    font-weight: bold;
-  }
-  
-  .pagination-box a {
-    color: inherit; /* 부모 요소의 색상으로 설정 */
-    text-decoration: none;
-    margin: 0 10px; /* 링크 간격 조절 */
-    display: flex; /* Flexbox 사용 */
-    align-items: center; /* 세로 중앙 정렬 */
-    justify-content: center; /* 가로 중앙 정렬 */
-    padding: 5px; /* 패딩 추가하여 클릭 영역 확대 */
-  }
-  
+  display: flex;
+  justify-content: center;
+  /* 중앙 정렬 */
+  margin-top: auto;
+  /* 남은 공간만큼 아래로 이동 */
+  padding: 20px 0;
+  /* 상하 여백 추가 */
+  width: 100%;
+}
+
+
+
+.pagination-box>.page-btn {
+  margin: 0 10px;
+  /* 페이지 번호 간격 조절 (양쪽을 넓힘) */
+  cursor: pointer;
+  /* 마우스 포인터를 클릭 가능으로 변경 */
+  padding: 5px;
+  /* 패딩 추가하여 클릭 영역 확대 */
+  display: flex;
+  /* Flexbox 사용 */
+  align-items: center;
+  /* 세로 중앙 정렬 */
+  justify-content: center;
+  /* 가로 중앙 정렬 */
+  width: 30px;
+  /* 고정된 너비 */
+  height: 30px;
+  /* 고정된 높이 */
+  transition: color 0.3s;
+  /* 부드러운 색상 전환 */
+  text-align: center;
+}
+
+.pagination-box>.page-btn:hover {
+  border-radius: 50%;
+  /* 원형으로 만들기 */
+  background-color: #5e7c71;
+  /* 원형의 배경색 */
+  color: #fff;
+  /* 글자색 흰색 */
+}
+
+/* 페이지 네이션 색상 */
+.pagination-box>.page-btn.active {
+  border-radius: 50%;
+  /* 원형으로 만들기 */
+  background-color: #5e7c71;
+  /* 원형의 배경색 */
+  color: #fff;
+  /* 글자색 흰색 */
+  font-weight: bold;
+}
+
+.pagination-box a {
+  color: inherit;
+  /* 부모 요소의 색상으로 설정 */
+  text-decoration: none;
+  margin: 0 10px;
+  /* 링크 간격 조절 */
+  display: flex;
+  /* Flexbox 사용 */
+  align-items: center;
+  /* 세로 중앙 정렬 */
+  justify-content: center;
+  /* 가로 중앙 정렬 */
+  padding: 5px;
+  /* 패딩 추가하여 클릭 영역 확대 */
+}
+
 
 /* 완료 작품 리스트 */
 .online-list1 {
-    width: 1080px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5%;
+  margin-top: 20px;
 }
 
 .online-header1 h3 {
-    margin-right: auto;
-    color: #4a6741;
-    font-size: 28px;
-    margin-top: 50px;
+  margin-right: auto;
+  color: #5c7a72;
+  font-size: 28px;
+  margin-top: 50px;
 }
 
 .online-header1 button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    background-color: #5e7c53;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    visibility: visible;
-    margin-left: auto;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #5e7c53;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  visibility: visible;
+  margin-left: auto;
 }
 
 hr {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
 /* 드롭다운 버튼 스타일 */
 .online-dropdown1 {
-    margin-left: auto;
-    position: relative;
-    display: inline-block;
-    flex-direction: row; /* 버튼을 오른쪽으로 이동하도록 설정 */
+  margin-left: auto;
+  position: relative;
+  display: inline-block;
+  flex-direction: row;
+  /* 버튼을 오른쪽으로 이동하도록 설정 */
 }
 
 /* 드롭다운 메뉴 스타일 */
 .online-dropdown-content1 {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 
 /* 드롭다운 항목 스타일 */
 .online-dropdown-content1 a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
+  color: #414141;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
 }
 
 /* 드롭다운 항목 hover 스타일 */
-.online-dropdown-content1 a:hover {background-color: #f1f1f1;}
+.online-dropdown-content1 a:hover {
+  background-color: #f1f1f1;
+}
 
 /* 드롭다운 표시 */
 .online-dropdown1:hover .dropdown-content {
-    display: block;
+  display: block;
 }

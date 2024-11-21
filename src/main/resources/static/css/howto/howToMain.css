@@ -8,7 +8,7 @@ a {
 
 /* 메인 컨텐츠 영역 */
 #howTo {
-  padding-top: 30vh;
+  padding-top: 16vh;
   width: 100%; /* 가로 100% */
   overflow-y: auto; /* 스크롤 추가 */
   display: flex;
@@ -30,7 +30,7 @@ a {
 
 #howTo > h1 {
   position: absolute;
-  top: 224px;
+  top: 16%;
 }
 
 .howTo-section2,

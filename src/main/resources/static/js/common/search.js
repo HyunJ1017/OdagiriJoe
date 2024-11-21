@@ -44,26 +44,33 @@ document.addEventListener('DOMContentLoaded', () => {
 // ---------------------------------------------------------------------------------------------------------------
 /* 정렬 기준 변경 이벤트 */
 function onSortChange(event) {
-  const order = event.target.value; // 선택된 정렬 기준
+  const order = event.target.value; // 선택된 정렬 기준 ('latest', 'oldest', 'priceUp', 'priceDown')
   const container = document.querySelector(".detail-container"); // 정렬 대상 컨테이너
-  const articles = Array.from(container.querySelectorAll(".search-detail")); // 정렬 대상 요소들
+  const articles = Array.from(container.querySelectorAll(".search-detail")); // 검색 결과 리스트 요소들
 
   // 정렬 로직
   articles.sort((a, b) => {
     if (order === "latest" || order === "oldest") {
       // 날짜 정렬
-      const dateA = new Date(a.querySelector(".reg-date").textContent);
-      const dateB = new Date(b.querySelector(".reg-date").textContent);
+      const dateA = new Date(a.querySelector(".reg-date").innerText.trim().replace(/[^\d]+/g, '-').slice(0, -1));
+      const dateB = new Date(b.querySelector(".reg-date").innerText.trim().replace(/[^\d]+/g, '-').slice(0, -1));
       return order === "latest" ? dateB - dateA : dateA - dateB;
     } else if (order === "priceUp" || order === "priceDown") {
-      // 가격 정렬
-      const priceA = parseFloat(a.querySelector(".hope-price").textContent.replace(/[^\d]/g, ''));
-      const priceB = parseFloat(b.querySelector(".hope-price").textContent.replace(/[^\d]/g, ''));
-      return order === "priceUp" ? priceB - priceA : priceA - priceB;
+      // 가격 정렬 
+      const aa =a.querySelector(".hope-price").textContent;
+      const bb =b.querySelector(".hope-price").textContent;
+
+      const priceA = Number(aa.trim().replaceAll(",",""));
+      const priceB = Number(bb.trim().replaceAll(",",""));
+      return order === "priceDown" ? priceA - priceB : priceB - priceA;
     }
   });
 
   // 정렬된 요소를 다시 DOM에 추가
-  articles.forEach(article => container.appendChild(article));
+  articles.forEach((article) => {
+    container.appendChild(article)
+  });
 }
+
+
 

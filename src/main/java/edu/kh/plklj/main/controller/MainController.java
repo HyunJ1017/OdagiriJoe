@@ -79,33 +79,6 @@ public class MainController {
 
 		return "common/search";
 	}
-	
-	/* 검색 목록 정렬 */
-	@GetMapping("/main")
-	public String searchArr(@RequestParam(defaultValue = "latest") String order, Model model) {
-		List<Piece> searchList;
-
-		switch (order) {
-		// 오래된 순
-		case "oldest": searchList = service.getSearchListOrderByDateAsc(); break;
-		
-		// 최신순
-		case "latest": searchList = service.getSearchListOrderByDateDesc(); break;
-		
-		// 추정가 높은순
-		case "priceUp": searchList = service.getPriceListOrderByPriceDesc(); break;
-		
-		// 추정가 낮은순
-		case "priceDown": searchList = service.getPriceListOrderByPriceAsc(); break;
-		
-		// 기본값: 최신순
-		default: searchList = service.getSearchListOrderByDateDesc(); break;
-		}
-
-		model.addAttribute("searchList", searchList);
-		model.addAttribute("currentOrder", order);
-		return "common/search"; // Thymeleaf 템플릿 경로
-	}
 
 	
 	// 아티스트 목록 조회 페이지 이동

@@ -7,6 +7,7 @@ const totalSlides = slides.length;
 const progressBar = document.querySelector('.progress-bar');
 let slideTimer = null;
 
+
 function showSlides() {
   slideIndex++;
   slidesContainer.style.transition = 'transform 6s ease-in-out';
