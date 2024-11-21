@@ -185,15 +185,11 @@
 	
 	<!-- 경력사항 집어넣기 -->
 	<insert id="insertWork">
-	  INSERT ALL
-	  <foreach collection="workDetails" item="workDetail">
-	    <if test="workDetail != null and workDetail.trim() != ''">
-	      INTO WORK (WORK_NO, MEMBER_NO, WORK_DETAIL)
-	      VALUES (SEQ_WORK_NO.NEXTVAL, #{memberNo}, #{workDetail})
-	    </if>
-	  </foreach>
-	  SELECT 1 FROM DUAL
+	    INSERT INTO WORK
+	    VALUES
+	      (SEQ_WORK_NO.NEXTVAL, #{memberNo}, #{workDetail})
 	</insert>
+	
 
 	<!-- 작가 - 진행중인경매목록 조회 -->
 	<select id="artistAuction" resultType="Piece">
@@ -208,7 +204,7 @@
 			(TO_CHAR(PA.START_DATE - 7, 'MM/DD(DY)')) AS PREVIEW_START_DATE,
 			(TO_CHAR(PA.START_DATE - 1, 'MM/DD(DY)')) AS PREVIEW_END_DATE,
 			(TO_CHAR(END_DATE, 'MM/DD(DY)')) AS END_DATE,
-			TO_CHAR(PA.START_PRICE, 'FM999,999,999,999') AS START_PRICE,
+			TO_CHAR(PA.START_PRICE, 'FM999,999,999,999,999') AS START_PRICE,
 			D.DELIVERY_STATUS,
 			FINAL_PRICE
 		FROM "PIECE" P
@@ -239,7 +235,7 @@
 			SIZE_Y,
 			(SELECT ARTIST_NICKNAME FROM ARTIST AR WHERE AR.MEMBER_NO = P.MEMBER_NO) AS ARTIST_NICKNAME,
 			PIECE_STATUS,
-			TO_CHAR(A.END_PRICE, 'FM999,999,999,999') AS FINAL_PRICE
+			TO_CHAR(A.END_PRICE, 'FM999,999,999,999,999') AS FINAL_PRICE
 		FROM PIECE P
 		LEFT JOIN (
 				SELECT AC.PIECE_NO, AC.END_PRICE, AC.MEMBER_NO
@@ -265,7 +261,7 @@
 			PIECE_STATUS,
 			SIZE_X,
 			SIZE_Y,
-			(SELECT TO_CHAR(END_PRICE, 'FM999,999,999,999')
+			(SELECT TO_CHAR(END_PRICE, 'FM999,999,999,999,999')
 			FROM AUCTION A2
 			WHERE A2.MEMBER_NO = #{memberNo}
 			AND  A2.PIECE_NO = P.PIECE_NO
@@ -283,8 +279,8 @@
 	</select>
 
 	<!-- 현재낙찰가 조회 -->
-	<select id="getEndprice" resultType="integer">
-		SELECT END_PRICE
+	<select id="getEndprice" resultType="string">
+		SELECT TO_CHAR(END_PRICE, 'FM999,999,999,999,999')
 		FROM AUCTION
 		WHERE PIECE_NO = #{pieceNo}
 		ORDER BY END_PRICE DESC
@@ -330,11 +326,86 @@
 	</select>
 	
 	<!-- 월별 판매목록 조회 -->
-	<select id="getSellList" resultType="Piece"></select>
+	<select id="getSellList" resultType="SellInfo">
+		SELECT *
+		FROM
+		(SELECT
+			A.ARTIST_NICKNAME,
+			PIECE_TITLE,
+			PIECE_TYPE,
+			TO_CHAR(END_PRICE, 'FM999,999,999,999,999') AS "PAY_AMOUNT",
+			TO_CHAR(END_DATE, 'MM"월" DD"일"') AS "PAY_DATE",
+			(SELECT COUNT(*)
+			FROM PAYMENT_RECORD PR
+			WHERE PR.PIECE_NO = P.PIECE_NO
+			) AS "PRICE_REG"
+		FROM PIECE P
+		LEFT JOIN ARTIST A ON (P.MEMBER_NO = A.MEMBER_NO)
+		LEFT JOIN PIECE_AUCTION PA ON (PA.PIECE_NO = P.PIECE_NO)
+		LEFT JOIN (
+			SELECT MAX(END_PRICE) END_PRICE, PIECE_NO
+			FROM AUCTION
+			GROUP BY PIECE_NO
+			) AC ON (AC.PIECE_NO = P.PIECE_NO)
+		WHERE A.MEMBER_NO = #{memberNo}
+		AND TO_CHAR(END_DATE, 'YYYY-MM') = #{selectedMonth}
+		AND PIECE_TYPE = 2
+		AND PIECE_STATUS IN ('F', 'D')
+		UNION
+		SELECT
+			A.ARTIST_NICKNAME,
+			PIECE_TITLE,
+			PIECE_TYPE,
+			TO_CHAR(PR.PAY_AMOUNT, 'FM999,999,999,999,999') AS "PAY_AMOUNT",
+			TO_CHAR(PR.PAY_DATE, 'MM"월" DD"일"') AS "PAY_DATE",
+			1 AS "PRICE_REG"
+		FROM PIECE P
+		LEFT JOIN ARTIST A ON (P.MEMBER_NO = A.MEMBER_NO)
+		LEFT JOIN PAYMENT_RECORD PR ON (PR.PIECE_NO = P.PIECE_NO)
+		WHERE A.MEMBER_NO = #{memberNo}
+		AND TO_CHAR(PR.PAY_DATE, 'YYYY-MM') = #{selectedMonth}
+		AND PIECE_TYPE = 1
+		AND PIECE_STATUS = 'F'
+		)
+		ORDER BY "PAY_DATE" ASC, "PAY_AMOUNT" DESC
+	</select>
 	
-	<!-- 월별 판개금액 조회 -->
-	<select id="getSellAmount" resultType="_int"></select>
+	<!-- 작가 총 판매액 -->
+	<select id="getSellAmount" resultType="string">
+		SELECT TO_CHAR(SUM(PAY_AMOUNT), 'FM999,999,999,999,999')
+		FROM PAYMENT_RECORD PR
+		LEFT JOIN PIECE P USING(PIECE_NO)
+		WHERE P.MEMBER_NO = #{memberNo}
+	</select>
 	
+	<!-- 회원 구매갯수 조회 -->
+	<select id="getPurchasesCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM PAYMENT_RECORD
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
 	
+	<!-- 회원 구매목록 조회 -->
+	<select id="getPurchaseList" resultType="Piece">
+		SELECT 
+			PR.PIECE_NO,
+			P.PIECE_RENAME,
+			P.PIECE_TITLE,
+			TO_CHAR(PR.PAY_AMOUNT, 'FM999,999,999,999,999') AS "FINAL_PRICE",
+			P.SIZE_X,
+			P.SIZE_Y,
+			A.ARTIST_NICKNAME
+		FROM PAYMENT_RECORD PR
+		LEFT JOIN PIECE P ON (PR.PIECE_NO = P.PIECE_NO)
+		LEFT JOIN ARTIST A ON (P.MEMBER_NO = A.MEMBER_NO)
+		WHERE PR.MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 회원탈퇴 -->
+	<update id="deleteMember">
+		UPDATE "MEMBER"
+		SET MEMBER_DEL_FL = 'Y'
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
 	
 </mapper>

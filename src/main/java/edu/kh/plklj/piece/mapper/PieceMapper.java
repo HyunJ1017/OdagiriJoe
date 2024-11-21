@@ -47,6 +47,8 @@ public interface PieceMapper {
 
 	int getWishCount(int pieceNo);
 
+	Piece getPieceInfo(int pieceNo);
+
 
 
 

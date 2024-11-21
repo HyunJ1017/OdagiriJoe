@@ -4,6 +4,42 @@ function hideLoader(imgElement) {
   imgElement.style.display = 'block'; // 실제 이미지 보이기
 }
 
+/* url 모음 */
+const urls = {
+  /* 상세보기 */ "detail" : "/auction/main",
+  /* 경매진행작 */ "detailCurrent" : "/auction/currentDetail?pieceNo=",
+  /* 경매대기작 */ "detailUpcommig" : "/auction/upCommingDetail?pieceNo=",
+  /* 배달정보 */ "delivery" : "/",
+  /* 작가정보 */ "artist" : "/artist/artistDetail?memberNo=",
+  /* 작성하기 */ "rewrite" : "/piece/upload?pieceNo=",
+  /* 삭제하기 */ "remove" : "/piece/removeTemp?pieceNo="
+}
+
+const detaileBtnAddEvent = () => {
+  const commingAuctions = document.querySelectorAll('.commingAuction');
+  commingAuctions?.forEach(btn => {
+    btn.addEventListener('click', () => {
+      location.href = urls.detailUpcommig + btn.dataset.pieceNo;
+    })
+  })
+
+  const currentAuctions = document.querySelectorAll('.currentAuction');
+  currentAuctions?.forEach(btn => {
+    btn.addEventListener('click', () => {
+      location.href = urls.detailCurrent + btn.dataset.memberNo;
+    })
+  })
+}
+const followAddEvent = () => {
+  const followBtns = document.querySelectorAll('.following');
+  followBtns?.forEach(btn => {
+    btn.addEventListener('click', () => {
+      location.href = urls.artist + '?memberNo=' + btn.dataset.memberNo;
+    })
+  })
+}
+
+
 // console.log(wishPagination);
 
 /* 페이지네이션 */
@@ -125,13 +161,17 @@ const renderingWishList = (getList, getPagination) => {
     const contentDiv = document.createElement('div');
     contentDiv.className = 'content-div';
 
+    let btnclass = '';
+    if(piece.pieceStatus === 'A') btnclass = 'commingAuction';
+    else btnclass = 'currentAuction';
+
     contentDiv.innerHTML = `
       <div>
         <h3>${piece.pieceTitle}</h3>
         <p>오픈일 ${piece.openDate}</p>
         <p>프리뷰 ${piece.previewStartDate} ~ ${piece.previewEndDate}</p>
         <p>경매일 ${piece.startDate}</p>
-        <div class="piece-detales">상세보기</div>
+        <div class="piece-detales ` + btnclass + `" data-set-piece-no="${piece.pieceNo}">상세보기</div>
       </div>
       <div class="image-container">
         <img src="${piece.pieceRename}" alt="사진" class="content-img" onload="hideLoader(this)">
@@ -183,6 +223,7 @@ const renderingWishList = (getList, getPagination) => {
 
   // 페이지네이션 이벤트 추가
   pagenationEventAdd();
+  detaileBtnAddEvent();
 } // renderingWishList end
 
 const renderingFollowList = (getList, getPagination) => {
@@ -196,6 +237,7 @@ const renderingFollowList = (getList, getPagination) => {
   getList.forEach(member => {
     const contentDiv = document.createElement('div');
     contentDiv.className = 'following';
+    contentDiv.dataset.memberNo = member.memberNo;
 
     contentDiv.innerHTML = `
       <div class="image-container">
@@ -249,9 +291,8 @@ const renderingFollowList = (getList, getPagination) => {
 
   // 페이지네이션 이벤트 추가
   pagenationEventAdd();
+  followAddEvent();
 } // renderingFollowList end
-
-
 
 
 

@@ -21,13 +21,13 @@
       </div>
 
       <!-- 결제 방법 -->
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label>결제 방법</label>
         <div>
           <label><input type="radio" name="paymentMethod" value="onSite"> 현장결제</label>
           <label><input type="radio" name="paymentMethod" value="bankTransfer"> 계좌이체</label>
         </div>
-      </div>
+      </div> -->
 
       <p>배송을 원하시는 분께서만 기입해주세요.</p>
 
@@ -43,6 +43,8 @@
         <label for="phone">전화번호</label>
         <input type="text" id="phone" placeholder="전화번호(-제외)">
       </div>
+      <input type="text" class="popup-hidden" id="payAmount" th:value="${piece.sellPrice}">
+      <input type="text" class="popup-hidden" id="pieceTitle" th:value="${piece.pieceTitle}">
 
       <!-- 등록 버튼 -->
       <div class="form-group">
@@ -51,7 +53,11 @@
     </div>
   </main>
 
- 
+  <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+  <script th:inline="javascript">
+    const memberNo = /*[[${session.artistLogin != null} ? ${session.artistLogin.memberNo} : ${session.memberLogin.memberNo}]]*/ "defaultMemberNo";
+    const loginName = /*[[${session.artistLogin != null} ? ${session.artistLogin.memberName} : ${session.memberLogin.memberName}]]*/ "defaultMemberNo";
+  </script>
   <script src="/js/online/purchasePopup.js"></script>
 </body>
 </html>

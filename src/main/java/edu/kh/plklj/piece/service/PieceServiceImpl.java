@@ -105,6 +105,11 @@ public class PieceServiceImpl implements PieceService{
 		return mapper.getPieceDetail(map);
 	}
 	
+	// 작품 상세조회
+	@Override
+	public Piece getPieceDetail(int pieceNo) {
+		return mapper.getPieceInfo(pieceNo);
+	}
 
 	// 위시 리스트 체크, 해제
 	@Override

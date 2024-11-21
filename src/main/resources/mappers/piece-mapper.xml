@@ -197,7 +197,22 @@
 		WHERE PIECE_NO = #{pieceNo}
 	</select>
 	
-
+	<!-- 결제에 필요한 작품정보 가져가기 -->
+	<select id="getPieceInfo" resultType="Piece">
+		SELECT
+			PIECE_NO,
+			PIECE_TITLE,
+			GREATEST(NVL(SELL_PRICE,0), NVL(END_PRICE,0)) AS SELL_PRICE
+		FROM PIECE
+		LEFT JOIN PIECE_SELL USING(PIECE_NO)
+		LEFT JOIN (
+			SELECT MAX(END_PRICE) END_PRICE, PIECE_NO
+			FROM AUCTION
+			GROUP BY PIECE_NO	
+			) USING(PIECE_NO)
+		WHERE 
+			PIECE_NO = #{pieceNo}
+	</select>
 
 
 

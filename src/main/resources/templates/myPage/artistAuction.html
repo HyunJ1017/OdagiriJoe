@@ -70,7 +70,7 @@
               <p th:text="*{startPrice}" class="current-price" th:data-piece-no="*{pieceNo}"></p><!-- 현재 입찰가 -->
               <p th:text="|시작가 *{startPrice}|" ></p>
               <hr>
-              <div class="piece-btns detailBtn" th:data-piece-no="*{pieceNo}">상세보기</div>
+              <div class="piece-btns currentAuction" th:data-piece-no="*{pieceNo}">상세보기</div>
             </div>
             <div class="image-container">
               <img th:src="*{pieceRename}" alt="사진" class="content-img" onload="hideLoader(this)">
@@ -92,7 +92,7 @@
               <P th:text="|오픈일 *{openDate}|">11/09(금)</P>
               <p th:text="|프리뷰 *{previewStartDate} ~ *{previewEndDate}|">11/09(토) ~ 11/20(수)</p>
               <p th:text="|경매일 *{startDate}|">12월 6일 14:00</p>
-              <div class="piece-btns piece-detales" th:data-piece-no="*{pieceNo}">상세보기</div>
+              <div class="piece-btns commingAuction" th:data-piece-no="*{pieceNo}">상세보기</div>
             </div>
             <div class="image-container">
               <img th:src="*{pieceRename}" alt="사진" class="content-img" onload="hideLoader(this)">

@@ -199,7 +199,12 @@ public class PieceController {
 	/** 구매하기 팝업 창 열기
 	 */
 	@GetMapping("purchasePopup")
-	public String purchasePopup() {
+	public String purchasePopup(
+			@RequestParam("pieceNo") int pieceNo,
+			Model model) {
+		
+		Piece piece = service.getPieceDetail(pieceNo);
+		model.addAttribute("piece", piece);
 		return "online/purchasePopup";
 	}
     
