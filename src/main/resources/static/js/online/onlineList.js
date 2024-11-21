@@ -134,7 +134,7 @@ function renderSalesList(items = []) {
                     <div class="artwork-details">
                         <p class="size">${item.sizeX} x ${item.sizeY}</p>
                         <p class="price">현재가 (KRW)</p>
-                        <p class="amount">${item.sellPrice}</p>
+                        <p class="amount">${item.sellPrice.toLocaleString()}</p>
                     </div>
                 </div>
             </div>
@@ -155,7 +155,7 @@ function renderCompletedList(items = []) {
                     <div class="artwork-details">
                         <p class="size">${item.sizeX} x ${item.sizeY}</p>
                         <p class="price">현재가 (KRW)</p>
-                        <p class="amount">${item.sellPrice}</p>
+                        <p class="amount">${item.sellPrice.toLocaleString()}</p>
                     </div>
                 </div>
             </div>

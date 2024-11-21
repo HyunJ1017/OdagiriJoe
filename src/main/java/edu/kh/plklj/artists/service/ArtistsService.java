@@ -16,7 +16,13 @@ public interface ArtistsService {
 
 	List<Artist> getAllArtists(int cp, int totalArtistCount, Pagination pagination);
 
-	Artist getArtistDetail(Map<String, Integer> map);
+
+	List<Artist> getArtistWorks(int memberNo, String sort, String order);
+
+	Map<String, Object> follow(int memberNo, int artistNo);
+
+
+	Artist getArtistDetail(int artistNo);
 
 
 	

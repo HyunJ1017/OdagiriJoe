@@ -12,70 +12,52 @@
 <body>
   <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
     <main id="artist-profile-container">
-        <!-- Left side with profile image and details -->
+      
         <section class="profile-section" th:object="${artist}">
             <img th:src="*{artistProfile}" class="profile-image">
             <div class="artist-info">
-                <h2 th:text="*{memberName}">이동현</h2>
-                <!-- <p class="artist-name">Donghyeon Lee</p> -->
-                <button class="follow-button">FOLLOW
-                  <i class="fa-regular fa-star"></i>
-                </button>
-                <p class="artist-career" >경력 사항</p>
+                <div class="info-header">
+                  <h2 th:text="*{memberName}">이동현</h2>
+                  <button class="follow-button" id="follow-btn">FOLLOW
+                    <i class="fa-star" id="follow" aria-hidden="true"
+                       th:classappend="*{followCheck == 1} ? 'fa-solid' : 'fa-regular'" ></i>
+                  </button>
+                </div>
+                <h3>경력 사항</h3>
+                <hr>
                 <p class="exhibition-info" th:text="*{workDetail}">발 묻히기 2024~<br>뉴욕 여행 2주</p>
             </div>
         </section>
 
         <hr>
 
-        <!-- Right side with artwork list -->
+        <!-- 작품 내역 목록 -->
         <section class="artwork-section">
             <div class="section-header">
                 <h3>작품 내역</h3>
-                <button class="view-more">정렬 방식</button>
+                <div class="work-dropdown-container">
+                  <button class="view-more" id="work-sort-btn">정렬 방식</button>
+                  <div class="work-dropdown" id="workDropdown">
+                    <a id="workByName">이름순</a>
+                    <a id="workByPrice">가격순</a>
+                  </div>
+                </div>
             </div>
             
             <!-- Artwork List -->
             <div class="artwork-list">
-                <div class="artwork-item">
-                  <div class="artwork-info">
-                    <h4 th:text="*{pieceTitle}">성윤모</h4>
-                    <p th:text="*{sellPrice} *{sizeX} + ' x ' + *{sizeY}">낙찰가: ₩930,000<br>크기: 20 x 25</p>
-                    <button class="view-button">자세히 보기</button>
-                  </div>
-                  <img th:src="*{pieceRename}" class="artwork-image">
-                </div>
-
-                <div class="artwork-item">
-                  <div class="artwork-info">
-                    <h4>풍순이</h4>
-                    <p>낙찰가: ₩920,000<br>크기: 25 x 30</p>
-                    <button class="view-button">자세히 보기</button>
-                  </div>
-                  <img src="/images/image2.png" alt="Artwork 2" class="artwork-image">
-                </div>
-
-                <div class="artwork-item">
-                  <div class="artwork-info">
-                    <h4>텅장님</h4>
-                    <p>낙찰가: ₩1,500,000<br>크기: 30 x 40</p>
-                    <button class="view-button">자세히 보기</button>
-                  </div>
-                  <img src="/images/image3.png" alt="Artwork 3" class="artwork-image">
-                </div>
-
-                <div class="artwork-item">
-                  <div class="artwork-info">
-                    <h4>함박눈 감자</h4>
-                    <p>낙찰가: ₩4,000,000<br>크기: 15 x 10</p>
-                    <button class="view-button">자세히 보기</button>
-                  </div>
-                  <img src="/images/image4.png" alt="Artwork 4" class="artwork-image">
-                </div>
+                
             </div>
         </section>
     </main>
 
     <th:block th:replace= "~{/common/footer.html}"></th:block>
+
+    <script th:inline="javascript">
+      let loginCheck1 = /*[[${session.memberLogin != null || session.artistLogin != null}]]*/ false;
+      let memberNo = /*[[${artist.memberNo}]]*/ null;
+    </script>
+
+    <script src="/js/artist/artistDetail.js"></script>
 </body>
 </html>

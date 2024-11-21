@@ -37,8 +37,7 @@
                         th:classappend="*{wishCheck == 1} ? fa-solid : fa-regular"></i></span>
                       <button id="online-reportBtn">신고하기</button>
                   </div>
-                  <h2 th:text="*{artistNickname}">작가 이름</h2>
-                  <!-- <p>ReNameeeeeem</p> -->
+                  <h2 th:text="*{artistNickname} + ' (' + *{memberName} + ')'">작가 이름</h2>
                   <h3 th:text="*{pieceTitle}">작품 제목</h3>
                   <p>
                     <span th:text="*{sizeX} + x + *{sizeY}">작품 사이즈</span>

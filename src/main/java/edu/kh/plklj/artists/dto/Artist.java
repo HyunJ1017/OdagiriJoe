@@ -24,6 +24,9 @@ public class Artist {
 	private int    bankNo; // 환전 은행 번호
 	private String artistReg; // 작가 승인 여부
 	
+	// 팔로우 테이블
+	private int artistNo;
+	
 	// 작가 이름
 	private String memberName;
 	
@@ -44,5 +47,9 @@ public class Artist {
 	
 //판매작품
 	private String sellPrice; // 판매 가격
+	
+	// 팔로우
+	private int followCount;
+	private int followCheck;
 	
 }
