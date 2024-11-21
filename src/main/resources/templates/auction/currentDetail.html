@@ -69,7 +69,7 @@
           <span th:text="${currentDetail.endDate}">11월 18일(토) 10:00</span>
         </div>
           
-          <button class="purchase-button">입찰 신청</button>
+          <button class="purchase-button" id="bidApplyBtn">입찰 신청</button>
       </div>
   </div>
 
@@ -79,8 +79,22 @@
       <p th:text="${currentDetail.pieceDetail}">
         작품 내용 설명입니다.
       </p>
-
   </section>
+
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <i class="fa-solid fa-times close-btn"></i>
+      <h2 style="margin-bottom: 30px;">입찰 신청</h2>
+      <p>입찰 금액을 입력하세요.</p>
+      <input type="number" id="bidAmount" placeholder="금액 입력 (KRW)" />
+      <div class="current-bid">
+        현재 입찰 금액: <span id="currentBidAmount">5,000</span> KRW
+      </div>
+      <button id="confirmBidBtn" class="confirm-btn">입찰하기</button>
+    </div>
+  </div>
+  
  
 
   </main>
