@@ -4,12 +4,16 @@
 
 
 
+  	<select id="getHighestBid"  resultType="double">
+        SELECT MAX(END_PRICE)
+        FROM AUCTION
+        WHERE PIECE_NO = #{pieceNo}
+    </select>
 
-
-
-
-
-
+	<insert id="saveBid">
+	    INSERT INTO AUCTION (AUCTION_NO, PIECE_NO, MEMBER_NO, BID_DATE, END_PRICE)
+	    VALUES (SEQ_AUCTION_NO.NEXTVAL, #{pieceNo}, #{memberNo}, CURRENT_DATE, #{bidPrice})
+	</insert>
 
 
 </mapper>

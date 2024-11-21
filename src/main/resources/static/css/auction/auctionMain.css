@@ -125,7 +125,7 @@
 .ongoing-imgbox > img {
   width: 320px;
   height: 300px;
-  object-fit: cover;
+  object-fit: unset;
   /* margin-right: 75px; */
 }
 

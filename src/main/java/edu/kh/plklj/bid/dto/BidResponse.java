@@ -12,6 +12,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class BidResponse {
-  private int pieceNo;
-  private double currentBidPrice;
+	 private int pieceNo;
+   private double currentBidPrice;
 }
