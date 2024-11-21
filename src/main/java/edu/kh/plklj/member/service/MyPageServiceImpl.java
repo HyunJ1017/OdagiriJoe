@@ -20,6 +20,7 @@ import com.google.cloud.storage.Bucket;
 import edu.kh.plklj.common.util.Pagination;
 import edu.kh.plklj.main.dto.BankCode;
 import edu.kh.plklj.main.dto.Member;
+import edu.kh.plklj.member.dto.SellInfo;
 import edu.kh.plklj.member.mapper.LogInMapper;
 import edu.kh.plklj.member.mapper.MyPageMapper;
 import edu.kh.plklj.notice.dto.Notice;
@@ -124,8 +125,9 @@ public class MyPageServiceImpl implements MyPageService {
 	    	workDetails = workDetails.stream()
 	    		    .filter(detail -> detail != null && !detail.trim().isEmpty())
 	    		    .collect(Collectors.toList());
-
-	    	result = mapper.insertWork(artist.getMemberNo(), workDetails);
+	    	for(String workDetail : workDetails) {
+	    		result += mapper.insertWork(artist.getMemberNo(), workDetail);
+	    	}
 	    }
 	    
 	    return result;
@@ -281,10 +283,10 @@ public class MyPageServiceImpl implements MyPageService {
 	
 	// 현재입찰가 조회하기
 	@Override
-	public int getEndprice(int pieceNo) {
-		Integer endPrice = mapper.getEndprice(pieceNo);
+	public String getEndprice(int pieceNo) {
+		String endPrice = mapper.getEndprice(pieceNo);
 		if (endPrice == null) {
-		    return 0;
+		    return "";
 		}
 		return endPrice;
 	}
@@ -320,14 +322,39 @@ public class MyPageServiceImpl implements MyPageService {
 		Map<String, Object> resultMap = new HashMap<>();
 		
 		// 작가 월별 판매작품목록 작품이름,낙찰가,입금상태, 작품타입
-		List<Piece> sellList = mapper.getSellList(memberNo, selectedMonth);
+		List<SellInfo> sellList = mapper.getSellList(memberNo, selectedMonth);
 		
 		// 작가 총 판매량
-		int sellAmount = mapper.getSellAmount(memberNo, selectedMonth);
+		String sellAmount = mapper.getSellAmount(memberNo);
 		
 		resultMap.put("sellList", sellList);
 		resultMap.put("sellAmount", sellAmount);
 		
 		return resultMap;
+	}
+	
+	// 회원 구매목록 불러오기
+	@Override
+	public List<Piece> getPurchases(int memberNo, int cp) {
+		int listCount = mapper.getPurchasesCount(memberNo);
+		int limit = 6;
+		int pageSize = 100;
+		Pagination pagination = new Pagination(cp, listCount, limit, pageSize);
+		limit = pagination.getLimit();
+		int offset = (cp - 1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<Piece> wishList = mapper.getPurchaseList(memberNo, rowBounds);
+		log.info("wishList : {}", wishList);
+		return wishList;
+	}
+	
+	
+	/** 회원 탈퇴
+	 *
+	 */
+	@Override
+	public int deleteMember(int memberNo) {
+		return mapper.deleteMember(memberNo);
 	}
 }

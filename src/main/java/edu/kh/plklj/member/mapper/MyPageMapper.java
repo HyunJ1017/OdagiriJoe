@@ -9,6 +9,7 @@ import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.plklj.main.dto.BankCode;
 import edu.kh.plklj.main.dto.Member;
+import edu.kh.plklj.member.dto.SellInfo;
 import edu.kh.plklj.notice.dto.Notice;
 import edu.kh.plklj.piece.dto.Piece;
 
@@ -45,7 +46,7 @@ public interface MyPageMapper {
 
 	int getWishListCount(int memberNo);
 
-	int insertWork(@Param("memberNo") int memberNo, @Param("workDetails") List<String> workDetails);
+	int insertWork(@Param("memberNo") int memberNo, @Param("workDetail") String workDetails);
 
 	List<Piece> artistAuction(int memberNo);
 
@@ -53,7 +54,7 @@ public interface MyPageMapper {
 
 	List<Piece> getAuctionList(int memberNo);
 
-	Integer getEndprice(int pieceNo);
+	String getEndprice(int pieceNo);
 
 	int updateNickname(Member member);
 
@@ -65,8 +66,16 @@ public interface MyPageMapper {
 
 	Member getArtistInfo(int memberNo);
 
-	List<Piece> getSellList(@Param("memberNo") int memberNo, @Param("selectedMonth") String selectedMonth);
+	List<SellInfo> getSellList(@Param("memberNo") int memberNo, @Param("selectedMonth") String selectedMonth);
 
-	int getSellAmount(@Param("memberNo") int memberNo, @Param("selectedMonth") String selectedMonth);
+	String getSellAmount(int memberNo);
+
+	int getPurchasesCount(int memberNo);
+
+	List<Piece> getPurchaseList(int memberNo, RowBounds rowBounds);
+
+	int deleteMember(int memberNo);
+
+	
 
 }

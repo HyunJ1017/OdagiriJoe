@@ -61,7 +61,7 @@ public interface MyPageService {
 	List<Piece> getAuctionList(int memberNo);
 
 	// 현재입찰가 얻어오기
-	int getEndprice(int pieceNo);
+	String getEndprice(int pieceNo);
 
 	// 작가 은행코드, 은행이름, 계좌번호 얻어오기
 	Member getArtistBank(int memberNo);
@@ -77,6 +77,12 @@ public interface MyPageService {
 
 	// 작가 월별 판매작 및 총액
 	Map<String, Object> getSalesConfirmation(int memberNo, String selectedMonth);
+
+	// 회원 구매목록 불러오기
+	List<Piece> getPurchases(int memberNo, int cp);
+
+	// 회원탈퇴
+	int deleteMember(int memberNo);
 
 	
 

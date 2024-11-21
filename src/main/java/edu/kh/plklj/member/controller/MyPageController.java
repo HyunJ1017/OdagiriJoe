@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.plklj.main.dto.BankCode;
 import edu.kh.plklj.main.dto.Member;
@@ -68,11 +70,13 @@ public class MyPageController {
 			@SessionAttribute(name = "artistLogin", required = false) Member artistLogin,
 			Model model) {
 		
-		int memberNo;
+		int memberNo = 0;
 		if(memberLogin != null) {
 			memberNo = memberLogin.getMemberNo();
-		} else {
+		} else if (artistLogin != null){
 			memberNo = artistLogin.getMemberNo();
+		} else {
+			return "redirect:/main";
 		}
 		
 		// 구매내역 가져오기
@@ -92,7 +96,13 @@ public class MyPageController {
 	public String artistAuction(
 			@SessionAttribute("artistLogin") Member artistLogin,
 			Model model) {
-		int memberNo = artistLogin.getMemberNo();
+		
+		int memberNo = 0;
+		if(artistLogin != null){
+			memberNo = artistLogin.getMemberNo();
+		} else {
+			return "redirect:/main";
+		}
 		
 		// 진행중인 경매물품 조회하기
 		List<Piece> pieceList = service.artistAuction(memberNo);
@@ -119,8 +129,10 @@ public class MyPageController {
 		int memberNo = 0;
 		if(memberLogin != null) {
 			memberNo = memberLogin.getMemberNo();
-		} else {
+		} else if (artistLogin != null){
 			memberNo = artistLogin.getMemberNo();
+		} else {
+			return "redirect:/main";
 		}
 		
 		// 팔로우, 위시리스트 얻어오기
@@ -138,7 +150,13 @@ public class MyPageController {
 	 * @return 구매내역 페이지
 	 */
 	@GetMapping("salesConfirmation")
-	public String salesConfirmation() {
+	public String salesConfirmation(
+			@SessionAttribute(name = "artistLogin", required = false) Member artistLogin) {
+		
+		if(artistLogin == null) {
+			return "redirect:/main";
+		}
+		
 		return "myPage/salesConfirmation";
 	}
 	
@@ -150,7 +168,14 @@ public class MyPageController {
 			@SessionAttribute("memberLogin") Member memberLogin,
 			Model model) {
 		
-		Member getArtistInfo = service.getArtistInfo(memberLogin.getMemberNo());
+		int memberNo = 0;
+		if(memberLogin != null) {
+			memberNo = memberLogin.getMemberNo();
+		} else {
+			return "redirect:/main";
+		}
+		
+		Member getArtistInfo = service.getArtistInfo(memberNo);
 		
 		if(getArtistInfo != null) {
 			model.addAttribute("message", "이전 신청내역이 아직 처리중입니다.");
@@ -301,8 +326,10 @@ public class MyPageController {
 		int memberNo = 0;
 		if(memberLogin != null) {
 			memberNo = memberLogin.getMemberNo();
-		} else {
+		} else if (artistLogin != null){
 			memberNo = artistLogin.getMemberNo();
+		} else {
+			return "redirect:/main";
 		}
 		
 		// 1:1문의내역, 문의카테고리, 페이지네이션 얻어오기
@@ -355,7 +382,7 @@ public class MyPageController {
 	 */
 	@GetMapping("getEndprice")
 	@ResponseBody
-	public int getEndprice(@RequestParam("pieceNo") int pieceNo) {
+	public String getEndprice(@RequestParam("pieceNo") int pieceNo) {
 		return service.getEndprice(pieceNo);
 	}
 	
@@ -412,15 +439,57 @@ public class MyPageController {
 		int memberNo = Integer.parseInt( map.get("memberNo") );
 		String selectedMonth = map.get("selectedMonth");
 		
-		// 작가 계좌정보
-		Member artistBankInfo = service.getArtistBank(memberNo);
-		
 		// 월별 작가 판매작품 및 총액
 		Map<String, Object> resultMap = service.getSalesConfirmation(memberNo, selectedMonth);
 		
-		resultMap.put("artistBankInfo", artistBankInfo);
-		
 		return resultMap;
+	}
+	
+	
+	/** 회원 구매목록 불러오기
+	 * @param memberNo
+	 * @param cp
+	 * @return
+	 */
+	@GetMapping("getPurchases")
+	@ResponseBody
+	public List<Piece> getPurchases(
+			@RequestParam("memberNo") int memberNo,
+			@RequestParam("currentPage") int cp){
+		
+		return service.getPurchases(memberNo, cp);
+	}
+	
+	
+	@GetMapping("siteMemberGoogbyeEndByeBye")
+	public String siteMemberGoogbyeEndByeBye(
+			@SessionAttribute(name = "memberLogin", required = false) Member memberLogin,
+			@SessionAttribute(name = "artistLogin", required = false) Member artistLogin,
+			SessionStatus status,
+			RedirectAttributes ra) {
+		
+		int memberNo = 0;
+		if(memberLogin != null) {
+			memberNo = memberLogin.getMemberNo();
+		} else if (artistLogin != null){
+			memberNo = artistLogin.getMemberNo();
+		} else {
+			return "redirect:/main";
+		}
+		
+		int result = service.deleteMember(memberNo);
+		String path = "";
+		
+		if(result > 0) {
+			ra.addFlashAttribute("message", "이용해 주셔서 감사합니다.");
+			path = "redirect:/member/login";
+			status.setComplete();
+		} else {
+			ra.addFlashAttribute("message", "다시 시도해 주십시오.");
+			path = "redirect:/member/myPage";
+		}
+		
+		return path;
 	}
 	
 }

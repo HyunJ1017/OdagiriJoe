@@ -107,3 +107,7 @@ button:hover {
 #registerButton {
   margin-top: 20px;
 }
+
+.popup-hidden{
+  display: none !important;
+}

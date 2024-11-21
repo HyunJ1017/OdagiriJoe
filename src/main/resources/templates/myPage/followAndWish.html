@@ -29,7 +29,8 @@
               <P th:text="|오픈일 *{openDate}|">11/09(금)</P>
               <p th:text="|프리뷰 *{previewStartDate} ~ *{previewEndDate}|">11/09(토) ~ 11/20(수)</p>
               <p th:text="|경매일 *{startDate}|">12월 6일 14:00</p>
-              <div class="piece-detales">상세보기</div>
+              <div th:class="|piece-detales *{pieceStatus == 'A' ? 'commingAuction' : 'currentAuction'}|"
+               th:data-piece-no="*{pieceNo}|">상세보기</div>
             </div>
             <div class="image-container">
               <img th:src="*{pieceRename}" alt="사진" class="content-img" onload="hideLoader(this)">
@@ -85,7 +86,7 @@
 
         <!-- 팔로우작가 -->
         <th:block th:each= "artist : ${followList}" th:object="${artist}">
-          <div class="following">
+          <div class="following" th:data-member-no="*{memberNo}">
             <div class="image-container">
               <img th:src="*{artistProfile}" alt="사진" class="artist-img" onload="hideLoader(this)">
               <div class="loader"></div>

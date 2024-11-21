@@ -3,6 +3,8 @@
 /* url 모음 */
 const urls = {
   /* 상세보기 */ "detail" : "/auction/main",
+  /* 경매진행작 */ "detailCurrent" : "/auction/currentDetail?pieceNo=",
+  /* 경매대기작 */ "detailUpcommig" : "/auction/upCommingDetail?pieceNo=",
   /* 배달정보 */ "delivery" : "/",
   /* 작성하기 */ "rewrite" : "/piece/upload?pieceNo=",
   /* 삭제하기 */ "remove" : "/piece/removeTemp?pieceNo="
@@ -18,10 +20,16 @@ deliveryBtns?.forEach(btn => {
 })
 
 // 상세정보 버튼 클릭시 상세정보 페이지로 이동
-const detailBtns = document.querySelectorAll(".detailBtn");
+const auctionCurrentDetailBtns = document.querySelectorAll(".currentAuction");
 detailBtns?.forEach(btn => {
   btn.addEventListener("click", () => {
-    location.href = urls.detail;
+    location.href = urls.detailCurrent + btn.dataset.pieceNo;
+  })
+})
+const auctionUpCommingDetailDetailBtns = document.querySelectorAll(".commingAuction");
+detailBtns?.forEach(btn => {
+  btn.addEventListener("click", () => {
+    location.href = urls.detailUpcommig + btn.dataset.pieceNo;
   })
 })
 

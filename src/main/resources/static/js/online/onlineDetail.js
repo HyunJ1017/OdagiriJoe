@@ -37,16 +37,45 @@ purchaseBtn.addEventListener("click", () => {
   } // 로그인 하지 않으면 구매하기 불가
 
   // peiceNo를 URL 파라미터로 추가해서 팝업 창으로 전달
-  const width = 520;
+  const width = 700;
   const height = 700;
   const left = (window.screen.width / 2) - (width / 2);
   const top = (window.screen.height / 2) - (height / 2);
 
-  window.open (
+  const popup = window.open (
     `/piece/purchasePopup?pieceNo=${pieceNo}`,
-    '',
+    'popup',
     `width=${width}, height=${height}, left=${left}, top=${top}, scrollbars=no, location=no, status=no, menubar=no`
   );
+
+  // 상태 코드 초기화
+  let statusCode = null;
+
+  // 창 닫힘 감지
+  const checkClose = setInterval(() => {
+      if (popup.closed) {
+          clearInterval(checkClose); // 타이머 정지
+          console.log(`창 닫힘. 상태 코드: ${statusCode}`);
+
+          // 상태 코드에 따라 처리
+          if (statusCode === 'error') {
+            console.log('결제중 오류가 발생했습니다.');
+          } else if (statusCode === 'success') {
+            window.location.href = '/main';
+          } else {
+            console.log('창닫기');
+          }
+      }
+  }, 500);
+
+  // 메시지 받기 (상태 코드)
+  window.addEventListener('message', (event) => {
+      if (event.origin !== window.location.origin) {
+          console.warn('다른 도메인의 메시지는 처리하지 않습니다.');
+          return;
+      }
+      statusCode = event.data; // 상태 코드 저장
+  });
 });
 
 /* 위시리스트(좋아요) 비동기  */

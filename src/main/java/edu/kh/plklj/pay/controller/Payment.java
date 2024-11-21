@@ -38,8 +38,9 @@ public class Payment {
 	
 	// 결제완료처리
 	@PostMapping("payment/complete")
-	public String complete(
-			@ModelAttribute PaymentDto pay,
+	@ResponseBody
+	public int complete(
+			@RequestBody PaymentDto pay,
 			Model model) {
 		log.info("[실행]PayTest.complete() POST");
 		
@@ -50,11 +51,12 @@ public class Payment {
 		log.info("[결제]결제회원 : {}", pay.getMemberNo());
 		log.info("[결제]결제금액 : {}", pay.getPayAmount());
 		
-		return "redirect:/main";
+		return result;
 	}
 	
 	// 실패시
 	@PostMapping("fail")
+	@ResponseBody
 	public void fail(
 			@RequestBody Map<String, String> map) {
 		log.info("[실행]PayTest.fail()");

@@ -36,9 +36,11 @@ public interface PieceService {
 	
 	// 작품 상세 조회
 	Piece getPieceDetail(Map<String, Integer> map);
+	Piece getPieceDetail(int pieceNo);
 	
 	// 위시 리스트 체크, 해제
 	Map<String, Object> onlineWish(int pieceNo, int memberNo);
+
 
 
 

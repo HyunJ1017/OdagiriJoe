@@ -510,3 +510,13 @@ myPageUpdateBtn.addEventListener("click", () => {
   str += '\n[전화번호]';
   alert(str);
 })
+
+const myPageDelete = document.querySelector("#myPage-delete");
+myPageDelete.addEventListener("click", () => {
+  if(!confirm("정말로 탈퇴하실 건가요?")) return;
+  
+  const promptA = prompt("탈퇴를 원하시면\n'회원탈퇴'\n를 입력해주세요")
+  if(promptA !== "회원탈퇴") return;
+  
+  location.href = "/member/myPage/siteMemberGoogbyeEndByeBye";
+})
