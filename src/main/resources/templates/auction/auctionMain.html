@@ -74,90 +74,28 @@
             <img th:src="@{${auction.pieceRename} ?: '/images/default.jpg'}" alt="경매 이미지">
         </div>
       </div>
-
-
-
     </section>
+
+
     
     <section class="completed-auctions">
       <div class="completed-title">종료 경매</div> 
 
       <div class="completed-imgbox">
-        <div>
-          <a href="#" style="padding: 0;">
-            <img src="/images/onlineGallery5.jpg">
-          </a>
-          <div class="artist-name">이동현</div>
+        <!-- 전체 completedList 순회 -->
+        <div th:each="auction : ${completedList}">
+            <a th:href="@{'/auction/detail?pieceNo=' + ${auction.pieceNo}}" style="padding: 0;">
+                <!-- 작품 이미지 -->
+                <img th:src="@{${auction.pieceRename} ?: '/images/default.jpg'}" alt="경매 이미지">
+            </a>
+            <!-- 작가 이름 -->
+            <div class="artist-name" th:text="${auction.artistNickname ?: '작가 없음'}"></div>
         </div>
-
-        <div>
-          <a href="#" style="padding: 0;">
-            <img src="/images/onlineGallery5.jpg">
-          </a>
-          <div class="artist-name">이동현</div>
-        </div>
-
-        <div>
-          <a href="#" style="padding: 0;">
-            <img src="/images/onlineGallery5.jpg">
-          </a>
-          <div class="artist-name">이동현</div>
-        </div>
-
-        <div>
-          <a href="#" style="padding: 0;">
-            <img src="/images/onlineGallery5.jpg">
-          </a>
-          <div class="artist-name">이동현</div>
-        </div>
-
-        <div>
-          <a href="#" style="padding: 0;">
-            <img src="/images/onlineGallery5.jpg">
-          </a>
-          <div class="artist-name">이동현</div>
-        </div>
-      </div>
-
-
-      <div class="completed-imgbox">
-        <div>
-          <a href="#" style="padding: 0;">
-            <img src="/images/onlineGallery5.jpg">
-          </a>
-          <div class="artist-name">이동현</div>
-        </div>
-
-        <div>
-          <a href="#" style="padding: 0;">
-            <img src="/images/onlineGallery5.jpg">
-          </a>
-          <div class="artist-name">이동현</div>
-        </div>
-
-        <div>
-          <a href="#" style="padding: 0;">
-            <img src="/images/onlineGallery5.jpg">
-          </a>
-          <div class="artist-name">이동현</div>
-        </div>
-
-        <div>
-          <a href="#" style="padding: 0;">
-            <img src="/images/onlineGallery5.jpg">
-          </a>
-          <div class="artist-name">이동현</div>
-        </div>
-
-        <div>
-          <a href="#" style="padding: 0;">
-            <img src="/images/onlineGallery5.jpg">
-          </a>
-          <div class="artist-name">이동현</div>
-        </div>
-      </div>
+    </div>
 
     </section>
+
+    
 
     <div class="pagination-box" id="paginationBox">
       <a href="#" class="page-btn"><<</a>

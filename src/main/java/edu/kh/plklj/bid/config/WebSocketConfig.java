@@ -20,7 +20,13 @@ public class WebSocketConfig implements WebSocketConfigurer {
 	    @Override
 	    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry){
 	        /*webSocketHandler 를 추가*/
-	        registry.addHandler(stockWebSocketHandler, "/bid").setAllowedOrigins("*"); // endpoint 설정과 CORS 설정(*)
+	        registry.addHandler(stockWebSocketHandler, "/bid").setAllowedOrigins("*").setAllowedOriginPatterns
+	    		(
+	    				"http://localhost/",
+	    				"http://127.0.0.1/",
+	    				"http://192.168.10.28/"
+	    		)
+	    		; // endpoint 설정과 CORS 설정(*)
 	    }
 }
 

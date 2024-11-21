@@ -26,7 +26,7 @@
 	    FETCH FIRST 3 ROWS ONLY
 	</select>
 	
-	
+	<!-- 예정경매 상세페이지 -->
 	<select id="ongoingDetail" resultType="Piece">
 	    SELECT
 	        P.PIECE_NO,
@@ -50,7 +50,7 @@
 	</select>
 	
 	
-	
+	<!-- 좋아요 카운트 -->
 	<select id="checkPieceLike" resultType="_int">
 		SELECT 
 			COUNT(*)
@@ -63,13 +63,14 @@
 	</select>
 	
 	
-	
+	<!-- 좋아요 INSERT -->
 	<insert id="insertPieceLike">
 		INSERT INTO "WISH"
    		VALUES( #{loginNo}, #{pieceNo})
 	</insert>
 
 	
+	<!-- 좋아요 DELETE -->
 	<insert id="deletePieceLike">
 		DELETE FROM "WISH"
    		WHERE 
@@ -78,6 +79,7 @@
    			MEMBER_NO = #{loginNo}
 	</insert>
 	
+	<!-- 좋아요 카운트 -->
 	<select id="getLikeCount" resultType="_int">
 		SELECT COUNT(*)
    		FROM "WISH"
@@ -85,6 +87,7 @@
    		 PIECE_NO = #{pieceNo}
 	</select>
 	
+	<!-- 좋아요 확인 -->
 	<select id="getLikeCheck" resultType="_int">
 		  SELECT 
 			  COUNT(*)
@@ -96,7 +99,7 @@
    			MEMBER_NO = #{loginNo}
 	</select>
     
-    
+    <!-- 신고 접수 -->
    <insert id="reportInsert" parameterType="Report">
         INSERT INTO REPORT
         VALUES(
@@ -110,6 +113,11 @@
     </insert>
     
     <!-- ************ 예정경매 관련  ************ -->
+    
+    
+    <!-- ************ 현재경매 관련  ************ -->
+    
+    <!-- 현재 경매 리스트 -->
    	<select id="currentList" resultType="Piece">
 		SELECT
 			*
@@ -128,7 +136,7 @@
 	</select>
     
     
-    <!-- ************ 현재경매 관련  ************ -->
+    <!-- 상세 페이지 조회 -->
     <select id="currentDetail" resultType="Piece">
 		SELECT
 		    P.PIECE_NO, 
@@ -160,6 +168,34 @@
 		    P.MEMBER_NO = A.MEMBER_NO -- 아티스트와 조인 조건
 		WHERE
 			P.PIECE_NO = #{pieceNo}
+    </select>
+    
+    
+    <select id="completedList" resultType="Piece">
+	 	SELECT
+		    *
+		FROM
+		    PIECE P
+		JOIN
+		    ARTIST A
+		ON
+		    P.MEMBER_NO = A.MEMBER_NO
+		WHERE
+			PIECE_STATUS = 'F'
+    </select>
+    
+    <!-- 종료경매 게시물 카운트  -->
+    <select id="completedListCount" resultType="_int">
+	    SELECT
+	    	COUNT(*)
+		FROM
+		    PIECE P
+		LEFT JOIN
+		    ARTIST A
+		ON
+		    P.MEMBER_NO = A.MEMBER_NO
+		WHERE
+			PIECE_STATUS = 'F'
     </select>
     
     

@@ -7,10 +7,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.plklj.auction.mapper.AuctionMapper;
+import edu.kh.plklj.common.util.Pagination;
+import edu.kh.plklj.notice.dto.Notice;
 import edu.kh.plklj.piece.dto.Piece;
 import edu.kh.plklj.report.dto.Report;
 import lombok.RequiredArgsConstructor;
@@ -43,6 +46,8 @@ public class AuctionServiceImpl implements AuctionService {
     
     List<Piece> currentList = mapper.currentList();
     
+//    List<Piece> completedList = mapper.completedList(); 
+     
     // 공통 메서드 호출로 변환
     List<Map<String, Object>> calculatedUpCommingList = upCommingList.stream()
         .map(this::calculatePieceData) // 메서드 참조
@@ -58,6 +63,9 @@ public class AuctionServiceImpl implements AuctionService {
     
     // 진행경매
     result.put("currentList", calculatedCurrentList);
+    
+    // 종료경매
+//    result.put("completedList", completedList);
     
 
     return result;
@@ -170,7 +178,35 @@ public class AuctionServiceImpl implements AuctionService {
   
   
   
-  /************************** 메인페이지, 예정경매 상세  **************************/
+  /************************** 종료 경매 페이지 네이션  **************************/
+  
+  @Override
+  public Map<String, Object> completedList(int cp) {
+  	
+  	int completedListCount = mapper.completedListCount();
+  	
+		log.debug("completedListCount : {}", completedListCount);
+		
+		Pagination pagination = new Pagination(cp, completedListCount, 10, 5);
+
+		// ex) 현재 페이지 2 - 1 = 1
+		// 1 * 5 = 5
+		// 해당 인덱스 부터 게시물 가져오는 값
+		int offset = (cp - 1) * pagination.getLimit();
+		
+		// 페이징 처리를 위해 제공하는 API
+		// offset: 조회 시작 위치를 지정 (0부터 시작)
+		// limit: 조회할 데이터의 개수를 지정
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		List<Piece> completedList = mapper.completedList(rowBounds);
+		
+		log.debug("completedList : {}", completedList);
+		
+		Map<String, Object> map = Map.of("completedList", completedList, "pagination", pagination);
+		
+		return map;
+  }
   
   
 	

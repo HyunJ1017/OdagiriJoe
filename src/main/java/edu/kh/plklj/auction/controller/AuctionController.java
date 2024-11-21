@@ -41,8 +41,10 @@ public class AuctionController {
 			
 			model.addAttribute("upCommingList", list.get("upCommingList"));
 			model.addAttribute("currentList", list.get("currentList"));
+//			model.addAttribute("completedList", list.get("completedList"));
 			
 			System.out.println(list.get("currentList"));
+//			System.out.println(list.get("completedList"));
 			
 			return "auction/auctionMain";
 		}
@@ -151,8 +153,6 @@ public class AuctionController {
 		
 		
 		
-		
-		
 		/** 진행 경매 작품 상세 조회 페이지
 		 * 
 		 */
@@ -177,12 +177,29 @@ public class AuctionController {
       // 추가: 세션 값 모델에 포함
       model.addAttribute("memberLogin", memberLogin);
       model.addAttribute("artistLogin", artistLogin);
+
       
       log.info("memberLogin: {}", memberLogin);
       log.info("artistLogin: {}", artistLogin);
       log.info("loginNo: {}", loginNo);
       
 			return "auction/currentDetail";
+		}
+		
+		
+		
+		/* 종료 경매 */
+		@GetMapping("completedList")
+		@ResponseBody
+		public Map<String, Object> getCompletedList(
+				@RequestParam(value = "cp", required = false,	defaultValue = "1") int cp
+				) {
+			
+	    Map<String, Object> map = service.completedList(cp);
+	    
+	    System.out.println(map.get("completedList"));
+	    
+	    return map;
 		}
 		
 		

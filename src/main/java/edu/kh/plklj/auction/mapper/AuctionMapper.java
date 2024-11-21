@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.plklj.piece.dto.Piece;
 import edu.kh.plklj.report.dto.Report;
@@ -39,6 +40,12 @@ public interface AuctionMapper {
 
 	// 현재 경매 상세 페이지
 	Piece currentDetail(int pieceNo);
+
+	// 종료 경매 페이지
+	List<Piece> completedList(RowBounds rowBounds);
+
+	// 종료 게시물 카운트 수
+	int completedListCount();
 
 	
 	
