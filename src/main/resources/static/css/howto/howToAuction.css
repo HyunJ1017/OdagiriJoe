@@ -1,7 +1,7 @@
 /* 메인 컨텐츠 영역 */
 /* 메인 컨텐츠 영역 */
 #howTo {
-  padding-top: 25vh;
+  padding-top: 20vh;
   width: 100%;
   overflow-y: hidden;
   display: flex;
@@ -17,7 +17,7 @@
   margin-bottom: 50px;
   font-size: 36px;
   font-weight: bold;
-  color: #3b5d53; /* 제목 색상 변경 */
+  color: #414141; /* 제목 색상 변경 */
 }
 
 /* infoMain */
@@ -68,7 +68,7 @@
 .infoMain-titleContent p {
   font-size: 18px;
   line-height: 1.8;
-  color: #4a6059;
+  color: #5e7c71;
 }
 
 /* hr 스타일 조정 */
@@ -122,14 +122,14 @@ hr {
   font-size: 22px;
   margin-top: 20px;
   text-align: center;
-  color: #3b5d53; /* 텍스트 색상 */
+  color: #414141; /* 텍스트 색상 */
 }
 
 .content-box p {
   font-size: 18px;
   line-height: 1.8;
   text-align: left;
-  color: #4a6059;
+  color: #5e7c71;
   margin-top: 20px;
 }
 
@@ -158,7 +158,7 @@ hr {
 .faq-box {
   width: 100%;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -169,7 +169,7 @@ hr {
 }
 
 .faq-box:hover {
-  background-color: #f0f0f0;
+  background-color: #ffffff;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 

@@ -1,7 +1,7 @@
 /* 전체 레이아웃 설정 */
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #f8f8f8;
+  background-color: #ffffff;
   margin: 0;
   padding: 0;
   display: flex;
@@ -23,10 +23,10 @@ body {
 /* 제목 스타일 */
 .popup-container h2 {
   font-size: 20px;
-  color: #5c7a72;
+  color: #5e7c71;
   margin-bottom: 20px;
   font-weight: bold;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 2px solid #ffffff;
   padding-bottom: 10px;
 }
 
@@ -41,7 +41,7 @@ body {
   font-weight: bold;
   margin-bottom: 10px;
   display: block;
-  color: #333;
+  color: #414141;
 }
 
 .form-group div {
@@ -63,7 +63,7 @@ input[type="checkbox"] {
   width: calc(100% - 10px);
   padding: 10px;
   margin-top: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #ffffff;
   border-radius: 5px;
   font-size: 14px;
   box-sizing: border-box;
@@ -73,14 +73,14 @@ input[type="checkbox"] {
 #detailAddress:focus,
 #phone:focus {
   outline: none;
-  border-color: #5c7a72;
+  border-color: #5e7c71;
   box-shadow: 0 0 5px rgba(92, 122, 114, 0.5);
 }
 
 /* 설명 텍스트 */
 p {
   font-size: 14px;
-  color: #777;
+  color: #414141;
   text-align: left;
   margin-top: -10px;
 }
@@ -88,7 +88,7 @@ p {
 /* 등록 버튼 스타일 */
 button {
   width: 100%;
-  background-color: #5c7a72;
+  background-color: #5e7c71;
   color: white;
   border: none;
   padding: 12px;
@@ -100,7 +100,7 @@ button {
 }
 
 button:hover {
-  background-color: #47695d;
+  background-color: #5e7c71;
 }
 
 /* 추가 간격 설정 */

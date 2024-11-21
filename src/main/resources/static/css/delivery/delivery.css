@@ -18,6 +18,10 @@ button {
   border-radius: 3px;
   padding: 0.5em 1em;
 }
+.calendars {
+  color : #ffffff;
+  font-size: 16px;
+}
 
 .date:hover, .selectBtn:hover {
   background-color: #5e7c71;
@@ -89,7 +93,7 @@ option {
 /* 날짜 버튼 */
 .date-container {
   display: flex;
-  width: 10%;
+  width: 50%;
   justify-content: space-between;
   color: #ffffff;
 }
@@ -99,13 +103,13 @@ option {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 70%;
+  width: 35%;
   margin: 0% 0% 0% 2%;
   color: #ffffff;
 }
 .search {
   color: #ffffff;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   margin-right: 1%;
 }

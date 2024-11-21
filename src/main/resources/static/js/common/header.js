@@ -256,6 +256,7 @@ const selectNotificationList = () => {
         // 알림 클릭 시 동작
         notiText.addEventListener("click", e => {
 
+          
           // 만약 읽지 않은 알람인 경우
           if (data.readCheck == 'N') {
             fetch("/notification/noti", {

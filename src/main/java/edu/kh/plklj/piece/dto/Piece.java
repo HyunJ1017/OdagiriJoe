@@ -26,9 +26,9 @@ public class Piece {
 	private int pieceType; // 판매 종류(1. 즉시판매 2. 경매) 
 	private String pieceStatus; // 작품 상태(N 판매 등록, T 임시저장, B 블라인드, A 경매 대기, S 경매 진행중, D 입금 대기, F 입금(판매) 완료)
 	private int pieceCategoryNo; // 카테고리 번호
-	
-	private String artistNickname; // 작가 닉네임
 	private String pieceCategoryName; // 작품 카테고리 이름
+	private String artistNickname; // 작가 닉네임
+	
 	
 	// 경매 작품 
 	private String startDate; // 경매 시작 날짜

@@ -7,6 +7,10 @@
   font-family: "ChosunKm", Helvetica;
 }
 
+a {
+  text-decoration: none;
+}
+
 .footer{
   padding-top: 2%;
   box-sizing: border-box;

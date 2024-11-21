@@ -5,6 +5,11 @@
   box-sizing: border-box;
 }
 
+a {
+  text-decoration-line: none;
+  color: #ffffff;
+}
+
 body {
   font-family: 'Noto Sans KR', sans-serif;
   line-height: 1.6;
