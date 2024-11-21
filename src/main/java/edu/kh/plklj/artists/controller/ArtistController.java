@@ -7,6 +7,8 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,10 +19,12 @@ import edu.kh.plklj.artists.service.ArtistsService;
 import edu.kh.plklj.common.util.Pagination;
 import edu.kh.plklj.main.dto.Member;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("artist")
 @RequiredArgsConstructor
+@Slf4j
 public class ArtistController {
 
 	private final ArtistsService service;
@@ -67,27 +71,75 @@ public class ArtistController {
 	 */
 	@GetMapping("artistDetail")
 	public String artistDetail(
-			@RequestParam("memberNo") int memberNo,
-			Model model,
-			@SessionAttribute(name = "memberLogin", required = false) Member loginMember,
-      @SessionAttribute(name = "artistLogin", required = false) Member loginArtist
+			@RequestParam("memberNo") int artistNo,
+			Model model
+//			@SessionAttribute(name = "memberLogin", required = false) Member loginMember,
+//      @SessionAttribute(name = "artistLogin", required = false) Member loginArtist
 			) {
 		
-		Map<String, Integer> map = new HashMap<>();
-		map.put("memberNo", memberNo);
 		
-		if (loginMember != null) {
-			map.put("memberNo", loginMember.getMemberNo());
-		} else if (loginArtist != null) {
-			map.put("memberNo", loginArtist.getMemberNo());
-		}
 		
-		Artist artist = service.getArtistDetail(map);
+		Artist artist = service.getArtistDetail(artistNo);
 		
-		// 가져온 작가 정보를 모델에 추가
-		model.addAttribute("Artist", artist);
+		log.debug("logdebug : {}", artist);
+		
+		
+		
+		model.addAttribute("artist", artist);
+
+		
+		
 		
 		return "artist/artistDetail";
 	}
 	
+	/** 작가 상세조회 시 작품 목록 로드 비동기 조회
+	 */
+	@GetMapping("works")
+	@ResponseBody
+	public List<Artist> getArtistWorks(
+			@RequestParam("memberNo") int memberNo,
+			@RequestParam(value = "sort", required = false, defaultValue = "recent") String sort,
+			@RequestParam(value = "order", required = false, defaultValue = "asc") String order
+			) {
+		return service.getArtistWorks(memberNo, sort, order);
+	}
+	
+	/** 팔로우 체크 or 해제
+	 */
+	@PostMapping("follow")
+	@ResponseBody
+	public Map<String, Object> follow(
+			@RequestBody int artistNo,
+			@SessionAttribute(name = "memberLogin", required = false) Member loginMember,
+      @SessionAttribute(name = "artistLogin", required = false) Member loginArtist
+			) {
+		
+		int memberNo = 0;
+		
+		if(loginMember == null) {
+			memberNo = loginArtist.getMemberNo();
+		} else {
+			memberNo = loginMember.getMemberNo();
+		}
+		
+		return service.follow(memberNo, artistNo);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

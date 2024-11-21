@@ -61,6 +61,9 @@ public class Piece {
 	private int wishCount;
 	private int wishCheck; // 위시 체크 여부(1== 누른적 있음)
 	
+	// 작가 이름
+	private String memberName;
+	
 	
 	
 	

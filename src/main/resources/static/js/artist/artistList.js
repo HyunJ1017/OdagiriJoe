@@ -15,6 +15,7 @@ function loadArtists(cp) {
 
       renderAllLists(data); // 모든 리스트 렌더링
       renderPagination(data.pagination, "paginationBox");
+      addArtistClickEvents(); // 클릭 이벤트 추가
     })
     .catch(error => console.error("Error fetching artist data:", error));
 }
@@ -46,6 +47,25 @@ function renderArtistList(artists = [], containerId) {
     </article>
   `).join("");
 }
+
+
+
+function addArtistClickEvents() {
+  const artistProfiles = document.querySelectorAll(".artist-profile");
+  artistProfiles.forEach(profile => {
+    profile.addEventListener("click", (event) => {
+      const artistId = event.currentTarget.dataset.id; // data-id 값 가져오기
+      if (artistId) {
+        console.log(`Redirecting to artist ID: ${artistId}`);
+        location.href = `/artist/artistDetail?memberNo=${artistId}`;
+      } else {
+        console.error("Artist ID is missing!");
+      }
+    });
+  });
+}
+
+
 
 // 페이지네이션 렌더링
 function renderPagination(pagination, containerId) {
@@ -91,14 +111,4 @@ function renderPagination(pagination, containerId) {
 document.addEventListener("DOMContentLoaded", () => {
   loadArtists(1); // 초기 로드 시 첫 페이지 요청
 
-  /* 상세 조회 페이지 이동 */
-  const artistListContainer = document.getElementById(containerId);
-  artistListContainer.addEventListener("click", (event) => {
-    const artistCard = event.target.closest(".artist-card"); // 클릭한 아티스트 목록이 아티스트 목록인지 확인
-
-    if (artistCard) {
-      const memberNo = artistCard.querySelector(".artist-profile").dataset.id; // 멤버 번호 가져오기
-      window.location.href = `/artist/artistDetail?memberNo=${memberNo}`; // 아티스트 상세 조회 페이지로 이동
-    }
-  })
 });

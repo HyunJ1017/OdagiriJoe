@@ -12,8 +12,8 @@
 		FROM 
 			ARTIST A
 		JOIN MEMBER M ON (A.MEMBER_NO = M.MEMBER_NO)
-		WHERE 
-			A.ARTIST_REG = 'Y'
+		WHERE
+			M.MEMBER_DEL_FL = 'N'
 		ORDER BY
 			A.MEMBER_NO ASC
 	</select>
@@ -30,6 +30,9 @@
 			ARTIST A
 		LEFT JOIN FOLLOW F ON (A.MEMBER_NO = F.ARTIST_NO )
 		JOIN MEMBER M ON (A.MEMBER_NO = M.MEMBER_NO)
+		
+		AND 
+			M.MEMBER_DEL_FL = 'N'
 		GROUP BY A.MEMBER_NO, A.ARTIST_PROFILE, A.ARTIST_NICKNAME, M.MEMBER_NAME
 		ORDER BY FOLLOW_COUNT DESC 
 	</select>
@@ -43,6 +46,9 @@
 	FROM
 		ARTIST A
 	JOIN MEMBER M ON (A.MEMBER_NO = M.MEMBER_NO)
+	
+	WHERE
+			M.MEMBER_DEL_FL = 'N'
 	</select>
 	
 	
@@ -54,22 +60,75 @@
 	<select id="getArtistDetail" resultType="Artist">
 		SELECT
 			A.MEMBER_NO, A.ARTIST_PROFILE, A.ARTIST_NICKNAME,
-			W.WORK_NO, W.WORK_DETAIL, P.PIECE_NO,
-			P.PIECE_TITLE, P.SIZE_X, P.SIZE_Y,
-			P.PIECE_RENAME, PS.SELL_PRICE, M.MEMBER_NAME
+			W.WORK_DETAIL, M.MEMBER_NAME,
+			
+			(SELECT COUNT(*) FROM FOLLOW WHERE MEMBER_NO = A.MEMBER_NO) AS FOLLOW_COUNT,
+			
+			(SELECT COUNT(*)
+				FROM FOLLOW
+				WHERE MEMBER_NO = #{memberNo}
+				AND   ARTIST_NO = #{artistNo}) AS FOLLOW_CHECK 
+			
 		FROM 
 			ARTIST A
-		JOIN 
+		LEFT JOIN 
 			MEMBER M ON (A.MEMBER_NO = M.MEMBER_NO)
-		JOIN 
+		LEFT JOIN 
 			WORK W ON (A.MEMBER_NO = W.MEMBER_NO)
-		LEFT JOIN
-			PIECE P ON (A.MEMBER_NO = P.MEMBER_NO)
+		WHERE
+			A.MEMBER_NO = #{memberNo}
+		AND 
+			M.MEMBER_DEL_FL = 'N'
+	</select>
+	
+	<select id="getArtistWorks" resultType="Artist">
+		SELECT
+			P.PIECE_NO, P.PIECE_TITLE, 
+			P.SIZE_X, P.SIZE_Y,
+			P.PIECE_RENAME, PS.SELL_PRICE
+		FROM
+			PIECE P
 		LEFT JOIN
 			PIECE_SELL PS ON (P.PIECE_NO = PS.PIECE_NO)
 		WHERE
-			A.MEMBER_NO = #{memberNo}
+			P.MEMBER_NO = #{memberNo}
+		ORDER BY
+			<choose>
+				<when test="sort == 'name'">P.PIECE_TITLE</when>
+				<when test="sort == 'price'">PS.SELL_PRICE</when>
+				<otherwise>P.PIECE_NO</otherwise>
+			</choose>
+			<if test="order == 'asc'">ASC</if>
+			<if test="order == 'desc'">DESC</if>
 	</select>
+	
+	<select id="checkFollow" resultType="_int">
+		SELECT COUNT(*)
+		FROM FOLLOW
+		WHERE 
+			MEMBER_NO = #{memberNo}
+		AND 
+			ARTIST_NO = #{artistNo}
+	</select>
+	
+	<insert id="insertFollow">
+		INSERT INTO FOLLOW
+		VALUES(#{memberNo}, #{artistNo})
+	</insert>
+	
+	<insert id="deleteFollow">
+		DELETE FROM FOLLOW
+		WHERE MEMBER_NO = #{memberNo}
+		AND 
+			ARTIST_NO = #{artistNo}
+	</insert>
+	
+	<select id="getFollowCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM FOLLOW
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+				
 
 
 

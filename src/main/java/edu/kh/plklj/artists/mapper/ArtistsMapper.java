@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.plklj.artists.dto.Artist;
@@ -18,8 +19,22 @@ public interface ArtistsMapper {
 	List<Artist> getAllArtists(RowBounds rowBounds);
 
 	int getTotalArtistCount();
+	
 
-	Artist getArtistDetail(Map<String, Integer> map);
+	List<Artist> getArtistWorks(@Param("memberNo") int memberNo, 
+															@Param("sort") String sort, 
+															@Param("order") String order);
+
+	int checkFollow(@Param("memberNo") int memberNo,@Param("artistNo")  int artistNo);
+
+	int insertFollow(@Param("memberNo") int memberNo,@Param("artistNo")  int artistNo);
+
+	int deleteFollow(@Param("memberNo") int memberNo,@Param("artistNo")  int artistNo);
+
+	int getFollowCount(int memberNo);
+
+
+	Artist getArtistDetail(int artistNo);
 
 	
 }
