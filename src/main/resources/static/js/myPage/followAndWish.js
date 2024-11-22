@@ -26,7 +26,7 @@ const detaileBtnAddEvent = () => {
   const currentAuctions = document.querySelectorAll('.currentAuction');
   currentAuctions?.forEach(btn => {
     btn.addEventListener('click', () => {
-      location.href = urls.detailCurrent + btn.dataset.memberNo;
+      location.href = urls.detailCurrent + btn.dataset.pieceNo;
     })
   })
 }
@@ -34,7 +34,7 @@ const followAddEvent = () => {
   const followBtns = document.querySelectorAll('.following');
   followBtns?.forEach(btn => {
     btn.addEventListener('click', () => {
-      location.href = urls.artist + '?memberNo=' + btn.dataset.memberNo;
+      location.href = urls.artist + btn.dataset.memberNo;
     })
   })
 }
@@ -319,5 +319,8 @@ const renderingFollowList = (getList, getPagination) => {
 
 
 document.addEventListener('DOMContentLoaded', () => {
+  // 버튼 이벤트 추가
   pagenationEventAdd();
+  detaileBtnAddEvent();
+  followAddEvent();
 });

@@ -64,13 +64,13 @@ const loadMoreContent = () => {
     })
     .then(purchaseList => {
       
-      console.log(purchaseList);
-      console.log(purchaseList.length);
+      // console.log(purchaseList);
+      // console.log(purchaseList.length);
 
       if(purchaseList.length != 0){
         // 반환받은 리스트 화면에 추가하기
         purchaseList.forEach(piece => {
-          console.log(piece);
+          // console.log(piece);
           // 새로운 content-div 생성
           const contentDiv = document.createElement('div');
           contentDiv.classList.add("content-div");

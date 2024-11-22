@@ -55,9 +55,19 @@
 .sales-table td:last-child, .sales-table th:last-child {
   border-right: 1px solid rgba(0, 0, 0, 0.7);; /* 마지막 열의 오른쪽 테두리 */
 }
+.sales-table tr>td:first-child{width: 100px; flex-grow: 1;}
+.sales-table tr>td:nth-child(2){width: 150px; flex-grow: 1;}
+.sales-table tr>td:nth-child(3){width: 75px; flex-grow: 1;}
+.sales-table tr>td:nth-child(4){width: 170px; flex-grow: 1;}
+.sales-table tr>td:nth-child(5){width: 104px; flex-grow: 1;}
+.sales-table tr>td:nth-child(6){width: 150px; flex-grow: 1;}
+.sales-table tr>td:last-child{width: 207px; flex-grow: 1;}
 .sales-table th, .sales-table td{
   height: 40px;
   text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .sales-table th{
   background-color: #5e7c7188;
