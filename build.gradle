@@ -75,7 +75,10 @@ dependencies {
   		
   		// 웹 소켓
   		implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket'
-	  
+  		
+  		// 엑셀
+  		implementation 'org.apache.poi:poi:5.3.0'
+    	implementation 'org.apache.poi:poi-ooxml:5.3.0'
 	  
 }
 
