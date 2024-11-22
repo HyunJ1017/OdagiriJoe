@@ -43,6 +43,12 @@ public interface ManageService {
 	// 승인요청 거절
 	int getrejectArtist(int memberNo);
 
+	// 공지사항 작성하기
+	int addNoticeList(String noticeTitle, String noticeContent);
+
+	// 공지사항 삭제하기
+//	void getdeleteNoticeList(int noticeNo);
+
 
 
 }

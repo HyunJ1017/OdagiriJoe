@@ -73,6 +73,12 @@ public class Manage {
 		private int workNo;
 		private List<String> workDetail;
 
+		// 공지사항
+		private int noticeNo;
+		private String noticeTitle;
+		private String noticeContent;
+		private String noticeDate;
+		private String noticeDelFl;
 		
 		
 	

@@ -3,6 +3,7 @@ package edu.kh.plklj.manage.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.plklj.manage.dto.Manage;
@@ -64,9 +65,17 @@ public interface ManageMapper {
 	int getrejectArtist(int memberNo2);
 	int getrejectArtist2(int memberNo);
 	
+	// 공지사항 목록 불러오기
+	int getNoticeListCount();
+	List<Map<String, Object>> getNoticeList(RowBounds noticeBounds);
+
+	// 공지사항 작성하기 
+	int addNoticeList(@Param("noticeTitle") String noticeTitle, @Param("noticeContent") String noticeContent);
 	
+	// 공지사항 삭제하기
+	Object getdeleteNoticeList(int noticeNo);
 	
-	
+
 	
 
 

@@ -130,6 +130,30 @@ public class ManageController {
 	public String writeNotice() {
 		return "manage/noticeWrite";
 	}
+	
+	// 공지사항 작성하기
+	@PostMapping("/noticeList")
+	public String noticeList(@RequestParam("noticeTitle") String noticeTitle,
+							 @RequestParam("noticeContent") String noticeContent) {
+		int result = service.addNoticeList(noticeTitle, noticeContent);
+		if(result >0) {
+			  return "redirect:/manage#noticeN";
+		}
+		return "redirect:/manage/noticeList";
+	
+		
+	}
+//	
+//	// 공지사항 삭제하기
+//	@DeleteMapping("/erase/{noticeNo}")
+//	@ResponseBody
+//	public void deleteNoticeList(@PathVariable("noticeNo") int noticeNo) {
+//		 service.getdeleteNoticeList(noticeNo);
+//
+//	}
+	
+	
+	
 
 	// 승인 요청 시 프로필 페이지
 	@GetMapping("/confirm/{memberNo}")
