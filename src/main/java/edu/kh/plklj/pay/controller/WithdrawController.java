@@ -39,7 +39,7 @@ public class WithdrawController {
 	@ResponseBody
 	public List<PaymentDto> getWithdrawList(
 			@RequestParam("selectMonth") String selectMonth,
-			@RequestParam(name="selectAritist", required = false, defaultValue = "") String artistNickname ) {
+			@RequestParam(name="artistNickname", required = false, defaultValue = "") String artistNickname ) {
 		return service.getWithdrawList(selectMonth, artistNickname);
 	}
 	

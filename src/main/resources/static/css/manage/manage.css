@@ -782,8 +782,13 @@ h2 {
     margin-top: 20px;
     margin-top: 22px;
     text-align: center;
-
 }
+    .-noticelist {
+        list-style: none; /* 목록 기호 제거 */
+        padding: 0;       /* 내부 여백 제거 */
+        margin: 0;        /* 외부 여백 제거 */
+      }
+
 
 .label {
   font-size: 14px;
@@ -1041,7 +1046,10 @@ h2 {
     background-color: #e0e0e0; /* 호버 시 배경색 변경 */
   }
  
-    
+  #noticeGrid {
+    display: block !important;
+    visibility: visible !important;
+  }
   
   /* 공지사항  */
 /*   .notice-item {
@@ -1067,3 +1075,4 @@ h2 {
   .toggle-icon {
     margin-right: 5px;
   } */
+

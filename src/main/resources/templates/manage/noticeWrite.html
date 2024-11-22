@@ -18,16 +18,18 @@
     <button class="save-button">임시저장</button>
 
     <section>
-      <form action="notice-form">
+      <form id="noticeForm" action="/manage/noticeList" method="post">
         <label for="title">제목</label>
-        <input type="text" id="title" class="input-title">
-
-        <label for="context">내용</label>
-        <textarea id="content" class="input-content"></textarea>
+        <input type="text" id="title" name="noticeTitle" class="input-title" required>
+      
+        <label for="content">내용</label>
+        <textarea id="content" name="noticeContent" class="input-content" required></textarea>
+      
+        <button class="write-button">작성하기</button>
+      
       </form>
     </section>
 
-    <button class="write-button">작성하기</button>
   </main>
   <!-- 푸터 -->
   <th:block th:replace= "~{/common/footer.html}"></th:block>

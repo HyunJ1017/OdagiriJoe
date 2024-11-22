@@ -222,6 +222,32 @@
  	DELETE FROM WORK
     WHERE MEMBER_NO = #{memberNo}
 	</delete>
+	
+	<!--공지사항 목록 불러오기  -->
+	<select id="getNoticeListCount" resultType="_int">
+	SELECT COUNT(*)
+	FROM NOTICE
+	WHERE NOTICE_DEL_FL = 'N'
+	</select>
+	
+	<select id="getNoticeList" resultType="map">
+	SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_DATE, NOTICE_DEL_FL
+	FROM NOTICE
+	WHERE NOTICE_DEL_FL = 'N'
+	ORDER BY NOTICE_DATE DESC
+	</select>
+	
+	<!-- 공지사항 등록하기 -->
+	<insert id="addNoticeList" >
+	INSERT INTO NOTICE
+	VALUES(SEQ_NOTICE_NO.NEXTVAL, #{noticeTitle}, #{noticeContent}, DEFAULT, DEFAULT )
+	</insert>
+	
+	<!-- 공지사항 삭제하기 -->
+	<delete id="getdeleteNoticeList">
+	DELETE FROM NOTICE
+	WHERE NOTICE_NO = #{noticeNo}
+	</delete>
 </mapper>
 
  

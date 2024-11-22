@@ -189,9 +189,9 @@
               <p>경매 금액: ₩20,000,000</p>
               <p>판매 금액: ₩980,000,000</p>
             </div>
-            <div class="artist-actions" > 
-              <button class="btn artist-suspend-btn" >정지</button>
-              <button class="btn artist-withdraw-btn" >탈퇴</button>
+            <div class="artist-actions">
+              <button class="btn artist-suspend-btn">정지</button>
+              <button class="btn artist-withdraw-btn">탈퇴</button>
             </div>
           </div>
         </div>
@@ -446,30 +446,35 @@
       </section>
 
       <!--공지사항 -->
-      <h2>공지사항</h2>
-      <section class="notice-section">
+      <div id="noticeN"></div>
+      <h2 id="noticeNN">공지사항</h2>
+      <section class="notice-section" id="noticeGrid">
         <div class="notice-header">
-          <button class="add-button">작성하기</button>
+          <button class="add-button" onclick="window.location.href='/manage/write'">작성하기</button>
         </div>
-      
-        <ul class="notice-list">
+
+        <ul class="-noticelist">
           <li class="notice-item">
             <div class="notice-row">
               <span class="icon">&#9654;</span>
               <span class="notice-question">공지사항</span>
             </div>
             <div class="notice-answer" style="display: none;">
-             공지사항입니다
+              공지사항입니다
             </div>
             <div class="notice-buttons" style="display: none;">
-              <button class="revise-button">수정하기</button>
-              <button class="erase-button">삭제하기</button>
+              <button class="revise-button" onclick="window.location.href='/manage/revise'">수정하기</button>
+              <button class="erase-button" data-notice-no="{noticeNo}">삭제하기</button>
             </div>
           </li>
+          </div>
         </ul>
+
       </section>
 
-      
+      <div class="pagination-box" id="paginationBoxNotice"></div>
+
+
 
       <!-- 작가 환전 -->
       <div id="back"></div><!-- 사이드바 스크롤 -->
@@ -478,16 +483,16 @@
         <div class="writer-header">
           <h3>작가 판매 목록</h3>
           <div class="select-buttons">
-            <button class="select-btn">선택 입료 처리</button>
-            <button class="hold-btn">선택 보류 처리</button>
+            <button class="select-btn" id="slaes-excelBtn">선택 엑셀 출력</button>
+            <button class="hold-btn" id="sales-completedBtn">선택 완료 처리</button>
           </div>
         </div>
         <div class="status-info">
-          <div class="info-box">전체 목록</div>
-          <div class="info-box">전체 <span class="count" id="total-count">7건</span></div>
-          <div class="info-box">대기 <span class="count" id="pending-count">2건</span></div>
-          <div class="info-box">완료 <span class="count" id="completed-count">2건</span></div>
-          <div class="info-box">보류 <span class="count" id="on-hold-count">2건</span></div>
+          <div class="info-box" id="total-list">전체 목록</div>
+          <div class="info-box">전체 <span class="count" id="total-count">0건</span></div>
+          <div class="info-box">대기 <span class="count" id="wait-count">0건</span></div>
+          <div class="info-box">완료 <span class="count" id="completed-count">0건</span></div>
+          <div class="info-box">보류 <span class="count" id="hold-count">0건</span></div>
         </div>
 
         <div class="search-section">
@@ -496,23 +501,8 @@
             <input type="text" id="artist-id" placeholder="작가명 입력">
           </div>
           <div class="month-select">
-            <label for="month">월별 검색</label>
-            <select id="month">
-              <option>2024년 1월</option>
-              <option>2024년 2월</option>
-              <option>2024년 3월</option>
-              <option>2024년 4월</option>
-              <option>2024년 5월</option>
-              <option>2024년 6월</option>
-              <option>2024년 7월</option>
-              <option>2024년 8월</option>
-              <option>2024년 9월</option>
-              <option>2024년 10월</option>
-              <option>2024년 11월</option>
-              <option>2024년 12월</option>
-              <option>2025년 1월</option>
-
-            </select>
+            <label for="selectMonth">월별 검색</label>
+            <input type="month" id="selectMonth">
           </div>
         </div>
 
@@ -520,38 +510,19 @@
         <table class="sales-table">
           <thead>
             <tr>
-              <th><input type="checkbox"></th>
+              <th><input type="checkbox" id="sales-selectAll"></th>
+              <th>작가</th>
               <th>판매 작품 수</th>
               <th>은행</th>
               <th>입금계좌번호</th>
-              <th>작가</th>
               <th>총 판매 금액</th>
               <th>수수료 (%)</th>
               <th>입금 상태</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td><input type="checkbox"></td>
-              <td>15개</td>
-              <td>농협</td>
-              <td>352-0222-2222-23</td>
-              <td>김상명</td>
-              <td>20,000,000</td>
-              <td>10.1%</td>
-              <td>완료</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox"></td>
-              <td>15개</td>
-              <td>농협</td>
-              <td>352-0222-2222-23</td>
-              <td>이동현</td>
-              <td>30,000,000</td>
-              <td>21.5%</td>
-              <td>대기</td>
-            </tr>
+          <tbody id="sales-table-body">
             <!-- 추가 행들 -->
+
           </tbody>
         </table>
       </section>
@@ -585,9 +556,10 @@
 
     </section>
 
-    <th:block th:replace= "~{/manage/reportPopup.html}"></th:block>
+    <th:block th:replace="~{/manage/reportPopup.html}"></th:block>
     <script src="/js/manage/manage.js"></script>
     <script src="/js/manage/suspend.js"></script>
+    <script src="/js/manage/notice.js"></script>
 </body>
 
 </html>

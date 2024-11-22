@@ -3,12 +3,14 @@ package edu.kh.plklj.manage.service;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 
 import edu.kh.plklj.common.util.Pagination;
 import edu.kh.plklj.manage.dto.Manage;
 import edu.kh.plklj.manage.mapper.ManageMapper;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -80,7 +82,17 @@ public class ManageServiceImpl implements ManageService {
 			resultList = mapper.getRequestList(requestBounds);
 			break;
 
+		case "5":
+			listCount = mapper.getNoticeListCount();
 
+			limit = 5;
+			pg = new Pagination(cp, listCount, limit, 10);
+			offset = (cp - 1) * limit;
+			RowBounds noticeBounds = new RowBounds(offset, limit);
+			resultList = mapper.getNoticeList(noticeBounds);
+			System.out.println("공지사항 목록: " + resultList);
+			System.out.println("페이지 정보: " + pg);
+			break;
 		default:
 			throw new IllegalArgumentException("Invalid code: " + code);
 		}
@@ -120,7 +132,7 @@ public class ManageServiceImpl implements ManageService {
 		return mapper.withdrawArtist(memberNo);
 	}
 
-	//  상세보기 신고목록 불러오기
+	// 상세보기 신고목록 불러오기
 	@Override
 	public List<Manage> contentsDetailList(int reportNo) {
 
@@ -131,14 +143,14 @@ public class ManageServiceImpl implements ManageService {
 	@Override
 	public void deleteReportList(int reportNo) {
 		mapper.deleteReportList(reportNo);
-		
+
 	}
 
 	// 게시글 삭제
 	@Override
 	public void deletePieceList(int pieceNo) {
 		mapper.deletePieceList(pieceNo);
-		
+
 	}
 
 	// 승인요청내역 프로필 불러오기
@@ -157,13 +169,25 @@ public class ManageServiceImpl implements ManageService {
 	// 승인 요청 거절
 	@Override
 	public int getrejectArtist(int memberNo) {
-				int result = mapper.getrejectArtist2(memberNo);
-				result += mapper.getrejectArtist(memberNo);
+		int result = mapper.getrejectArtist2(memberNo);
+		result += mapper.getrejectArtist(memberNo);
 		return result;
-		
+
 	}
 
-
+	// 공지사항 작성하기
+	@Override
+	public int addNoticeList(String noticeTitle, String noticeContent) {
+		return mapper.addNoticeList(noticeTitle, noticeContent);
+		
+	}
+	
+	/*
+	 * @Override public void getdeleteNoticeList(int noticeNo) { return
+	 * mapper.getdeleteNoticeList(noticeNo);
+	 * 
+	 * }
+	 */
 
 
 
