@@ -5,6 +5,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import edu.kh.plklj.pay.dto.PaymentDto;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -36,8 +37,13 @@ public class ExcelExporter {
 			row.createCell(5).setCellValue(dto.getBankNo());
         }
 
+        File file = new File(filePath);
+        if(file.exists() == false) {
+        	file.mkdirs();
+        }
+        
         // 파일로 저장
-        try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
+        try (FileOutputStream fileOut = new FileOutputStream(filePath + "withdraw.xlsx")) {
             workbook.write(fileOut);
             System.out.println("Excel file created: " + filePath);
         } catch (IOException e) {
