@@ -54,7 +54,7 @@
     <div class="gallery-container">
       <article class="gallery-item" th:each="artist, stat : ${onlineGallery}">
         <div class="gallery-image">
-          <a th:href="@{/piece/onlineDetail?pieceNo=${pieceNo}}" th:object="${artist}">
+          <a th:href="@{/piece/onlineDetail?pieceNo={pieceNo}(pieceNo=@{artist.pieceNo})}" th:object="${artist}">
             <img th:src="*{pieceRename}" alt="Online Gallery" class="pieceRename" th:data-id="*{memberNo}">
           </a>
           <div class="gallery-innerDetails" th:object="${piece}">
