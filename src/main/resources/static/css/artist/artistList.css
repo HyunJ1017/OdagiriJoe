@@ -1,47 +1,54 @@
 /* artistList.css */
 
-/* 기본 설정 */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f8f8f8;
+#artistPage-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .container {
-  max-width: 1200px;
-  margin: 150px auto;
-  padding: 0 61px;
-  color: #333;
+  width: 85%;
+  margin: 4% auto;
+  padding: 0 0%;
+  color: #5c7a72;
 }
 
-h1 {
-  text-align: center;
+.artist-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.artist-header h1 {
   font-size: 2rem;
-  margin-bottom: 20px;
-  color: #333;
+  color: #5c7a72;
+  visibility: visible;
 }
 
-.artist-category {
+/* .artist-category {
   margin-bottom: 30px;
-}
+} */
 
-.artist-category-title h2,
+
 .artist-category h2 {
-  font-size: 1.5rem;
-  color: #555;
-  margin-bottom: 15px;
-  text-align: left;
-  border-left: 5px solid #4CAF50;
-  padding-left: 10px;
+  margin-right: auto;
+  color: #5c7a72;
+  font-size: 28px;
+  margin-top: 10px;
 }
 
 /* 그리드 설정 */
 .artist-grid {
-  width: 1290px;
+  width: 100%;
   display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 6.23%;
+  margin-top: 20px;
 }
 
 .artist-card {
@@ -49,17 +56,15 @@ h1 {
   border: 1px solid #e0e0e0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: calc(20% - 20px);
-  border-radius: 10px;
   overflow: hidden;
   transition: transform 0.3s ease;
-  width: 200px;
-  justify-content: center;
-  align-items: center;
+  width: 15%;
+  margin-top: 5%;
 }
 
 .artist-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); */
 }
 
 .artist-card img {

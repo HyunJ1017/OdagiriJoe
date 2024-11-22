@@ -19,7 +19,7 @@
 	</select>
 	
 	<!-- 인기 작가 조회 -->
-	<select id="getPopularArtists" resultType="ARTIST">
+	<select id="getPopularArtists" resultType="Artist">
 		SELECT
 			A.MEMBER_NO,
 			A.ARTIST_PROFILE,
@@ -76,7 +76,7 @@
 		LEFT JOIN 
 			WORK W ON (A.MEMBER_NO = W.MEMBER_NO)
 		WHERE
-			A.MEMBER_NO = #{memberNo}
+			A.MEMBER_NO = #{artistNo}
 		AND 
 			M.MEMBER_DEL_FL = 'N'
 	</select>
@@ -85,13 +85,16 @@
 		SELECT
 			P.PIECE_NO, P.PIECE_TITLE, 
 			P.SIZE_X, P.SIZE_Y,
-			P.PIECE_RENAME, PS.SELL_PRICE
+			P.PIECE_RENAME, PS.SELL_PRICE,
+			P.PIECE_STATUS
 		FROM
 			PIECE P
 		LEFT JOIN
 			PIECE_SELL PS ON (P.PIECE_NO = PS.PIECE_NO)
 		WHERE
 			P.MEMBER_NO = #{memberNo}
+		AND 
+			P.PIECE_STATUS IN ('N', 'F', 'A', 'S')
 		ORDER BY
 			<choose>
 				<when test="sort == 'name'">P.PIECE_TITLE</when>

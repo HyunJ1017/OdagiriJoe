@@ -32,6 +32,8 @@ const purchaseBtn = document.querySelector("#purchaseBtn");
 /* 구매하기 버튼 클릭 시 구매 팝업 창 열기 */
 purchaseBtn.addEventListener("click", () => {
   
+  
+  
   if(!loginCheck) {
     alert("로그인 후 사용할 수 있습니다.");
     return;
@@ -114,4 +116,15 @@ wishList.addEventListener("click", e => {
   })
   .catch(err => console.error(err));
 
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const purchaseBtn = document.querySelector("#purchaseBtn");
+
+  // 작품 상태 확인 후 버튼 텍스트 변경
+  if (pieceStatus === 'F') {
+    purchaseBtn.textContent = "마감"; // 텍스트 변경
+    purchaseBtn.disabled = true; // 버튼 비활성화
+    purchaseBtn.style.cursor = "not-allowed"; // 비활성화된 버튼의 시각적 효과
+  }
 });

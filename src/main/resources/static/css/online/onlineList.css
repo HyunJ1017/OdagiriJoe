@@ -90,8 +90,13 @@
 }
 
 .online-list {
+  width: 100%;
   display: flex;
-  gap: 7%;
+  /* justify-content: space-between; */
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6.23%;
+  margin-top: 20px;
 }
 
 .gallery-item {
@@ -254,10 +259,10 @@
 .online-list1 {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   flex-wrap: wrap;
-  gap: 5%;
+  gap: 6.23%;
   margin-top: 20px;
 }
 

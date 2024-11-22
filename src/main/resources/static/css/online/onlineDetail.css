@@ -120,7 +120,29 @@
 
 /* 위시 리스트 */
 #online-wishList {
-  color: red;
+  color: rgb(200, 200, 200); /* 기본 색상 */
+  font-size: 30px;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease; /* 부드러운 전환 효과 */
+}
+
+#online-wishList.fa-solid {
+  color: rgb(255, 81, 81); /* 좋아요 시 색상 */
+  transform: scale(1.2); /* 약간 커지도록 */
+  animation: heartBeat 0.4s ease; /* 클릭 시 애니메이션 */
+}
+
+/* 클릭 시 하트가 커졌다가 작아지는 애니메이션 */
+@keyframes heartBeat {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .product-info p {
@@ -133,3 +155,6 @@
   justify-content: space-between;
 }
 
+button.disabled {
+  background-color: #ccc; 
+}
