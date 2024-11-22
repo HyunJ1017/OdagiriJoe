@@ -1,7 +1,6 @@
 /* 유효성검사항목 */
 const submitConfirm = {
   "artistNickname": false,
-  "memberId"      : false,
   "artistProfile" : false,
   "bankNo"        : false,
   "bankCode"     : false
@@ -284,11 +283,6 @@ artistSubmit?.addEventListener("submit", (e) => {
   if(submitConfirm.artistNickname === false){
     e.preventDefault();
     alert("닉네임 확인 후 제출해 주시기 바랍니다");
-    return;
-  }
-  if(document.querySelector("#memberId").value.length < 1){
-    e.preventDefault();
-    alert("아이디를 확인 후 제출해 주시기 바랍니다");
     return;
   }
   if(imgInput.files[0] === undefined){

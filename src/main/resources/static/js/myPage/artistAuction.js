@@ -21,13 +21,13 @@ deliveryBtns?.forEach(btn => {
 
 // 상세정보 버튼 클릭시 상세정보 페이지로 이동
 const auctionCurrentDetailBtns = document.querySelectorAll(".currentAuction");
-detailBtns?.forEach(btn => {
+auctionCurrentDetailBtns?.forEach(btn => {
   btn.addEventListener("click", () => {
     location.href = urls.detailCurrent + btn.dataset.pieceNo;
   })
 })
 const auctionUpCommingDetailDetailBtns = document.querySelectorAll(".commingAuction");
-detailBtns?.forEach(btn => {
+auctionUpCommingDetailDetailBtns?.forEach(btn => {
   btn.addEventListener("click", () => {
     location.href = urls.detailUpcommig + btn.dataset.pieceNo;
   })

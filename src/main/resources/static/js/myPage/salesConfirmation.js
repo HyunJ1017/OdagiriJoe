@@ -46,7 +46,7 @@ const getSalesConfirmation = (selectedMonth) => {
   .then(result => {
     console.log(result.sellList);
     console.log(result.sellAmount);
-    totalSales.innerText = result.sellAmount;
+    totalSales.innerText = result.sellAmount + " 원";
     rowCount = 0;
     totalAmount = 0;
     monthSales.innerText = '';
@@ -70,11 +70,20 @@ const getSalesConfirmation = (selectedMonth) => {
 
     if(rowCount < 10) {
       for(let i = 0; i < 10 - rowCount; i++) {
+
+        if(rowCount == 0) {
+          salesTableBody.innerHTML += '<tr><td colspan="7">해당월에 판매기록이 없습니다.</td></tr>';
+          rowCount++;
+          i--;
+          continue;
+        }
+
         salesTableBody.innerHTML += blankRow;
       }
     }
 
-    monthSales.innerText = totalAmount.toLocaleString();
+    if(totalAmount > 0) monthSales.innerText = totalAmount.toLocaleString() + " 원 /";
+    else monthSales.innerText = " - /";
   })
   .catch(err => console.error(err));
 }
