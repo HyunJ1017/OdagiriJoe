@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "edu.kh.plklj.pay.mapper.WithdrawMapper">
+
+	<!-- 관리자페이지에 띄울 작가별 월매출 -->
+	<select id="selectWithdrawList" resultType="PaymentDto">
+		SELECT
+			A.ARTIST_NICKNAME,
+		    A.MEMBER_NO,
+		    M.MEMBER_NAME,
+		    A.BANK_CODE,
+		    BCL.BANK_NAME,
+		    A.BANK_NO,
+		    NVL(TYPE1, 0) + NVL(TYPE2, 0) - NVL(NOT_PAY, 0) AS "DEPOSIT_COUNT",
+		    NVL(NOT_PAY, 0) AS "UNDEPOSIT_COUNT",
+		    NVL(TYPE1, 0) + NVL(TYPE2, 0) AS "ALL_PIECE_COUNT",
+		    NVL(SUM_TYPE1, 0) + NVL(SUM_TYPE2, 0) AS "PRICE_SUM",
+		    CASE 
+		        WHEN NVL(NOT_PAY, 0) = 0 AND A.MEMBER_NO IN (SELECT MEMBER_NO FROM WITHDRAW) THEN 'C'
+		        WHEN NVL(NOT_PAY, 0) = 0 AND A.MEMBER_NO NOT IN (SELECT MEMBER_NO FROM WITHDRAW) THEN 'W'
+		        ELSE 'H'
+		    END AS "PRICE_FL"
+		FROM
+		    ARTIST A
+		LEFT JOIN "MEMBER" M ON A.MEMBER_NO = M.MEMBER_NO
+		LEFT JOIN BANK_CODE_LIST BCL ON A.BANK_CODE = BCL.BANK_CODE  -- 은행명 조인
+		LEFT JOIN (
+		    SELECT
+		        P.MEMBER_NO,
+		        COUNT(*) AS "TYPE1",
+		        SUM(PR.PAY_AMOUNT) AS "SUM_TYPE1"
+		    FROM PIECE P
+		    JOIN PAYMENT_RECORD PR ON PR.PIECE_NO = P.PIECE_NO
+		    WHERE TO_CHAR(PR.PAY_DATE, 'YYYY-MM') = '2024-11'
+		      AND P.PIECE_TYPE = 1
+		      AND P.PIECE_STATUS = 'F'
+		    GROUP BY P.MEMBER_NO
+		) T1 ON A.MEMBER_NO = T1.MEMBER_NO
+		LEFT JOIN (
+		    SELECT
+		        P.MEMBER_NO,
+		        COUNT(*) AS "TYPE2",
+		        COUNT(CASE WHEN P.PIECE_STATUS = 'D' THEN 1 END) AS "NOT_PAY",
+		        SUM(AC.END_PRICE) AS "SUM_TYPE2"
+		    FROM PIECE P
+		    LEFT JOIN PIECE_AUCTION PA ON PA.PIECE_NO = P.PIECE_NO
+		    LEFT JOIN (
+		        SELECT MAX(END_PRICE) AS END_PRICE, PIECE_NO
+		        FROM AUCTION
+		        GROUP BY PIECE_NO
+		    ) AC ON AC.PIECE_NO = P.PIECE_NO
+		    WHERE TO_CHAR(PA.END_DATE, 'YYYY-MM') = #{selectMonth}
+		      AND P.PIECE_TYPE = 2
+		      AND P.PIECE_STATUS IN ('F', 'D')
+		    GROUP BY P.MEMBER_NO
+		) T2 ON A.MEMBER_NO = T2.MEMBER_NO
+		WHERE NVL(TYPE1, 0) + NVL(TYPE2, 0) > 0
+		AND A.ARTIST_NICKNAME LIKE '%' || #{artistNickname} || '%'
+	</select>
+	
+	<!-- 엑셀파일로 출력할 작가의 월매출 -->
+	<select id="selectWithdraw" resultType="PaymentDto">
+		SELECT
+		    A.MEMBER_NO,
+		    M.MEMBER_NAME,
+		    A.BANK_CODE,
+		    BCL.BANK_NAME,
+		    A.BANK_NO,
+		    NVL(SUM_TYPE1, 0) + NVL(SUM_TYPE2, 0) AS "PRICE_SUM"
+		FROM
+		    ARTIST A
+		LEFT JOIN "MEMBER" M ON A.MEMBER_NO = M.MEMBER_NO
+		LEFT JOIN BANK_CODE_LIST BCL ON A.BANK_CODE = BCL.BANK_CODE  -- 은행명 조인
+		LEFT JOIN (
+		    SELECT
+		        P.MEMBER_NO,
+		        SUM(PR.PAY_AMOUNT) AS "SUM_TYPE1"
+		    FROM PIECE P
+		    JOIN PAYMENT_RECORD PR ON PR.PIECE_NO = P.PIECE_NO
+		    WHERE TO_CHAR(PR.PAY_DATE, 'YYYY-MM') = '2024-11'
+		      AND P.PIECE_TYPE = 1
+		      AND P.PIECE_STATUS = 'F'
+		    GROUP BY P.MEMBER_NO
+		) T1 ON A.MEMBER_NO = T1.MEMBER_NO
+		LEFT JOIN (
+		    SELECT
+		        P.MEMBER_NO,
+		        COUNT(CASE WHEN P.PIECE_STATUS = 'D' THEN 1 END) AS "NOT_PAY",
+		        SUM(AC.END_PRICE) AS "SUM_TYPE2"
+		    FROM PIECE P
+		    LEFT JOIN PIECE_AUCTION PA ON PA.PIECE_NO = P.PIECE_NO
+		    LEFT JOIN (
+		        SELECT MAX(END_PRICE) AS END_PRICE, PIECE_NO
+		        FROM AUCTION
+		        GROUP BY PIECE_NO
+		    ) AC ON AC.PIECE_NO = P.PIECE_NO
+		    WHERE TO_CHAR(PA.END_DATE, 'YYYY-MM') = #{selectMonth}
+		      AND P.PIECE_TYPE = 2
+		      AND P.PIECE_STATUS IN ('F', 'D')
+		    GROUP BY P.MEMBER_NO
+		) T2 ON A.MEMBER_NO = T2.MEMBER_NO
+		WHERE NVL(SUM_TYPE1, 0) + NVL(SUM_TYPE2, 0) > 0
+		AND A.MEMBER_NO IN
+		<foreach item="item" index="index" collection="intarr" open="(" close=")" separator=",">
+		    #{item}
+		</foreach>
+	</select>
+	
+	<insert id="saveWithdraw">
+		INSERT INTO "WITHDRAW"
+		VALUES (
+			SEQ_WITHDRAW_NO.NEXTVAL,
+			#{memberNo},
+			#{bankCode},
+			#{bankNo},
+			DEFAULT,
+			#{priceSum}
+			)
+	</insert>
+	
+</mapper>
