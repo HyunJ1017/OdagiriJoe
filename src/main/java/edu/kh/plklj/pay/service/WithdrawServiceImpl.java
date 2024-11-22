@@ -45,7 +45,7 @@ public class WithdrawServiceImpl implements WithdrawService {
 		List<PaymentDto> list = mapper.selectWithdraw(selectMonth, intarr);
 		log.info("list : {}", list);
 		
-		excelExport.exportToExcel(list, "C:/uploadFiles/withdraw.xlsx");
+		excelExport.exportToExcel(list, "C:/uploadFiles/");
 		
 		return 0;
 	}
