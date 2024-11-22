@@ -32,6 +32,7 @@ const selectCompletedList = (cp) => {
         throw new Error("AJAX 통신 실패");
       })
       .then(data => {
+
         const completedList = data.completedList;
         const pagination = data.pagination;
   
@@ -43,6 +44,7 @@ const selectCompletedList = (cp) => {
       })
       .catch(error => console.error("Error fetching completed list:", error));
   };
+
   
   // 리스트 업데이트 함수
   const updateCompletedList = (completedList) => {
@@ -50,11 +52,14 @@ const selectCompletedList = (cp) => {
     completedImgBox.innerHTML = ""; // 기존 리스트 초기화
   
     completedList.forEach(item => {
+
+      console.log(item);
+
       const itemDiv = document.createElement("div");
   
       // 작품 링크
       const link = document.createElement("a");
-      link.href = `/auction/detail?pieceNo=${item.pieceNo}`;
+      link.href = `/auction/currentDetail?pieceNo=${item.pieceNo}`;
       link.style.padding = "0";
   
       // 작품 이미지
@@ -116,10 +121,12 @@ const selectCompletedList = (cp) => {
   // 초기 실행
   document.addEventListener("DOMContentLoaded", () => {
     selectCompletedList(1); // 페이지 1번부터 시작
+    
   });
   
 
-
-
-
-
+  function hideLoader(imgElement) {
+    const loader = imgElement.nextElementSibling; // loader div
+    loader.style.display = 'none'; // 로딩 이미지 숨기기
+    imgElement.style.display = 'block'; // 실제 이미지 보이기
+  }

@@ -69,7 +69,12 @@
           <span th:text="${currentDetail.endDate}">11월 18일(토) 10:00</span>
         </div>
           
-          <button class="purchase-button" id="bidApplyBtn">입찰 신청</button>
+        <button class="purchase-button"
+                th:disabled="${currentDetail.pieceStatus == 'F'}"
+                th:classappend="${currentDetail.pieceStatus == 'F'} ? 'closed' : ''"
+                th:text="${currentDetail.pieceStatus == 'F'} ? '입찰 마감' : '구매하기'"
+                id="bidApplyBtn">
+        </button>
       </div>
   </div>
 

@@ -201,18 +201,23 @@
 
 .completed-imgbox {
   width: 90%;
-  height: 300px;
-  margin: 30px;
+  height: 100%;
+  margin: 100px 30px 30px 30px;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .completed-imgbox > div {
   width: 20%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* 호버 효과 */
+}
+
+.completed-imgbox > div:hover {
+  transform: translateY(-10px); /* 위로 살짝 올라가는 효과 */
 }
 
 
@@ -220,10 +225,18 @@
   width: 200px;
   height: 250px;
   object-fit: cover;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 기본 그림자 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* 호버 효과 */
+}
+
+.completed-imgbox > div > a > img:hover {
+  transform: scale(1.05); /* 살짝 확대 */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* 호버 시 그림자 강조 */
 }
 
 .artist-name {
-  margin: 10px 150px 0 0;
+  width: 200px;
+  margin-top: 10px;
   font-size: 20px;
   font-weight: bold;
   color: #414141;
@@ -249,3 +262,42 @@
 .pagination a:hover {
   background-color: #ddd;
 }
+
+
+
+.ongoing-imgbox  {
+  padding: 10px; 
+  position: relative;
+  min-width: 202px;
+  min-height: 274px;
+  border: 1px solid #80808030;
+}
+
+.upcoming-imgbox {
+  padding: 10px; 
+  position: relative;
+  min-width: 202px;
+  min-height: 274px;
+  border: 1px solid #80808030;
+
+}
+
+.loader { /* 이미지 로딩전까지 보여줄 로딩이미지 */
+  position: absolute;
+  width: 180px;
+  height: 252px;
+  top: 10;
+  right: 10;
+  background: url('/images/loading.gif') center center no-repeat;
+  background-size: contain;
+}
+.content-img{ /* 로딩할 이미지 */
+  display: none; /* 처음에는 보이지 않게 */
+  width: 180px; /* 고정 가로 크기 */
+  height: 252px; /* 고정 세로 크기 */
+  object-fit: cover; /* 비율을 유지하며 크기에 맞게 잘라냄 */
+}
+
+
+
+
