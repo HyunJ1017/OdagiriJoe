@@ -177,3 +177,29 @@ hr {
 .work-dropdown-container:hover .work-dropdown {
   display: block;
 }
+
+/* 반짝이는 애니메이션 정의 */
+@keyframes sparkle {
+  0% {
+    transform: scale(1);
+    color: #ffb3b3;
+  }
+  50% {
+    transform: scale(1.5);
+    color: #ff6666;
+  }
+  100% {
+    transform: scale(1);
+    color: #ff0000;
+  }
+}
+
+/* 애니메이션 클래스 */
+.sparkle-effect {
+  animation: sparkle 0.5s ease-in-out;
+}
+
+#follow.fa-solid {
+  color: #ff0000; /* 빨간색으로 채움 */
+}
+

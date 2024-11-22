@@ -72,24 +72,17 @@ public class ArtistController {
 	@GetMapping("artistDetail")
 	public String artistDetail(
 			@RequestParam("memberNo") int artistNo,
-			Model model
-//			@SessionAttribute(name = "memberLogin", required = false) Member loginMember,
-//      @SessionAttribute(name = "artistLogin", required = false) Member loginArtist
+			Model model,
+			@SessionAttribute(name = "memberLogin", required = false) Member loginMember,
+      @SessionAttribute(name = "artistLogin", required = false) Member loginArtist
 			) {
 		
-		
-		
-		Artist artist = service.getArtistDetail(artistNo);
-		
-		log.debug("logdebug : {}", artist);
-		
-		
-		
-		model.addAttribute("artist", artist);
+		int memberNo = (loginMember != null) ? loginMember.getMemberNo() 
+        : (loginArtist != null) ? loginArtist.getMemberNo() 
+        : 0;
 
-		
-		
-		
+		Artist artist = service.getArtistDetail(artistNo, memberNo);
+		model.addAttribute("artist", artist);
 		return "artist/artistDetail";
 	}
 	

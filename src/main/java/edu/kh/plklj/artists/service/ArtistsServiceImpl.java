@@ -47,8 +47,8 @@ public class ArtistsServiceImpl implements ArtistsService{
 	
 	
 	@Override
-	public Artist getArtistDetail(int artistNo) {
-		return mapper.getArtistDetail(artistNo);
+	public Artist getArtistDetail(int artistNo,  int memberNo) {
+		return mapper.getArtistDetail(artistNo, memberNo);
 	}
 	
 	@Override

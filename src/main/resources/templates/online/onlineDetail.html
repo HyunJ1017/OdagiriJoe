@@ -51,7 +51,9 @@
                     </p>
                 </div>
                   
-                  <button class="purchase-button" id="purchaseBtn">구매하기</button>
+                  <button class="purchase-button" id="purchaseBtn"
+                          th:disabled="*{pieceStatus == 'F'}"
+                          th:classappend="*{pieceStatus == 'F'} ? 'disabled' : ''">구매하기</button>
               </div>
           </div>
       
@@ -72,9 +74,11 @@
   <script th:inline="javascript">
     let loginCheck = /*[[${session.memberLogin != null || session.artistLogin != null}]]*/ false;
     let pieceNo = /*[[${piece.pieceNo}]]*/ null;
+    let pieceStatus = /*[[${piece.pieceStatus}]]*/ null;
   </script>
 
   <script src="/js/online/onlineDetail.js"></script>
   <script src="/js/reportPopup/reportPopup.js"></script>
+  <script src="/js/artist/artistDetail.js"></script>
 </body>
 </html>

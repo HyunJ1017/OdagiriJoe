@@ -22,7 +22,7 @@ public interface ArtistsService {
 	Map<String, Object> follow(int memberNo, int artistNo);
 
 
-	Artist getArtistDetail(int artistNo);
+	Artist getArtistDetail(int artistNo, int memberNo);
 
 
 	

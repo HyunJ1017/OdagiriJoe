@@ -34,7 +34,7 @@ public interface ArtistsMapper {
 	int getFollowCount(int memberNo);
 
 
-	Artist getArtistDetail(int artistNo);
+	Artist getArtistDetail(@Param("artistNo") int artistNo, @Param("memberNo") int memberNo);
 
 	
 }
