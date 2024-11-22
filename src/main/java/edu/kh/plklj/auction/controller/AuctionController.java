@@ -174,6 +174,8 @@ public class AuctionController {
       model.addAttribute("currentDetail", piece);
       model.addAttribute("pieceDetail", pieceDetail);
       
+      System.out.println(piece);
+      
       // 추가: 세션 값 모델에 포함
       model.addAttribute("memberLogin", memberLogin);
       model.addAttribute("artistLogin", artistLogin);

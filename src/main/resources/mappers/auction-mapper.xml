@@ -142,6 +142,7 @@
 		    P.PIECE_NO, 
 		    P.PIECE_TITLE, 
 		    P.PIECE_DETAIL,
+		    P.PIECE_STATUS,
 		    P.SIZE_X,
 		    P.SIZE_Y,
 		    P.PIECE_CATEGORY_NO,
@@ -171,6 +172,7 @@
     </select>
     
     
+    
     <select id="completedList" resultType="Piece">
 	 	SELECT
 		    *
@@ -182,6 +184,8 @@
 		    P.MEMBER_NO = A.MEMBER_NO
 		WHERE
 			PIECE_STATUS = 'F'
+			AND
+			PIECE_TYPE = '2'
     </select>
     
     <!-- 종료경매 게시물 카운트  -->
@@ -196,6 +200,8 @@
 		    P.MEMBER_NO = A.MEMBER_NO
 		WHERE
 			PIECE_STATUS = 'F'
+			AND
+			PIECE_TYPE = '2'
     </select>
     
     

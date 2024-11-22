@@ -22,25 +22,29 @@
       <div class="upcoming-title">예정 경매</div>
   
       <!-- 리스트 반복 -->
-      <div th:each="piece, iterStat : ${upCommingList}" class="upcoming-box" style="border-right: 2px solid #aaaaaa;">
-        <div class="upcoming-imgbox" th:classappend="${iterStat.last } ? '' : 'border-right'">
-            <img th:src="@{${piece.pieceRename} ?: '/images/default.jpg'}" alt="경매 이미지">
-        </div>
-        <div class="upcoming-text">
-            <h1 th:text="${piece.pieceTitle ?: '제목 없음'}"></h1>
-
-            <div style="margin-top: 35px;">프리뷰</div>
-            <div th:text="${piece.previewPeriod}" style="margin-top: 8px;"></div>
-
-            <!-- 경매일 -->
-            <div style="margin-top: 25px;">경매일</div>
-            <div th:text="${piece.auctionDateDisplay + ' 10:00'}" style="margin-top: 8px;"></div>
-
-
-            <hr class="dotted-line">
-            <button class="detail-button" id="upCommingBtn" th:attr="data-id=${piece.pieceNo}">상세보기</button>
-        </div>
+      <div th:each="piece, iterStat : ${upCommingList}" 
+          class="upcoming-box"
+          th:style="${iterStat.last} ? 'border-right: none;' : 'border-right: 2px solid #aaaaaa;'">
+      <div class="upcoming-imgbox">
+        <img th:src="@{${piece.pieceRename} ?: '/images/default.jpg'}" alt="경매 이미지" class="content-img" onload="hideLoader(this)">
+        <div class="loader"></div>
       </div>
+
+      <div class="upcoming-text">
+        <h1 th:text="${piece.pieceTitle ?: '제목 없음'}"></h1>
+    
+        <div style="margin-top: 35px;">프리뷰</div>
+        <div th:text="${piece.previewPeriod}" style="margin-top: 8px;"></div>
+    
+        <div style="margin-top: 25px;">경매일</div>
+        <div th:text="${piece.auctionDateDisplay + ' 10:00'}" style="margin-top: 8px;"></div>
+    
+        <hr class="dotted-line">
+        <button class="detail-button" id="upCommingBtn" th:attr="data-id=${piece.pieceNo}">상세보기</button>
+      </div>
+      
+    </div>
+ 
 
     </section>
 
@@ -71,7 +75,8 @@
 
         <div class="ongoing-imgbox">
             <!-- 작품 이미지 -->
-            <img th:src="@{${auction.pieceRename} ?: '/images/default.jpg'}" alt="경매 이미지">
+            <img th:src="@{${auction.pieceRename} ?: '/images/default.jpg'}" alt="경매 이미지" class="content-img" onload="hideLoader(this)">
+            <div class="loader"></div>
         </div>
       </div>
     </section>
@@ -84,36 +89,24 @@
       <div class="completed-imgbox">
         <!-- 전체 completedList 순회 -->
         <div th:each="auction : ${completedList}">
-            <a th:href="@{'/auction/detail?pieceNo=' + ${auction.pieceNo}}" style="padding: 0;">
+            <a th:href="@{'/auction/currentDetail?pieceNo=' + ${auction.pieceNo}}" style="padding: 0;">
                 <!-- 작품 이미지 -->
                 <img th:src="@{${auction.pieceRename} ?: '/images/default.jpg'}" alt="경매 이미지">
             </a>
             <!-- 작가 이름 -->
             <div class="artist-name" th:text="${auction.artistNickname ?: '작가 없음'}"></div>
         </div>
-    </div>
+      </div>
 
     </section>
 
     
 
     <div class="pagination-box" id="paginationBox">
-      <a href="#" class="page-btn"><<</a>
-      <a href="#" class="page-btn"><</a>
-      <a href="#" class="page-btn">1</a>
-      <a href="#" class="page-btn">2</a>
-      <a href="#" class="page-btn">3</a>
-      <a href="#" class="page-btn">4</a>
-      <a href="#" class="page-btn">5</a>
-      <a href="#" class="page-btn">6</a>
-      <a href="#" class="page-btn">7</a>
-      <a href="#" class="page-btn">8</a>
-      <a href="#" class="page-btn">9</a>
-      <a href="#" class="page-btn">10</a>
-      <a href="#" class="page-btn">>></a>
-      <a href="#" class="page-btn">></a>
     </div>
   
+
+
     
   </main>
 
