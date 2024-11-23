@@ -87,15 +87,7 @@
       <div class="completed-title">종료 경매</div> 
 
       <div class="completed-imgbox">
-        <!-- 전체 completedList 순회 -->
-        <div th:each="auction : ${completedList}">
-            <a th:href="@{'/auction/currentDetail?pieceNo=' + ${auction.pieceNo}}" style="padding: 0;">
-                <!-- 작품 이미지 -->
-                <img th:src="@{${auction.pieceRename} ?: '/images/default.jpg'}" alt="경매 이미지">
-            </a>
-            <!-- 작가 이름 -->
-            <div class="artist-name" th:text="${auction.artistNickname ?: '작가 없음'}"></div>
-        </div>
+        
       </div>
 
     </section>
