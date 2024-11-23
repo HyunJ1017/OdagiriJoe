@@ -66,6 +66,15 @@ const selectCompletedList = (cp) => {
       const img = document.createElement("img");
       img.src = item.pieceRename || "/images/default.jpg";
       img.alt = "경매 이미지";
+      img.className = "content-img"; // 클래스명 추가
+      img.onload = function () {
+        hideLoader(img); // 이미지 로드 완료 시 로더 숨기기
+    };
+
+
+      // 로더 생성
+      const loader = document.createElement("div");
+      loader.className = "loader";
   
       // 작가 이름
       const artistName = document.createElement("div");
@@ -74,6 +83,7 @@ const selectCompletedList = (cp) => {
   
       // 조립
       link.appendChild(img);
+      link.appendChild(loader);
       itemDiv.appendChild(link);
       itemDiv.appendChild(artistName);
       completedImgBox.appendChild(itemDiv);
@@ -121,7 +131,6 @@ const selectCompletedList = (cp) => {
   // 초기 실행
   document.addEventListener("DOMContentLoaded", () => {
     selectCompletedList(1); // 페이지 1번부터 시작
-    
   });
   
 

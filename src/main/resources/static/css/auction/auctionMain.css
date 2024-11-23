@@ -77,6 +77,7 @@
   width: 200px;
   height: 250px;
   object-fit: cover;
+  display: none;
 }
 
 .dotted-line {
@@ -213,8 +214,19 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-height: 300px; /* 고정 높이 설정 */
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* 호버 효과 */
+  position: relative; /* 로더와 이미지 정렬 */
 }
+
+
+.completed-imgbox > div > a {
+  position: relative;
+  display: block;
+  width: 200px; /* 고정된 너비 */
+  height: 250px; /* 고정된 높이 */
+}
+
 
 .completed-imgbox > div:hover {
   transform: translateY(-10px); /* 위로 살짝 올라가는 효과 */
@@ -222,6 +234,7 @@
 
 
 .completed-imgbox > div > a > img {
+  display: none;
   width: 200px;
   height: 250px;
   object-fit: cover;
@@ -270,7 +283,7 @@
   position: relative;
   min-width: 202px;
   min-height: 274px;
-  border: 1px solid #80808030;
+  /* border: 1px solid #80808030; */
 }
 
 .upcoming-imgbox {
@@ -278,19 +291,20 @@
   position: relative;
   min-width: 202px;
   min-height: 274px;
-  border: 1px solid #80808030;
+  /* border: 1px solid #80808030; */
 
 }
 
 .loader { /* 이미지 로딩전까지 보여줄 로딩이미지 */
   position: absolute;
   width: 180px;
-  height: 252px;
+  height: 100%;
   top: 10;
   right: 10;
   background: url('/images/loading.gif') center center no-repeat;
   background-size: contain;
 }
+
 .content-img{ /* 로딩할 이미지 */
   display: none; /* 처음에는 보이지 않게 */
   width: 180px; /* 고정 가로 크기 */
