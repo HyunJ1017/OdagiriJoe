@@ -347,8 +347,6 @@ const selectNotificationList = () => {
 }
 
 // ------------------------------------------------------------------------
-
-
 const sendFollowedArtistNotification = (follower, content) => {
   const notification = {
     notiContent: content,
