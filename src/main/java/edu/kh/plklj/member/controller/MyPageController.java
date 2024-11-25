@@ -166,7 +166,8 @@ public class MyPageController {
 	@GetMapping("artistRegistration")
 	public String artistRegistration(
 			@SessionAttribute("memberLogin") Member memberLogin,
-			Model model) {
+			Model model,
+			RedirectAttributes ra) {
 		
 		int memberNo = 0;
 		if(memberLogin != null) {
@@ -176,9 +177,9 @@ public class MyPageController {
 		}
 		
 		Member getArtistInfo = service.getArtistInfo(memberNo);
-		
-		if(getArtistInfo != null) {
-			model.addAttribute("message", "이전 신청내역이 아직 처리중입니다.");
+		log.info("getArtistInfo : {}", getArtistInfo);
+		if(getArtistInfo.getArtistPortfolio() != null) {
+			ra.addFlashAttribute("message", "이전 신청내역이 아직 처리중입니다.");
 			return "redirect:/member/myPage";
 		}
 		

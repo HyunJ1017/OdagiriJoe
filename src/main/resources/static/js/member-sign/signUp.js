@@ -38,25 +38,29 @@ inputName?.addEventListener("input", ()=>{
   const inputNameV = inputName.value.trim();
 
   if(inputNameV.length < 2){
-    inputId.classList.add("confirm-red");
+    inputMessage.classList.add("confirm-red");
+    inputMessage.classList.remove("confirm-green");
     inputMessage.innerText = "이름을 입력해 주세요";
     return;
   }
   
   const regEx = /^[가-힣]+$/;
   if (regEx.test(inputNameV) === false) {
-    inputId.classList.add("confirm-red");
+    inputMessage.classList.add("confirm-red");
+    inputMessage.classList.remove("confirm-green");
     inputMessage.innerText = "한글로 된 이름만 입력해 주세요";
     return;
   }
 
 
   if(inputNameV.length > 6){
-    inputId.classList.add("confirm-red");
+    inputMessage.classList.add("confirm-red");
+    inputMessage.classList.remove("confirm-green");
     inputMessage.innerText = "6자 까지만 입력해 주세요.";
     return;
   } else {
-    inputId.classList.remove("confirm-red");
+    inputMessage.classList.remove("confirm-red");
+    inputMessage.classList.add("confirm-green");
     inputMessage.innerText = "이름을 입력해 주세요";
     signConfirm.nameCheck = true;
   }
@@ -91,26 +95,30 @@ inputId.addEventListener("input", ()=>{
   signConfirm.idCheck = false;
   const inputIdV = inputId.value.trim();
 
-  if(inputIdV.length === 0){
-    inputId.classList.add("confirm-red");
+  if(inputIdV.length < 6){
+    inputMessage.classList.add("confirm-red");
+    inputMessage.classList.remove("confirm-green");
     inputMessage.innerText = "영어와 숫자로 구성된 6~12자의 ID를 입력해 주세요";
     return;
   }
   
   const regEx = /^[a-zA-Z0-9]+$/;
   if (regEx.test(inputIdV) === false) {
-    inputId.classList.add("confirm-red");
+    inputMessage.classList.add("confirm-red");
+    inputMessage.classList.remove("confirm-green");
     inputMessage.innerText = "영어와 숫자만 입력해 주세요";
     return;
   }
 
 
   if(inputIdV.length > 12){
-    inputId.classList.add("confirm-red");
+    inputMessage.classList.add("confirm-red");
+    inputMessage.classList.remove("confirm-green");
     inputMessage.innerText = "12자 이하의 ID만 입력가능합니다.";
     return;
   } else {
-    inputId.classList.remove("confirm-red");
+    inputMessage.classList.remove("confirm-red");
+    inputMessage.classList.add("confirm-green");
     inputMessage.innerText = "영어와 숫자로 구성된 6~12자의 ID를 입력해 주세요";
   }
 });
@@ -119,14 +127,22 @@ idCheckBtn?.addEventListener("click", ()=>{
 
   signConfirm.idCheck = false;
   const inputIdV = inputId.value.trim();
+  // 메세지창
+  const inputMessage = document.querySelector("#inputMessage");
 
   if(inputIdV.length === 0){
+    inputMessage.classList.add("confirm-red");
+    inputMessage.classList.remove("confirm-green");
+    inputMessage.innerText = "영어와 숫자로 구성된 6~12자의 ID를 입력해 주세요";
     alert("ID를 입력 해 주세요");
     return;
   }
 
   const regEx = /^[a-zA-Z0-9]{6,12}$/;
   if (regEx.test(inputIdV) === false) {
+    inputMessage.classList.add("confirm-red");
+    inputMessage.classList.remove("confirm-green");
+    inputMessage.innerText = "영어와 숫자로 구성된 6~12자의 ID를 입력해 주세요";
     alert("6~12글자의 영어, 숫자만 입력 해 주세요");
     return;
   }
@@ -137,11 +153,19 @@ idCheckBtn?.addEventListener("click", ()=>{
     throw new Error("AJAX 통신 실패");
   })
   .then(result => {
+    inputMessage.innerText = '';
     if(result > 0){
-      alert("이미 사용중인 ID 입니다.");
+      inputMessage.classList.add("confirm-red");
+      inputMessage.classList.remove("confirm-green");
+      inputMessage.innerText = "이미 사용중인 ID 입니다.";
+      //alert("이미 사용중인 ID 입니다.");
       return;
     } else {
-      alert("사용 가능한 ID 입니다.");
+      inputMessage.classList.remove("confirm-red");
+      inputMessage.classList.add("confirm-green");
+      inputMessage.innerText = "사용 가능한 ID 입니다.";
+      console.log(inputMessage);
+      //alert("사용 가능한 ID 입니다.");
       signConfirm.idCheck = true;
     }
   })
@@ -171,18 +195,23 @@ inputEmail?.addEventListener("focus", () => {
   emailMessage.appendChild(span);
 });
 
-// Name Input 확인
+// Email Input 확인
 inputEmail?.addEventListener("input", ()=>{
-
 
   signConfirm.emailCheck = false;
   const inputEmailV = inputEmail.value.trim();
+  // 메세지창
+  const inputMessage = document.querySelector("#inputMessage");
 
   const regEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if(regEx.test(inputEmailV) === true ){
+    inputMessage.classList.remove("confirm-red");
+    inputMessage.classList.add("confirm-green");
     signConfirm.emailCheck = true;
   } else {
     signConfirm.emailCheck = false;
+    inputMessage.classList.add("confirm-red");
+    inputMessage.classList.remove("confirm-green");
   }
 });
 
@@ -361,17 +390,20 @@ inputPh?.addEventListener("input", ()=>{
 
   const regEx = /^[0-9]+$/;
   if (regEx.test(inputPhoneV) === false) {
-    inputPh.classList.add("confirm-red");
+    inputMessage.classList.add("confirm-red");
+    inputMessage.classList.remove("confirm-green");
     inputMessage.innerText = "숫자만 입력해 주세요";
     return;
   }
   
   if(inputPhoneV.length > 11){
-    inputPh.classList.add("confirm-red");
+    inputMessage.classList.add("confirm-red");
+    inputMessage.classList.remove("confirm-green");
     inputMessage.innerText = "전화번호 형식이 알맞지 않습니다.";
     return;
   } else {
-    inputPh.classList.remove("confirm-red");
+    inputMessage.classList.add("confirm-red");
+    inputMessage.classList.remove("confirm-green");
     inputMessage.innerText = "전화번호를 입력해 주세요";
   }
 });

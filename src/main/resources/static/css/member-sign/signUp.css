@@ -130,5 +130,6 @@ main>div>label>div:last-child{
 }
 
 
+.confirm-green{color: green;}
 .confirm-red{color: red;}
 .sign-displayNone{display: none !important;}
