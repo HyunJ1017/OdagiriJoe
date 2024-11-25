@@ -315,6 +315,7 @@ const selectNotificationList = () => {
       })
     })
     .catch(err => console.error(err));
+    
   // ------------------------------------------------------------------------
   /* 읽지 않은 알림 개수 조회 및 알림 유무 표시 여부 변경 */
   const readCheck = () => {
