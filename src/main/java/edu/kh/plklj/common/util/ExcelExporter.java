@@ -16,7 +16,7 @@ import edu.kh.plklj.pay.dto.PaymentDto;
 
 public class ExcelExporter {
 	
-	public void exportToExcel(List<PaymentDto> dtoList, String filePath) {
+	public int exportToExcel(List<PaymentDto> dtoList, String filePath) {
         // 워크북 생성 (XSSF는 .xlsx 파일 형식에 사용)
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Data");
@@ -50,8 +50,10 @@ public class ExcelExporter {
         try (FileOutputStream fileOut = new FileOutputStream(filePath + "withdraw.xlsx")) {
             workbook.write(fileOut);
             System.out.println("Excel file created: " + filePath);
+            return 1;
         } catch (IOException e) {
             e.printStackTrace();
+            return 0;
         } finally {
             try {
                 workbook.close();

@@ -45,9 +45,9 @@ public class WithdrawServiceImpl implements WithdrawService {
 		List<PaymentDto> list = mapper.selectWithdraw(selectMonth, intarr);
 		log.info("list : {}", list);
 		
-		excelExport.exportToExcel(list, "C:/uploadFiles/");
+		int result = excelExport.exportToExcel(list, "C:/uploadFiles/");
 		
-		return 0;
+		return result;
 	}
 
 	// 송금기록 테이블에 저장하기
