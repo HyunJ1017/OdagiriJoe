@@ -1,6 +1,6 @@
 <div th:fragment="header">
   <!-- 헤더 영역 시작 -->
-<header class="header-container">
+  <header class="header-container">
     <section class="header-main-menu">
       <!-- 로고 영역 -->
       <div class="header-logo">
@@ -13,7 +13,7 @@
       <div class="header-actions">
         <a href="/member/login/logout" class="header-item">Logout</a>
         <!-- 알림 아이콘 -->
-        <i class="fa-solid fa-bell header-item" id="notification-icon"></i>
+        <i class="fa-regular fa-bell header-item" id="notification-icon"></i>
         <!-- 검색 아이콘 -->
         <i class="fa-solid fa-magnifying-glass header-item" id="search-icon"></i>
         <!-- 사이드메뉴 아이콘 -->
@@ -21,19 +21,6 @@
       </div>
     </section>
 
-          <!-- 검색 영역 -->
-          <section id="search-section" style="display: none;">
-            <article class="search-area">
-              <form id="search-form" action="/search" method="GET">
-                <!-- 검색어 입력 -->
-                <input type="search" id="query" name="query" placeholder="작가명, 작품명, 카테고리명으로 검색." autocomplete="off">
-          
-                <!-- 검색 버튼 -->
-                <button type="submit" id="searchBtn" class="fa-solid fa-magnifying-glass header-item"></button>
-              </form>
-            </article>
-          </section>
-          
     <!-- 검색 영역 -->
     <section id="search-section" style="display: none;">
       <article class="search-area">
@@ -49,19 +36,18 @@
 
     <!-- 알림 영역 -->
     <section id="notification-section" style="display: none;">
-
       <!-- 알림 컨테이너 -->
       <div class="notification-container" th:if="${session.memberLogin != null}">
-        
-        <!-- 알림 개수 표시 -->
-        <div class="notification-count" th:text="${notificationCount != null ? notificationCount : 0}"></div>
-    
+
         <!-- 알림 목록 -->
         <ul class="notification-list">
           <div class="custom-line"></div>
         </ul>
       </div>
     </section>
+    <!-- 알림 개수 표시 -->
+    <div class="notification-count" th:text="${notificationCount != null ? notificationCount : 0}" style="display: none;">
+    </div>
 
     <!-- 중앙 메뉴 -->
     <nav class="header-menu">

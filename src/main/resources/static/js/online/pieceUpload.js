@@ -361,6 +361,19 @@ const pieceUpload = () => {
           return;
         }
 
+        let notiUrl;
+        let notiContent;
+    
+        if(pieceType.value === "1"){
+          notiUrl = `/piece/onlineDetail?pieceNo=${pieceNo}`;
+          notiContent = '팔로우한 작가가 새로운 작품을 업로드했습니다.';
+        }
+        else if(pieceType.value === "2"){
+          notiUrl = `/auction/currentDetail?pieceNo=${pieceNo}`;
+          notiContent = '팔로우한 작가가 새로운 경매를 업로드했습니다.';
+        }
+        sendNotification("F", notiUrl, pieceNo, notiContent);
+
         document.querySelector("#upload-form").submit();
       } else {
         alertM("프로필 이미지 등록에 실패하였습니다.");
@@ -389,6 +402,9 @@ const pieceUpload = () => {
       document.querySelector("#upload-form").submit();
       return;
     }
+
+
+      
 
     document.querySelector("#upload-form").submit();
   }

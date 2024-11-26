@@ -23,7 +23,7 @@
                   <p th:text="|*{pieceTitle}|" class="mainPriceText">카테고리 이름</p>
                   <p th:text="|Open Time: *{startDate}|">시작 일시</p>
                   <p th:text="|End Time: *{endDate}|">끝난 일시</p>
-                  <button type="button" class="seeBtn" th:onclick="|location.href='/{pieceType}/main/{pieceNo} (memberNo=*{memberNo})'|">보러가기</button>
+                  <button type="button" class="seeBtn" th:onclick="|location.href='/auction/currentDetail?pieceNo=*{pieceNo}'|">보러가기</button>
                 </div>
                 <img th:src="${artist.pieceRename}" alt="Main" class="main-image" th:data-id="*{memberNo}">
               </article>
@@ -36,11 +36,11 @@
     <!-- 인디케이터 바 -->
     <!-- 이전/다음 버튼 -->
     <div class="indicator-container">
-      <!-- <button class="prev-btn" onclick="moveSlide(-1)">&#10094;</button> -->
+      <button class="prev-btn" onclick="moveSlide(-1)">&#10094;</button>
       <div class="progress-bar-container">
         <div class="progress-bar"></div>
       </div>
-      <!-- <button class="next-btn" onclick="moveSlide(1)">&#10095;</button> -->
+      <button class="next-btn" onclick="moveSlide(1)">&#10095;</button>
     </div>
   </main>
 
@@ -54,7 +54,7 @@
     <div class="gallery-container">
       <article class="gallery-item" th:each="artist, stat : ${onlineGallery}">
         <div class="gallery-image">
-          <a th:href="@{/piece/onlineDetail?pieceNo={pieceNo}(pieceNo=@{artist.pieceNo})}" th:object="${artist}">
+          <a th:href="@{piece/onlineDetail (pieceNo=*{pieceNo})}" th:object="${artist}">
             <img th:src="*{pieceRename}" alt="Online Gallery" class="pieceRename" th:data-id="*{memberNo}">
           </a>
           <div class="gallery-innerDetails" th:object="${piece}">
@@ -90,7 +90,7 @@
                   <p th:if="*{startPrice != null}" th:text="|시작가 (KRW): *{startPrice}|">시작가(KRW)</p>
                   <p th:if="*{startPrice == null}" th:text="|현재가 (KRW): *{hopePrice}|">현재가(KRW)</p>
                   <hr class="dotted-line">
-                  <button class="view-button" role="link" aria-label="상세보기: ${pieceTitle}" th:onclick="|location.href='/auction/main/{artist.pieceNo} (memberNo=${memberNo})'|">상세보기</button>
+                  <button class="view-button" role="link" aria-label="상세보기: ${pieceTitle}" th:onclick="|location.href='/auction/currentDetail?pieceNo=*{pieceNo}'|">상세보기</button>
                 </div>
                 <div class="auction-img">
                 <img th:src="*{pieceRename}" alt="작품: *{pieceTitle}" class="auction-image" th:data-id="*{memberNo}">

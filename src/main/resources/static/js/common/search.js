@@ -1,9 +1,9 @@
-// ----------------------------------------------------------------------------------------------------------------
 /* 체크박스 선택 시 */
 document.addEventListener('DOMContentLoaded', () => {
   const checkboxes = document.querySelectorAll('.filter-checkbox'); // 체크박스 선택
   const detailContainer = document.querySelector('.detail-container'); // 전체 detail-container 선택
   const detailItems = document.querySelectorAll('.detail-container [data-category]'); // 각 항목 선택
+  const imgDetails = document.querySelectorAll('.img-detail');
 
   // 필터링 함수
   const filterDetails = () => {
@@ -40,6 +40,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // 초기 필터링 실행
   filterDetails();
 });
+
+document.addEventListener('click', (event) => {
+  if (imgDetails && imgDetails.length > 0) {
+    imgDetails.forEach((imgDetail) => {
+      if (event.target === imgDetail) {
+        imgDetail.classList.toggle('selected');
+      }
+    });
+  }
+})
 
 // ---------------------------------------------------------------------------------------------------------------
 /* 정렬 기준 변경 이벤트 */

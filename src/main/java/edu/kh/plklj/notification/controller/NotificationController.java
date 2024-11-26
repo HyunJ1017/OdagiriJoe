@@ -1,5 +1,6 @@
 package edu.kh.plklj.notification.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -45,31 +46,51 @@ public class NotificationController {
 	
 	/* 알림 메시지 전송 */
 	@PostMapping("send")
-	public void sendNotifiCation(@RequestBody Notification notification, @SessionAttribute("memberLogin") Member memberLogin) {
-    notification.setSendMemberNo(memberLogin.getMemberNo());
-    Map<String, Object> map = service.notificationInsert(notification);
-    String clientId = map.get("receiveMemberNo").toString();
-    SseEmitter emitter = emitters.get(clientId);
-    if (emitter != null) {
-        try {
-            emitter.send(map);
-        } catch (Exception e) {
-            emitters.remove(clientId);
-        }
-    }
+	public void sendNotifiCation(@RequestBody Notification notification, 
+			@SessionAttribute(value="memberLogin", required = false) Member memberLogin,
+			@SessionAttribute(value="artistLogin", required = false) Member artistLogin) {
+   
+		int memberNo = 0;
+		if(memberLogin == null) {
+			memberNo = artistLogin.getMemberNo();
+		} else {
+			memberNo = memberLogin.getMemberNo();
+		}
+		
+		notification.setSendMemberNo(memberNo);
+    
+    
+		List<Map<String, Object>> list = service.notificationInsert(notification);
+		
+		for(Map<String, Object> map : list) {
+		
+	    String clientId = map.get("receiveMemberNo").toString();
+	    SseEmitter emitter = emitters.get(clientId);
+	    if (emitter != null) {
+	        try {
+	            emitter.send(Map.of(clientId, map.get("notiCount").toString()));
+	        } catch (Exception e) {
+	            emitters.remove(clientId);
+	        }
+	    }
+	    
+		}
+		
 	}
 
-	// 팔로우 작가 업로드 알림
-	@PostMapping("followedArtistUpload")
-	public void followedArtistUpload(@RequestBody Notification notification) {
-    List<Member> followers = service.followList(notification.getSendMemberNo());
-    for (Member follower : followers) {
-        notification.setReceiveMemberNo(follower.getMemberNo());
-        notification.setNotiContent("팔로우한 작가가 새로운 작품을 업로드했습니다.");
-        notification.setNotiType("F");
-        service.notificationInsert(notification);
-		}
-	}
+//	// 팔로우 작가 업로드 알림
+//	@ResponseBody
+//	@PostMapping("followedArtistUpload")
+//	public void followedArtistUpload(@RequestBody Notification notification) {
+//    List<Member> followers = service.followList(notification.getSendMemberNo());
+//    Map<String, Object> map = new HashMap<>();
+//    for (Member follower : followers) {
+//        notification.setReceiveMemberNo(follower.getMemberNo());
+//        notification.setNotiContent("팔로우한 작가가 새로운 작품을 업로드했습니다.");
+//        notification.setNotiType("F");
+//        service.notificationInsert(notification);
+//		}
+//	}
 
 	// 스케줄러 이용한 알림 보내기
 	@Scheduled(cron = "0 0 9 * * *")
@@ -86,16 +107,22 @@ public class NotificationController {
 	}
 
 	private void sendNotification(Notification notification) {
-		Map<String, Object> map = service.notificationInsert(notification);
-		String clientId = map.get("receiveMemberNo").toString();
-		SseEmitter emitter = emitters.get(clientId);
-		if (emitter != null) {
-			try {
-				emitter.send(map);
-			} catch (Exception e) {
-				emitters.remove(clientId);
-			}
+		List<Map<String, Object>> list = service.notificationInsert(notification);
+		
+		for(Map<String, Object> map : list) {
+		
+	    String clientId = map.get("receiveMemberNo").toString();
+	    SseEmitter emitter = emitters.get(clientId);
+	    if (emitter != null) {
+	        try {
+	            emitter.send(Map.of(clientId, map.get("notiCount").toString()));
+	        } catch (Exception e) {
+	            emitters.remove(clientId);
+	        }
+	    }
+	    
 		}
+		
 	}
 
 	/** 로그인한 회원의 알림 목록 조회

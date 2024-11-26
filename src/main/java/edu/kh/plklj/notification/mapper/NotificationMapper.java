@@ -18,10 +18,10 @@ public interface NotificationMapper {
 	int insertNotification(Notification notification);
 
 	/** 수신자 정보 조회
-	 * @param notiNo
+	 * @param reciveMemberNoList
 	 * @return
 	 */
-  Map<String, Object> selectReceiveMember(int notiNo);
+	List<Map<String, Object>> selectReceiveMember(List<Integer> reciveMemberNoList);
 
   /** 알림 목록 조회
    * @param memberNo
@@ -49,7 +49,7 @@ public interface NotificationMapper {
    * @param sendMemberNo
    * @return
    */
-  List<Member> followList(int sendMemberNo);
+  List<Integer> selectFollowList(int sendMemberNo);
 
   /** 경매 알림 목록 조회
    * @param daysBefore
