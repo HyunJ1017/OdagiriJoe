@@ -5,25 +5,25 @@
 	
 	<!-- ************ 예정경매 관련  ************ -->
 	<select id="upCommingList" resultType="Piece">
-		 SELECT
-	        P.PIECE_NO,
-	        P.PIECE_TITLE,
-	        P.PIECE_RENAME,
-	        P.REG_DATE,
-	        PA.START_DATE
-	    FROM
-	        "PIECE" P
-	    JOIN
-	        "PIECE_AUCTION" PA
-	    ON
-	        P.PIECE_NO = PA.PIECE_NO
-	    WHERE
-	        P.PIECE_STATUS = 'A'
-	        AND
-	        P.PIECE_TYPE = 2
-	    ORDER BY
-	        P.REG_DATE ASC 
-	    FETCH FIRST 3 ROWS ONLY
+		SELECT
+		    P.PIECE_NO,
+		    P.PIECE_TITLE,
+		    P.PIECE_RENAME,
+		    P.REG_DATE,
+		    PA.START_DATE
+		FROM
+		    "PIECE" P
+		JOIN
+		    "PIECE_AUCTION" PA
+		ON
+		    P.PIECE_NO = PA.PIECE_NO
+		WHERE
+		    P.PIECE_STATUS = 'A'
+		    AND P.PIECE_TYPE = 2
+		    AND PA.START_DATE >= SYSDATE
+		ORDER BY
+		    PA.START_DATE ASC 
+		FETCH FIRST 3 ROWS ONLY
 	</select>
 	
 	<!-- 예정경매 상세페이지 -->
@@ -120,20 +120,23 @@
     <!-- 현재 경매 리스트 -->
    	<select id="currentList" resultType="Piece">
 		SELECT
-			*
+		    *
 		FROM
-			PIECE P
+		    PIECE P
 		JOIN
-		    "PIECE_AUCTION" PA
+		    PIECE_AUCTION PA
 		ON
 		    P.PIECE_NO = PA.PIECE_NO
 		WHERE
-			PIECE_TYPE = 2
-			AND
-			PIECE_STATUS = 'S'
-		ORDER BY TO_DATE(P.REG_DATE, 'YYYY-MM-DD HH24:MI:SS') ASC
+		    PIECE_TYPE = 2
+		    AND PIECE_STATUS = 'S'
+		    AND PA.START_DATE >= TRUNC(SYSDATE) 
+		ORDER BY
+		    PA.START_DATE ASC
 		FETCH FIRST 3 ROWS ONLY
 	</select>
+	
+	
     
     
     <!-- 상세 페이지 조회 -->
@@ -151,8 +154,8 @@
 		    PA.START_PRICE,
 		    PA.HOPE_PRICE,
 		    PA.END_DATE,
-		    PC.PIECE_CATEGORY_NAME, -- 카테고리명
-		    A.ARTIST_NICKNAME       -- 아티스트 닉네임 추가
+		    PC.PIECE_CATEGORY_NAME, 
+		    A.ARTIST_NICKNAME       
 		FROM
 		    "PIECE" P
 		JOIN
@@ -166,7 +169,7 @@
 		JOIN
 		    "ARTIST" A
 		ON
-		    P.MEMBER_NO = A.MEMBER_NO -- 아티스트와 조인 조건
+		    P.MEMBER_NO = A.MEMBER_NO 
 		WHERE
 			P.PIECE_NO = #{pieceNo}
     </select>
@@ -188,6 +191,7 @@
 			PIECE_TYPE = '2'
     </select>
     
+    
     <!-- 종료경매 게시물 카운트  -->
     <select id="completedListCount" resultType="_int">
 	    SELECT
@@ -203,6 +207,9 @@
 			AND
 			PIECE_TYPE = '2'
     </select>
+    
+    
+    
     
     
     
