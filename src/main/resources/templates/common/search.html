@@ -43,10 +43,15 @@
     <section class="detail-container">
       <article class="search-detail" th:each="piece : ${searchList}" th:if="${piece.pieceTitle}">
         <div class="img-detail">
-        <a th:href="@{/piece/online/{pieceNo}(pieceNo=${piece.pieceNo})}">
+          <p th:if="${piece.pieceType == 1}">
+            <a th:href="@{/piece/onlineDetail (pieceNo=${piece.pieceNo})}">
+          </p>
+          <p th:if="${piece.pieceType == 2}">
+            <a th:href="@{/auction/auctionDetail (pieceNo=${piece.pieceNo})}">
+          </p>
           <img th:src="${piece.pieceRename}" alt="작품: ${piece.pieceTitle}" />
-        </a>
-      </div>
+          </a>
+        </div>
   
         <!-- 작품 정보 -->
         <div class="name-detail">

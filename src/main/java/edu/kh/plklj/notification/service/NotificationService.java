@@ -14,7 +14,7 @@ public interface NotificationService {
 	 * @param notification
 	 * @return
 	 */
-	Map<String, Object> notificationInsert(Notification notification);
+	List<Map<String, Object>> notificationInsert(Notification notification);
 
 	/** 알림 목록 조회
 	 * @param memberNo
@@ -42,7 +42,7 @@ public interface NotificationService {
    * @param sendMemberNo
    * @return
    */
-  List<Member> followList(int sendMemberNo);
+//  List<Member> followList(int sendMemberNo);
 
   /** 경매 알림 목록 조회
    * @param daysBefore

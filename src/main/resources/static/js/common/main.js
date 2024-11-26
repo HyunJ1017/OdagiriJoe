@@ -60,9 +60,18 @@ function goToSlide(index) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  slideIndex = 0;
-  updateProgressBar(0);
-  slideTimer = setTimeout(showSlides, 6000);
+  imgDetails.forEach((detail) => {
+    const pieceType = detail.getAttribute('data-piece-type');
+    const pieceNo = detail.getAttribute('data-piece-no');
+    const link = detail.querySelector('a#piece-link');
+
+    // URL 동적 설정
+    if (pieceType === '1') {
+      link.href = `/piece/onlineDetail?pieceNo=${pieceNo}`;
+    } else if (pieceType === '2') {
+      link.href = `/auction/auctionDetail?pieceNo=${pieceNo}`;
+    }
+  });
 });
 
 //-------------------------------------------------------------

@@ -104,59 +104,13 @@ document.getElementById("select").addEventListener("click", () => {
       row.style.display = "none"; // 조건에 맞지 않으면 숨김
     }
   });
+
+  // 조회된 날짜가 없는 경우
+  if (!hasVisibleRow) {
+    alert("조회된 날짜가 없습니다.");
+  }
 });
 
-
-
-
-
-
-
-// document.addEventListener("DOMContentLoaded", function () {
-//   // input 요소 가져오기
-//   const monthInput = document.getElementById("month");
-//   const weekInput = document.getElementById("week");
-//   const dateInput = document.getElementById("date");
-//   const selectButton = document.getElementById("select");
-//   const tableBody = document.querySelector(".table-content");
-
-//   // 하나의 input을 선택하면 다른 input 비활성화
-//   const inputs = [monthInput, weekInput, dateInput];
-//   inputs.forEach((input) => {
-//     input.addEventListener("change", () => {
-//       inputs.forEach((otherInput) => {
-//         if (otherInput !== input) {
-//           otherInput.disabled = input.value !== ""; // 현재 input에 값이 있으면 다른 input 비활성화
-//         }
-//       });
-//     });
-//   });
-
-//     // 조회 버튼에 클릭 이벤트 리스너 추가
-//     selectButton = document.addEventListener('click', function () {
-  
-//       // 서버로 전달할 query string 생성
-//       let arrParams = '';
-//       if (dateValue) {
-//           arrParams = `date=${dateValue}`;
-//       } else if (weekValue) {
-//         arrParams = `week=${weekValue}`;
-//       } else if (monthValue) {
-//         arrParams = `month=${monthValue}`;
-//       }
-  
-//       // Ajax 요청을 통해 서버에 GET 요청을 보내고 조회된 결과를 화면에 업데이트
-//       fetch(`/delivery/main/filter?${arrParams}`, {
-//           method: 'GET'
-//       })
-//       .then(response => response.text()) // 응답을 텍스트 형태로 변환 (HTML)
-//       .then(data => {
-//           // 조회 결과를 tbody에 반영
-//           document.querySelector('.table-content').innerHTML = data;
-//       })
-//       .catch(error => console.error('Error:', error));
-//   });
-// });
 
 
 
