@@ -32,8 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {
 // 모든 아이콘 요소 선택
 document.querySelectorAll(".faq-item .question-row").forEach(row => {
 
-  console.log(row);
-
   row.addEventListener("click", () => {
     const answer = row.nextElementSibling;
     console.log(answer);
@@ -79,8 +77,6 @@ const noticeToggleFn = () => {
   
   /* 공지사항 토글기능 */
   document.querySelectorAll(".notice-item .notice-row").forEach(row => {
-  
-    console.log(row.nextElementSibling);
   
     row.addEventListener("click", () => {
   
@@ -394,7 +390,6 @@ function displayRequestContents(contents) {
 
   // 공지사항 표시함수
   function displayNoticeContents(contents) {
-    console.log("공지사항 데이터:", contents);
   
     const noticeGrid = document.getElementById('noticeGrid');
     const noticeList = noticeGrid.querySelector('ul.-noticelist');
@@ -415,21 +410,19 @@ function displayRequestContents(contents) {
       noticeItem.innerHTML = `
         <div class="notice-row">
           <span class="icon">&#9654;</span>
-          <span class="notice-question">${content.NOTICE_TITLE || '제목 없음'}</span>
+          <span class="notice-question">${content.noticeTitle || '제목 없음'}</span>
         </div>
         <div class="notice-answer" style="display: none;">
-          ${content.NOTICE_CONTENT || '내용 없음'}
+          ${content.noticeContent || '내용 없음'}
         </div>
         <div class="notice-buttons" style="display: none;">
-          <button class="revise-button">수정하기</button>
-          <button class="erase-button">삭제하기</button>
+          <button class="revise-button" data-notice-no="${content.noticeNo}">수정하기</button>
+          <button class="erase-button" data-notice-no="${content.noticeNo}">삭제하기</button>
         </div>
       `;
       noticeList.appendChild(noticeItem); // <ul>에 <li> 추가
     });
   
-    console.log("공지사항 리스트가 렌더링되었습니다.");
-
     noticeToggleFn();
   }
   
@@ -604,8 +597,6 @@ function getList(code, page) {
       throw new Error("AJAX 통신 실패");
     })  
     .then(result => {
-      console.log("응답데이터:", result);
-      console.log("응답데이터:", result.pg);
 
       if (code === 1) {
         page1 = page;
@@ -642,6 +633,7 @@ function getList(code, page) {
   function setupPagination(pg, code, paginationContainerId) {
     
     const paginationContainer = document.getElementById(paginationContainerId);
+
     if (!paginationContainer) {
       console.error("페이지네이션 컨테이너를 찾을 수 없습니다:", paginationContainerId);
       return;

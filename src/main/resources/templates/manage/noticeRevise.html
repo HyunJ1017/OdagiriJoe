@@ -17,21 +17,23 @@
     <section class="container">
       <h1 class="title">공지사항 수정</h1>
     </section>
-    <button class="save-button">임시저장</button>
 
     <section>
-      <form action="notice-form">
-        <label for="title">제목</label>
-        <input type="text" id="title" class="input-title">
+      <!-- 공지사항 데이터 표시 -->
+      <form th:action="@{manage/updateNotice}" method="post">
+        <input name="noticeNo" th:value="${noticeNo}" style="display:none; cursor: pointer;"/>
 
-        <label for="context">내용</label>
-        <textarea id="content" class="input-content"></textarea>
+        <label for="title">제목</label>
+        <input type="text" id="title" name="title" class="input-title"
+          th:value="${notice.noticeTitle}" />
+
+        <label for="content">내용</label>
+        <textarea id="content" name="content" class="input-content"
+          th:text="${notice.noticeContent}"></textarea>
+
+        <button class="submit-button" type="submit">수정하기</button>
       </form>
     </section>
-
-  
-      <button class="submit-button">수정하기</button>
- 
   </main>
   <!-- 푸터 -->
   <th:block th:replace="~{/common/footer.html}"></th:block>

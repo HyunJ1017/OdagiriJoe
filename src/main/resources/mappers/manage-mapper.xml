@@ -87,7 +87,7 @@
 		R.MEMBER_NO "memberNo",
 		P.PIECE_TITLE AS "pieceName",
 		P.SIZE_X || ' x ' || P.SIZE_Y AS "pieceSize",
-	    TO_CHAR(A.END_PRICE, 'FM999,999,999,999') AS "auctionPrice",
+	    TO_CHAR(A.END_PRICE, 'FM999,999,999,999,999,999') AS "auctionPrice",
 		D.ARTIST_NICKNAME AS "artistNickname",
 		R.PIECE_NO AS "pieceNo",
 		P.PIECE_RENAME AS "pieceRename"
@@ -231,7 +231,11 @@
 	</select>
 	
 	<select id="getNoticeList" resultType="map">
-	SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_DATE, NOTICE_DEL_FL
+	SELECT NOTICE_NO AS "noticeNo",
+	 	   NOTICE_TITLE AS "noticeTitle",
+	 	   NOTICE_CONTENT AS "noticeContent", 
+	  	   NOTICE_DATE AS "noticeDate", 
+	  	   NOTICE_DEL_FL AS "noticeDelFl"
 	FROM NOTICE
 	WHERE NOTICE_DEL_FL = 'N'
 	ORDER BY NOTICE_DATE DESC
@@ -244,10 +248,32 @@
 	</insert>
 	
 	<!-- 공지사항 삭제하기 -->
-	<delete id="getdeleteNoticeList">
+	<delete id="deleteNoticeList">
 	DELETE FROM NOTICE
 	WHERE NOTICE_NO = #{noticeNo}
 	</delete>
+	
+	<!--공지사항 수정페이지 목록 불러오기  -->
+	<select id="getnoticeList" resultType="Notice">
+	SELECT  NOTICE_NO AS "noticeNo",
+	 	   NOTICE_TITLE AS "noticeTitle",
+	 	   NOTICE_CONTENT AS "noticeContent", 
+	  	   NOTICE_DATE AS "noticeDate", 
+	  	   NOTICE_DEL_FL AS "noticeDelFl"
+	FROM NOTICE
+	WHERE NOTICE_DEL_FL = 'N'
+	AND
+	NOTICE_NO = #{noticeNo}
+	ORDER BY NOTICE_DATE DESC
+	</select>
+	
+	<update id="updateNotice">
+	UPDATE NOTICE
+    SET NOTICE_TITLE = #{title},
+        NOTICE_CONTENT = #{content}
+       
+    WHERE NOTICE_NO = #{noticeNo}
+	</update>
 </mapper>
 
  
