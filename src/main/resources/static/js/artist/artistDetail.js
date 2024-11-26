@@ -28,10 +28,8 @@ function determineDetailPage(pieceNo, pieceStatus) {
     return `/auction/upCommingDetail?pieceNo=${pieceNo}`;
   } else if (pieceStatus === 'S') {
     return `/auction/currentDetail?pieceNo=${pieceNo}`;
-  } else if (pieceStatus === 'N') {
-    return `/online/onlineDetail?pieceNo=${pieceNo}`;
-  } else if (pieceStatus === 'F') {
-    return `/online/onlineDetail?pieceNo=${pieceNo}`;
+  } else if (pieceStatus === 'N' || pieceStatus === 'F') {
+    return `/piece/onlineDetail?pieceNo=${pieceNo}`;
   } else {
     return null;
   }

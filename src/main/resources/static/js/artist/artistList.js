@@ -43,7 +43,7 @@ function renderArtistList(artists = [], containerId) {
         <img src="${artist.artistProfile}">
       </div>
       
-      <div class="artist-name"> <p>${artist.memberName}</p></div>
+      <div class="artist-name"> <p>${artist.artistNickname}</p></div>
     </article>
   `).join("");
 }
