@@ -37,10 +37,10 @@
 
     <section class="main-content">
       <section class="tab-buttons">
-        <button class="tab-btn" id="tab-btn" onclick="showTab('visitor', this)">방문자 현황</button>
-        <button class="tab-btn" id="tab-btn" onclick="showTab('charge', this)">충전 현황</button>
-        <button class="tab-btn" id="tab-btn" onclick="showTab('distance', this)">거래 현황</button>
-        <button class="tab-btn" id="tab-btn" onclick="showTab('work', this)">작품 현황</button>
+        <button class="tab-btn" id="tab-btn" onclick="loadDashboardData('vistor')">방문자 현황</button>
+        <button class="tab-btn" id="tab-btn" onclick="loadDashboardData('charge')">충전 현황</button>
+        <button class="tab-btn" id="tab-btn" onclick="loadDashboardData('distance')">거래 현황</button>
+        <button class="tab-btn" id="tab-btn" onclick="loadDashboardData('work')">작품 현황</button>
       </section>
 
 
@@ -54,120 +54,27 @@
           <!-- 방문자 현황 -->
           <div class="tab-content active" id="visitor">
             <div class="chart-container">
-              <h3>방문자 현황</h3>
-              <p>방문자 현황 데이터 여기에 표시</p>
+              <canvas id="dashboardChart"></canvas>
             </div>
             <div class="data-table">
               <h3>일자별 요약</h3>
               <table>
-                <thead>
+                <thead id="tableHeader">
                   <tr>
                     <th>일자</th>
                     <th>주문수</th>
                     <th>매출액</th>
                     <th>방문자</th>
-                    <th>가입</th>
-                    <th>문의</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>2024-11-10</td>
-                    <td>12</td>
-                    <td>100,000</td>
-                    <td>45</td>
-                    <td>5</td>
-                    <td>2</td>
-                  </tr>
+                <tbody id="tableBody">
+                  <!-- 데이터 렌더링 -->
                 </tbody>
               </table>
             </div>
           </div>
 
-          <!-- 충전 현황 -->
-          <div class="tab-content" id="charge">
-            <div class="chart-container">
-              <h3>충전 현황</h3>
-              <p>충전 현황 데이터 여기에 표시</p>
-            </div>
-            <div class="data-table">
-              <h3>일자별 요약</h3>
-              <table>
-                <thead>
-                  <tr>
-                    <th>일자</th>
-                    <th>충전 건수</th>
-                    <th>충전 금액</th>
-                    <th>충전한 회원 수</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>2024-11-10</td>
-                    <td>8</td>
-                    <td>80,000</td>
-                    <td>30</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- 거래 현황 -->
-          <div class="tab-content" id="distance">
-            <div class="chart-container">
-              <h3>거래 현황</h3>
-              <p>거래 현황 데이터가 여기에 표시됩니다.</p>
-            </div>
-            <div class="data-table">
-              <h3>일자별 요약</h3>
-              <table>
-                <thead>
-                  <tr>
-                    <th>일자</th>
-                    <th>거래 건수</th>
-                    <th>거래 금액</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>2024-11-10</td>
-                    <td>15</td>
-                    <td>50,000</td>
-
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- 작품 현황 -->
-          <div class="tab-content" id="work">
-            <div class="chart-container">
-              <h3>작품 현황</h3>
-              <p>작품 현황 데이터가 여기에 표시됩니다.</p>
-            </div>
-            <div class="data-table">
-              <h3>일자별 요약</h3>
-              <table>
-                <thead>
-                  <tr>
-                    <th>일자</th>
-                    <th>등록된 작품 수</th>
-                    <th>판매된 작품 수</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>2024-11-10</td>
-                    <td>3</td>
-                    <td>8</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+          
       </section>
 
       <!-- 작가 및 회원 관리 섹션 -->
@@ -560,6 +467,7 @@
     <script src="/js/manage/manage.js"></script>
     <script src="/js/manage/suspend.js"></script>
     <script src="/js/manage/notice.js"></script>
+    <script src="/js/manage/manage1.js"></script>
 </body>
 
 </html>

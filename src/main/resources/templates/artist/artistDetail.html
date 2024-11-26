@@ -17,7 +17,7 @@
             <img th:src="*{artistProfile}" class="profile-image">
             <div class="artist-info">
                 <div class="info-header">
-                  <h2 th:text="*{memberName}">이동현</h2>
+                  <h2 th:text="*{artistNickname}">이동현</h2>
                   <button class="follow-button" id="follow-btn">FOLLOW
                     <i class="fa-star" id="follow" aria-hidden="true"
                        th:classappend="*{followCheck == 1} ? 'fa-solid' : 'fa-regular'" ></i>

@@ -37,7 +37,7 @@
                         th:classappend="*{wishCheck == 1} ? fa-solid : fa-regular"></i></span>
                       <button id="online-reportBtn">신고하기</button>
                   </div>
-                  <h2 th:text="*{artistNickname} + ' (' + *{memberName} + ')'">작가 이름</h2>
+                  <h2 th:text="*{artistNickname}">작가 이름</h2>
                   <h3 th:text="*{pieceTitle}">작품 제목</h3>
                   <p>
                     <span th:text="*{sizeX} + x + *{sizeY}">작품 사이즈</span>
@@ -74,7 +74,7 @@
   <script th:inline="javascript">
     let loginCheck = /*[[${session.memberLogin != null || session.artistLogin != null}]]*/ false;
     let pieceNo = /*[[${piece.pieceNo}]]*/ null;
-    let pieceStatus = /*[[${piece.pieceStatus}]]*/ null;
+    let pieceStatus = /*[[${pieceStatus}]]*/ null;
   </script>
 
   <script src="/js/online/onlineDetail.js"></script>
