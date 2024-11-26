@@ -126,10 +126,11 @@ reportBtn.addEventListener("click", () => {
 /* *******************  예정경매 상세페이지 ******************* */
 
 
-
-
-
-
+function hideLoader(imgElement) {
+  const loader = imgElement.nextElementSibling; // loader div
+  loader.style.display = 'none'; // 로딩 이미지 숨기기
+  imgElement.style.display = 'block'; // 실제 이미지 보이기
+}
 
 
 

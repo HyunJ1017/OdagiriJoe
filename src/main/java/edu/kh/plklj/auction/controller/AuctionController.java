@@ -42,8 +42,8 @@ public class AuctionController {
 			model.addAttribute("upCommingList", list.get("upCommingList"));
 			model.addAttribute("currentList", list.get("currentList"));
 //			model.addAttribute("completedList", list.get("completedList"));
-			
-			System.out.println(list.get("currentList"));
+				
+				log.debug("currentList123 : {}", list.get("currentList"));
 //			System.out.println(list.get("completedList"));
 			
 			return "auction/auctionMain";
