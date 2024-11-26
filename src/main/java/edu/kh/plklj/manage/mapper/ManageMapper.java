@@ -1,14 +1,14 @@
 package edu.kh.plklj.manage.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.plklj.manage.dto.Manage;
-
-import java.util.Map;
+import edu.kh.plklj.notice.dto.Notice;
 
 @Mapper
 public interface ManageMapper {
@@ -73,7 +73,17 @@ public interface ManageMapper {
 	int addNoticeList(@Param("noticeTitle") String noticeTitle, @Param("noticeContent") String noticeContent);
 	
 	// 공지사항 삭제하기
-	Object getdeleteNoticeList(int noticeNo);
+	int deleteNoticeList(int noticeNo);
+	
+	// 공지사항 수정 페이지 목록 불러오기
+	
+	List<Notice> getnoticeList(int noticeNo);
+	
+	Object updateNotice(@Param("title") String title, @Param("content") String content, @Param("noticeNo") int noticeNo);
+
+
+
+
 	
 
 	

@@ -3,14 +3,13 @@ package edu.kh.plklj.manage.service;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 
 import edu.kh.plklj.common.util.Pagination;
 import edu.kh.plklj.manage.dto.Manage;
 import edu.kh.plklj.manage.mapper.ManageMapper;
-
+import edu.kh.plklj.notice.dto.Notice;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class ManageServiceImpl implements ManageService {
+
 	private final ManageMapper mapper;
 
 	@Override
@@ -179,16 +179,26 @@ public class ManageServiceImpl implements ManageService {
 	@Override
 	public int addNoticeList(String noticeTitle, String noticeContent) {
 		return mapper.addNoticeList(noticeTitle, noticeContent);
-		
+
 	}
-	
-	/*
-	 * @Override public void getdeleteNoticeList(int noticeNo) { return
-	 * mapper.getdeleteNoticeList(noticeNo);
-	 * 
-	 * }
-	 */
 
+	// 공지사항 삭제하기
+	@Override
+	public void deleteNoticeList(int noticeNo) {
 
+		mapper.deleteNoticeList(noticeNo);
+	}
 
+	// 공지사항 수정페이지 목록 불러오기
+	@Override
+	public List<Notice> getnoticeList(int noticeNo) {
+
+		return mapper.getnoticeList(noticeNo);
+	}
+
+	@Override
+	public void updateNotice(String title, String content, int noticeNo) {
+		 mapper.updateNotice(title, content, noticeNo);
+
+	}
 }

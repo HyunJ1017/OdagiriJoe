@@ -11,14 +11,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import edu.kh.plklj.manage.dto.Manage;
-import edu.kh.plklj.manage.service.ManageService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import edu.kh.plklj.manage.dto.Manage;
+import edu.kh.plklj.manage.service.ManageService;
+import edu.kh.plklj.notice.dto.Notice;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequiredArgsConstructor
@@ -119,11 +120,6 @@ public class ManageController {
  
 	 
 
-	// 공지사항 수정 페이지
-	@GetMapping("revise")
-	public String reviseNotice() {
-		return "manage/noticeRevise";
-	}
 
 	// 공지사항 작성 페이지
 	@GetMapping("write")
@@ -143,17 +139,44 @@ public class ManageController {
 	
 		
 	}
-//	
-//	// 공지사항 삭제하기
-//	@DeleteMapping("/erase/{noticeNo}")
-//	@ResponseBody
-//	public void deleteNoticeList(@PathVariable("noticeNo") int noticeNo) {
-//		 service.getdeleteNoticeList(noticeNo);
-//
+	
+	// 공지사항 삭제하기
+	@DeleteMapping("/erase/{noticeNo}")
+	@ResponseBody
+	public void deleteNoticeList(@PathVariable("noticeNo") int noticeNo) {
+		
+		service.deleteNoticeList(noticeNo);
+	}
+	
+	
+	// 공지사항 수정 페이지
+//	@GetMapping("/revise")
+//	public String reviseNoticePage() {
+//		
+//	    return "manage/noticeRevise"; // 템플릿 파일 반환
 //	}
 	
+	// 공지사항 수정페이지 목록 불러오기
+	@GetMapping("/revise2/{noticeNo}")
+	public String reviseNotice(@PathVariable("noticeNo") int noticeNo, Model model) {
+		
+		Notice notice = service.getnoticeList(noticeNo).get(0); // 첫 번째 객체 가져오기
+		
+	    model.addAttribute("notice", notice);
+		
+		log.debug("notice : {}", notice);
+		
+		return "manage/noticeRevise"; 
+	}
 	
-	
+	@PostMapping("/updateNotice")
+	public String updateNotice(@RequestParam("title") String title,
+								@RequestParam("content") String content,
+								@RequestParam("noticeNo") int noticeNo) {
+		service.updateNotice(title, content, noticeNo);
+	    return "redirect:/manage"; // 수정 후 메인페이지로 리다이렉트
+	}
+
 
 	// 승인 요청 시 프로필 페이지
 	@GetMapping("/confirm/{memberNo}")
@@ -200,6 +223,7 @@ public class ManageController {
 	
 		
 	}
+	
 	
 	
 

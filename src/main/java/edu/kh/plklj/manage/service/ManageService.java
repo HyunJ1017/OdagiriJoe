@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.kh.plklj.manage.dto.Manage;
+import edu.kh.plklj.notice.dto.Notice;
 
 public interface ManageService {
 
@@ -47,7 +48,15 @@ public interface ManageService {
 	int addNoticeList(String noticeTitle, String noticeContent);
 
 	// 공지사항 삭제하기
-//	void getdeleteNoticeList(int noticeNo);
+	void deleteNoticeList(int noticeNo);
+
+
+
+	// 공지사항 수정페이지 목록 불러오기
+	List<Notice> getnoticeList(int noticeNo);
+
+	void updateNotice(String title, String content, int noticeNo);
+
 
 
 

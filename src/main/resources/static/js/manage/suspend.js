@@ -4,8 +4,7 @@ document.addEventListener("click", (event) => {
   if (event.target.classList.contains("member-suspend-btn")) {
     const memberNo = event.target.closest(".member-summary").getAttribute("data-member-no");
     suspend(memberNo); // 정지 함수 호출
-  }else{
-    console.log("회원을 찾을 수 없습니다");
+    return;
   }
 });
 
@@ -68,8 +67,7 @@ document.addEventListener("click", (event) => {
   if(event.target.classList.contains("artist-suspend-btn")){
     const memberNo = event.target.closest(".artist-item").getAttribute("data-member-no");
     suspend2(memberNo);
-  }else{
-    console.log("작가를 찾을 수 없습니다");
+    return;
   }
 })
 function suspend2(memberNo){
@@ -99,8 +97,7 @@ document.addEventListener("click", (event) =>{
   if(event.target.classList.contains("artist-withdraw-btn")){
     const memberNo = event.target.closest(".artist-item").getAttribute("data-member-no");
     withdraw2(memberNo);
-  }else{
-    console.log("작가를 찾을 수 없습니다.");
+    return;
   }
 })
 function withdraw2(memberNo){
