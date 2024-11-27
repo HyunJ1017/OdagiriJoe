@@ -40,7 +40,8 @@ function renderArtistList(artists = [], containerId) {
   container.innerHTML = artists.map(artist => `
     <article class="artist-card">
        <div class="artist-profile" data-id=${artist.memberNo}>
-        <img src="${artist.artistProfile}">
+        <img src="${artist.artistProfile}" class="content-img" onload="hideLoader(this)">
+        <div class="loader"></div>
       </div>
       
       <div class="artist-name"> <p>${artist.artistNickname}</p></div>
@@ -112,3 +113,9 @@ document.addEventListener("DOMContentLoaded", () => {
   loadArtists(1); // 초기 로드 시 첫 페이지 요청
 
 });
+
+function hideLoader(imgElement) {
+  const loader = imgElement.nextElementSibling; // loader div
+  loader.style.display = 'none'; // 로딩 이미지 숨기기
+  imgElement.style.display = 'block'; // 실제 이미지 보이기
+}

@@ -37,7 +37,7 @@
 
     <section class="main-content">
       <section class="tab-buttons">
-        <button class="tab-btn" id="tab-btn" onclick="loadDashboardData('vistor')">방문자 현황</button>
+        <button class="tab-btn" id="tab-btn" onclick="loadDashboardData('visitor')">방문자 현황</button>
         <button class="tab-btn" id="tab-btn" onclick="loadDashboardData('charge')">충전 현황</button>
         <button class="tab-btn" id="tab-btn" onclick="loadDashboardData('distance')">거래 현황</button>
         <button class="tab-btn" id="tab-btn" onclick="loadDashboardData('work')">작품 현황</button>
@@ -62,8 +62,6 @@
                 <thead id="tableHeader">
                   <tr>
                     <th>일자</th>
-                    <th>주문수</th>
-                    <th>매출액</th>
                     <th>방문자</th>
                   </tr>
                 </thead>
@@ -468,6 +466,8 @@
     <script src="/js/manage/manage.js"></script>
     <script src="/js/manage/suspend.js"></script>
     <script src="/js/manage/notice.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/js/manage/manage1.js"></script>
 </body>
 

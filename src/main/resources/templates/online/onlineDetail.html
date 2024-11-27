@@ -27,7 +27,8 @@
       
               <!-- 메인 이미지 및 상세 정보 -->
               <div class="main-image">
-                  <img th:src="*{pieceRename}">
+                  <img th:src="*{pieceRename}" class="content-img" onload="hideLoader(this)">
+                  <div class="loader"></div>
               </div>
       
               <!-- 우측 정보 패널 -->
@@ -47,7 +48,8 @@
                 <div class="price">
                     <p>
                       <span>금액 : </span>
-                      <span th:text="'₩' + *{sellPrice} + ' (KRW)'">작품 가격</span>
+                      <span id="sellPrice" th:data-price="*{sellPrice}">작품 가격</span>
+
                     </p>
                 </div>
                   

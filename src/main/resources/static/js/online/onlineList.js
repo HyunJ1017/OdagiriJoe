@@ -22,6 +22,8 @@ document.addEventListener("DOMContentLoaded", function() {
     salesDropdownContent.style.display = "none";
   });
 
+
+
   document.getElementById("salesSortByName").addEventListener("click", () => 
     handleSort("판매작품", "name"));
   document.getElementById("salesSortByPrice").addEventListener("click", () => 
@@ -117,6 +119,13 @@ function loadPieces(cp, type, sort = "recent", order = "desc") {
         .catch(err => console.error(err));
     }
 
+function formatPrice(amount) {
+  return new Intl.NumberFormat("ko-KR", {
+    style: "currency",
+    currency: "KRW"
+  }).format(amount) + "(KRW)";
+}
+
             
             
 
@@ -133,8 +142,7 @@ function renderSalesList(items = []) {
                     <p class="artwork-title">작품 : ${item.pieceTitle}</p>
                     <div class="artwork-details">
                         <p class="size">${item.sizeX} x ${item.sizeY}</p>
-                        <p class="price">현재가 (KRW)</p>
-                        <p class="amount">${item.sellPrice}</p>
+                        <p class="amount">${formatPrice(item.sellPrice)}</p>
                     </div>
                 </div>
             </div>
@@ -154,8 +162,8 @@ function renderCompletedList(items = []) {
                     <p class="artwork-title">작품 : ${item.pieceTitle}</p>
                     <div class="artwork-details">
                         <p class="size">${item.sizeX} x ${item.sizeY}</p>
-                        <p class="price">현재가 (KRW)</p>
-                        <p class="amount">${item.sellPrice}</p>
+                        <br>
+                        <p class="amount">${formatPrice(item.sellPrice)}</p>
                     </div>
                 </div>
             </div>
@@ -244,3 +252,4 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+currentBidAmountSpan.innerText = `${data.currentBidPrice.toLocaleString()} (KRW)`;
