@@ -1,10 +1,14 @@
 package edu.kh.plklj.common.scheduling.scheduler;
 
+import java.util.List;
+
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import edu.kh.plklj.common.scheduling.service.ScheduleService;
 import edu.kh.plklj.image.service.ImageService;
+import edu.kh.plklj.notification.dto.Notification;
+import edu.kh.plklj.notification.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,6 +19,7 @@ public class AuctionScheduler {
 	
 	private final ScheduleService service;
 	private final ImageService bucketService;
+	private final NotificationService	notificationService;
 	
 	// 10시마다 실행 할 스캐줄러
 	@Scheduled(cron = "0 0 10 * * *")
@@ -60,5 +65,16 @@ public class AuctionScheduler {
 		log.info(">> ------------------------------- <<");
 	}
 	
+	
+	
+
+	// 스케줄러 이용한 알림 보내기
+//	@Scheduled(cron = "0 0 9 * * *")
+	@Scheduled(cron = "0/10 * * * * *")
+	public void notifyAuctionItems() {
+		
+		// 당일 알림
+		notificationService.sendAuctionNotifications(0, "찜한 게시물의 경매가 오늘 오전 10시에 시작됩니다.");
+	}
 
 }
