@@ -40,7 +40,8 @@ public interface NotificationService {
 
   /** 경매 알림 목록 조회
    * @param daysBefore
+   * @param message
    * @return
    */
-  List<Notification> getAuctionNotification(int daysBefore);
+	int sendAuctionNotifications(int daysBefore, String message);
 }
