@@ -81,7 +81,7 @@ public class NotificationServiceImpl implements NotificationService {
 		for (int pieceNo : pieceNoList) {
 			List<Integer> memberList = mapper.wishList(pieceNo);
 
-			String notiUrl = "/auction/currentDetail?pieceNo=" + pieceNo;
+			String notiUrl = "/auction/auctionDetail?pieceNo=" + pieceNo;
 
 			Notification notification = new Notification();
 			notification.setPieceNo(pieceNo);
@@ -116,4 +116,12 @@ public class NotificationServiceImpl implements NotificationService {
 
 		return 1;
 	}
+	
+	
+	
+	@Override
+	public void oneDayBeforeNotification(int daysBefore, String message) {
+		
+	}
+	
 }

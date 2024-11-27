@@ -312,6 +312,63 @@
   object-fit: cover; /* 비율을 유지하며 크기에 맞게 잘라냄 */
 }
 
+/* 예정경매 조회된 내용 없으면 */
+.no-upcoming {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: #888888;
+  margin: 40px 0;
+}
+
+.no-upcoming-text {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.no-upcoming-img {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  display: block;
+  opacity: 0.8;
+}
+
+.no-upcoming p {
+  margin-top: 15px;
+  font-size: 18px;
+  color: #555555;
+}
+
+
+/* 진행경매 조회된 내용 없으면 */
+.no-ongoing{
+  width: 100%;
+  height: 60%;
+  border-bottom: 2px solid #aaaaaa;
+  margin: 0 auto;
+  display: flex;
+  font-weight: bold !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-ongoing-text {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+
+.no-ongoing-title {
+  font-size: 30px;
+}
+
 
 
 

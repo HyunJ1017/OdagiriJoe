@@ -23,7 +23,7 @@
                   <p th:text="|*{pieceTitle}|" class="mainPriceText">카테고리 이름</p>
                   <p th:text="|Open Time: *{startDate}|" class="mainTimeText">시작 일시</p>
                   <p th:text="|End Time: *{endDate}|" class="mainTimeText">끝난 일시</p>
-                  <button type="button" class="seeBtn" th:onclick="|location.href='/auction/upCommingDetail?pieceNo=*{pieceNo}'|">보러가기</button>
+                  <button type="button" class="seeBtn" th:onclick="|location.href='/auction/auctionDetail?pieceNo=*{pieceNo}'|">보러가기</button>
                 </div>
                 <img th:src="${artist.pieceRename}" alt="Main" class="main-image" th:data-id="*{memberNo}">
               </article>

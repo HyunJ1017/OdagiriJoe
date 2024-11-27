@@ -62,5 +62,9 @@ public interface NotificationMapper {
    * @return
    */
   List<Integer>  getAuctionNotification(int daysBefore);
+  
+  
+  
+  
 
 }

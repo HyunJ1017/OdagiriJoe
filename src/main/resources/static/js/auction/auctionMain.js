@@ -20,7 +20,7 @@ buttons2.forEach(button => {
         const pieceNo = button.getAttribute('data-id'); // 버튼의 data-id에서 pieceNo 가져오기
 
         // 상세 페이지로 이동
-        location.href = `/auction/currentDetail?pieceNo=${pieceNo}`;
+        location.href = `/auction/auctionDetail?pieceNo=${pieceNo}`;
     });
 });
 
@@ -55,13 +55,11 @@ const selectCompletedList = (cp) => {
   
     completedList.forEach(item => {
 
-      console.log(item);
-
       const itemDiv = document.createElement("div");
   
       // 작품 링크
       const link = document.createElement("a");
-      link.href = `/auction/currentDetail?pieceNo=${item.pieceNo}`;
+      link.href = `/auction/auctionDetail?pieceNo=${item.pieceNo}`;
       link.style.padding = "0";
   
       // 작품 이미지
