@@ -144,7 +144,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-
 // SSE(Send Server Events) 연결 함수
 const connectSse = () => {
   if (notificationLoginCheck === false) return;
@@ -155,10 +154,9 @@ const connectSse = () => {
   eventSource.addEventListener("message", (e) => {
     const data = JSON.parse(e.data);
 
-    const notiCountHeart = document.querySelector(".notification-count");
-    notiCountHeart.style.display = "flex";
-    notiCountHeart.innerText = data.notiCount;
-
+    const notiCount = document.querySelector(".notification-count");
+    notiCount.style.display = "flex";
+    notiCount.innerText = data.notiCount;
   });
 
   eventSource.addEventListener("error", () => {

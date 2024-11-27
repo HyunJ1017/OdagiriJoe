@@ -69,8 +69,8 @@ public class AuctionScheduler {
 	
 
 	// 스케줄러 이용한 알림 보내기
-//	@Scheduled(cron = "0 0 9 * * *")
-	@Scheduled(cron = "0/10 * * * * *")
+	@Scheduled(cron = "0 0 9 * * *")
+//	@Scheduled(cron = "0/10 * * * * *")
 	public void notifyAuctionItems() {
 		
 		// 당일 알림
