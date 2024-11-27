@@ -54,21 +54,9 @@ function updateCountdown(remainingTime, onCountdownEnd) {
 
   // 남은 시간이 모두 0이 되었을 때 처리
   if (hours === 0 && minutes === 0 && seconds === 0) {
-    clearInterval(countdownTimer); // 타이머 종료
-    onCountdownEnd(); // 카운트다운 종료 처리
-    return;
+      onCountdownEnd(); // 카운트다운 종료 처리
+      return;
   }
-
-  if (!remainingTime.notificationSent) {
-    sendAuctionNotification();
-    remainingTime.notificationSent = true; // 알림이 한 번만 전송되도록 플래그 설정
-  }
-
-
-  // 1시간 남았을 때 알림 전송 (한 번만 실행)
-  // if (hours === 1 && minutes === 0 && seconds === 0) {
-  //   sendAuctionNotification();
-  // }
 
   // 초 감소
   if (remainingTime.seconds > 0) {
@@ -97,14 +85,6 @@ function handleCountdownEnd() {
   alert("경매가 시작되었습니다!");
   location.href = "/auction/main";
 }
-
-function sendAuctionNotification() {
-  const notiUrl = `/auction/upCommingDetail?pieceNo=${pieceNo}`;
-  const notiContent = "찜한 게시물의 경매가 1시간 후에 시작됩니다.";
-  sendNotification("W", notiUrl, pieceNo, notiContent); // sendNotification 함수 호출
-}
-
-
 
 // 초기 실행 함수
 function initializeCountdown(hours, minutes, seconds) {
