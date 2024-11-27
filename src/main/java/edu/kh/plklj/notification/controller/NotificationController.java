@@ -22,7 +22,6 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import edu.kh.plklj.main.dto.Member;
 import edu.kh.plklj.notification.dto.Notification;
 import edu.kh.plklj.notification.service.NotificationService;
-import edu.kh.plklj.piece.dto.Piece;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
