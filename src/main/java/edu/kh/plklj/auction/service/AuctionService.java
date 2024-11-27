@@ -11,7 +11,7 @@ public interface AuctionService {
 	Map<String, Object> auctionMain();
 
 	// piecNo대로 상세 조회
-	Map<String, Object> ongoingDetail(int pieceNo, int loginNo);
+	Map<String, Object> upComiingDetail(int pieceNo, int loginNo);
 
 	// 회원이 누른 좋아요 insert,delete
 	Map<String, Object> pieceLike(int pieceNo, int loginNo);
