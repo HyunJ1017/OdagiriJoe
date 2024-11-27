@@ -1,6 +1,6 @@
 package edu.kh.plklj.auction.controller;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
@@ -14,11 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.plklj.auction.service.AuctionService;
 import edu.kh.plklj.main.dto.Member;
-import edu.kh.plklj.piece.dto.Piece;
 import edu.kh.plklj.report.dto.Report;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,54 +41,85 @@ public class AuctionController {
 			
 			model.addAttribute("upCommingList", list.get("upCommingList"));
 			model.addAttribute("currentList", list.get("currentList"));
-//			model.addAttribute("completedList", list.get("completedList"));
 				
-				log.debug("currentList123 : {}", list.get("currentList"));
-//			System.out.println(list.get("completedList"));
+			log.debug("currentList123 : {}", list.get("currentList"));
 			
 			return "auction/auctionMain";
 		}
 		
 		
-		/** 예정 경매 상세 페이지
+		// 날짜 확인 하여 현재,예정 상세페이지
+		@GetMapping("/auctionDetail")
+		public String auctionDetail(
+		    @RequestParam("pieceNo") int pieceNo,
+		    @SessionAttribute(value = "memberLogin", required = false) Member memberLogin,
+		    @SessionAttribute(value = "artistLogin", required = false) Member artistLogin,
+		    Model model
+		) {
+		    // 로그인 정보 확인
+		    int loginNo = (memberLogin != null) ? memberLogin.getMemberNo() : (artistLogin != null) ? artistLogin.getMemberNo() : 0;
+
+		    // 작품 상세 정보 조회
+		    Map<String, Object> pieceDetail = service.upComiingDetail(pieceNo, loginNo);
+		    System.out.println(pieceDetail);
+
+		    // 작품 상태 확인
+		    String pieceStatus = (String) pieceDetail.get("pieceStatus"); 
+		    
+		    // 모델에 데이터 추가
+		    model.addAttribute("currentDetail", service.currentDetail(pieceNo));
+		    model.addAttribute("pieceDetail", pieceDetail);
+		    model.addAttribute("memberLogin", memberLogin);
+		    model.addAttribute("artistLogin", artistLogin);
+
+		    // 상태코드에 따라 페이지 이동
+		    if ("A".equals(pieceStatus)) {
+		        // 상태코드가 'A'면 예정 경매 페이지로 이동
+		        return "auction/upCommingDetail";
+		    } else {
+		        // 아니면 상태코드에 맞게 상세페이지
+		        return "auction/currentDetail";
+		    } 
+		}
+
+		
+		
+		
+		
+		/** 진행 경매 작품 상세 조회 페이지
 		 * 
 		 */
-		@GetMapping("/auctionDetail")
-		
-		public String auctionDetail(
-				 	@RequestParam("pieceNo") int pieceNo,
-				  @SessionAttribute(value = "memberLogin", required = false) Member memberLogin,
-	        @SessionAttribute(value = "artistLogin", required = false) Member artistLogin,
-					Model model,
-					RedirectAttributes ra
-				) {
-			
-			 LocalDate today = LocalDate.now(); 
-			
-			
-			int loginNo = (memberLogin != null) ? memberLogin.getMemberNo() : (artistLogin != null) ? artistLogin.getMemberNo() : 0;
-			
-	    Map<String, Object> pieceDetail = service.upComiingDetail(pieceNo, loginNo);
-	    
-	    System.out.println(pieceDetail);
-	    
-	    model.addAttribute("pieceDetail", pieceDetail);
-
-	    
-	    String path = null;
-	    
-	    if(memberLogin != null) {
-	    	path = "redirect:/auction/upCommingDetail";
-	    } else if (artistLogin != null) {
-	    	path = "redirect:/auction/upCommingDetail";
-	    } else {
-	    	path = "redirect:/main";
-	    }
-	    
-	    
-			
-			return path;
-		}
+//		@GetMapping("currentDetail")
+//		public String currentDetail(
+//				 	@RequestParam("pieceNo") int pieceNo,
+//				  @SessionAttribute(value = "memberLogin", required = false) Member memberLogin,
+//	        @SessionAttribute(value = "artistLogin", required = false) Member artistLogin,
+//					Model model
+//				) {
+//			
+//			int loginNo = (memberLogin != null) ? memberLogin.getMemberNo() : (artistLogin != null) ? artistLogin.getMemberNo() : 0;
+//			
+//			Piece piece = service.currentDetail(pieceNo);
+//			System.out.println(piece);
+//			
+//			Map<String, Object> pieceDetail = service.upComiingDetail(pieceNo, loginNo);
+//      // 뷰에 전달
+//      model.addAttribute("currentDetail", piece);
+//      model.addAttribute("pieceDetail", pieceDetail);
+//      
+//      System.out.println(piece);
+//      
+//      // 추가: 세션 값 모델에 포함
+//      model.addAttribute("memberLogin", memberLogin);
+//      model.addAttribute("artistLogin", artistLogin);
+//
+//      
+//      log.info("memberLogin: {}", memberLogin);
+//      log.info("artistLogin: {}", artistLogin);
+//      log.info("loginNo: {}", loginNo);
+//      
+//			return "auction/currentDetail";
+//		}
 		
 		
 		/** 위시 리스트 체크 or 해제
@@ -170,41 +199,6 @@ public class AuctionController {
 		
 		
 		
-		
-		/** 진행 경매 작품 상세 조회 페이지
-		 * 
-		 */
-		@GetMapping("currentDetail")
-		public String currentDetail(
-				 	@RequestParam("pieceNo") int pieceNo,
-				  @SessionAttribute(value = "memberLogin", required = false) Member memberLogin,
-	        @SessionAttribute(value = "artistLogin", required = false) Member artistLogin,
-					Model model
-				) {
-			
-			int loginNo = (memberLogin != null) ? memberLogin.getMemberNo() : (artistLogin != null) ? artistLogin.getMemberNo() : 0;
-			
-			Piece piece = service.currentDetail(pieceNo);
-			System.out.println(piece);
-			
-			Map<String, Object> pieceDetail = service.upComiingDetail(pieceNo, loginNo);
-      // 뷰에 전달
-      model.addAttribute("currentDetail", piece);
-      model.addAttribute("pieceDetail", pieceDetail);
-      
-      System.out.println(piece);
-      
-      // 추가: 세션 값 모델에 포함
-      model.addAttribute("memberLogin", memberLogin);
-      model.addAttribute("artistLogin", artistLogin);
-
-      
-      log.info("memberLogin: {}", memberLogin);
-      log.info("artistLogin: {}", artistLogin);
-      log.info("loginNo: {}", loginNo);
-      
-			return "auction/currentDetail";
-		}
 		
 		
 		

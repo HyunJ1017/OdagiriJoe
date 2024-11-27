@@ -77,8 +77,10 @@ public class AuctionServiceImpl implements AuctionService {
   @Override
   public Map<String, Object> upComiingDetail(int pieceNo, int loginNo) {
   	
+  	// 예정경매 상세 조회
   	Piece piece = mapper.upComiingDetail(pieceNo, loginNo);
   	
+  	// 예정 상세 받아온 값 날짜 함수로 전달
     Map<String, Object> pieceData = calculatePieceData(piece);
 
     // 추가로 likeCheck를 포함
@@ -140,6 +142,7 @@ public class AuctionServiceImpl implements AuctionService {
   /************************** 진행경매 상세 페이지 **************************/
   @Override
   public Piece currentDetail(int pieceNo) {
+  	
       Piece piece = mapper.currentDetail(pieceNo);
 
       // 날짜 가공 - startDate
@@ -228,11 +231,12 @@ public class AuctionServiceImpl implements AuctionService {
   	
     Map<String, Object> pieceData = new HashMap<>();
     
-    
+    // 예정상세 받아온 값 Map에 할당
     pieceData.put("pieceNo", piece.getPieceNo()); 
     pieceData.put("artistNickName", piece.getArtistNickname()); 
     pieceData.put("pieceTitle", piece.getPieceTitle());
     pieceData.put("pieceRename", piece.getPieceRename());
+    pieceData.put("pieceStatus", piece.getPieceStatus());
 
     
     // LocalDateTime startDate = LocalDateTime.now().plusSeconds(20); // 테스트를 위해 20초 뒤로 설정
@@ -240,12 +244,19 @@ public class AuctionServiceImpl implements AuctionService {
     // START_DATE(String) → LocalDateTime 변환
     LocalDateTime startDate = LocalDateTime.parse(piece.getStartDate(), FORMATTER);
     
-    // START_DATE를 오전 10시로 변경
+    // START_DATE를 오전 10시로 고정
     startDate = startDate.withHour(10).withMinute(0).withSecond(0).withNano(0);
     
-    // END_DATE를 경매 시작일(startDate) 기준 하루 뒤로 설정
-    LocalDateTime endDate = startDate.plusDays(1);
+    
+    
+    // END_DATE를 경매 시작일(startDate) 기준 하루 뒤로 설정, 오전 10시로 고정
+    LocalDateTime endDate = startDate.plusDays(1)
+                                     .withHour(10)
+                                     .withMinute(0)
+                                     .withSecond(0)
+                                     .withNano(0);
 
+    
     // 프리뷰 시작일 계산: START_DATE 기준 7일 전
     LocalDateTime previewStart = startDate.minusDays(7);
 
@@ -253,19 +264,22 @@ public class AuctionServiceImpl implements AuctionService {
     LocalDateTime now = LocalDateTime.now();
 
     // 남은 시간 계산
+    // 카운트 나오게 계산하려는 코드
+    // 두 시간(now와 startDate) 사이의 차이를 Duration 객체로 반환.
     long totalSeconds = java.time.Duration.between(now, startDate).getSeconds();
-    long hours = totalSeconds / 3600;
-    long minutes = (totalSeconds % 3600) / 60;
-    long seconds = totalSeconds % 60;
-    
+    long hours = totalSeconds / 3600; // 시간
+    long minutes = (totalSeconds % 3600) / 60; // 분
+    long seconds = totalSeconds % 60; // 초
     
 
-    // ISO 8601 형식으로 저장
+    // ISO 8601 형식으로 저장 : 2024-11-28T10:00:00, 2024-11-29T10:00:00
     piece.setStartDate(startDate.toLocalDate().toString() + "T" + startDate.toLocalTime().withNano(0).toString());
+    piece.setEndDate(endDate.toLocalDate().toString() + "T" + endDate.toLocalTime().withNano(0).toString());
     pieceData.put("auctionDate", piece.getStartDate());
     pieceData.put("endDate", piece.getEndDate());
 
     // 사용자 친화적인 경매일 표현
+    // startDate: 2024-11-28T10:00:00 ->  "11월 28일(목)"
     pieceData.put("auctionDateDisplay", startDate.format(DISPLAY_FORMATTER));
     pieceData.put("endDateDisplay", endDate.format(DISPLAY_FORMATTER));
 

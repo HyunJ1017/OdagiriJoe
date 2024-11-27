@@ -4,26 +4,34 @@
 	
 	
 	<!-- ************ 예정경매 관련  ************ -->
+  <!-- 
+    PA.START_DATE <= SYSDATE 경매 시작일이 현재 날짜와 같거나 과거여야 함.
+    PA.END_DATE >= SYSDATE 경매 종료일이 현재 날짜와 같거나 미래여야 함.
+   -->
 	<select id="upCommingList" resultType="Piece">
-		SELECT
-		    P.PIECE_NO,
-		    P.PIECE_TITLE,
-		    P.PIECE_RENAME,
-		    P.REG_DATE,
-		    PA.START_DATE
-		FROM
-		    "PIECE" P
-		JOIN
-		    "PIECE_AUCTION" PA
-		ON
-		    P.PIECE_NO = PA.PIECE_NO
-		WHERE
-		    P.PIECE_STATUS = 'A'
-		    AND P.PIECE_TYPE = 2
-		    AND PA.START_DATE >= SYSDATE
-		ORDER BY
-		    PA.START_DATE ASC 
-		FETCH FIRST 3 ROWS ONLY
+        SELECT *
+        FROM (
+            SELECT
+                P.PIECE_NO,
+                P.PIECE_TITLE,
+                P.PIECE_RENAME,
+                P.REG_DATE,
+                PA.START_DATE,
+                PA.END_DATE
+            FROM
+                "PIECE" P
+            JOIN
+                "PIECE_AUCTION" PA
+            ON
+                P.PIECE_NO = PA.PIECE_NO
+            WHERE
+                P.PIECE_STATUS = 'A' 
+                AND PA.START_DATE &lt;= SYSDATE 
+                AND PA.END_DATE >= SYSDATE 
+            ORDER BY
+                P.REG_DATE ASC
+        )
+        WHERE ROWNUM &lt;= 3
 	</select>
 	
 	<!-- 예정경매 상세페이지 -->
@@ -32,7 +40,9 @@
 	        P.PIECE_NO,
 	        P.PIECE_TITLE,
 	        P.PIECE_RENAME,
+          P.PIECE_STATUS,
 	        PA.START_DATE,
+          PA.END_DATE,
 	        (SELECT COUNT(*) FROM "WISH" WHERE PIECE_NO = #{pieceNo} AND MEMBER_NO = #{loginNo}) AS LIKE_CHECK,
           A.ARTIST_NICKNAME
     	 FROM
@@ -118,22 +128,28 @@
     <!-- ************ 현재경매 관련  ************ -->
     
     <!-- 현재 경매 리스트 -->
+    <!--
+        타입2번, 상태 S,
+        PA.START_DATE가 "오늘"(SYSDATE)이거나 "어제"(SYSDATE - 1)
+        PA.END_DATE가 "오늘"(SYSDATE)이거나 "어제"(SYSDATE - 1)
+     -->
    	<select id="currentList" resultType="Piece">
-		SELECT
-		    *
-		FROM
-		    PIECE P
-		JOIN
-		    PIECE_AUCTION PA
-		ON
-		    P.PIECE_NO = PA.PIECE_NO
-		WHERE
-		    PIECE_TYPE = 2
-		    AND PIECE_STATUS = 'S'
-		    AND TRUNC(PA.START_DATE) = TRUNC(SYSDATE)
-		ORDER BY
-		    PA.START_DATE ASC
-		FETCH FIRST 3 ROWS ONLY
+    		SELECT
+            *
+        FROM
+            PIECE P
+        JOIN
+            PIECE_AUCTION PA
+        ON
+            P.PIECE_NO = PA.PIECE_NO
+        WHERE
+            PIECE_TYPE = 2
+            AND PIECE_STATUS = 'S'
+            AND TRUNC(PA.START_DATE) IN (TRUNC(SYSDATE), TRUNC(SYSDATE - 1))
+            AND TRUNC(PA.END_DATE) IN (TRUNC(SYSDATE), TRUNC(SYSDATE - 1)) 
+        ORDER BY
+            PA.START_DATE ASC 
+        FETCH FIRST 3 ROWS ONLY
 	</select>
 	
 	
