@@ -61,7 +61,6 @@ public class NotificationController {
     
     
 		List<Map<String, Object>> list = service.notificationInsert(notification);
-		
 		for(Map<String, Object> map : list) {
 		
 	    String clientId = map.get("receiveMemberNo").toString();
@@ -79,7 +78,7 @@ public class NotificationController {
 	}
 
 	// 스케줄러 이용한 알림 보내기
-	@Scheduled(cron = "0 0 12 * * *")
+	@Scheduled(cron = "0 0 9 * * *")
 	public void notifyAuctionItems() {
 		List<Notification> tomorrowNotifications = service.getAuctionNotification(1);
 		List<Notification> todayNotifications = service.getAuctionNotification(0);

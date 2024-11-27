@@ -27,6 +27,9 @@ public class NotificationServiceImpl implements NotificationService {
 		 if(notification.getNotiType().equals("F")) {
 			 sendMemberNo = notification.getSendMemberNo(); // 보내는 아티스트 번호
 			 reciveMemberNoList = mapper.selectFollowList(sendMemberNo);
+		 } else if(notification.getNotiType().equals("W")) {
+			 int pieceNo = notification.getPkNo(); // 보내는 게시물 번호
+			 reciveMemberNoList = mapper.wishList(pieceNo);
 		 }
 
 		 
