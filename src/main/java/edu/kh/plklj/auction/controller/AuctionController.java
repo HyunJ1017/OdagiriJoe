@@ -1,5 +1,6 @@
 package edu.kh.plklj.auction.controller;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.plklj.auction.service.AuctionService;
 import edu.kh.plklj.main.dto.Member;
@@ -53,25 +55,41 @@ public class AuctionController {
 		/** 예정 경매 상세 페이지
 		 * 
 		 */
-		@GetMapping("/upCommingDetail")
-		public String ongoingDetail(
+		@GetMapping("/auctionDetail")
+		
+		public String auctionDetail(
 				 	@RequestParam("pieceNo") int pieceNo,
 				  @SessionAttribute(value = "memberLogin", required = false) Member memberLogin,
 	        @SessionAttribute(value = "artistLogin", required = false) Member artistLogin,
-					Model model
+					Model model,
+					RedirectAttributes ra
 				) {
+			
+			 LocalDate today = LocalDate.now(); 
+			
 			
 			int loginNo = (memberLogin != null) ? memberLogin.getMemberNo() : (artistLogin != null) ? artistLogin.getMemberNo() : 0;
 			
-	    Map<String, Object> pieceDetail = service.ongoingDetail(pieceNo, loginNo);
+	    Map<String, Object> pieceDetail = service.upComiingDetail(pieceNo, loginNo);
 	    
 	    System.out.println(pieceDetail);
 	    
 	    model.addAttribute("pieceDetail", pieceDetail);
+
+	    
+	    String path = null;
+	    
+	    if(memberLogin != null) {
+	    	path = "redirect:/auction/upCommingDetail";
+	    } else if (artistLogin != null) {
+	    	path = "redirect:/auction/upCommingDetail";
+	    } else {
+	    	path = "redirect:/main";
+	    }
+	    
+	    
 			
-			
-			
-			return "auction/upCommingDetail";
+			return path;
 		}
 		
 		
@@ -169,7 +187,7 @@ public class AuctionController {
 			Piece piece = service.currentDetail(pieceNo);
 			System.out.println(piece);
 			
-			Map<String, Object> pieceDetail = service.ongoingDetail(pieceNo, loginNo);
+			Map<String, Object> pieceDetail = service.upComiingDetail(pieceNo, loginNo);
       // 뷰에 전달
       model.addAttribute("currentDetail", piece);
       model.addAttribute("pieceDetail", pieceDetail);

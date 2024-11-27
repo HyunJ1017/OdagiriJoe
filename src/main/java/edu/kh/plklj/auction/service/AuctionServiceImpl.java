@@ -75,9 +75,9 @@ public class AuctionServiceImpl implements AuctionService {
 	
   // 작품 상세 조회 (날짜 계산 포함)
   @Override
-  public Map<String, Object> ongoingDetail(int pieceNo, int loginNo) {
+  public Map<String, Object> upComiingDetail(int pieceNo, int loginNo) {
   	
-  	Piece piece = mapper.ongoingDetail(pieceNo, loginNo);
+  	Piece piece = mapper.upComiingDetail(pieceNo, loginNo);
   	
     Map<String, Object> pieceData = calculatePieceData(piece);
 

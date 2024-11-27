@@ -16,7 +16,7 @@ public interface AuctionMapper {
 	List<Piece> upCommingList();
 	
 	// piecNo대로 상세 조회
-	Piece ongoingDetail(@Param("pieceNo") int pieceNo, @Param("loginNo") int loginNo);
+	Piece upComiingDetail(@Param("pieceNo") int pieceNo, @Param("loginNo") int loginNo);
 
 	// 좋아요 누른적 있는지 검사
 	int checkPieceLike(@Param("pieceNo") int pieceNo, @Param("loginNo") int loginNo);

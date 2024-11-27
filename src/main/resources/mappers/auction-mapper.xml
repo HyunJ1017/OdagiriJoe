@@ -27,7 +27,7 @@
 	</select>
 	
 	<!-- 예정경매 상세페이지 -->
-	<select id="ongoingDetail" resultType="Piece">
+	<select id="upComiingDetail" resultType="Piece">
 	    SELECT
 	        P.PIECE_NO,
 	        P.PIECE_TITLE,
