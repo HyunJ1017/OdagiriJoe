@@ -23,7 +23,7 @@
   </th:block>
 
   <!-- 관리자가 로그인 된 경우 -->
-  <th:block th:if="${admin}">
+  <th:block th:if="${admin != null}">
     <header th:replace="~{common/adminHeader :: header}"></header>
   </th:block>
 </th:block>
