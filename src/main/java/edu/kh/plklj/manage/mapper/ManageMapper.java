@@ -79,8 +79,17 @@ public interface ManageMapper {
 	
 	List<Notice> getnoticeList(int noticeNo);
 	
-	Object updateNotice(@Param("title") String title, @Param("content") String content, @Param("noticeNo") int noticeNo);
+	int updateNotice(@Param("title") String title, @Param("content") String content, @Param("noticeNo") int noticeNo);
+	
+	// 1대 1문의 
+	int getQuestionListCount();
+	List<Map<String, Object>> getQuestionList(RowBounds questionBounds);
 
+	// 1대 1문의 삭제하기
+	void deleteQuestionList(int questionNo);
+	
+	// 1대 1문의 답변하기
+	void answerList(@Param("questionNo") int questionNo, @Param("questionAnswer") String questionAnswer);
 
 
 

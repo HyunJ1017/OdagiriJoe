@@ -101,6 +101,8 @@
 		R.REPORT_DEL_FL ='N'
 
 	</select>
+	
+	
 
 	<!--작가 승인 요청  -->
 	<select id="getRequestListCount" resultType="_int">
@@ -274,6 +276,52 @@
        
     WHERE NOTICE_NO = #{noticeNo}
 	</update>
+	
+	
+	<!-- 1대 1문의 -->
+	<select id="getQuestionListCount" resultType="_int">
+	SELECT COUNT(*)
+	FROM QUESTION
+	WHERE QUESTION_DEL_FL = 'N'
+	  AND
+		 QUESTION_ANS_FL = 'N'
+	</select>
+	
+	<select id="getQuestionList" resultType="map">
+	SELECT 
+	QUESTION_NO AS "questionNo", 
+	MEMBER_NO AS "memberNo", 
+	QUESTION_CONTENT AS "questionContent", 
+	QUESTION_DEL_FL AS "questionDelFl", 
+	QUESTION_ANS_FL AS "questionAnsFl", 
+	QUESTION_ANSWER AS "questionAnswer"
+	FROM QUESTION
+	WHERE
+	    QUESTION_DEL_FL = 'N'
+	   AND
+		 QUESTION_ANS_FL = 'N'
+	</select>
+	
+	<!-- 1대 1문의 삭제하기  -->
+	<update id="deleteQuestionList">
+	UPDATE QUESTION
+	SET QUESTION_DEL_FL = 'Y'
+	WHERE QUESTION_NO = #{questionNo}
+	AND QUESTION_DEL_FL = 'N'
+	</update>
+	
+	<!--1대 1문의 답변하기  -->
+	<update id="answerList">
+	UPDATE QUESTION
+    SET 
+        QUESTION_ANS_FL = 'Y',
+        QUESTION_ANSWER = #{questionAnswer}
+    WHERE 
+        QUESTION_NO = #{questionNo}
+        AND QUESTION_ANS_FL = 'N'
+	</update>
+		
+		
 </mapper>
 
  

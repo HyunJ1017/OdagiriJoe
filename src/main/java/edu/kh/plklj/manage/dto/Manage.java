@@ -80,6 +80,17 @@ public class Manage {
 		private String noticeDate;
 		private String noticeDelFl;
 		
+		// 문의
+		private int questionNo;
+		private String questionContent;
+		private String questionDate;
+		private String questionDelFl;
+		private String questionAnsFl;
+		private String questionAnswer;
+		private int questionCategoryNo;
+		
+		// 문의 분류
+		private int questionCategoryName;
 		
 	
 
