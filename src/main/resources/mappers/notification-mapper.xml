@@ -28,8 +28,6 @@
 		GROUP BY RECEIVE_MEMBER_NO
 	</select>
 	
-	
-	
 	<!-- 로그인한 회원의 알림 목록 조회 -->
 	<select id="selectNotificationList" resultType="Notification">
 		SELECT NOTI_NO, NOTI_CONTENT, READ_CHECK, NOTI_URL, SEND_MEMBER_NO, RECEIVE_MEMBER_NO,
@@ -71,18 +69,7 @@
 	    FROM FOLLOW
 	    WHERE ARTIST_NO = #{artistNo}
 	</select>
-	
-	<!-- 팔로우 작가 알림 삽입 쿼리 -->
-	<insert id="insertFollowedArtistNotification" parameterType="map">
-	    INSERT INTO "NOTIFICATION" (
-	        NOTI_NO, RECEIVE_MEMBER_NO, READ_CHECK, NOTI_CONTENT, NOTI_URL, SEND_MEMBER_NO, NOTI_TYPE
-	    )
-	    SELECT 
-	        SEQ_NOTI_NO.NEXTVAL, PL.RECEIVE_MEMBER_NO, 'N', '팔로우한 작가가 새로운 작품을 업로드했습니다.', '/piece/onlineDetail/' || P.PIECE_NO, P.MEMBER_NO AS SEND_MEMBER_NO, 'F'
-	    FROM PIECE_LIKE PL
-	    JOIN PIECE P ON PL.PIECE_NO = P.PIECE_NO
-	    WHERE P.START_DATE = TRUNC(SYSDATE + #{daysBefore})
-	</insert>
+
 
 	<!-- 찜한 게시물 알림 삽입 쿼리 -->
 	<insert id="insertAuctionNotifications" parameterType="map">

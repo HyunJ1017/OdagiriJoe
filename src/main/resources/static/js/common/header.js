@@ -161,20 +161,48 @@ const connectSse = () => {
   });
 };
 
+const showNotification = (message) => {
+  const notiCountHeart = document.querySelector(".notification-count");
 
-// 새 알림 팝업 표시 함수
-const showNotificationPopup = (message) => {
+  // 알림 카운트 증가
+  const currentCount = parseInt(notiCountHeart.textContent.replace('♥', '').trim()) || 0;
+  notiCountHeart.textContent = `♥ ${currentCount + 1}`;
+  notiCountHeart.style.display = "inline-block"; // 숨겨져 있던 알림 카운트 표시
+
+  // 팝업 생성
   const popup = document.createElement("div");
-  popup.className = "notification-popup"; // 팝업 스타일 클래스
-  popup.innerText = message; // 팝업에 메시지 표시
+  popup.className = "popup";
+  popup.textContent = message;
 
-  document.body.appendChild(popup); // 팝업을 DOM에 추가
+  // 팝업을 화면에 추가
+  document.body.appendChild(popup);
 
-  // 일정 시간 후 팝업 제거 (3초 후)
+  // 팝업 애니메이션 표시
+  setTimeout(() => popup.classList.add("show"), 10);
+
+  // 일정 시간 후 팝업 제거
   setTimeout(() => {
-    popup.remove();
+    popup.classList.remove("show");
+    setTimeout(() => popup.remove(), 300); // 애니메이션 후 팝업 제거
   }, 3000);
 };
+const socket = new WebSocket("ws://localhost:8080");
+
+socket.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  showNotification(data.message); // 서버에서 받은 메시지로 알림 표시
+};
+
+socket.onopen = () => {
+  console.log("WebSocket 연결 성공");
+};
+
+socket.onclose = () => {
+  console.log("WebSocket 연결 종료");
+};
+
+
+
 
 // 알림 전송 함수 (Ajax 사용)
 const sendNotification = (type, url, pkNo, content) => {
@@ -198,6 +226,29 @@ const sendNotification = (type, url, pkNo, content) => {
       console.log("알림 전송 성공");
     })
     .catch(console.error);
+};
+
+// 비동기로 알림 목록 조회 및 화면 표시// 날짜 포맷 함수
+const formatNotificationDate = (dateString) => {
+  const notificationDate = new Date(dateString);
+  const now = new Date();
+  
+  const timeDiff = now - notificationDate; // 밀리초 단위 시간 차이
+  const oneDay = 24 * 60 * 60 * 1000; // 24시간(밀리초)
+
+  if (timeDiff < oneDay) {
+    // 24시간 이내인 경우 시:분:초 표시
+    const hours = notificationDate.getHours().toString().padStart(2, '0');
+    const minutes = notificationDate.getMinutes().toString().padStart(2, '0');
+    const seconds = notificationDate.getSeconds().toString().padStart(2, '0');
+    return `${hours}:${minutes}:${seconds}`;
+  } else {
+    // 24시간 이상 지난 경우 날짜만 표시
+    const year = notificationDate.getFullYear();
+    const month = (notificationDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = notificationDate.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
 };
 
 // 비동기로 알림 목록 조회 및 화면 표시
@@ -230,7 +281,7 @@ const selectNotificationList = () => {
         // 날짜와 시간
         const notiDate = document.createElement("div");
         notiDate.className = "notification-date";
-        notiDate.innerText = data.notiDate;
+        notiDate.innerText = formatNotificationDate(data.notiDate); // 날짜 포맷팅 함수 사용
 
         // 삭제 버튼
         const notiDelete = document.createElement("button");
@@ -259,6 +310,7 @@ const selectNotificationList = () => {
     })
     .catch(console.error);
 };
+
 
 // 읽지 않은 알림 개수 조회 및 화면 업데이트
 const readCheck = () => {

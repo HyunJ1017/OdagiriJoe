@@ -21,9 +21,9 @@
               <article class="main-item" th:each="artist, stat : ${showViewing}">
                 <div class="main-detail" th:object="${artist}">
                   <p th:text="|*{pieceTitle}|" class="mainPriceText">카테고리 이름</p>
-                  <p th:text="|Open Time: *{startDate}|">시작 일시</p>
-                  <p th:text="|End Time: *{endDate}|">끝난 일시</p>
-                  <button type="button" class="seeBtn" th:onclick="|location.href='/auction/currentDetail?pieceNo=*{pieceNo}'|">보러가기</button>
+                  <p th:text="|Open Time: *{startDate}|" class="mainTimeText">시작 일시</p>
+                  <p th:text="|End Time: *{endDate}|" class="mainTimeText">끝난 일시</p>
+                  <button type="button" class="seeBtn" th:onclick="|location.href='/auction/upCommingDetail?pieceNo=*{pieceNo}'|">보러가기</button>
                 </div>
                 <img th:src="${artist.pieceRename}" alt="Main" class="main-image" th:data-id="*{memberNo}">
               </article>
@@ -32,17 +32,18 @@
         </div>
       </div>
     </section>
-
-    <!-- 인디케이터 바 -->
-    <!-- 이전/다음 버튼 -->
-    <div class="indicator-container">
-      <button class="prev-btn" onclick="moveSlide(-1)">&#10094;</button>
-      <div class="progress-bar-container">
-        <div class="progress-bar"></div>
+      
+      <!-- 인디케이터 바 -->
+      <!-- 이전/다음 버튼 -->
+      <div class="indicator-container">
+        <button class="prev-btn" onclick="moveSlide(-1)">&#10094;</button>
+        <div class="progress-bar-container">
+          <div class="progress-bar"></div>
+        </div>
+        <button class="next-btn" onclick="moveSlide(1)">&#10095;</button>
       </div>
-      <button class="next-btn" onclick="moveSlide(1)">&#10095;</button>
-    </div>
-  </main>
+    </main>
+
 
   <!-- 갤러리 섹션 -->
   <section class="art-container">
