@@ -128,3 +128,23 @@ document.addEventListener("DOMContentLoaded", () => {
     purchaseBtn.style.cursor = "not-allowed"; // 비활성화된 버튼의 시각적 효과
   }
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const sellPrice = document.getElementById("sellPrice");
+  const rawPrice = sellPrice.getAttribute("data-price");
+
+  if(rawPrice) {
+    const formattedPrice = new Intl.NumberFormat("ko-KR", {
+      style: "currency",
+      currency: "KRW"
+    }).format(Number(rawPrice));
+    sellPrice.textContent = formattedPrice + " (KRW)";
+  }
+});
+
+function hideLoader(imgElement) {
+  const loader = imgElement.nextElementSibling; // loader div
+  loader.style.display = 'none'; // 로딩 이미지 숨기기
+  imgElement.style.display = 'block'; // 실제 이미지 보이기
+}
