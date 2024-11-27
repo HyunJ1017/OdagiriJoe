@@ -67,6 +67,7 @@
 	    WHERE ARTIST_NO = #{artistNo}
 	</select>
 	
+	<!-- 위시리스트 추가 회원 목록 조회 -->
 	<select id="wishList" resultType="int">
 		SELECT MEMBER_NO
 		FROM WISH

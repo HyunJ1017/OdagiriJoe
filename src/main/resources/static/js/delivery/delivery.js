@@ -105,10 +105,7 @@ document.getElementById("select").addEventListener("click", () => {
     }
   });
 
-  // 조회된 날짜가 없는 경우
-  if (!hasVisibleRow) {
-    alert("조회된 날짜가 없습니다.");
-  }
+
 });
 
 
