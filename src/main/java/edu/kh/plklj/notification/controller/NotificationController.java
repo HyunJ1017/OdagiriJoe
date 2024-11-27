@@ -78,33 +78,46 @@ public class NotificationController {
 		
 	}
 
-//	// 팔로우 작가 업로드 알림
-//	@ResponseBody
-//	@PostMapping("followedArtistUpload")
-//	public void followedArtistUpload(@RequestBody Notification notification) {
-//    List<Member> followers = service.followList(notification.getSendMemberNo());
-//    Map<String, Object> map = new HashMap<>();
-//    for (Member follower : followers) {
-//        notification.setReceiveMemberNo(follower.getMemberNo());
-//        notification.setNotiContent("팔로우한 작가가 새로운 작품을 업로드했습니다.");
-//        notification.setNotiType("F");
-//        service.notificationInsert(notification);
-//		}
-//	}
-
 	// 스케줄러 이용한 알림 보내기
-	@Scheduled(cron = "0 0 9 * * *")
+	@Scheduled(cron = "0 0 12 * * *")
 	public void notifyAuctionItems() {
-		sendAuctionNotifications(service.getAuctionNotification(1), "찜한 게시물의 경매가 내일 오전 10시에 시작됩니다.");
-		sendAuctionNotifications(service.getAuctionNotification(0), "찜한 게시물의 경매가 오늘 오전 10시에 시작됩니다.");
+		List<Notification> tomorrowNotifications = service.getAuctionNotification(1);
+		List<Notification> todayNotifications = service.getAuctionNotification(0);
+
+		// 전날 알림
+		if (!tomorrowNotifications.isEmpty()) {
+			sendAuctionNotifications(tomorrowNotifications, "찜한 게시물의 경매가 내일 오전 10시에 시작됩니다.");
+		}
+
+		// 당일 알림
+		if (!todayNotifications.isEmpty()) {
+			sendAuctionNotifications(todayNotifications, "찜한 게시물의 경매가 오늘 오전 10시에 시작됩니다.");
+		}
 	}
 
 	private void sendAuctionNotifications(List<Notification> notifications, String message) {
 		for (Notification notification : notifications) {
+			// 메시지 설정
 			notification.setNotiContent(message);
+
+			// 경매 상태에 따른 URL 처리
+			String notiUrl;
+			if ("A".equals(notification.getPiece())) { // 경매 전 상태
+				notiUrl = "/auction/upCommingDetail?pieceNo=" + notification.getPieceNo();
+			} else if ("S".equals(notification.getPiece())) { // 경매 중 상태
+				notiUrl = "/auction/currentDetail?pieceNo=" + notification.getPieceNo();
+			} else {
+				System.err.println("알 수 없는 경매 상태: " + notification.getPiece());
+				continue;
+			}
+
+			notification.setNotiUrl(notiUrl);
+
+			// 알림 전송
 			sendNotification(notification);
 		}
 	}
+
 
 	private void sendNotification(Notification notification) {
 		List<Map<String, Object>> list = service.notificationInsert(notification);
@@ -120,9 +133,7 @@ public class NotificationController {
 	            emitters.remove(clientId);
 	        }
 	    }
-	    
 		}
-		
 	}
 
 	/** 로그인한 회원의 알림 목록 조회

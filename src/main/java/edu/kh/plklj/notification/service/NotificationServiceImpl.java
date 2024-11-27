@@ -46,8 +46,6 @@ public class NotificationServiceImpl implements NotificationService {
      
      return list;
    }
-
-	 
 	 
    @Override
    public List<Notification> selectNotification(int memberNo) {
@@ -68,13 +66,6 @@ public class NotificationServiceImpl implements NotificationService {
    public void updateNotification(int notiNo) {
        mapper.updateNotification(notiNo);
    }
-
-//   @Override
-//   public List<Member> followList(int sendMemberNo) {
-//  	 Map<String, Object> map = new HashMap<>();
-//			 map.put("sendMemberNo", sendMemberNo);
-//       return mapper.followList(sendMemberNo);
-//   }
 
    @Override
    public List<Notification> getAuctionNotification(int daysBefore) {

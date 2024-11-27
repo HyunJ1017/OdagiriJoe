@@ -30,6 +30,7 @@ public class Notification {
 	private String notiType; // 알림 유형
 	private int receiveMemberNo; // 알림 받는 회원
 	private int sendMemberNo; // 알림 보내는 회원 
+	private int pieceNo; // 작품 번호
 	
 	private Member member; // 회원 정보
 	private Piece piece; // 작품 정보

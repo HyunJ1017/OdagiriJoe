@@ -18,7 +18,7 @@ header a {
 
 main {
   flex-grow: 1;
-  padding-top: 9vh;
+  padding-top: 10vh;
 }
 
 /* 헤더 영역 */
@@ -74,17 +74,16 @@ main {
 
 /* 중앙 메뉴 스타일 */
 .header-menu {
+  top: 62%;
   display: flex;
-  gap: 4vw;
-  /* 메뉴 간 간격을 뷰포트 너비에 따라 조정 */
+  gap: 10vw;
   justify-content: center;
   align-items: flex-end;
   transform: translate(5%, -10%);
   color: #5e7c71;
   flex-wrap: wrap;
-  position: relative;
-  width: 500px;
-  padding-bottom: 1%;
+  position: absolute;
+  width: 46%;
   text-shadow: 1px 1px #c9c9c9;
 }
 
@@ -187,28 +186,26 @@ main {
 .notification-section {
   width: 100%;
   display: flex;
-  justify-content: flex-end;
-  position: fixed;
+  justify-content: space-between;
+  position: relative;
   top: 20px;
-  right: 20px;
   z-index: 1000;
 }
 
 /* 알림 컨테이너 */
 .notification-container {
-  width: 400px;
-  max-height: 400px;
+  width: 100%;
+  max-height: 140px;
   padding: 10px;
   border: 1px solid #5e7c71;
   border-radius: 5px;
   background-color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 10px; /* 알림 간격 */
+  gap: 10px;
   position: relative;
-  left: 610px;
+  right: -165%;
 }
 
 /* 알림 개수 */
@@ -240,11 +237,11 @@ main {
 }
 
 /* 알림 항목 */
-.notification-list > li {
+.notification-list>li {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 4px;
   background-color: #ffffff;
   border: 1px solid #5e7c71;
   border-radius: 5px;
@@ -267,10 +264,10 @@ main {
 
 /* 알림 날짜 */
 .notification-date {
-  font-size: 12px;
   color: #5e7c71;
   margin-left: 10px;
   white-space: nowrap;
+  font-size: 12px;
 }
 
 /* 삭제 버튼 */
@@ -278,7 +275,7 @@ main {
   background: none;
   border: none;
   color: #5e7c71;
-  font-size: 16px;
+  font-size: 10px;
   cursor: pointer;
   transition: color 0.3s;
 }
@@ -352,9 +349,9 @@ main {
 .sub-bg {
   background-color: rgba(94, 124, 113, 0.4);
   width: 100vw;
-  height: 230px;
+  height: 220px;
   position: absolute;
-  top: -15px;
+  top: -22px;
   color: #ffffff;
 }
 /* 드롭다운 메뉴 스타일 */

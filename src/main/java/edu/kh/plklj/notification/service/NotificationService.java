@@ -38,12 +38,6 @@ public interface NotificationService {
    */
   void updateNotification(int notiNo);
 
-  /** 팔로우한 회원 목록 조회
-   * @param sendMemberNo
-   * @return
-   */
-//  List<Member> followList(int sendMemberNo);
-
   /** 경매 알림 목록 조회
    * @param daysBefore
    * @return

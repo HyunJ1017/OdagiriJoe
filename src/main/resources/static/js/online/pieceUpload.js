@@ -369,7 +369,7 @@ const pieceUpload = () => {
           notiContent = '팔로우한 작가가 새로운 작품을 업로드했습니다.';
         }
         else if(pieceType.value === "2"){
-          notiUrl = `/auction/currentDetail?pieceNo=${pieceNo}`;
+          notiUrl = `/auction/upCommingDetail?pieceNo=${pieceNo}`;
           notiContent = '팔로우한 작가가 새로운 경매를 업로드했습니다.';
         }
         sendNotification("F", notiUrl, pieceNo, notiContent);
