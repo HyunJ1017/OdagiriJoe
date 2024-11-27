@@ -46,27 +46,27 @@ likePiece.addEventListener("click", e => {
 
 //--------------------------------------------------------------------------
 /* 경매 알림 */
-const sendAuctionNotifications = (notifications, notiContent) => {
-  notifications.forEach((auction) => {
-    const pieceNo = auction.pieceNo; // 작품 번호
-    const pieceStatus = auction.pieceStatus; // 경매 상태
+// const sendAuctionNotifications = (notifications, notiContent) => {
+//   notifications.forEach((auction) => {
+//     const pieceNo = auction.pieceNo; // 작품 번호
+//     const pieceStatus = auction.pieceStatus; // 경매 상태
 
-    let notiUrl;
-    let notiContent;
+//     let notiUrl;
+//     let notiContent;
     
-    // 경매 상태에 따른 URL 설정
-    if(pieceStatus.value === "A"){
-      notiUrl = `/auction/upCommingDetail?pieceNo=${pieceNo}`;
-      notiContent = '찜한 게시물의 경매가 내일 오전 10시에 시작됩니다.';
-    }
-    else if(pieceStatus.value === "S"){
-      notiUrl = `/auction/currentDetail?pieceNo=${pieceNo}`;
-      notiContent = '찜한 게시물의 경매가 오늘 오전 10시에 시작됩니다.';
-    }
-    // 알림 전송
-    sendNotification("A", notiUrl, pieceNo, notiContent);
-  });
-};
+//     // 경매 상태에 따른 URL 설정
+//     if(pieceStatus.value === "A"){
+//       notiUrl = `/auction/upCommingDetail?pieceNo=${pieceNo}`;
+//       notiContent = '찜한 게시물의 경매가 내일 오전 10시에 시작됩니다.';
+//     }
+//     else if(pieceStatus.value === "S"){
+//       notiUrl = `/auction/currentDetail?pieceNo=${pieceNo}`;
+//       notiContent = '찜한 게시물의 경매가 오늘 오전 10시에 시작됩니다.';
+//     }
+//     // 알림 전송
+//     sendNotification("A", notiUrl, pieceNo, notiContent);
+//   });
+// };
 
 // --------------------------------------------------------------------------
 // 남은 시간을 업데이트하는 함수
