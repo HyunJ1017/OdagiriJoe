@@ -51,9 +51,15 @@ public interface NotificationMapper {
    */
   List<Integer> selectFollowList(int sendMemberNo);
 
+  /** 위시리스트 추가 회원 목록 조회
+   * @param pieceNo
+   * @return
+   */
+  List<Integer> wishList(int pieceNo);
   /** 경매 알림 목록 조회
    * @param daysBefore
    * @return
    */
   List<Notification> getAuctionNotification(int daysBefore);
+
 }
