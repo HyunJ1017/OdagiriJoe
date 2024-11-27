@@ -1,9 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
-
   // 사이드 메뉴 기능을 위한 요소 가져오기
   const sideMenu = document.getElementById('side-menu');
   const menuBtn = document.querySelector('#menu-icon');
   const closeBtn = document.querySelector('.close-icon');
+
+  // 검색 및 알림 섹션 관련 요소 가져오기
+  const searchSection = document.getElementById('search-section');
+  const notificationSection = document.getElementById('notification-section');
 
   // 드롭다운 기능 요소
   const navItems = document.querySelectorAll('.nav-item');
@@ -52,13 +55,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // 사이드 메뉴 가시성 토글 함수
   function toggleMenu() {
-    console.log("$");
-    console.log(sideMenu);
-
     if (sideMenu.classList.contains('open')) sideMenu.classList.remove('open');
-    else sideMenu.classList.add('open');
+    else {
+      // 사이드 메뉴를 열 때 다른 창 닫기
+      searchSection.style.display = 'none';
+      notificationSection.style.display = 'none';
+      sideMenu.classList.add('open');
+    }
   }
 
+  // 사이드 메뉴 열기/닫기
   menuBtn.addEventListener("click", toggleMenu);
   closeBtn.addEventListener("click", toggleMenu);
 
@@ -74,58 +80,57 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-/* 검색 */
+// ----------------------------------------------------------------------------------------------------------------
+/* 검색 섹션 */
 document.addEventListener('DOMContentLoaded', () => {
-  // 검색 아이콘과 특정 검색 섹션 가져오기
   const searchIcon = document.getElementById('search-icon');
   const searchSection = document.getElementById('search-section');
-
-  // 알림 관련 DOM 요소 가져오기
+  const searchBtn = document.getElementById('searchBtn');
+  const queryInput = document.getElementById('query');
+  const sideMenu = document.getElementById('side-menu');
   const notificationSection = document.getElementById('notification-section');
 
   // 검색 아이콘 클릭 이벤트
   searchIcon.addEventListener('click', () => {
-    // 검색 섹션 표시/숨김 상태 토글
+    // 검색창 열기/닫기
     if (searchSection.style.display === 'none' || searchSection.style.display === '') {
-      searchSection.style.display = 'block'; // 검색창 보이기
+      searchSection.style.display = 'block'; // 검색창 열기
       notificationSection.style.display = 'none'; // 알림창 닫기
+      sideMenu.classList.remove('open'); // 사이드바 닫기
     } else {
-      searchSection.style.display = 'none'; // 검색창 숨기기
+      searchSection.style.display = 'none'; // 검색창 닫기
     }
   });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-  // 검색 버튼과 검색 입력 필드 가져오기
-  const searchBtn = document.getElementById('searchBtn');
-  const queryInput = document.getElementById('query');
 
   // 검색 버튼 클릭 이벤트
   searchBtn.addEventListener('click', (event) => {
     event.preventDefault(); // 기본 버튼 동작 방지
-
-    // 검색어 가져오기
     const query = queryInput.value.trim();
 
     if (query) {
-      // 검색 결과 페이지로 이동 (URL이 /search로 시작)
-      window.location.href = `/main/search?query=${encodeURIComponent(query)}`;
+      window.location.href = `/main/search?query=${encodeURIComponent(query)}`; // 검색 결과 페이지로 이동
     } else {
       alert('검색어를 입력해주세요.'); // 검색어가 비어 있을 때 경고
     }
   });
 });
 
-
 // ----------------------------------------------------------------------------------------------------------------
+/* 알림 섹션 */
 document.addEventListener('DOMContentLoaded', () => {
   const notificationIcon = document.getElementById('notification-icon'); // 알림 아이콘
   const notificationSection = document.getElementById('notification-section'); // 알림 섹션
   const notificationList = document.querySelector(".notification-list"); // 알림 목록
+  const searchSection = document.getElementById('search-section'); // 검색 섹션
+  const sideMenu = document.getElementById('side-menu'); // 사이드바
 
   // 알림 아이콘 클릭 이벤트 - 알림 섹션 표시/숨기기
   notificationIcon.addEventListener('click', () => {
-    // 알림 섹션 토글
+    // 검색창과 사이드바 닫기
+    searchSection.style.display = 'none';
+    sideMenu.classList.remove('open');
+
+    // 알림 섹션 열기/닫기
     notificationSection.style.display =
       notificationSection.style.display === 'none' || notificationSection.style.display === '' ? 'block' : 'none';
 
@@ -138,6 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
 
 // SSE(Send Server Events) 연결 함수
 const connectSse = () => {
@@ -162,48 +168,16 @@ const connectSse = () => {
 };
 
 // 알림 팝업 표시 함수
-function showNotification(message) {
-  const popup = document.getElementById('notification-popup'); // 팝업 요소 선택
+function updateNotificationCount() {
+  const notificationCount = document.querySelector('.notification-count'); // 알림 카운트 요소
 
-  // 알림 메시지 설정
-  popup.textContent = message;
+  // 현재 알림 개수를 가져오고 +1 증가
+  const currentCount = parseInt(notificationCount.textContent) || 0;
+  notificationCount.textContent = currentCount + 1;
 
-  // 팝업 표시
-  popup.classList.add('show');
-  popup.classList.remove('hide');
-  popup.style.display = 'block';
-
-  // 3초 후 팝업 숨김
-  setTimeout(() => {
-    popup.classList.add('hide');
-    popup.classList.remove('show');
-    setTimeout(() => {
-      popup.style.display = 'none'; // 완전히 숨김 처리
-    }, 300); // CSS transition 완료 후 실행
-  }, 3000); // 3초 동안 표시
+  // 알림 배지 표시
+  notificationCount.style.display = 'inline-block'; // 알림이 있으면 배지를 보이게 함
 }
-
-// 예시: SSE 또는 WebSocket에서 알림 수신 시 호출
-document.addEventListener('DOMContentLoaded', () => {
-  // SSE 예제
-  const eventSource = new EventSource('/notification/sse-endpoint'); // 서버의 SSE 엔드포인트
-
-  eventSource.onmessage = (event) => {
-    const data = JSON.parse(event.data);
-    const notificationCount = document.querySelector('.notification-count');
-
-    // 알림 개수 업데이트
-    notificationCount.textContent = data.notiCount || '♥ 0';
-    notificationCount.style.display = 'inline-block';
-
-    // 실시간 알림 팝업 표시
-    showNotification(data.message); // 서버로부터 받은 메시지를 팝업에 표시
-  };
-
-  eventSource.onerror = () => {
-    console.error('SSE 연결 실패');
-  };
-});
 
 // 알림 전송 함수 (Ajax 사용)
 const sendNotification = (type, url, pkNo, content) => {
@@ -229,108 +203,160 @@ const sendNotification = (type, url, pkNo, content) => {
     .catch(console.error);
 };
 
-// 비동기로 알림 목록 조회 및 화면 표시// 날짜 포맷 함수
-function formatNotificationDate(dateString) {
-  const notificationDate = new Date(dateString); // 알림 날짜
-  const now = new Date(); // 현재 날짜
-  const timeDiff = now - notificationDate; // 밀리초 단위 시간 차이
-  const oneDay = 24 * 60 * 60 * 1000; // 1일 (밀리초 단위)
-  const oneHour = 60 * 60 * 1000; // 1시간 (밀리초 단위)
-  const oneMinute = 60 * 1000; // 1분 (밀리초 단위)
-  const oneSecond = 1000; // 1초 (밀리초 단위)
 
-  // 1분 이내
+// ------------------------------------------------------------------------------------------------------------------
+/* 날짜 함수 */
+function formatNotificationDate(dateString) {
+  const notificationDate = new Date(dateString);
+  const now = new Date();
+  const timeDiff = now - notificationDate;
+  const oneDay = 24 * 60 * 60 * 1000;
+  const oneWeek = 7 * oneDay;
+  const oneHour = 60 * 60 * 1000;
+  const oneMinute = 60 * 1000;
+  const oneSecond = 1000;
+
   if (timeDiff < oneMinute) {
-    const secondsAgo = Math.floor(timeDiff / oneSecond); // 초 단위 차이
+    const secondsAgo = Math.floor(timeDiff / oneSecond);
     return secondsAgo === 0 ? "방금 전" : `${secondsAgo}초 전`;
   }
 
-  // 1시간 이내
   if (timeDiff < oneHour) {
-    const minutesAgo = Math.floor(timeDiff / oneMinute); // 분 단위 차이
+    const minutesAgo = Math.floor(timeDiff / oneMinute);
     return `${minutesAgo}분 전`;
   }
 
-  // 24시간 이내
   if (timeDiff < oneDay) {
-    const hoursAgo = Math.floor(timeDiff / oneHour); // 시간 단위 차이
+    const hoursAgo = Math.floor(timeDiff / oneHour);
     return `${hoursAgo}시간 전`;
   }
 
-  // 일주일 이내
-  const daysAgo = Math.floor(timeDiff / oneDay); // 일 단위 차이
-  if (daysAgo <= 7) {
+  if (timeDiff < oneWeek) {
+    const daysAgo = Math.floor(timeDiff / oneDay);
     return `${daysAgo}일 전`;
   }
 
-  // 일주일 이상 (날짜만 표시)
-  const year = notificationDate.getFullYear();
-  const month = (notificationDate.getMonth() + 1).toString().padStart(2, '0'); // 월
-  const day = notificationDate.getDate().toString().padStart(2, '0'); // 일
-  return `${year}-${month}-${day}`; // "YYYY-MM-DD" 형식으로 반환
+  const weeksAgo = Math.ceil(timeDiff / oneWeek);
+  return `${weeksAgo}주 전`;
 }
 
+// 알림 데이터를 날짜에 따라 그룹화
+function categorizeNotificationDate(dateString) {
+  const notificationDate = new Date(dateString);
+  const now = new Date();
 
-// 비동기로 알림 목록 조회 및 화면 표시
+  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const weekStart = new Date(todayStart);
+  weekStart.setDate(todayStart.getDate() - todayStart.getDay());
+  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+
+  if (notificationDate >= todayStart) {
+    return "오늘";
+  } else if (notificationDate >= weekStart) {
+    return "이번 주";
+  } else if (notificationDate >= monthStart) {
+    return "이번 달";
+  } else {
+    return "이전 활동";
+  }
+}
+
+// 알림 데이터를 그룹화
+function groupNotificationsByDate(notifications) {
+  const groupedNotifications = {
+    "오늘": [],
+    "이번 주": [],
+    "이번 달": [],
+    "이전 활동": []
+  };
+
+  notifications.forEach((notification) => {
+    const category = categorizeNotificationDate(notification.notiDate);
+    groupedNotifications[category].push(notification);
+  });
+
+  return groupedNotifications;
+}
+
+// 알림 데이터를 화면에 렌더링
+function renderNotifications(groupedNotifications) {
+  const notificationList = document.querySelector(".notification-list");
+  notificationList.innerHTML = "";
+
+  let isFirstSection = true; // 첫 섹션 여부 확인
+
+  for (const category in groupedNotifications) {
+    if (!isFirstSection) {
+      // 구분선 추가 (첫 섹션이 아닌 경우에만)
+      const separator = document.createElement("div");
+      separator.className = "custom-line";
+      separator.style.borderTop = "1px solid #ccc"; // 구분선 스타일
+      separator.style.margin = "10px 0";
+      notificationList.appendChild(separator);
+    }
+
+    // 섹션 헤더 추가
+    const sectionHeader = document.createElement("h3");
+    sectionHeader.textContent = category;
+    sectionHeader.style.margin = "10px 0"; // 헤더 간격 추가
+    notificationList.appendChild(sectionHeader);
+
+    groupedNotifications[category].forEach((data) => {
+      const notiItem = document.createElement("li");
+      notiItem.className = "notification-item";
+
+      const notiContent = document.createElement("div");
+      notiContent.className = "notification-content";
+      notiContent.innerText = data.notiContent;
+
+      const notiType = document.createElement("div");
+      notiType.className = "notification-type";
+      notiType.innerText = data.notiType;
+
+      const notiDate = document.createElement("div");
+      notiDate.className = "notification-date";
+      notiDate.innerText = formatNotificationDate(data.notiDate);
+
+      const notiDelete = document.createElement("button");
+      notiDelete.className = "notification-delete";
+      notiDelete.innerHTML = "&times;";
+      notiDelete.addEventListener("click", () => {
+        fetch(`/notification/delete/${data.notiNo}`, { method: "DELETE" })
+          .then((response) => {
+            if (!response.ok) throw new Error("알림 삭제 실패");
+            notiItem.remove();
+            readCheck();
+          })
+          .catch(console.error);
+      });
+
+      notiContent.addEventListener("click", () => {
+        location.href = data.notiUrl;
+      });
+
+      notiItem.append(notiContent, notiType, notiDate, notiDelete);
+      notificationList.appendChild(notiItem);
+    });
+
+    isFirstSection = false; // 첫 섹션 렌더링 후 false로 변경
+  }
+}
+
+// 서버에서 알림 데이터를 가져와 렌더링
 const selectNotificationList = () => {
-  if (!notificationLoginCheck) return; // 로그인이 안 된 경우 종료
+  if (!notificationLoginCheck) return;
 
-  fetch("/notification/list") // 서버로부터 알림 목록 조회
+  fetch("/notification/list")
     .then((response) => {
-      if (response.ok) return response.json(); // 성공 시 JSON 데이터를 파싱
+      if (response.ok) return response.json();
       throw new Error("알림 목록 조회 실패");
     })
     .then((notifications) => {
-      const notificationList = document.querySelector(".notification-list");
-      notificationList.innerHTML = ""; // 기존 알림 초기화
-
-      notifications.forEach((data) => {
-        const notiItem = document.createElement("li"); // 알림 항목 요소 생성
-        notiItem.className = "notification-item";
-
-        // 알림 내용
-        const notiContent = document.createElement("div");
-        notiContent.className = "notification-content";
-        notiContent.innerText = data.notiContent;
-
-        // 경매/업로드 상태
-        const notiType = document.createElement("div");
-        notiType.className = "notification-type";
-        notiType.innerText = data.notiType;
-
-        // 날짜와 시간
-        const notiDate = document.createElement("div");
-        notiDate.className = "notification-date";
-        notiDate.innerText = formatNotificationDate(data.notiDate); // 날짜 포맷팅 함수 사용
-
-        // 삭제 버튼
-        const notiDelete = document.createElement("button");
-        notiDelete.className = "notification-delete";
-        notiDelete.innerHTML = "&times;"; // 버튼 표시
-        notiDelete.addEventListener("click", () => {
-          // 삭제 요청
-          fetch(`/notification/delete/${data.notiNo}`, { method: "DELETE" })
-            .then((response) => {
-              if (!response.ok) throw new Error("알림 삭제 실패");
-              notiItem.remove(); // 삭제된 항목 제거
-              readCheck(); // 읽지 않은 알림 개수 갱신
-            })
-            .catch(console.error);
-        });
-
-        // 알림 클릭 시 해당 경로로 이동
-        notiContent.addEventListener("click", () => {
-          location.href = data.notiUrl; // 알림 경로로 이동
-        });
-
-        // 구성 순서: 내용 -> 경매/업로드 상태 -> 날짜/시간 -> 삭제 버튼
-        notiItem.append(notiContent, notiType, notiDate, notiDelete);
-        notificationList.appendChild(notiItem);
-      });
+      const groupedNotifications = groupNotificationsByDate(notifications);
+      renderNotifications(groupedNotifications);
     })
     .catch(console.error);
 };
-
 
 // 읽지 않은 알림 개수 조회 및 화면 업데이트
 const readCheck = () => {

@@ -237,21 +237,27 @@ main {
   gap: 10px; /* 알림 항목 간격 */
 }
 
+/* 알림 섹션 헤더 */
+.notification-list h3 {
+  font-size: 16px;
+  margin: 2% 0 1%;
+  color: #414141;
+}
+
 /* 알림 항목 */
-.notification-list>li {
+.notification-list > li {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4px;
+  padding: 1%; /* 여백 추가 */
   background-color: #ffffff;
-  border: 1px solid #5e7c71;
-  border-radius: 5px;
-  transition: background-color 0.3s, box-shadow 0.3s;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* 알림 항목 호버 효과 */
 .notification-list > li:hover {
-  background-color: #f9f9f9;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #e7e7e7; /* 더 짙은 배경색 */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 가벼운 그림자 효과 */
 }
 
 /* 알림 내용 */
@@ -265,8 +271,8 @@ main {
 
 /* 알림 날짜 */
 .notification-date {
-  color: #5e7c71;
-  margin-left: 10px;
+  color: #414141;
+  margin-left: 1%;
   white-space: nowrap;
   font-size: 12px;
 }
@@ -275,10 +281,10 @@ main {
 .notification-delete {
   background: none;
   border: none;
-  color: #5e7c71;
-  font-size: 10px;
+  color: #414141;
+  font-size: 14px;
   cursor: pointer;
-  transition: color 0.3s;
+  transition: color 0.3s ease;
   margin-left: 4%;
 }
 
@@ -288,9 +294,9 @@ main {
 
 /* 구분선 */
 .custom-line {
-  border-bottom: 1px solid #acacac;
+  border-bottom: 0.5px solid #dbdbdb;
   width: 100%;
-  margin: 1% 0% 2% 0%;
+  margin: 1% 0% 1% 0%;
 }
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------------- */
