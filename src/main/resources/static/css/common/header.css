@@ -194,18 +194,19 @@ main {
 
 /* 알림 컨테이너 */
 .notification-container {
-  width: 100%;
-  max-height: 140px;
-  padding: 10px;
-  border: 1px solid #5e7c71;
-  border-radius: 5px;
+  position: fixed;
+  top: 10%;
+  right: 0px;
+  width: 298px;
+  height: 100%;
   background-color: #ffffff;
+  color: #5e7c71;
   overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  position: relative;
-  right: -165%;
+  transition: right 0.3s ease;
+  padding-top: 60px;
+  z-index: 3000;
+  text-shadow: 1px 1px #c9c9c9;
+  padding: 1%;
 }
 
 /* 알림 개수 */
@@ -278,38 +279,11 @@ main {
   font-size: 10px;
   cursor: pointer;
   transition: color 0.3s;
+  margin-left: 4%;
 }
 
 .notification-delete:hover {
   color: #414141;
-}
-
-
-/* 팝업 스타일 */
-.notification-popup {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #5e7c71; /* 팝업 배경색 */
-  color: #ffffff; /* 팝업 텍스트 색상 */
-  padding: 10px;
-  border-radius: 5px; /* 둥근 모서리 */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 */
-  font-size: 14px; /* 글자 크기 */
-  z-index: 1000; /* 최상단 표시 */
-  animation: fade-in-out 3s ease; /* 애니메이션 */
-}
-
-/* 팝업 애니메이션 */
-@keyframes fade-in-out {
-  0%, 100% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  10%, 90% {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 /* 구분선 */
@@ -351,7 +325,7 @@ main {
   width: 100vw;
   height: 220px;
   position: absolute;
-  top: -22px;
+  top: -20px;
   color: #ffffff;
 }
 /* 드롭다운 메뉴 스타일 */

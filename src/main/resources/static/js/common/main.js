@@ -78,20 +78,11 @@ function goToSlide(index) {
   slideTimer = setTimeout(showSlides, 6000); // 새로운 타이머 설정
 }
 
+// 페이지가 로드되었을 때 초기화
 document.addEventListener("DOMContentLoaded", function () {
-  const prevButton = document.querySelector('.prev-btn'); // 이전 버튼
-  const nextButton = document.querySelector('.next-btn'); // 다음 버튼
-
-  // 이전 버튼 클릭 이벤트
-  prevButton.addEventListener('click', () => {moveSlide(-1); });
-
-  // 다음 버튼 클릭 이벤트
-  nextButton.addEventListener('click', () => {moveSlide(1); });
-
-  // 기존 초기화 코드
-  slideIndex = 0;
-  updateProgressBar(0);
-  slideTimer = setTimeout(showSlides, 6000); // 첫 슬라이드 타이머 설정
+  slideIndex = 0; // 슬라이드 인덱스 초기화
+  updateProgressBar(0); // 진행 바 초기화
+  slideTimer = setTimeout(showSlides, 6000); // 6초 후 첫 슬라이드 호출
 });
 
 

@@ -161,48 +161,49 @@ const connectSse = () => {
   });
 };
 
-const showNotification = (message) => {
-  const notiCountHeart = document.querySelector(".notification-count");
+// 알림 팝업 표시 함수
+function showNotification(message) {
+  const popup = document.getElementById('notification-popup'); // 팝업 요소 선택
 
-  // 알림 카운트 증가
-  const currentCount = parseInt(notiCountHeart.textContent.replace('♥', '').trim()) || 0;
-  notiCountHeart.textContent = `♥ ${currentCount + 1}`;
-  notiCountHeart.style.display = "inline-block"; // 숨겨져 있던 알림 카운트 표시
-
-  // 팝업 생성
-  const popup = document.createElement("div");
-  popup.className = "popup";
+  // 알림 메시지 설정
   popup.textContent = message;
 
-  // 팝업을 화면에 추가
-  document.body.appendChild(popup);
+  // 팝업 표시
+  popup.classList.add('show');
+  popup.classList.remove('hide');
+  popup.style.display = 'block';
 
-  // 팝업 애니메이션 표시
-  setTimeout(() => popup.classList.add("show"), 10);
-
-  // 일정 시간 후 팝업 제거
+  // 3초 후 팝업 숨김
   setTimeout(() => {
-    popup.classList.remove("show");
-    setTimeout(() => popup.remove(), 300); // 애니메이션 후 팝업 제거
-  }, 3000);
-};
-const socket = new WebSocket("ws://localhost:8080");
+    popup.classList.add('hide');
+    popup.classList.remove('show');
+    setTimeout(() => {
+      popup.style.display = 'none'; // 완전히 숨김 처리
+    }, 300); // CSS transition 완료 후 실행
+  }, 3000); // 3초 동안 표시
+}
 
-socket.onmessage = (event) => {
-  const data = JSON.parse(event.data);
-  showNotification(data.message); // 서버에서 받은 메시지로 알림 표시
-};
+// 예시: SSE 또는 WebSocket에서 알림 수신 시 호출
+document.addEventListener('DOMContentLoaded', () => {
+  // SSE 예제
+  const eventSource = new EventSource('/notification/sse-endpoint'); // 서버의 SSE 엔드포인트
 
-socket.onopen = () => {
-  console.log("WebSocket 연결 성공");
-};
+  eventSource.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    const notificationCount = document.querySelector('.notification-count');
 
-socket.onclose = () => {
-  console.log("WebSocket 연결 종료");
-};
+    // 알림 개수 업데이트
+    notificationCount.textContent = data.notiCount || '♥ 0';
+    notificationCount.style.display = 'inline-block';
 
+    // 실시간 알림 팝업 표시
+    showNotification(data.message); // 서버로부터 받은 메시지를 팝업에 표시
+  };
 
-
+  eventSource.onerror = () => {
+    console.error('SSE 연결 실패');
+  };
+});
 
 // 알림 전송 함수 (Ajax 사용)
 const sendNotification = (type, url, pkNo, content) => {
@@ -229,27 +230,46 @@ const sendNotification = (type, url, pkNo, content) => {
 };
 
 // 비동기로 알림 목록 조회 및 화면 표시// 날짜 포맷 함수
-const formatNotificationDate = (dateString) => {
-  const notificationDate = new Date(dateString);
-  const now = new Date();
-  
+function formatNotificationDate(dateString) {
+  const notificationDate = new Date(dateString); // 알림 날짜
+  const now = new Date(); // 현재 날짜
   const timeDiff = now - notificationDate; // 밀리초 단위 시간 차이
-  const oneDay = 24 * 60 * 60 * 1000; // 24시간(밀리초)
+  const oneDay = 24 * 60 * 60 * 1000; // 1일 (밀리초 단위)
+  const oneHour = 60 * 60 * 1000; // 1시간 (밀리초 단위)
+  const oneMinute = 60 * 1000; // 1분 (밀리초 단위)
+  const oneSecond = 1000; // 1초 (밀리초 단위)
 
-  if (timeDiff < oneDay) {
-    // 24시간 이내인 경우 시:분:초 표시
-    const hours = notificationDate.getHours().toString().padStart(2, '0');
-    const minutes = notificationDate.getMinutes().toString().padStart(2, '0');
-    const seconds = notificationDate.getSeconds().toString().padStart(2, '0');
-    return `${hours}:${minutes}:${seconds}`;
-  } else {
-    // 24시간 이상 지난 경우 날짜만 표시
-    const year = notificationDate.getFullYear();
-    const month = (notificationDate.getMonth() + 1).toString().padStart(2, '0');
-    const day = notificationDate.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
+  // 1분 이내
+  if (timeDiff < oneMinute) {
+    const secondsAgo = Math.floor(timeDiff / oneSecond); // 초 단위 차이
+    return secondsAgo === 0 ? "방금 전" : `${secondsAgo}초 전`;
   }
-};
+
+  // 1시간 이내
+  if (timeDiff < oneHour) {
+    const minutesAgo = Math.floor(timeDiff / oneMinute); // 분 단위 차이
+    return `${minutesAgo}분 전`;
+  }
+
+  // 24시간 이내
+  if (timeDiff < oneDay) {
+    const hoursAgo = Math.floor(timeDiff / oneHour); // 시간 단위 차이
+    return `${hoursAgo}시간 전`;
+  }
+
+  // 일주일 이내
+  const daysAgo = Math.floor(timeDiff / oneDay); // 일 단위 차이
+  if (daysAgo <= 7) {
+    return `${daysAgo}일 전`;
+  }
+
+  // 일주일 이상 (날짜만 표시)
+  const year = notificationDate.getFullYear();
+  const month = (notificationDate.getMonth() + 1).toString().padStart(2, '0'); // 월
+  const day = notificationDate.getDate().toString().padStart(2, '0'); // 일
+  return `${year}-${month}-${day}`; // "YYYY-MM-DD" 형식으로 반환
+}
+
 
 // 비동기로 알림 목록 조회 및 화면 표시
 const selectNotificationList = () => {
