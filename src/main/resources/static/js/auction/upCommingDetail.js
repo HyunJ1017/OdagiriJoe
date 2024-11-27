@@ -101,7 +101,7 @@ function handleCountdownEnd() {
 function sendAuctionNotification() {
   const notiUrl = `/auction/upCommingDetail?pieceNo=${pieceNo}`;
   const notiContent = "찜한 게시물의 경매가 1시간 후에 시작됩니다.";
-  sendNotification("A", notiUrl, pieceNo, notiContent); // sendNotification 함수 호출
+  sendNotification("W", notiUrl, pieceNo, notiContent); // sendNotification 함수 호출
 }
 
 
