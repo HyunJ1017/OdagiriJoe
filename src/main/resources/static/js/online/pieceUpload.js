@@ -372,6 +372,7 @@ const pieceUpload = () => {
           notiUrl = `/auction/upCommingDetail?pieceNo=${pieceNo}`;
           notiContent = '팔로우한 작가가 새로운 경매를 업로드했습니다.';
         }
+        
         sendNotification("F", notiUrl, pieceNo, notiContent);
 
         document.querySelector("#upload-form").submit();

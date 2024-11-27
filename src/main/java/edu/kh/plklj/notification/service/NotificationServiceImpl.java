@@ -22,6 +22,7 @@ public class NotificationServiceImpl implements NotificationService {
 		 int sendMemberNo = 0; 
 		 List<Integer> reciveMemberNoList = null;
 		 
+		 
 		 // 팔로우 회원에게 알람 보내기인 경우
 		 if(notification.getNotiType().equals("F")) {
 			 sendMemberNo = notification.getSendMemberNo(); // 보내는 아티스트 번호

@@ -1,3 +1,4 @@
+
 /* *******************  예정경매 상세페이지 ******************* */
 /* 목록으로 가기 */
 const listBtn = document.querySelector("#listBtn");
@@ -44,40 +45,30 @@ likePiece.addEventListener("click", e => {
 
 });
 
-//--------------------------------------------------------------------------
-/* 경매 알림 */
-// const sendAuctionNotifications = (notifications, notiContent) => {
-//   notifications.forEach((auction) => {
-//     const pieceNo = auction.pieceNo; // 작품 번호
-//     const pieceStatus = auction.pieceStatus; // 경매 상태
 
-//     let notiUrl;
-//     let notiContent;
-    
-//     // 경매 상태에 따른 URL 설정
-//     if(pieceStatus.value === "A"){
-//       notiUrl = `/auction/upCommingDetail?pieceNo=${pieceNo}`;
-//       notiContent = '찜한 게시물의 경매가 내일 오전 10시에 시작됩니다.';
-//     }
-//     else if(pieceStatus.value === "S"){
-//       notiUrl = `/auction/currentDetail?pieceNo=${pieceNo}`;
-//       notiContent = '찜한 게시물의 경매가 오늘 오전 10시에 시작됩니다.';
-//     }
-//     // 알림 전송
-//     sendNotification("A", notiUrl, pieceNo, notiContent);
-//   });
-// };
 
-// --------------------------------------------------------------------------
+
 // 남은 시간을 업데이트하는 함수
 function updateCountdown(remainingTime, onCountdownEnd) {
   const { hours, minutes, seconds } = remainingTime;
 
   // 남은 시간이 모두 0이 되었을 때 처리
   if (hours === 0 && minutes === 0 && seconds === 0) {
-      onCountdownEnd(); // 카운트다운 종료 처리
-      return;
+    clearInterval(countdownTimer); // 타이머 종료
+    onCountdownEnd(); // 카운트다운 종료 처리
+    return;
   }
+
+  if (!remainingTime.notificationSent) {
+    sendAuctionNotification();
+    remainingTime.notificationSent = true; // 알림이 한 번만 전송되도록 플래그 설정
+  }
+
+
+  // 1시간 남았을 때 알림 전송 (한 번만 실행)
+  // if (hours === 1 && minutes === 0 && seconds === 0) {
+  //   sendAuctionNotification();
+  // }
 
   // 초 감소
   if (remainingTime.seconds > 0) {
@@ -107,6 +98,14 @@ function handleCountdownEnd() {
   location.href = "/auction/main";
 }
 
+function sendAuctionNotification() {
+  const notiUrl = `/auction/upCommingDetail?pieceNo=${pieceNo}`;
+  const notiContent = "찜한 게시물의 경매가 1시간 후에 시작됩니다.";
+  sendNotification("A", notiUrl, pieceNo, notiContent); // sendNotification 함수 호출
+}
+
+
+
 // 초기 실행 함수
 function initializeCountdown(hours, minutes, seconds) {
   const remainingTime = { hours, minutes, seconds };
@@ -119,6 +118,7 @@ function initializeCountdown(hours, minutes, seconds) {
   // 즉시 한 번 실행
   updateCountdown(remainingTime, handleCountdownEnd);
 }
+
 
 /* 신고하기 버튼 가져오기 */
 const reportBtn = document.querySelector("#reportBtn");
@@ -143,9 +143,8 @@ reportBtn.addEventListener("click", () => {
   );
 });
 
-
-
 /* *******************  예정경매 상세페이지 ******************* */
+
 
 function hideLoader(imgElement) {
   const loader = imgElement.nextElementSibling; // loader div
