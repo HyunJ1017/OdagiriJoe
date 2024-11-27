@@ -175,6 +175,14 @@ socket.onmessage = function (event) {
     const currentBidPriceDiv = document.getElementById('currentBidPrice');
     if (currentBidPriceDiv) {
       currentBidPriceDiv.innerHTML = `${response.currentBidPrice.toLocaleString()} (KRW)`;
+
+       // 업데이트 시 강조 애니메이션 추가
+       currentBidPriceDiv.classList.add('updated');
+      
+       // 애니메이션 종료 후 클래스 제거
+       setTimeout(() => {
+         currentBidPriceDiv.classList.remove('updated');
+       }, 500);
     }
 
     // '현재 입찰 금액' 업데이트

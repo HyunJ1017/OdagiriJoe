@@ -275,6 +275,28 @@
 }
 
 
+/* 강조 애니메이션 정의 */
+@keyframes highlight {
+  0% {
+    background-color: #fcebbd; /* 소프트 골드 */
+    transform: scale(1.1); /* 약간 확대 */
+    box-shadow: 0 4px 20px rgba(252, 235, 189, 0.5); /* 부드러운 골드빛 그림자 */
+  }
+  100% {
+    background-color: transparent; /* 투명 */
+    transform: scale(1); /* 원래 크기 */
+    box-shadow: none; /* 그림자 제거 */
+  }
+}
+
+/* 업데이트 효과 클래스 */
+.updated {
+  animation: highlight 0.8s ease-in-out; /* 부드러운 애니메이션 */
+}
+
+
+
+
 
 
 
