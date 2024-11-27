@@ -14,6 +14,7 @@ let slideTimer = null;
 function showSlides() {
   slideIndex++; // 다음 슬라이드로 이동
 
+  slideIndex = slideIndex >= totalSlides ? 0 : slideIndex;
   // 슬라이드 이동 애니메이션 설정
   slidesContainer.style.transition = 'transform 6s ease-in-out'; // 부드러운 애니메이션 설정
   slidesContainer.style.transform = `translateX(-${slideIndex * (slidesContainer.clientWidth / 4)}px)`; // 슬라이드 이동
@@ -29,6 +30,9 @@ function showSlides() {
         slidesContainer.style.transition = 'transform 6s ease-in-out'; // 애니메이션 효과 복원
       }, 50); // 50ms 대기 후 애니메이션 복원
     }, 6000); // 6초 대기 후 첫 슬라이드로 돌아감
+
+
+
   }
 
   // 진행 바 업데이트
@@ -50,6 +54,7 @@ function moveSlide(n) {
   // 슬라이드 인덱스 업데이트 (모듈로 연산으로 순환)
   slideIndex = (slideIndex + n + totalSlides) % totalSlides;
 
+  slideIndex = slideIndex >= totalSlides ? 0 : slideIndex;
   // 슬라이드 이동 애니메이션 설정
   slidesContainer.style.transition = 'transform 1s ease-in-out'; // 빠른 애니메이션 설정
   slidesContainer.style.transform = `translateX(-${slideIndex * (slidesContainer.clientWidth / 4)}px)`; // 슬라이드 이동
@@ -103,6 +108,8 @@ let auctionSlideTimer = null;
 function auctionShowSlides() {
   auctionsSlideIndex++; // 다음 슬라이드로 이동
 
+  auctionsSlideIndex = auctionsSlideIndex >= auctionTotalSlides ? 0 : auctionsSlideIndex;
+
   // 슬라이드 컨테이너를 이동
   auctionSlidesContainer.style.transition = 'transform 6s ease-in-out'; // 부드러운 애니메이션 설정
   auctionSlidesContainer.style.transform = `translateX(-${auctionsSlideIndex * auctionSlidesContainer.clientWidth}px)`; // 슬라이드 이동
@@ -136,8 +143,11 @@ function updateAuctionsProgressBar(duration = 1000) {
 
 // 이전/다음 버튼으로 슬라이드 이동
 function moveSlide(n) {
+
   // 슬라이드 인덱스 업데이트 (모듈로 연산으로 순환)
   auctionsSlideIndex = (auctionsSlideIndex + n + auctionTotalSlides) % auctionTotalSlides;
+
+  auctionsSlideIndex = auctionsSlideIndex >= auctionTotalSlides ? 0 : auctionsSlideIndex;
 
   // 슬라이드 이동 애니메이션 설정
   auctionSlidesContainer.style.transition = 'transform 1s ease-in-out'; // 빠른 애니메이션 설정

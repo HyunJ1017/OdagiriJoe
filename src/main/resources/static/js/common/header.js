@@ -205,6 +205,7 @@ const sendNotification = (type, url, pkNo, content) => {
 
 // ------------------------------------------------------------------------------------------------------------------
 /* 날짜 함수 */
+// 날짜 포맷 함수
 function formatNotificationDate(dateString) {
   const notificationDate = new Date(dateString);
   const now = new Date();
@@ -266,7 +267,7 @@ function groupNotificationsByDate(notifications) {
     "오늘": [],
     "이번 주": [],
     "이번 달": [],
-    "이전 활동": []
+    "이전 활동": [],
   };
 
   notifications.forEach((notification) => {
@@ -320,13 +321,26 @@ function renderNotifications(groupedNotifications) {
       notiDelete.className = "notification-delete";
       notiDelete.innerHTML = "&times;";
       notiDelete.addEventListener("click", () => {
-        fetch(`/notification/delete/${data.notiNo}`, { method: "DELETE" })
+        console.log(`삭제 요청: 알림 번호 ${data.notiNo}`);
+        fetch(`/notification/delete/${data.notiNo}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
           .then((response) => {
-            if (!response.ok) throw new Error("알림 삭제 실패");
-            notiItem.remove();
-            readCheck();
+            if (!response.ok) {
+              console.error("삭제 요청 실패:", response.status);
+              throw new Error("알림 삭제 실패");
+            }
+            console.log(`알림 ${data.notiNo} 삭제 성공`);
+            notiItem.remove(); // DOM에서 항목 제거
+            readCheck(); // 읽지 않은 알림 개수 갱신
           })
-          .catch(console.error);
+          .catch((error) => {
+            console.error("Error deleting notification:", error);
+          });
       });
 
       notiContent.addEventListener("click", () => {
@@ -379,6 +393,7 @@ const readCheck = () => {
     })
     .catch(console.error);
 };
+
 
 // ------------------------------------------------------------------------
 const sendFollowedArtistNotification = (follower, content) => {

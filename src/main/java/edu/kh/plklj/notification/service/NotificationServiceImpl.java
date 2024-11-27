@@ -76,50 +76,44 @@ public class NotificationServiceImpl implements NotificationService {
 	public int sendAuctionNotifications(int daysBefore, String message) {
 
 		List<Integer> pieceNoList = mapper.getAuctionNotification(daysBefore);
-		
-		
+
 		// 작품 별 위시리스트 등록 회원 번호 조회
 		for (int pieceNo : pieceNoList) {
 			List<Integer> memberList = mapper.wishList(pieceNo);
-			
+
 			String notiUrl = "/auction/currentDetail?pieceNo=" + pieceNo;
-			
+
 			Notification notification = new Notification();
 			notification.setPieceNo(pieceNo);
 			notification.setNotiContent(message);
 			notification.setNotiUrl(notiUrl);
-			
-			
+
 			int result = 0;
 			// 회원 번호 별 알림 전송
-			for(int receiveMemberNo : memberList) {
+			for (int receiveMemberNo : memberList) {
 				notification.setReceiveMemberNo(receiveMemberNo);
-				
+
 				result += mapper.insertNotification(notification); // 알림 삽입
 			}
-		
 
-			if(result < memberList.size())  return 0; // insert 실패 시
-			
+			if (result < memberList.size())
+				return 0; // insert 실패 시
+
 			// 접속한 회원 중 알림을 받아야되는 회원에게 알림 보내기
-			for(int receiveMemberNo : memberList) {
-				
-		    String clientId = String.valueOf(receiveMemberNo);
-		    SseEmitter emitter = NotificationController.emitters.get(clientId);
-		    if (emitter != null) {
-		        try {
-		            emitter.send(Map.of("pieceNo", pieceNo));
-		        } catch (Exception e) {
-		        	NotificationController.emitters.remove(clientId);
-		        }
-		    }
-		    
-			}
+			for (int receiveMemberNo : memberList) {
 
+				String clientId = String.valueOf(receiveMemberNo);
+				SseEmitter emitter = NotificationController.emitters.get(clientId);
+				if (emitter != null) {
+					try {
+						emitter.send(Map.of("pieceNo", pieceNo));
+					} catch (Exception e) {
+						NotificationController.emitters.remove(clientId);
+					}
+				}
+			}
 		}
-		
-		
+
 		return 1;
 	}
-
 }
