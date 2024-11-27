@@ -57,6 +57,12 @@ public interface ManageService {
 
 	void updateNotice(String title, String content, int noticeNo);
 
+	// 1대 1문의 삭제하기
+	void deleteQuestionList(int questionNo);
+
+	// 1대 1문의 답변하기
+	void answerList(int questionNo, String questionAnswer);
+
 
 
 

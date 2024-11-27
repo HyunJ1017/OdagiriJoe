@@ -3,6 +3,7 @@ let page2 = 1;
 let page3 = 1;
 let page4 = 1;
 let page5 = 1;
+let page6 = 1;
 
 function showTab(tabId, button) {
   // 모든 탭 버튼에서 'active' 클래스 제거
@@ -55,34 +56,37 @@ document.querySelectorAll(".faq-item .question-row").forEach(row => {
 
 
 // 1:1 문의 토글 기능
-document.querySelectorAll(".inquiry-section .inquiry-row").forEach(row => {
-  row.addEventListener("click", () => {
-    const details = row.nextElementSibling;
-    const buttons = details.querySelector(".inquiry-buttons");
+const questionToggleFn = () => {
 
-    if (details.style.display === "none" || !details.style.display) {
-      details.style.display = "flex";
-      buttons.style.display = "flex"; // 버튼들이 보이도록 설정
-      row.querySelector(".icon").textContent = "▼";
-    } else {
-      details.style.display = "none";
-      buttons.style.display = "none"; // 버튼들이 사라지도록 설정
-      row.querySelector(".icon").textContent = "▶";
-    }
+
+  document.querySelectorAll(".inquiry-section .inquiry-row").forEach(row => {
+    row.addEventListener("click", () => {
+      const details = row.parentElement.querySelector(".details");
+      const buttons = details.querySelector(".inquiry-buttons");
+
+      if (details.style.display === "none" || !details.style.display) {
+        details.style.display = "flex";
+        buttons.style.display = "flex"; // 버튼들이 보이도록 설정
+        row.querySelector(".icon").textContent = "▼";
+      } else {
+        details.style.display = "none";
+        buttons.style.display = "none"; // 버튼들이 사라지도록 설정
+        row.querySelector(".icon").textContent = "▶";
+      }
+    });
   });
-});
-
+}
 
 const noticeToggleFn = () => {
-  
+
   /* 공지사항 토글기능 */
   document.querySelectorAll(".notice-item .notice-row").forEach(row => {
-  
+
     row.addEventListener("click", () => {
-  
+
       const noticeAnswer = row.nextElementSibling; // 답변 요소
       const noticeButtons = noticeAnswer.nextElementSibling; // 답변 다음 행 버튼 요소
-  
+
       // answer 요소가 숨겨져 있거나 스타일이 지정되어 있지 않을 경우
       if (noticeAnswer.style.display === "none" || !noticeAnswer.style.display) {
         // answer 요소를 보이도록 설정
@@ -256,9 +260,9 @@ document.addEventListener('DOMContentLoaded', () => {
   showArtistBtn.addEventListener("click", () => {
     artistList.style.display = "flex";
     memberList.style.display = "none";
-    paginationBoxMember.style.display = "none"; 
+    paginationBoxMember.style.display = "none";
     console.log("작가 보기 활성화");
-    getList(1,1)
+    getList(1, 1)
   });
 
   // "회원 보기" 버튼 클릭 이벤트
@@ -268,32 +272,33 @@ document.addEventListener('DOMContentLoaded', () => {
     memberList.style.display = "flex";
     paginationBoxMember.style.display = "flex";
     console.log("회원 보기 활성화");
-    getList(2,1)
+    getList(2, 1)
   });
 
-  getList(1,1); // 작가목록
+  getList(1, 1); // 작가목록
+  getList(2, 1); // 작가목록
 
-  getList(3,1); // 콘텐츠관리
-  getList(4,1) // 승인 요청 내역
+  getList(3, 1); // 콘텐츠관리
+  getList(4, 1) // 승인 요청 내역
 
-  getList(5,1); // 공지사항
-
+  getList(5, 1); // 공지사항
+  getList(6, 1); // 1대1문의
 });
 
 // 작가 목록 표시 함수
 function displayArtistList(contents) {
-  const artistList  = document.getElementById('artist-list'); // 작가 목록을 표시할 컨테이너
+  const artistList = document.getElementById('artist-list'); // 작가 목록을 표시할 컨테이너
   if (!artistList) {
     console.error("artist-list 요소를 찾을 수 없습니다.");
     return;
   }
-  
+
   artistList.innerHTML = ''; // 기존 콘텐츠 초기화
 
   contents.forEach(content => {
     const artistItem = document.createElement('div');
     artistItem.classList.add('artist-item');
-    artistItem.dataset.memberNo= content.memberNo;
+    artistItem.dataset.memberNo = content.memberNo;
     artistItem.innerHTML = `
       <img src="${content.artistProfile}" alt="작가 이미지">
       <div class="artist-info">
@@ -317,7 +322,7 @@ function displayMemberList(contents) {
     return;
   }
   memberList.innerHTML = '';
-    contents.forEach(content => {
+  contents.forEach(content => {
     const memberItem = document.createElement('div');
     memberItem.classList.add('member-summary');
     memberItem.dataset.memberNo = content.memberNo;
@@ -329,11 +334,12 @@ function displayMemberList(contents) {
           <button class="btn member-suspend-btn">정지</button>
           <button class="btn member-withdraw-btn">탈퇴</button>
         </div>  
-      </div>`;  
-      memberList.appendChild(memberItem);
+      </div>`;
+    memberList.appendChild(memberItem);
 
-  });    
-}  
+  });
+}
+
 // 콘텐츠 표시 함수
 function displayReportContents(contents) {
   const contentGrid = document.getElementById('contentGrid');
@@ -351,13 +357,11 @@ function displayReportContents(contents) {
           <p>크기: ${content.pieceSize}</p>
           <div class="buttons">
               <button class="view-button" data-id="${content.reportNo}" data-piece-no="${content.pieceNo}">상세보기</button>
-          
-            
           </div>    
-      </div>`;    
-    contentGrid.appendChild(contentCard);  
-  });  
-}  
+      </div>`;
+    contentGrid.appendChild(contentCard);
+  });
+}
 
 // 승인 요청 내역 표시함수
 function displayRequestContents(contents) {
@@ -382,32 +386,32 @@ function displayRequestContents(contents) {
                   <button class="reject-button" data-member-no="${content.memberNo}">거절</button>
               </div>    
           </div>    
-      </div>`;    
-    requestGrid.appendChild(requestCard);  
-    
+      </div>`;
+    requestGrid.appendChild(requestCard);
+
   });
 }
 
-  // 공지사항 표시함수
-  function displayNoticeContents(contents) {
-  
-    const noticeGrid = document.getElementById('noticeGrid');
-    const noticeList = noticeGrid.querySelector('ul.-noticelist');
-  
-    // <ul>-noticelist가 없으면 오류 출력 후 종료
-    if (!noticeList) {
-      console.error("공지사항 리스트 컨테이너를 찾을 수 없습니다.");
-      return;
-    }
-  
-    // <ul> 내부 초기화
-    noticeList.innerHTML = '';
-  
-    // 공지사항 데이터 추가
-    contents.forEach(content => {
-      const noticeItem = document.createElement('li');
-      noticeItem.classList.add('notice-item');
-      noticeItem.innerHTML = `
+// 공지사항 표시함수
+function displayNoticeContents(contents) {
+
+  const noticeGrid = document.getElementById('noticeGrid');
+  const noticeList = noticeGrid.querySelector('ul.-noticelist');
+
+  // <ul>-noticelist가 없으면 오류 출력 후 종료
+  if (!noticeList) {
+    console.error("공지사항 리스트 컨테이너를 찾을 수 없습니다.");
+    return;
+  }
+
+  // <ul> 내부 초기화
+  noticeList.innerHTML = '';
+
+  // 공지사항 데이터 추가
+  contents.forEach(content => {
+    const noticeItem = document.createElement('li');
+    noticeItem.classList.add('notice-item');
+    noticeItem.innerHTML = `
         <div class="notice-row">
           <span class="icon">&#9654;</span>
           <span class="notice-question">${content.noticeTitle || '제목 없음'}</span>
@@ -420,110 +424,204 @@ function displayRequestContents(contents) {
           <button class="erase-button" data-notice-no="${content.noticeNo}">삭제하기</button>
         </div>
       `;
-      noticeList.appendChild(noticeItem); // <ul>에 <li> 추가
-    });
-  
-    noticeToggleFn();
+    noticeList.appendChild(noticeItem); // <ul>에 <li> 추가
+  });
+
+  noticeToggleFn();
+}
+
+// 1대1문의 표시함수
+function displayquestionContents(contents) {
+
+  const questionGrid = document.getElementById('questionGrid');
+  const questionList = questionGrid.querySelector('ul.inquiry-list');
+
+  if (!questionList) {
+    console.error(contents);
+    return;
   }
-  
-  
-  // 승인요청내역 정보상세보기
-  const detailButtons = document.querySelectorAll(".detail-button");
+  questionList.innerHTML = '';
+  contents.forEach(content => {
+    const questionItem = document.createElement('li');
+    questionItem.classList.add('inquiry-item');
+    questionItem.dataset.questionNo = content.questionNo;
+    questionItem.innerHTML = `
+        <div class="inquiry-row">
+                <span class="icon">&#9654;</span>
+                <span class="inquiry">1 : 1 문의</span>
+        </div>
+            <div class="details" style="display: none;">
+                <label for="inquiry-content" class="label">문의 내용</label>
+              <input type="text" class="inquiry-content" value="${content.questionContent || '내용 없음'}" readonly>
 
-    if (detailButtons) {
-    detailButtons.forEach(detailButton => {
-      detailButton.addEventListener("click", (event) => {
+                <label for="response-content" class="label">답변</label>
+                <input type="text" class="response-content">
+                <div class="inquiry-buttons" style="display: none;">
+                <button class="answer-button" data-question-no="${content.questionNo}" >답변하기</button>
+                <button class="delete-button" data-question-no="${content.questionNo}">삭제하기</button>
+                </div>
+              </div>
+      `;
+    questionList.appendChild(questionItem);
+  });
+  questionToggleFn();
 
-        const memberNo = event.target.dataset.memberNo;
 
-        
-        if (!memberNo) {
-          alert("해당 회원 번호를 찾을 수 없습니다.");
-          return;
-        }
-        location.href = `/manage/confirm/${memberNo}`;
-      });
-    })
-  } else {
-    console.error("detailButton 요소를 찾을 수 없습니다.");
-  }
+}
 
-  // 작가 거절
-  document.addEventListener("click", (event) => {
-  if(event.target.classList.contains("reject-button")){
+// 승인요청내역 정보상세보기
+const detailButtons = document.querySelectorAll(".detail-button");
+
+
+if (detailButtons) {
+  detailButtons.forEach(detailButton => {
+    detailButton.addEventListener("click", (event) => {
+
       const memberNo = event.target.dataset.memberNo;
 
-      if(!memberNo){
-        alert("memberNo를 찾을 수 없습니다.");
-        return;
-      }
 
-      rejectArtists(memberNo);
-      
-    }else{
-      console.log("거절 불가");
-    }
-  })
-
-  // 작가 승인
-  document.addEventListener("click", (event) => {
-    if(event.target.classList.contains("approve-button")){
-      const memberNo = event.target.dataset.memberNo;
       if (!memberNo) {
-        alert("memberNo를 찾을 수 없습니다.");
+        alert("해당 회원 번호를 찾을 수 없습니다.");
         return;
       }
-      approveArtist(memberNo);
-    }else{
-      console.log("승인 불가");
+      location.href = `/manage/confirm/${memberNo}`;
+    });
+  })
+} else {
+  console.error("detailButton 요소를 찾을 수 없습니다.");
+}
+
+// 작가 거절
+document.addEventListener("click", (event) => {
+  if (event.target.classList.contains("reject-button")) {
+    const memberNo = event.target.dataset.memberNo;
+
+    if (!memberNo) {
+      alert("memberNo를 찾을 수 없습니다.");
+      return;
     }
-  })
+
+    rejectArtists(memberNo);
+
+  } else {
+    console.log("거절 불가");
+  }
+})
+
+// 작가 승인
+document.addEventListener("click", (event) => {
+  if (event.target.classList.contains("approve-button")) {
+    const memberNo = event.target.dataset.memberNo;
+    if (!memberNo) {
+      alert("memberNo를 찾을 수 없습니다.");
+      return;
+    }
+    approveArtist(memberNo);
+  } else {
+    console.log("승인 불가");
+  }
+})
 
 
-
-
-function approveArtist(memberNo){
-  if(!confirm("이 작가을 승인하시겠습니까?")) return;
+// 작가 승인
+function approveArtist(memberNo) {
+  if (!confirm("이 작가을 승인하시겠습니까?")) return;
   fetch(`/manage/approve`, {
-    method : "POST",
-    headers : {
-      "Content-Type" : "application/json",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
-    body : memberNo
+    body: memberNo
   })
-  .then((response) => {
-    if(!response.ok) {throw new Error("승인 실패")}
-    return response.text();
+    .then((response) => {
+      if (!response.ok) { throw new Error("승인 실패") }
+      return response.text();
 
-  })
-  .then((data) => {
-    alert(`승인 성공 : ${data}`);
-    getList(4, page4);
-  })
-  .catch(error => alert(`승인 실패: ${error.message}`));
+    })
+    .then((data) => {
+      alert(`승인 성공 : ${data}`);
+      getList(4, page4);
+    })
+    .catch(error => alert(`승인 실패: ${error.message}`));
 }
 
-
-function rejectArtists(memberNo){
-  if(!confirm("이 작가를 거절하시겠습니까?"))  return;
+// 작가 거절
+function rejectArtists(memberNo) {
+  if (!confirm("이 작가를 거절하시겠습니까?")) return;
   fetch(`/manage/reject`, {
-    method : "POST",
-    headers : {
-      "Content-Type" : "application/json",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
-    body : memberNo
+    body: memberNo
   })
-  .then((response) => {
-    if(!response.ok) {throw new Error("승인 실패")}
-    return response.text();
-  })
-  .then((data) => {
-    alert(`거절 성공 : ${data}`);
-    getList(4, page4);
-  })
-  .catch(error => alert(`거절 실패 : ${error.message}`));
+    .then((response) => {
+      if (!response.ok) { throw new Error("승인 실패") }
+      return response.text();
+    })
+    .then((data) => {
+      alert(`거절 성공 : ${data}`);
+      getList(4, page4);
+    })
+    .catch(error => alert(`거절 실패 : ${error.message}`));
 }
 
+// 1대 1문의 답변하기
+
+document.addEventListener("click", (event) => {
+  if (event.target.classList.contains("answer-button")) {
+    const button = event.target; // 클릭된 버튼
+    const details = button.closest(".details"); // 답변 입력 필드가 포함된 컨테이너
+    const questionNo = button.closest("li").dataset.questionNo; // 문의 번호
+    const responseContent = details.querySelector(".response-content").value.trim(); // 답변 내용
+    const listItem = button.closest("li"); // 문의 항목 전체를 감싸는 <li> 요소
+    // 입력값 검증
+    if (!responseContent) {
+      alert("답변 내용을 입력하세요.");
+      return;
+    }
+
+    // AJAX 요청
+    fetch(`/manage/answer/${questionNo}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: responseContent,
+      
+    })
+      .then((res) => res.text())
+      .then((data) => {
+        alert(data == '답변 성공' ? "답변 등록 완료" : "답변 등록 실패");
+        listItem.remove();
+      })
+      .catch(() => {
+        alert("오류가 발생했습니다.");
+      });
+  }
+});
+// 1대 1문의 삭제하기
+document.addEventListener("click", (event) => {
+  if(event.target.classList.contains("delete-button")){
+    questionNo = event.target.dataset.questionNo;
+
+    if(confirm("정말로 삭제하시겠습니까?")){
+      fetch(`manage/delete/${questionNo}`, {
+        method : "POST",
+        headers : {
+          "Content-Type" : "application/json",
+        },
+      })
+      .then((response) => {
+       if(response.ok){
+        alert("삭제 성공");
+        location.reload();
+       }else{
+        throw new Error("삭제 실패");
+       }
+      })
+      .catch(error => alert(`삭제 실패: ${error.message}`));
+    }
+  }
+})
 /* 
 // 콘텐츠 상세내용 표시 함수
 function displayDetailContents(contents) {
@@ -567,10 +665,10 @@ function displayDetailContents(contents) {
 function displayContents(code, contents) {
   const { containerId } = codeSettings[code] || {};
   if (!containerId) return; // 해당 code에 대한 설정이 없으면 처리 중단
-  
+
   const container = document.getElementById(containerId);
   container.innerHTML = ''; // 기존 콘텐츠 초기화
-  
+
   contents.forEach(content => {
     const item = document.createElement('div');
     item.classList.add(code === 1 ? 'artist-item' : 'content-card');
@@ -581,11 +679,11 @@ function displayContents(code, contents) {
       item.innerHTML = template(content);
     } else {
       console.warn(`템플릿이 없습니다. Code: ${code}`);
-    }  
-    
+    }
+
     container.appendChild(item);
-  });  
-}  
+  });
+}
 
 
 
@@ -595,7 +693,7 @@ function getList(code, page) {
     .then(response => {
       if (response.ok) return response.json();
       throw new Error("AJAX 통신 실패");
-    })  
+    })
     .then(result => {
 
       if (code === 1) {
@@ -614,110 +712,111 @@ function getList(code, page) {
         page4 = page;
         displayRequestContents(result.resultList); // 승인요청내역 리스트 렌더링
         setupPagination(result.pg, code, "paginationBoxRequest"); // 승인요청내역 페이지네이션 설정
-      }else if (code === 5) {
+      } else if (code === 5) {
         page5 = page;
         displayNoticeContents(result.resultList); // 공지사항 리스트 렌더링
         setupPagination(result.pg, code, "paginationBoxNotice"); // 공지사항 페이지네이션 설정
-
-        
-      
-       
-      } else {
+      } else if (code === 6) {
+        page6 = page;
+        displayquestionContents(result.resultList); // 1대1문의 리스트 렌더링
+        setupPagination(result.pg, code, "paginationBoxQuestion"); // 1대1문의 페이지네이션 설정
+      }
+      else {
         console.log("기타 코드값을 불러와 실행됨");
         console.error("알 수 없는 코드:", code);
-      }  
-    })  
+      }
+    })
     .catch(err => console.error(err));
-}    
-  // 페이지네이션 설정 함수
-  function setupPagination(pg, code, paginationContainerId) {
-    
-    const paginationContainer = document.getElementById(paginationContainerId);
+}
+// 페이지네이션 설정 함수
+function setupPagination(pg, code, paginationContainerId) {
 
-    if (!paginationContainer) {
-      console.error("페이지네이션 컨테이너를 찾을 수 없습니다:", paginationContainerId);
-      return;
-    }  
-    paginationContainer.innerHTML = ""; // 기존 버튼 초기화
-    const createPageButton = (page, text, isActive = false, isDisabled = false) => {
-      const btn = document.createElement("a");
-      btn.href = "#";
-      btn.textContent = text;
-      btn.classList.add("page-btn");
-      if (isActive) btn.classList.add("active");
-      if (isDisabled) btn.classList.add("disabled");
-      
-      if (!isDisabled) {
-        btn.addEventListener("click", (event) => {
-          event.preventDefault();
-          getList(code, page); // 해당 페이지 데이터 로드
-        });  
-      }  
-      
-      return btn;
-    };  
-    
-    // << 버튼 (첫 페이지로 이동)
-    paginationContainer.appendChild(createPageButton(1, "<<", false, pg.currentPage === 1));
-    
-    // < 버튼 (이전 페이지로 이동)
-    paginationContainer.appendChild(createPageButton(pg.prevPage, "<", false, pg.currentPage === 1));
-    
-    
-    // 페이지 번호 버튼
-    for (let i = pg.startPage; i <= pg.endPage; i++) {
-      paginationContainer.appendChild(createPageButton(i, i, i === pg.currentPage));
-    }  
-    
-    // > 버튼 (다음 페이지로 이동)
-    paginationContainer.appendChild(createPageButton(pg.nextPage, ">", false, pg.currentPage === pg.totalPageCount));
-    
-    // >> 버튼 (마지막 페이지로 이동)
-    paginationContainer.appendChild(createPageButton(pg.totalPageCount, ">>", false, pg.currentPage === pg.totalPageCount));
-  }  
+  const paginationContainer = document.getElementById(paginationContainerId);
+
+  if (!paginationContainer) {
+    console.error("페이지네이션 컨테이너를 찾을 수 없습니다:", paginationContainerId);
+    return;
+  }
+  paginationContainer.innerHTML = ""; // 기존 버튼 초기화
+  const createPageButton = (page, text, isActive = false, isDisabled = false) => {
+    const btn = document.createElement("a");
+    btn.href = "#";
+    btn.textContent = text;
+    btn.classList.add("page-btn");
+    if (isActive) btn.classList.add("active");
+    if (isDisabled) btn.classList.add("disabled");
+
+    if (!isDisabled) {
+      btn.addEventListener("click", (event) => {
+        event.preventDefault();
+        getList(code, page); // 해당 페이지 데이터 로드
+      });
+    }
+
+    return btn;
+  };
+
+  // << 버튼 (첫 페이지로 이동)
+  paginationContainer.appendChild(createPageButton(1, "<<", false, pg.currentPage === 1));
+
+  // < 버튼 (이전 페이지로 이동)
+  paginationContainer.appendChild(createPageButton(pg.prevPage, "<", false, pg.currentPage === 1));
 
 
+  // 페이지 번호 버튼
+  for (let i = pg.startPage; i <= pg.endPage; i++) {
+    paginationContainer.appendChild(createPageButton(i, i, i === pg.currentPage));
+  }
 
-  function toggleContent(element) {
-    const content = element.nextElementSibling;
-    const isVisible = content.classList.contains("open");
-  
-    // 모든 notice-content를 닫기
-    document.querySelectorAll(".notice-content").forEach(item => {
-      if (item !== content) {
-        item.style.height = "0px";
-        item.classList.remove("open");
-        item.previousElementSibling.classList.remove("open");
-      }  
-    });  
-  
-    // 클릭한 항목에 애니메이션 적용
-    if (!isVisible) {
-      element.classList.add("open");
-      content.classList.add("open");
-  
-      // 높이를 계산하여 설정
-      const scrollHeight = content.scrollHeight + "px";
-      content.style.height = scrollHeight;
-  
-      // 애니메이션이 끝난 후 height를 auto로 설정
-      content.addEventListener("transitionend", function handler() {
-        content.style.height = "auto";
-        content.removeEventListener("transitionend", handler);
-      });  
-    } else {
-      content.style.height = content.scrollHeight + "px";
-      // 강제로 리플로우(Reflow) 시켜 애니메이션 효과 적용
-      content.offsetHeight;
-      content.style.height = "0px";
-      element.classList.remove("open");
-      content.classList.remove("open");
-    }  
-  }  
-  
-  
+  // > 버튼 (다음 페이지로 이동)
+  paginationContainer.appendChild(createPageButton(pg.nextPage, ">", false, pg.currentPage === pg.totalPageCount));
 
-  
+  // >> 버튼 (마지막 페이지로 이동)
+  paginationContainer.appendChild(createPageButton(pg.totalPageCount, ">>", false, pg.currentPage === pg.totalPageCount));
+}
+
+
+
+function toggleContent(element) {
+  const content = element.nextElementSibling;
+  const isVisible = content.classList.contains("open");
+
+  // 모든 notice-content를 닫기
+  document.querySelectorAll(".notice-content").forEach(item => {
+    if (item !== content) {
+      item.style.height = "0px";
+      item.classList.remove("open");
+      item.previousElementSibling.classList.remove("open");
+    }
+  });
+
+  // 클릭한 항목에 애니메이션 적용
+  if (!isVisible) {
+    element.classList.add("open");
+    content.classList.add("open");
+
+    // 높이를 계산하여 설정
+    const scrollHeight = content.scrollHeight + "px";
+    content.style.height = scrollHeight;
+
+    // 애니메이션이 끝난 후 height를 auto로 설정
+    content.addEventListener("transitionend", function handler() {
+      content.style.height = "auto";
+      content.removeEventListener("transitionend", handler);
+    });
+  } else {
+    content.style.height = content.scrollHeight + "px";
+    // 강제로 리플로우(Reflow) 시켜 애니메이션 효과 적용
+    content.offsetHeight;
+    content.style.height = "0px";
+    element.classList.remove("open");
+    content.classList.remove("open");
+  }
+}
+
+
+
+
 
 
 
@@ -726,208 +825,208 @@ function getList(code, page) {
 
 
 //---------------------------------------------------------------------------
-  // /* /* 콘텐츠 관리 */
-  // document.addEventListener('DOMContentLoaded', () => {
-  //   getList(1)
-  //   getList(3,1); // 첫 번째 페이지 로드
-  // });
-  
-  // // 콘텐츠 표시 함수
-  // function displayReportContents(contents) {
-  //   const contentGrid = document.getElementById('contentGrid');
-  //   contentGrid.innerHTML = ''; // 기존 콘텐츠 초기화
-  
-  //   contents.forEach(content => {
-  //     const contentCard = document.createElement('div');
-  //     contentCard.classList.add('content-card');
-  //     contentCard.innerHTML = `
-  //       <img src="/images/profile/${content.artistNickname || 'default.jpg'}" alt="${content.artistNickname}" class="content-image">
-  //       <div class="content-info">
-  //           <h2>${content.artistNickname}</h2>
-  //           <p>작품명: ${content.pieceName}</p>
-  //           <p>낙찰가: ₩${content.auctionPrice.toLocaleString()}</p>
-  //           <p>크기: ${content.pieceSize}</p>
-  //           <div class="buttons">
-  //               <button class="view-button">상세보기</button>
-  //               <button class="warn-button">정지</button>
-  //               <button class="release-button">해제</button>
-  //           </div>
-  //       </div>`;
-  //     contentGrid.appendChild(contentCard);
-  //   });
-  // }
-  
-  // // 리스트 가져오기 함수
-  // function getList(code, page) {
-  //   fetch(`/manage/getList?code=${code}&cp=${page}`)
-  //     .then(response => {
-  //       if (response.ok) return response.json();
-  //       throw new Error("AJAX 통신 실패");
-  //     })
-  //     .then(result => {
-  //       console.log("응답데이터:", result);
-  
-  //       // 데이터 렌더링
-  //       displayReportContents(result.resultList); // 콘텐츠 표시
-  //       setupPagination(result.pg, code); // 페이지네이션 설정
-        
-  //     })
-  //     .catch(err => console.error(err));
-  // }
-  
-  // // 페이지네이션 설정 함수
-  // function setupPagination(pg, code) {
-  //   const paginationContainer = document.getElementById("paginationBox2");
-  //   paginationContainer.innerHTML = ""; // 기존 버튼 초기화
-  
-  //   const createPageButton = (page, text, isActive = false, isDisabled = false) => {
-  //     const btn = document.createElement("a");
-  //     btn.href = "#";
-  //     btn.textContent = text;
-  //     btn.classList.add("page-btn");
-  //     if (isActive) btn.classList.add("active");
-  //     if (isDisabled) btn.classList.add("disabled");
-  
-  //     if (!isDisabled) {
-  //       btn.addEventListener("click", (event) => {
-  //         event.preventDefault();
-  //         getList(code, page); // 해당 페이지 데이터 로드
-  //       });
-  //     }
-  
-  //     return btn;
-  //   };
-  
-  //   // << 버튼 (첫 페이지로 이동)
-  //   paginationContainer.appendChild(createPageButton(1, "<<", false, pg.currentPage === 1));
-  
-  //   // < 버튼 (이전 페이지로 이동)
-  //   paginationContainer.appendChild(createPageButton(pg.prevPage, "<", false, pg.currentPage === 1));
-  
-  //   // 페이지 번호 버튼
-  //   for (let i = pg.startPage; i <= pg.endPage; i++) {
-  //     paginationContainer.appendChild(createPageButton(i, i, i === pg.currentPage));
-  //   }
-  
-  //   // > 버튼 (다음 페이지로 이동)
-  //   paginationContainer.appendChild(createPageButton(pg.nextPage, ">", false, pg.currentPage === pg.totalPageCount));
-  
-  //   // >> 버튼 (마지막 페이지로 이동)
-  //   paginationContainer.appendChild(createPageButton(pg.totalPageCount, ">>", false, pg.currentPage === pg.totalPageCount));
-  // }
-  // document.addEventListener('DOMContentLoaded', () => {
-  //   // 초기 데이터 로드 (작가 목록과 콘텐츠 목록)
-  //   getList(1); // 작가 목록
-  //   getList(3, 1); // 콘텐츠 목록 (첫 번째 페이지)
-  // });
-  
-  // // 코드별 컨테이너 및 설정 매핑
-  // const codeSettings = {
-  //   1: { containerId: 'artist-list', paginationId: 'artistPagination' },
-  //   3: { containerId: 'contentGrid', paginationId: 'paginationBox2' },
-    
-  // };
-  
-  // // 템플릿 설정 객체
-  // const templates = {
-  //   1: (content) => `
-  //     <img src="/images/profile/${content.artistProfile || 'default.jpg'}" alt="${content.artistNickname}" class="content-image">
-  //     <div class="artist-info">
-  //       <h3>${content.artistNickname} | 작가</h3>
-  //       <p>경매 금액: ₩${(content.auctionPrice).toLocaleString()}</p>
-  //       <p>판매 금액: ₩${(content.sellPrice).toLocaleString()}</p>
-  //     </div>
-  //     <div class="artist-actions">
-  //       <button class="btn suspend-btn">정지</button>
-  //       <button class="btn withdraw-btn">탈퇴</button>
-  //     </div>
-  //   `,
-  //   3: (content) => `
-  //     <img src="/images/profile/${content.artistNickname || 'default.jpg'}" alt="${content.artistNickname}" class="content-image">
-  //     <div class="content-info">
-  //       <h2>${content.artistNickname}</h2>
-  //       <p>작품명: ${content.pieceName}</p>
-  //       <p>낙찰가: ₩${content.auctionPrice.toLocaleString()}</p>
-  //       <p>크기: ${content.pieceSize}</p>
-  //       <div class="buttons">
-  //         <button class="view-button">상세보기</button>
-  //         <button class="warn-button">정지</button>
-  //         <button class="release-button">해제</button>
-  //       </div>
-  //     </div>
-  //   `
-  // };
+// /* /* 콘텐츠 관리 */
+// document.addEventListener('DOMContentLoaded', () => {
+//   getList(1)
+//   getList(3,1); // 첫 번째 페이지 로드
+// });
 
-  //-------------------------------------------------------------------
-  const selectMonthInput = document.getElementById('selectMonth');
-  const artistIdInput = document.getElementById('artist-id');
-  const salesTableBody = document.getElementById('sales-table-body');
-  const totalListDiv = document.getElementById('total-list');
-  const totalCountDiv = document.getElementById('total-count');
-  const waitCountDiv = document.getElementById('wait-count');
-  const completedCountDiv = document.getElementById('completed-count');
-  const holdCountDiv = document.getElementById('hold-count');
-  const slaesExcelBtn = document.getElementById('slaes-excelBtn');
-  const salesCompletedBtn = document.getElementById('sales-completedBtn');
-  
-  let getListResult;
-  
-  // 페이지 로드시 현재월에 해당하는 매출표 가져오기
-  document.addEventListener("DOMContentLoaded", () => {
-    const now = new Date();
-    
-    // 현재 연도와 월을 "YYYY-MM" 형식으로 설정
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
-    selectMonthInput.value = `${year}-${month}`;
-    
-    getWithdrawList(`${year}-${month}`);
-  })
-  
-  // 월 선택시 해당하는 매출표 가져오기
-  selectMonthInput.addEventListener("change", () => {
-    const selectedMonth = selectMonthInput.value;
-    
-    getWithdrawList(selectedMonth);
-  })
-  
-  // 작가 검색중 무의식적인 엔터입력 감지
-  artistIdInput.addEventListener("keyup", e => {
-    if(e.key === "Enter") {
-      getWithdrawList(selectMonthInput.value);
-    }
-  })
-  
-  // 전체목록 클릭시
-  totalListDiv.addEventListener("click", () => {
-    renderingWithdrawList(getListResult, 'A');
-  })
-  
-  // 전체 클릭시
-  totalCountDiv.addEventListener("click", () => {
-    renderingWithdrawList(getListResult, 'A');
-  })
-  
-  // 대기 클릭시
-  waitCountDiv.addEventListener("click", () => {
-    renderingWithdrawList(getListResult, 'W');
-  })
-  
-  // 완료 클릭시
-  completedCountDiv.addEventListener("click", () => {
-    renderingWithdrawList(getListResult, 'C');
-  })
-  
-  // 보류 클릭시
-  holdCountDiv.addEventListener("click", () => {
-    renderingWithdrawList(getListResult, 'H');
-  })
-  
-  const getWithdrawList = (selectMonth) => {
-    const artistId = artistIdInput.value;
-    artistIdInput.value = '';
-  
-    fetch("/withdraw/getWithdrawList?selectMonth=" + selectMonth + "&artistNickname=" + artistId)
+// // 콘텐츠 표시 함수
+// function displayReportContents(contents) {
+//   const contentGrid = document.getElementById('contentGrid');
+//   contentGrid.innerHTML = ''; // 기존 콘텐츠 초기화
+
+//   contents.forEach(content => {
+//     const contentCard = document.createElement('div');
+//     contentCard.classList.add('content-card');
+//     contentCard.innerHTML = `
+//       <img src="/images/profile/${content.artistNickname || 'default.jpg'}" alt="${content.artistNickname}" class="content-image">
+//       <div class="content-info">
+//           <h2>${content.artistNickname}</h2>
+//           <p>작품명: ${content.pieceName}</p>
+//           <p>낙찰가: ₩${content.auctionPrice.toLocaleString()}</p>
+//           <p>크기: ${content.pieceSize}</p>
+//           <div class="buttons">
+//               <button class="view-button">상세보기</button>
+//               <button class="warn-button">정지</button>
+//               <button class="release-button">해제</button>
+//           </div>
+//       </div>`;
+//     contentGrid.appendChild(contentCard);
+//   });
+// }
+
+// // 리스트 가져오기 함수
+// function getList(code, page) {
+//   fetch(`/manage/getList?code=${code}&cp=${page}`)
+//     .then(response => {
+//       if (response.ok) return response.json();
+//       throw new Error("AJAX 통신 실패");
+//     })
+//     .then(result => {
+//       console.log("응답데이터:", result);
+
+//       // 데이터 렌더링
+//       displayReportContents(result.resultList); // 콘텐츠 표시
+//       setupPagination(result.pg, code); // 페이지네이션 설정
+
+//     })
+//     .catch(err => console.error(err));
+// }
+
+// // 페이지네이션 설정 함수
+// function setupPagination(pg, code) {
+//   const paginationContainer = document.getElementById("paginationBox2");
+//   paginationContainer.innerHTML = ""; // 기존 버튼 초기화
+
+//   const createPageButton = (page, text, isActive = false, isDisabled = false) => {
+//     const btn = document.createElement("a");
+//     btn.href = "#";
+//     btn.textContent = text;
+//     btn.classList.add("page-btn");
+//     if (isActive) btn.classList.add("active");
+//     if (isDisabled) btn.classList.add("disabled");
+
+//     if (!isDisabled) {
+//       btn.addEventListener("click", (event) => {
+//         event.preventDefault();
+//         getList(code, page); // 해당 페이지 데이터 로드
+//       });
+//     }
+
+//     return btn;
+//   };
+
+//   // << 버튼 (첫 페이지로 이동)
+//   paginationContainer.appendChild(createPageButton(1, "<<", false, pg.currentPage === 1));
+
+//   // < 버튼 (이전 페이지로 이동)
+//   paginationContainer.appendChild(createPageButton(pg.prevPage, "<", false, pg.currentPage === 1));
+
+//   // 페이지 번호 버튼
+//   for (let i = pg.startPage; i <= pg.endPage; i++) {
+//     paginationContainer.appendChild(createPageButton(i, i, i === pg.currentPage));
+//   }
+
+//   // > 버튼 (다음 페이지로 이동)
+//   paginationContainer.appendChild(createPageButton(pg.nextPage, ">", false, pg.currentPage === pg.totalPageCount));
+
+//   // >> 버튼 (마지막 페이지로 이동)
+//   paginationContainer.appendChild(createPageButton(pg.totalPageCount, ">>", false, pg.currentPage === pg.totalPageCount));
+// }
+// document.addEventListener('DOMContentLoaded', () => {
+//   // 초기 데이터 로드 (작가 목록과 콘텐츠 목록)
+//   getList(1); // 작가 목록
+//   getList(3, 1); // 콘텐츠 목록 (첫 번째 페이지)
+// });
+
+// // 코드별 컨테이너 및 설정 매핑
+// const codeSettings = {
+//   1: { containerId: 'artist-list', paginationId: 'artistPagination' },
+//   3: { containerId: 'contentGrid', paginationId: 'paginationBox2' },
+
+// };
+
+// // 템플릿 설정 객체
+// const templates = {
+//   1: (content) => `
+//     <img src="/images/profile/${content.artistProfile || 'default.jpg'}" alt="${content.artistNickname}" class="content-image">
+//     <div class="artist-info">
+//       <h3>${content.artistNickname} | 작가</h3>
+//       <p>경매 금액: ₩${(content.auctionPrice).toLocaleString()}</p>
+//       <p>판매 금액: ₩${(content.sellPrice).toLocaleString()}</p>
+//     </div>
+//     <div class="artist-actions">
+//       <button class="btn suspend-btn">정지</button>
+//       <button class="btn withdraw-btn">탈퇴</button>
+//     </div>
+//   `,
+//   3: (content) => `
+//     <img src="/images/profile/${content.artistNickname || 'default.jpg'}" alt="${content.artistNickname}" class="content-image">
+//     <div class="content-info">
+//       <h2>${content.artistNickname}</h2>
+//       <p>작품명: ${content.pieceName}</p>
+//       <p>낙찰가: ₩${content.auctionPrice.toLocaleString()}</p>
+//       <p>크기: ${content.pieceSize}</p>
+//       <div class="buttons">
+//         <button class="view-button">상세보기</button>
+//         <button class="warn-button">정지</button>
+//         <button class="release-button">해제</button>
+//       </div>
+//     </div>
+//   `
+// };
+
+//-------------------------------------------------------------------
+const selectMonthInput = document.getElementById('selectMonth');
+const artistIdInput = document.getElementById('artist-id');
+const salesTableBody = document.getElementById('sales-table-body');
+const totalListDiv = document.getElementById('total-list');
+const totalCountDiv = document.getElementById('total-count');
+const waitCountDiv = document.getElementById('wait-count');
+const completedCountDiv = document.getElementById('completed-count');
+const holdCountDiv = document.getElementById('hold-count');
+const slaesExcelBtn = document.getElementById('slaes-excelBtn');
+const salesCompletedBtn = document.getElementById('sales-completedBtn');
+
+let getListResult;
+
+// 페이지 로드시 현재월에 해당하는 매출표 가져오기
+document.addEventListener("DOMContentLoaded", () => {
+  const now = new Date();
+
+  // 현재 연도와 월을 "YYYY-MM" 형식으로 설정
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+  selectMonthInput.value = `${year}-${month}`;
+
+  getWithdrawList(`${year}-${month}`);
+})
+
+// 월 선택시 해당하는 매출표 가져오기
+selectMonthInput.addEventListener("change", () => {
+  const selectedMonth = selectMonthInput.value;
+
+  getWithdrawList(selectedMonth);
+})
+
+// 작가 검색중 무의식적인 엔터입력 감지
+artistIdInput.addEventListener("keyup", e => {
+  if (e.key === "Enter") {
+    getWithdrawList(selectMonthInput.value);
+  }
+})
+
+// 전체목록 클릭시
+totalListDiv.addEventListener("click", () => {
+  renderingWithdrawList(getListResult, 'A');
+})
+
+// 전체 클릭시
+totalCountDiv.addEventListener("click", () => {
+  renderingWithdrawList(getListResult, 'A');
+})
+
+// 대기 클릭시
+waitCountDiv.addEventListener("click", () => {
+  renderingWithdrawList(getListResult, 'W');
+})
+
+// 완료 클릭시
+completedCountDiv.addEventListener("click", () => {
+  renderingWithdrawList(getListResult, 'C');
+})
+
+// 보류 클릭시
+holdCountDiv.addEventListener("click", () => {
+  renderingWithdrawList(getListResult, 'H');
+})
+
+const getWithdrawList = (selectMonth) => {
+  const artistId = artistIdInput.value;
+  artistIdInput.value = '';
+
+  fetch("/withdraw/getWithdrawList?selectMonth=" + selectMonth + "&artistNickname=" + artistId)
     .then(response => {
       if (response.ok) return response.json();
       throw new Error("AJAX 통신 실패");
@@ -935,30 +1034,30 @@ function getList(code, page) {
     .then(result => {
       getListResult = result;
       renderingWithdrawList(getListResult, 'A');
-  
+
     })
     .catch(err => console.error(err));
-    
-  }
-  
-  const renderingWithdrawList = (list, flag) => {
-        // 전달받은 작가님네임, 판매작품수, 은행이름, 계좌번호, 총판매금액, 수수료, 입금상태 추가하기
-        salesTableBody.innerHTML = '';
-  
-        let totalCount = 0;
-        let waitCount = 0;
-        let completedCount = 0;
-        let holdCount = 0;
-    
-        list.forEach(withdraw => {
-          totalCount ++;
-          if(withdraw.priceFl === 'W') waitCount ++;
-          else if(withdraw.priceFl === 'C') completedCount ++;
-          else holdCount ++;
-    
-          if(flag === 'A' || flag === withdraw.priceFl) {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
+
+}
+
+const renderingWithdrawList = (list, flag) => {
+  // 전달받은 작가님네임, 판매작품수, 은행이름, 계좌번호, 총판매금액, 수수료, 입금상태 추가하기
+  salesTableBody.innerHTML = '';
+
+  let totalCount = 0;
+  let waitCount = 0;
+  let completedCount = 0;
+  let holdCount = 0;
+
+  list.forEach(withdraw => {
+    totalCount++;
+    if (withdraw.priceFl === 'W') waitCount++;
+    else if (withdraw.priceFl === 'C') completedCount++;
+    else holdCount++;
+
+    if (flag === 'A' || flag === withdraw.priceFl) {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
               <td><input ${withdraw.priceFl === 'W' ? 'class="wait-checkbox" data-member-no="' + withdraw.memberNo + '"' : 'disabled'} type="checkbox"></td>
               <td>${withdraw.artistNickname}</td>
               <td>${withdraw.allPieceCount}</td>
@@ -968,108 +1067,108 @@ function getList(code, page) {
               <td>10.1 (%)</td>
               <td>${withdraw.priceFl === 'W' ? "대기" : withdraw.priceFl === 'C' ? "완료" : "보류"}</td>
             `;
-            salesTableBody.appendChild(tr);
-  
-          }
-        });
-    
-        totalCountDiv.innerText = totalCount + '건';
-        waitCountDiv.innerText = waitCount + '건';
-        completedCountDiv.innerText = completedCount + '건';
-        holdCountDiv.innerText = holdCount + '건';
-  }
-  
-  // 전체체크기능 지원
-  const selectAll = document.querySelector("#sales-selectAll");
-  selectAll?.addEventListener("change", ()=> {
-    const inputTags = document.querySelectorAll(".wait-checkbox");
-    
-    inputTags.forEach(e=>{
-      e.checked = selectAll.checked;
-    })
+      salesTableBody.appendChild(tr);
+
+    }
   });
-  
-  // 엑셀출력 버튼 클릭시
-  slaesExcelBtn.addEventListener("click", () => {
-    const inputTags = document.querySelectorAll(".wait-checkbox");
-    
-    const memberNo = [];
-    
-    let iCount = 0;
-    inputTags.forEach(e => {
-      if(e.checked) {
-        memberNo.push(e.dataset.memberNo);
-        iCount ++;
-      }
-    })
-    if(iCount === 0){
-      alert("선택된 회원을 찾을 수 없습니다.");
-      return;
+
+  totalCountDiv.innerText = totalCount + '건';
+  waitCountDiv.innerText = waitCount + '건';
+  completedCountDiv.innerText = completedCount + '건';
+  holdCountDiv.innerText = holdCount + '건';
+}
+
+// 전체체크기능 지원
+const selectAll = document.querySelector("#sales-selectAll");
+selectAll?.addEventListener("change", () => {
+  const inputTags = document.querySelectorAll(".wait-checkbox");
+
+  inputTags.forEach(e => {
+    e.checked = selectAll.checked;
+  })
+});
+
+// 엑셀출력 버튼 클릭시
+slaesExcelBtn.addEventListener("click", () => {
+  const inputTags = document.querySelectorAll(".wait-checkbox");
+
+  const memberNo = [];
+
+  let iCount = 0;
+  inputTags.forEach(e => {
+    if (e.checked) {
+      memberNo.push(e.dataset.memberNo);
+      iCount++;
     }
-  
-    const secdObj = {
-      "memberNo" : memberNo,
-      "selectMonth" : selectMonthInput.value
-    }
-  
-    fetch("/withdraw/download", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(secdObj)
-    })
+  })
+  if (iCount === 0) {
+    alert("선택된 회원을 찾을 수 없습니다.");
+    return;
+  }
+
+  const secdObj = {
+    "memberNo": memberNo,
+    "selectMonth": selectMonthInput.value
+  }
+
+  fetch("/withdraw/download", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(secdObj)
+  })
     .then(response => {
       if (response.ok) return response.text();
       throw new Error("AJAX 통신 실패");
     })
     .then(result => {
-      if(result > 0){
+      if (result > 0) {
         alert("파일을 출력하였습니다.\nC:/uploadFiles/withdraw.xlsx");
       } else {
         alert("파일 출력에 실패하였습니다.");
       }
     })
     .catch(err => console.error(err));
-  });
-  
-  // 선택 완료처리 클릭시
-  salesCompletedBtn.addEventListener("click", () => {
-    const inputTags = document.querySelectorAll(".wait-checkbox");
-    
-    const memberNo = [];
-    
-    let iCount = 0;
-    inputTags.forEach(e => {
-      if(e.checked) {
-        memberNo.push(e.dataset.memberNo);
-        iCount ++;
-      }
-    })
-    if(iCount === 0){
-      alert("선택된 회원을 찾을 수 없습니다.");
-      return;
+});
+
+// 선택 완료처리 클릭시
+salesCompletedBtn.addEventListener("click", () => {
+  const inputTags = document.querySelectorAll(".wait-checkbox");
+
+  const memberNo = [];
+
+  let iCount = 0;
+  inputTags.forEach(e => {
+    if (e.checked) {
+      memberNo.push(e.dataset.memberNo);
+      iCount++;
     }
-  
-    const secdObj = {
-      "memberNo" : memberNo,
-      "selectMonth" : selectMonthInput.value
-    }
-  
-    fetch("/withdraw/saveWithdrawData", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(secdObj)
-    })
+  })
+  if (iCount === 0) {
+    alert("선택된 회원을 찾을 수 없습니다.");
+    return;
+  }
+
+  const secdObj = {
+    "memberNo": memberNo,
+    "selectMonth": selectMonthInput.value
+  }
+
+  fetch("/withdraw/saveWithdrawData", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(secdObj)
+  })
     .then(response => {
       if (response.ok) return response.text();
       throw new Error("AJAX 통신 실패");
     })
     .then(result => {
-      if(result > 0){
+      if (result > 0) {
         alert("해당 회원들의 결제데이터를 저장하였습니다.");
         getWithdrawList(selectMonthInput.value);
       } else {
         alert("데이터저장에 실패하였습니다.");
-      }    
+      }
     })
     .catch(err => console.error(err));
-  });
+});

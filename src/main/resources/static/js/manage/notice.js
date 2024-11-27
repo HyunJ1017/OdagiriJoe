@@ -27,26 +27,7 @@ document.addEventListener("click", (event) => {
   }
 })
 
-
-
-document.addEventListener("click", (event) => {
-
-   if(event.target.classList.contains("submit-button")){
-    if (event.target.classList.contains("revise-button")) {
-      const noticeNo = event.target.dataset.noticeNo;
-
-
-  // 공지사항 수정하기
-  // 페이지 로드 시 데이터 로드
-  // 공지사항 번호 가져오기 (URL에서 추출)
-    }
-
-
-}
-
-})
-
-
+// 공지사항 수정하기
 document.addEventListener("click", (event) => {
   if (event.target.classList.contains("revise-button")) {
     const noticeNo = event.target.dataset.noticeNo;
@@ -55,5 +36,4 @@ document.addEventListener("click", (event) => {
     location.href = `/manage/revise2/${noticeNo}`;
   }
 });
-
 

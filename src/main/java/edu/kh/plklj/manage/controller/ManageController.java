@@ -89,17 +89,19 @@ public class ManageController {
 		}
 		return "탈퇴 실패";
 	}
-	
-	//  상세보기 신고목록 불러오기
+
+	// 상세보기 신고목록 불러오기
 	@GetMapping("/report/{reportNo}")
 	@ResponseBody
 	public List<Manage> contentsDetail(@PathVariable("reportNo") int reportNo) {
 		System.out.println("reportNo :" + reportNo);
 		return service.contentsDetailList(reportNo);
-			 
-		 }
-	
-	/** 신고목록 제거
+
+	}
+
+	/**
+	 * 신고목록 제거
+	 * 
 	 * @param reportNo
 	 */
 	@DeleteMapping("/report/{reportNo}")
@@ -108,8 +110,10 @@ public class ManageController {
 		System.out.println("reportNo :" + reportNo);
 		service.deleteReportList(reportNo);
 	}
-	
-	/** 게시글 삭제
+
+	/**
+	 * 게시글 삭제
+	 * 
 	 * @param pieceNo
 	 */
 	@DeleteMapping("/delete/{pieceNo}")
@@ -117,114 +121,113 @@ public class ManageController {
 	public void deletePieceList(@PathVariable("pieceNo") int pieceNo) {
 		service.deletePieceList(pieceNo);
 	}
- 
-	 
-
 
 	// 공지사항 작성 페이지
 	@GetMapping("write")
 	public String writeNotice() {
 		return "manage/noticeWrite";
 	}
-	
+
 	// 공지사항 작성하기
 	@PostMapping("/noticeList")
 	public String noticeList(@RequestParam("noticeTitle") String noticeTitle,
-							 @RequestParam("noticeContent") String noticeContent) {
+			@RequestParam("noticeContent") String noticeContent) {
 		int result = service.addNoticeList(noticeTitle, noticeContent);
-		if(result >0) {
-			  return "redirect:/manage#noticeN";
+		if (result > 0) {
+			return "redirect:/manage#noticeN";
 		}
 		return "redirect:/manage/noticeList";
-	
-		
+
 	}
-	
+
 	// 공지사항 삭제하기
 	@DeleteMapping("/erase/{noticeNo}")
 	@ResponseBody
 	public void deleteNoticeList(@PathVariable("noticeNo") int noticeNo) {
-		
+
 		service.deleteNoticeList(noticeNo);
 	}
-	
-	
-	// 공지사항 수정 페이지
-//	@GetMapping("/revise")
-//	public String reviseNoticePage() {
-//		
-//	    return "manage/noticeRevise"; // 템플릿 파일 반환
-//	}
-	
+
 	// 공지사항 수정페이지 목록 불러오기
 	@GetMapping("/revise2/{noticeNo}")
 	public String reviseNotice(@PathVariable("noticeNo") int noticeNo, Model model) {
-		
+
 		Notice notice = service.getnoticeList(noticeNo).get(0); // 첫 번째 객체 가져오기
-		
-	    model.addAttribute("notice", notice);
-		
+
+		model.addAttribute("notice", notice);
+
 		log.debug("notice : {}", notice);
-		
-		return "manage/noticeRevise"; 
-	}
-	
-	@PostMapping("/updateNotice")
-	public String updateNotice(@RequestParam("title") String title,
-								@RequestParam("content") String content,
-								@RequestParam("noticeNo") int noticeNo) {
-		service.updateNotice(title, content, noticeNo);
-	    return "redirect:/manage"; // 수정 후 메인페이지로 리다이렉트
+
+		return "manage/noticeRevise";
 	}
 
+	@PostMapping("/updateNotice")
+	public String updateNotice(@RequestParam("title") String title, @RequestParam("content") String content,
+			@RequestParam("noticeNo") int noticeNo) {
+
+		service.updateNotice(title, content, noticeNo);
+
+		return "redirect:/manage#noticeN"; // 수정 후 메인페이지로 리다이렉트
+	}
 
 	// 승인 요청 시 프로필 페이지
 	@GetMapping("/confirm/{memberNo}")
 
 	public String profileConfirm(@PathVariable("memberNo") int memberNo, Model model) {
-		
+
 		List<Manage> profileList = service.getprofileList(memberNo);
-		
-		for(Manage portfolio : profileList) {
+
+		for (Manage portfolio : profileList) {
 			log.info(portfolio.toString());
 		}
 
 		model.addAttribute("profileList", profileList);
-		 
-		
+
 		return "manage/profileConfirm";
 	}
-	
+
 	// 승인 요청 승인
 	@PostMapping("/approve")
 	@ResponseBody
 	public String approveArtist(@RequestBody int memberNo) {
 		int result = service.getapproveArtist(memberNo);
-		if(result>0) {
+		if (result > 0) {
 
 			return "승인 성공";
-		}else {
+		} else {
 			return "승인 실패";
 		}
-		
 
 	}
-	
+
 	// 승인 요청 거절
 	@PostMapping("/reject")
 	@ResponseBody
 	public String rejectArtist(@RequestBody int memberNo) {
 		int result = service.getrejectArtist(memberNo);
-		if(result>0) {
+		if (result > 0) {
 			return "거절 성공";
-		}else {
+		} else {
 			return "거절 실패";
 		}
-	
-		
+
 	}
+
 	
-	
-	
+	  // 1대 1문의
+	  
+	  @PostMapping("/answer/{questionNo}")
+	  @ResponseBody 
+	  public String answerList(@PathVariable("questionNo") int questionNo, @RequestBody String questionAnswer) { 
+
+		  service.answerList(questionNo, questionAnswer);
+		  return "답변 성공";
+	  }
+	 
+	@PostMapping("/delete/{questionNo}")
+	@ResponseBody
+	public void deleteQuestionList(@PathVariable("questionNo") int questionNo) {
+		service.deleteQuestionList(questionNo);
+	}
 
 }

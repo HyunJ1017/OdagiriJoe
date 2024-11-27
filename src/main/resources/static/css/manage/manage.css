@@ -608,23 +608,24 @@ h2 {
   
   /* 문의 내용 스타일 */
   .inquiry-content {
-    font-size: 16px;
+    font-size: 14px;
     color: #333;
     border: 1px solid #8ca09d;
     padding: 15px;
     margin-top: 5px;
     text-align: center;
-    height: 150px;
+    height: 70px;
   }
   
   /* 답변 내용 스타일 */
   .response-content {
-    font-size: 16px;
+    font-size: 14px;
     color: #333;
     height: 150px;
     padding: 15px;
     margin-top: 10px;
     text-align: center;
+    height: 70px;
 
   }
   

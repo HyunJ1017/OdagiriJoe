@@ -93,6 +93,17 @@ public class ManageServiceImpl implements ManageService {
 			System.out.println("공지사항 목록: " + resultList);
 			System.out.println("페이지 정보: " + pg);
 			break;
+
+		case "6":
+			listCount = mapper.getQuestionListCount();
+
+			limit = 5;
+			pg = new Pagination(cp, listCount, limit, 10);
+			offset = (cp - 1) * limit;
+			RowBounds questionBounds = new RowBounds(offset, limit);
+			resultList = mapper.getQuestionList(questionBounds);
+			break;
+
 		default:
 			throw new IllegalArgumentException("Invalid code: " + code);
 		}
@@ -198,7 +209,22 @@ public class ManageServiceImpl implements ManageService {
 
 	@Override
 	public void updateNotice(String title, String content, int noticeNo) {
-		 mapper.updateNotice(title, content, noticeNo);
+		mapper.updateNotice(title, content, noticeNo);
 
 	}
+	
+	// 1대1문의 삭제하기
+	@Override
+	public void deleteQuestionList(int questionNo) {
+		 mapper.deleteQuestionList(questionNo);
+		
+	}
+	
+	// 1대 1문의 답변하기
+	@Override
+	public void answerList(int questionNo, String questionAnswer) {
+		 mapper.answerList(questionNo, questionAnswer);
+		
+	}
+	
 }

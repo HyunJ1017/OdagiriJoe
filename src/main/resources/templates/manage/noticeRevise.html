@@ -20,7 +20,8 @@
 
     <section>
       <!-- 공지사항 데이터 표시 -->
-      <form th:action="@{manage/updateNotice}" method="post">
+      <form th:action="@{/manage/updateNotice}" method="post">
+
         <input name="noticeNo" th:value="${noticeNo}" style="display:none; cursor: pointer;"/>
 
         <label for="title">제목</label>
