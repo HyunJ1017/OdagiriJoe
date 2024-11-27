@@ -56,6 +56,7 @@ public interface NotificationMapper {
    * @return
    */
   List<Integer> wishList(int pieceNo);
+  
   /** 경매 알림 목록 조회
    * @param daysBefore
    * @return

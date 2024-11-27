@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.plklj.notification.dto.Notification;
 import edu.kh.plklj.notification.mapper.NotificationMapper;
@@ -13,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class NotificationServiceImpl implements NotificationService {
 	private final NotificationMapper mapper;
 	
@@ -27,7 +29,7 @@ public class NotificationServiceImpl implements NotificationService {
 		 if(notification.getNotiType().equals("F")) {
 			 sendMemberNo = notification.getSendMemberNo(); // 보내는 아티스트 번호
 			 reciveMemberNoList = mapper.selectFollowList(sendMemberNo);
-		 } else if(notification.getNotiType().equals("W")) {
+		 } else if(notification.getNotiType().equals("A")) {
 			 int pieceNo = notification.getPkNo(); // 보내는 게시물 번호
 			 reciveMemberNoList = mapper.wishList(pieceNo);
 		 }
@@ -60,7 +62,7 @@ public class NotificationServiceImpl implements NotificationService {
    public int readCheck(int memberNo) {
        return mapper.readCheck(memberNo);
    }
-
+   
    @Override
    public void deleteNotification(int notiNo) {
        mapper.deleteNotification(notiNo);
