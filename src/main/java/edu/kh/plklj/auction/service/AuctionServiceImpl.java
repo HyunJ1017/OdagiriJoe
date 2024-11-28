@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.plklj.auction.mapper.AuctionMapper;
 import edu.kh.plklj.common.util.Pagination;
-import edu.kh.plklj.notice.dto.Notice;
 import edu.kh.plklj.piece.dto.Piece;
 import edu.kh.plklj.report.dto.Report;
 import lombok.RequiredArgsConstructor;
@@ -214,12 +213,6 @@ public class AuctionServiceImpl implements AuctionService {
   
 	
 	
-  
-  
-  
-  
-  
-  
   
   
   

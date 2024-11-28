@@ -84,8 +84,6 @@ public class AuctionController {
 
 		
 		
-		
-		
 		/** 진행 경매 작품 상세 조회 페이지
 		 * 
 		 */
@@ -120,6 +118,8 @@ public class AuctionController {
 //      
 //			return "auction/currentDetail";
 //		}
+		
+		
 		
 		
 		/** 위시 리스트 체크 or 해제

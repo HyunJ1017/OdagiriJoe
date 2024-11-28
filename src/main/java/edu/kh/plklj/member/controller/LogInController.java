@@ -1,13 +1,13 @@
 package edu.kh.plklj.member.controller;
 
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,7 +37,15 @@ public class LogInController {
 	 * @return
 	 */
 	@GetMapping("")
-	public String logInPage() {
+	public String logInPage(
+				// 개발자 도구에서 refer 확인
+				// 세션에 저장
+				@RequestHeader("referer") String referer,
+				HttpSession session
+			) {
+		
+		session.setAttribute("returnUrl", referer);
+		
 		return "member-sign/logIn";
 	}
 	
@@ -64,8 +72,10 @@ public class LogInController {
 	public String logIn(
 			@ModelAttribute Member member,
 			RedirectAttributes ra,
+			HttpSession session,
 			Model model) {
 		
+		String returnUrl = (String) session.getAttribute("returnUrl");
 		Member result = service.logIn(member);
 		
 		if(result == null ) {
@@ -74,11 +84,25 @@ public class LogInController {
 		} else if ( result.getMemberPenalty() > 1) {
 			ra.addFlashAttribute("message", "정지 해제까지 " + result.getMemberPenalty() + "일 남으셨습니다.");
 			return "redirect:/member/login";
+			
 		} else if ( result.getArtistReg() == null || result.getArtistReg().equals("N")) {
 			model.addAttribute("memberLogin", result);
+			
+			// url이 있다면 저장된 세션 얻어오기
+			if(returnUrl != null) {
+				session.removeAttribute("returnUrl");
+				return "redirect:" + returnUrl;
+			}
+			
 			return "redirect:/";
 		} else {
 			model.addAttribute("artistLogin", result);
+			
+			if(returnUrl != null) {
+				session.removeAttribute("returnUrl");
+				return "redirect:" + returnUrl;
+			}
+			
 			return "redirect:/";
 		}
 	}
