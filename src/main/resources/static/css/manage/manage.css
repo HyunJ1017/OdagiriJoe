@@ -839,11 +839,11 @@ h2 {
     justify-content: space-between;
 
 }
-.status-info>.count,
+.status-info .count,
 .status-info>#total-list{
     user-select: none;
 }
-.status-info>.count:hover,
+.status-info .count:hover,
 .status-info>#total-list:hover{
     cursor: pointer;
 }
