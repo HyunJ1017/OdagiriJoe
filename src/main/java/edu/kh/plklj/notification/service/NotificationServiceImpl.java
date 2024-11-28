@@ -1,5 +1,6 @@
 package edu.kh.plklj.notification.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +25,7 @@ public class NotificationServiceImpl implements NotificationService {
 	public List<Map<String, Object>> notificationInsert(Notification notification) {
 
 		int sendMemberNo = 0;
+		
 		List<Integer> reciveMemberNoList = null;
 
 		// 팔로우 회원에게 알람 보내기인 경우
@@ -99,10 +101,8 @@ public class NotificationServiceImpl implements NotificationService {
 	}
 	
 	
-	@Override
-	public void oneDayBeforeNotification(int daysBefore, String message) {
-		
-	}
+	
+	
 	
 	@Override
 	public List<Notification> selectNotification(int memberNo) {

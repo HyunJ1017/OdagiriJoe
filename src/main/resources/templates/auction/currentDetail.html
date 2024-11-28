@@ -72,7 +72,7 @@
         <button class="purchase-button"
                 th:disabled="${currentDetail.pieceStatus == 'F'}"
                 th:classappend="${currentDetail.pieceStatus == 'F'} ? 'closed' : ''"
-                th:text="${currentDetail.pieceStatus == 'F'} ? '입찰 마감' : '구매하기'"
+                th:text="${currentDetail.pieceStatus == 'F'} ? '입찰 마감' : '입찰하기'"
                 id="bidApplyBtn">
         </button>
       </div>
