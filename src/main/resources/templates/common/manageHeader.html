@@ -12,14 +12,14 @@
       <!-- 오른쪽 사용자 액션 영역 -->
       <div class="header-actions">
         <a href="/member/logout" class="header-item">Logout</a>
-        <button th:href="|location.href='/main'|" th:if="${manageLogin == null}" class="header-item">나가기</button>
+        <button th:href="|location.href='/main'|" th:if="${manageLogin == null}" class="exit-btn">나가기</button>
       </div>
     </section>
 
     <div>
-      <th:block>
+      <th:block class="container">
           <!-- 고정된 사이드바 영역 -->
-          <div id="side-bar" class="header-side-bar" th:if="${manageLogin != null}">
+          <div id="sidebar" class="header-side-bar" th:if="${manageLogin != null}">
             <div class="side-item">
               <a href="#top" class="nav-item" data-tab="board">대시보드</a>
             </div>

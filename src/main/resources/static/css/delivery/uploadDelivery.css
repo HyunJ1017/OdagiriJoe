@@ -33,8 +33,6 @@ button {
 
 /* 메인 컨테이너 */
 .main-container {
-  margin: 5% 0 0 15%;
-  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -1,89 +1,85 @@
-// 배송 상태를 비동기로 처리하는 JavaScript 코드
-
-document.addEventListener('DOMContentLoaded', function() {
-  // 버튼 및 입력 요소에 대한 참조 가져오기
-  const selectBtn = document.getElementById('select');
-  const insertBtn = document.getElementById('insert');
-  const startDateInput = document.getElementById('start-date');
-  const returnDateInput = document.getElementById('return-date');
-
-  // 조회 버튼 클릭 시 선택한 날짜에 따라 배송 데이터를 가져오는 이벤트 리스너
-  selectBtn.addEventListener('click', function() {
-    const startDate = startDateInput.value;
-    const returnDate = returnDateInput.value;
-    
-    // 지정된 날짜 범위에 따라 배송 목록을 가져오기 위한 GET 요청
-    fetch(`/delivery/list?startDate=${startDate}&endDate=${returnDate}`, {
-      method: 'GET'
-    })
-    .then(response => response.json()) // 응답을 JSON으로 파싱
-    .then(data => updateDeliveryTable(data)) // 가져온 데이터로 배송 테이블 업데이트
-    .catch(error => console.error('배송 목록 가져오는 중 오류 발생:', error)); // 오류 로그 출력
-  });
-
-  // 저장 버튼 클릭 시 업데이트된 배송 정보를 저장하는 이벤트 리스너
-  insertBtn.addEventListener('click', function() {
-    // 선택된 체크박스 모두 가져오기
-    const selectedCheckboxes = document.querySelectorAll('input.filter-checkbox:checked');
-    const deliveriesToUpdate = Array.from(selectedCheckboxes).map(checkbox => {
-      const row = checkbox.closest('tr');
-      return {
-        deliveryNo: checkbox.dataset.deliveryNo, // 데이터 속성에서 송장 번호 가져오기
-        deliveryIngDate: row.querySelector('input[type="date"]#deliveryIngDate').value, // 배송 진행 날짜 가져오기
-        deliveryEndDate: row.querySelector('input[type="date"]#deliveryEndDate').value, // 배송 완료 날짜 가져오기
-        deliveryStatus: row.querySelector('.sort-select').value // 현재 배송 상태 가져오기
-      };
+document.addEventListener("DOMContentLoaded", function() {
+  // 조회 버튼 클릭 시 데이터 조회
+  const selectButton = document.getElementById("select");
+  if (selectButton) {
+    selectButton.addEventListener("click", function() {
+      fetchDeliveryList();
     });
-
-    // 배송 정보를 업데이트하기 위한 PUT 요청
-    fetch('/delivery/update', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json' // 콘텐츠 유형을 JSON으로 설정
-      },
-      body: JSON.stringify(deliveriesToUpdate) // 업데이트된 배송 정보를 JSON으로 전송
-    })
-    .then(response => response.json()) // 응답을 JSON으로 파싱
-    .then(data => {
-      alert('배송 정보가 저장되었습니다.'); // 사용자에게 배송 정보가 저장되었음을 알림
-      updateDeliveryTable(data); // 새로운 데이터로 배송 테이블 업데이트
-    })
-    .catch(error => console.error('배송 상태 업데이트 중 오류 발생:', error)); // 오류 로그 출력
-  });
-});
-
-// 주어진 배송 목록으로 배송 테이블을 업데이트하는 함수
-function updateDeliveryTable(deliveryList) {
-  if (!Array.isArray(deliveryList)) {
-    console.error('배송 목록이 배열이 아닙니다:', deliveryList);
-    return;
+  } else {
+    console.error("조회 버튼을 찾을 수 없습니다. 버튼 ID가 정확한지 확인하세요.");
   }
 
+  // 페이지 로드 시 전체 데이터 조회
+  fetchDeliveryList();
+
+  function fetchDeliveryList() {
+    const url = `/delivery/uploadDelivery`; // Thymeleaf로 렌더링된 HTML 페이지를 받아오는 엔드포인트
+
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "text/html"
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`네트워크 응답에 문제가 있습니다. 상태 코드: ${response.status}`);
+      }
+      return response.text(); // HTML을 텍스트로 받기
+    })
+    .then(html => {
+      // HTML 문자열을 DOM으로 변환
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+
+      // 새로운 문서에서 tbody의 모든 tr 요소 선택
+      const newRows = doc.querySelectorAll("#delivery-tbody tr");
+
+      if (newRows.length === 0) {
+        console.warn("조회된 데이터가 없습니다.");
+        return;
+      }
+
+      // 현재 페이지의 tbody 요소 선택
+      const tbody = document.getElementById("delivery-tbody");
+      tbody.innerHTML = ""; // 기존 데이터를 지움
+
+      // 새로 가져온 tr 요소들을 tbody에 추가
+      newRows.forEach(row => {
+        tbody.appendChild(row.cloneNode(true));
+      });
+
+      console.log("테이블 업데이트 완료");
+    })
+    .catch(error => {
+      console.error("데이터 조회 중 오류 발생: ", error);
+    });
+  }
+});
+
+// -------------------------------------------------------------------------------------------------------------
+// 배송 상태 수정
+function updateDeliveryTable(deliveryList) {
   const deliveryTbody = document.getElementById('delivery-tbody');
   deliveryTbody.innerHTML = ''; // 현재 테이블 내용을 비우기
-  deliveryList.forEach(manage => {
-    const row = document.createElement('tr'); // 각 배송 항목에 대한 새로운 행 생성
-    row.innerHTML = `
-      <th><input type="checkbox" class="filter-checkbox" data-delivery-no="${manage.deliveryNo}"></th>
-      <td>${manage.deliveryNo}</td>
-      <td class="deliveryDate">${manage.deliveryDate}</td>
-      <td>${manage.pieceTitle}</td>
-      <td>${manage.sellPrice ? `${manage.sellPrice} 원` : manage.endPrice ? `${manage.endPrice} 원` : ''}</td>
-      <td>${manage.deliveryAddress}</td>
-      <td><input type="date" id="deliveryIngDate" value="${manage.deliveryIngDate ?? ''}"></td>
-      <td><input type="date" id="deliveryEndDate" value="${manage.deliveryEndDate ?? ''}"></td>
-      <td class="arr-container">
-        <select id="sort" class="sort-select" onChange="onSortChange(event)">
-          <option value="visit" ${manage.deliveryStatus === 'visit' ? 'selected' : ''}>방문수령</option>
-          <option value="preparing" ${manage.deliveryStatus === 'preparing' ? 'selected' : ''}>배송 준비중</option>
-          <option value="in_transit" ${manage.deliveryStatus === 'in_transit' ? 'selected' : ''}>배송중</option>
-          <option value="completed" ${manage.deliveryStatus === 'completed' ? 'selected' : ''}>배송 완료</option>
-        </select>
-      </td>
-    `;
-    deliveryTbody.appendChild(row); // 새 행을 테이블 본문에 추가
+
+  let isFirstRow = true;
+  deliveryList.forEach((deliveryItem, index) => {
+    if (index !== 0) { // 첫 행이 아닌 경우에만 구분선 추가
+      const separator = document.createElement("tr");
+      separator.className = "separator-row";
+      const separatorTd = document.createElement("td");
+      separatorTd.colSpan = 9; // 테이블의 모든 열을 차지하도록 설정
+      separatorTd.style.borderTop = "1px solid #ccc";
+      separatorTd.style.padding = "10px 0";
+      separator.appendChild(separatorTd);
+      deliveryTbody.appendChild(separator);
+    }
+
+    // 배송 데이터를 이용하여 테이블에 새로운 행 추가하는 로직 (생략 가능)
+    // 예시: const newRow = document.createElement("tr");
+    // 여기서 newRow에 필요한 데이터를 채워넣은 뒤 deliveryTbody에 append
   });
-  attachCheckboxEvents(); // 동적 요소 추가 후 체크박스 이벤트 다시 연결
 }
 
 // 배송 상태 드롭다운 변경을 처리하는 함수
@@ -100,23 +96,23 @@ function updateAllCheckboxes(isChecked) {
 }
 
 // 선택된 배송 데이터를 서버에 저장하는 함수
-function saveDeliveryData(data) {
-  fetch('/delivery/update', {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('배송 데이터 저장 실패');
-      }
-      alert('선택된 항목이 성공적으로 저장되었습니다!');
-    })
-    .catch(error => {
-      console.error('배송 데이터 저장 중 오류 발생:', error);
+async function saveDeliveryData(data) {
+  try {
+    const response = await fetch('/delivery/update', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
     });
+
+    if (!response.ok) {
+      throw new Error('배송 데이터 저장 실패');
+    }
+    alert('선택된 항목이 성공적으로 저장되었습니다!');
+  } catch (error) {
+    console.error('배송 데이터 저장 중 오류 발생:', error);
+  }
 }
 
 // 개별 체크박스 상태에 따른 전체 체크박스 업데이트
@@ -136,8 +132,6 @@ function attachCheckboxEvents() {
 
 // 초기 체크박스 이벤트 연결
 attachCheckboxEvents();
-
-
 
 // ---------------------------------------------------------------------------------------------------------------
 /* 날짜 기준 변경 이벤트 */
