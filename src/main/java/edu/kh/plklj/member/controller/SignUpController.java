@@ -61,7 +61,6 @@ public class SignUpController {
 				.memberEmail(map.get("memberEmail"))
 				.memberPhone(map.get("memberPhone"))
 				.build();
-				
 		
 		String inputPw = map.get("inputPw");
 		
