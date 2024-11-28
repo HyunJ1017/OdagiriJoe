@@ -53,14 +53,14 @@ body{
   flex-grow: 1;
   padding: 10px;
 }
-.image-container{
+#wishList-section>section>.content-div .image-container{
   padding: 10px; 
   position: relative;
   min-width: 182px;
   min-height: 222px;
   border: 1px solid #80808030;
 }
-.loader { /* 이미지 로딩전까지 보여줄 로딩이미지 */
+#wishList-section>section>.content-div .loader { /* 이미지 로딩전까지 보여줄 로딩이미지 */
   position: absolute;
   width: 160px;
   height: 200px;
@@ -69,7 +69,7 @@ body{
   background: url('/images/loading.gif') center center no-repeat;
   background-size: contain;
 }
-.content-img{ /* 로딩할 이미지 */
+#wishList-section>section>.content-div .content-img{ /* 로딩할 이미지 */
   display: none; /* 처음에는 보이지 않게 */
   width: 160px; /* 고정 가로 크기 */
   height: 200px; /* 고정 세로 크기 */
@@ -130,11 +130,31 @@ body{
   height: 300px;
   margin: 20px 0 20px;
 }
+.follow-div>.following .image-container{
+  padding: 10px; 
+  position: relative;
+  min-width: 202px;
+  min-height: 272px;
+  border: 1px solid #80808030;
+}
+.follow-div>.following .loader { /* 이미지 로딩전까지 보여줄 로딩이미지 */
+  position: absolute;
+  width: 180px;
+  height: 252px;
+  top: 10;
+  right: 10;
+  background: url('/images/loading.gif') center center no-repeat;
+  background-size: contain;
+}
 .follow-div>.following .artist-img{
   display: none; /* 처음에는 보이지 않게 */
   width: 180px; /* 고정 가로 크기 */
   height: 252px; /* 고정 세로 크기 */
   object-fit: cover; /* 비율을 유지하며 크기에 맞게 잘라냄 */
+}
+.follow-div>.following .artist-img:hover{
+  border: 2px solid #000000b3;
+  cursor: pointer;
 }
 
 /* 페이지 네이션 */

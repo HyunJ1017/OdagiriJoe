@@ -2,7 +2,7 @@
 
 /* url 모음 */
 const urls = {
-    /* 경매진행작 */ "detailCurrent" : "/auction/currentDetail?pieceNo=",
+    /* 경매진행작 */ "detailCurrent" : "/auction/auctionDetail?pieceNo=",
 }
 
 // 상세정보 버튼 클릭시 상세정보 페이지로 이동
@@ -54,6 +54,23 @@ const getEndprice = () => {
 document.addEventListener("DOMContentLoaded", () => {
   getEndprice();
   setInterval(getEndprice, 60000);
+
+  const bidStatus = document.getElementById("bidStatus");
+  const joinStatus = document.getElementById("joinStatus");
+  let bidCount = document.querySelectorAll(".piece-payment").length;
+  let joinCount = document.querySelectorAll(".piece-detales").length;
+
+  if(bidCount > 0) {
+    bidStatus.innerHTML = bidCount + "개";
+  } else {
+    bidStatus.innerHTML = "-";
+  }
+  if(joinCount > 0) {
+    joinStatus.innerHTML = joinCount + "개";
+  } else {
+    joinStatus.innerHTML = "-";
+  }
+
 });
 
 

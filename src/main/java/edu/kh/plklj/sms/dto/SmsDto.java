@@ -17,5 +17,5 @@ public class SmsDto {
 	private String artistPhone;
 	private String attistNickname;
 	private String pieceTitle;
-	private String sellPrice;
+	private String endPrice;
 }

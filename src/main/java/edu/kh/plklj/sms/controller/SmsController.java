@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 
 import edu.kh.plklj.sms.dto.SmsDto;
 import edu.kh.plklj.sms.service.SmsService;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -24,9 +25,11 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-@PropertySource("classpath:/config.properties")
-@RequestMapping("sms")
+
+@Slf4j
 @Controller
+@RequestMapping("sms")
+@PropertySource("classpath:/config.properties")
 public class SmsController {
 
 	@Value("${gabia.api.smsId}")
@@ -159,15 +162,6 @@ public class SmsController {
 		return service.authKeyCheck(phoneNumber, authKey);
 	}
 
-	
-	/** 경매알림문자
-	 * @param smsDto
-	 */
-	public void sendAuctionSms(SmsDto smsDto) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	
 	
 }

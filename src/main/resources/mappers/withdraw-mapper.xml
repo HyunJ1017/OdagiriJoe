@@ -14,7 +14,7 @@
 		    NVL(TYPE1, 0) + NVL(TYPE2, 0) - NVL(NOT_PAY, 0) AS "DEPOSIT_COUNT",
 		    NVL(NOT_PAY, 0) AS "UNDEPOSIT_COUNT",
 		    NVL(TYPE1, 0) + NVL(TYPE2, 0) AS "ALL_PIECE_COUNT",
-		    NVL(SUM_TYPE1, 0) + NVL(SUM_TYPE2, 0) AS "PRICE_SUM",
+		    TO_CHAR(NVL(SUM_TYPE1, 0) + NVL(SUM_TYPE2, 0), 'FM999,999,999,999,999') AS "PRICE_SUM",
 		    CASE 
 		        WHEN NVL(NOT_PAY, 0) = 0 AND A.MEMBER_NO IN (SELECT MEMBER_NO FROM WITHDRAW) THEN 'C'
 		        WHEN NVL(NOT_PAY, 0) = 0 AND A.MEMBER_NO NOT IN (SELECT MEMBER_NO FROM WITHDRAW) THEN 'W'
@@ -23,7 +23,7 @@
 		FROM
 		    ARTIST A
 		LEFT JOIN "MEMBER" M ON A.MEMBER_NO = M.MEMBER_NO
-		LEFT JOIN BANK_CODE_LIST BCL ON A.BANK_CODE = BCL.BANK_CODE  -- 은행명 조인
+		LEFT JOIN BANK_CODE_LIST BCL ON A.BANK_CODE = BCL.BANK_CODE
 		LEFT JOIN (
 		    SELECT
 		        P.MEMBER_NO,
@@ -31,7 +31,7 @@
 		        SUM(PR.PAY_AMOUNT) AS "SUM_TYPE1"
 		    FROM PIECE P
 		    JOIN PAYMENT_RECORD PR ON PR.PIECE_NO = P.PIECE_NO
-		    WHERE TO_CHAR(PR.PAY_DATE, 'YYYY-MM') = '2024-11'
+		    WHERE TO_CHAR(PR.PAY_DATE, 'YYYY-MM') = #{selectMonth}
 		      AND P.PIECE_TYPE = 1
 		      AND P.PIECE_STATUS = 'F'
 		    GROUP BY P.MEMBER_NO
@@ -110,11 +110,12 @@
 		INSERT INTO "WITHDRAW"
 		VALUES (
 			SEQ_WITHDRAW_NO.NEXTVAL,
-			#{memberNo},
-			#{bankCode},
-			#{bankNo},
+			#{dto.memberNo},
+			#{dto.bankCode},
+			#{dto.bankNo},
 			DEFAULT,
-			#{priceSum}
+			#{dto.priceSum},
+			#{selectMonth}
 			)
 	</insert>
 	
