@@ -75,7 +75,7 @@ public class SmsServiceImpl implements SmsService {
 		StringBuilder stb = new StringBuilder();
 		stb.append("회원님의 아이디목록 조회결과입니다.");
 		for(String str : idList) {
-			stb.append( String.format("- %s", str) );
+			stb.append( String.format("\n- %s", str) );
 		}
 		
 		return stb.toString();

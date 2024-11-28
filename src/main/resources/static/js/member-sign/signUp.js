@@ -153,17 +153,17 @@ idCheckBtn?.addEventListener("click", ()=>{
     throw new Error("AJAX 통신 실패");
   })
   .then(result => {
-    inputMessage.innerText = '';
+    document.querySelector("#inputMessage").innerText = '';
     if(result > 0){
-      inputMessage.classList.add("confirm-red");
-      inputMessage.classList.remove("confirm-green");
-      inputMessage.innerText = "이미 사용중인 ID 입니다.";
+      document.querySelector("#inputMessage").classList.add("confirm-red");
+      document.querySelector("#inputMessage").classList.remove("confirm-green");
+      document.querySelector("#inputMessage").innerText = "이미 사용중인 ID 입니다.";
       //alert("이미 사용중인 ID 입니다.");
       return;
     } else {
-      inputMessage.classList.remove("confirm-red");
-      inputMessage.classList.add("confirm-green");
-      inputMessage.innerText = "사용 가능한 ID 입니다.";
+      document.querySelector("#inputMessage").classList.remove("confirm-red");
+      document.querySelector("#inputMessage").classList.add("confirm-green");
+      document.querySelector("#inputMessage").innerText = "사용 가능한 ID 입니다.";
       console.log(inputMessage);
       //alert("사용 가능한 ID 입니다.");
       signConfirm.idCheck = true;
@@ -376,7 +376,7 @@ inputPh?.addEventListener("focus", () => {
   phMessage.appendChild(span);
 });
 
-inputPh?.addEventListener("input", ()=>{
+inputPh?.addEventListener("change", ()=>{
 
   const inputMessage = document.querySelector("#inputMessage");
 
@@ -402,8 +402,8 @@ inputPh?.addEventListener("input", ()=>{
     inputMessage.innerText = "전화번호 형식이 알맞지 않습니다.";
     return;
   } else {
-    inputMessage.classList.add("confirm-red");
-    inputMessage.classList.remove("confirm-green");
+    inputMessage.classList.remove("confirm-red");
+    inputMessage.classList.add("confirm-green");
     inputMessage.innerText = "전화번호를 입력해 주세요";
   }
 });
@@ -510,6 +510,7 @@ keyCheck.addEventListener("click", () => {
   .then(result => {
     console.log(result);
     if(result == 1){
+      clearInterval(authTimer);
       alert("전화번호 인증이 완료되었습니다.");
       signConfirm.phonCheck = true;
     } else if (result == 2) {
@@ -563,6 +564,8 @@ signUpBtn.addEventListener("click", ()=>{
     "inputPw" : inputPw.value,
     "memberPhone" : inputPh.value
   }
+
+  console.log(signUpObj);
 
   fetch("/member/signUp", {
     method: "POST",

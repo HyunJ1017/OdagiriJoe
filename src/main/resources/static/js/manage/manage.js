@@ -1073,6 +1073,10 @@ const renderingWithdrawList = (list, flag, selectMonth) => {
   // 전달받은 작가님네임, 판매작품수, 은행이름, 계좌번호, 총판매금액, 수수료, 입금상태 추가하기
   salesTableBody.innerHTML = '';
 
+  if(selectMonth === undefined){
+    selectMonth = selectMonthInput.value;
+  }
+
   let totalCount = 0;
   let waitCount = 0;
   let completedCount = 0;
