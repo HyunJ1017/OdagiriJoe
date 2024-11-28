@@ -4,10 +4,13 @@ import java.util.Map;
 
 public interface DashboardService {
 
-	
-
-	void incremrntVisitorCount();
+	void incrementVisitorCount();
 
 	Map<String, Integer> getVisitorCountForLastWeek();
 
+	int getMonthlyTotal();
+
+	
+
+	
 }

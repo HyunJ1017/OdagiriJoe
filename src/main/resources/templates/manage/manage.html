@@ -38,7 +38,6 @@
     <section class="main-content">
       <section class="tab-buttons">
         <button class="tab-btn" id="tab-btn" onclick="loadDashboardData('visitor')">방문자 현황</button>
-        <button class="tab-btn" id="tab-btn" onclick="loadDashboardData('charge')">충전 현황</button>
         <button class="tab-btn" id="tab-btn" onclick="loadDashboardData('distance')">거래 현황</button>
         <button class="tab-btn" id="tab-btn" onclick="loadDashboardData('work')">작품 현황</button>
       </section>
@@ -54,7 +53,7 @@
           <!-- 방문자 현황 -->
           <div class="tab-content active" id="visitor">
             <div class="chart-container">
-              <canvas id="dashboardChart"></canvas>
+              <canvas id="dashboardChart">방문자형황차트</canvas>
             </div>
             <div class="data-table">
               <h3>일자별 요약</h3>
@@ -63,11 +62,16 @@
                   <tr>
                     <th>일자</th>
                     <th>방문자</th>
+                    <th>금액</th>
                   </tr>
                 </thead>
                 <tbody id="tableBody">
                   <!-- 데이터 렌더링 -->
                 </tbody>
+                <tfoot id="tableFooter">
+                    <td id="weeklyTotal"></td>
+                    <td id="monthlyTotal"></td>
+                </tfoot>
               </table>
             </div>
           </div>
