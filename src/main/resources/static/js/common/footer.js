@@ -1,15 +1,24 @@
 document.addEventListener('DOMContentLoaded', function() {
-  const fullHeight = document.documentElement.scrollHeight;
-  const windowHeight = window.innerHeight;
-  const height = fullHeight - windowHeight;
+  let fullHeight = document.documentElement.scrollHeight;
+  let windowHeight = window.innerHeight;
+  let height = fullHeight - windowHeight;
 
+  
   const count = getFullHeight(7); // 7개의 구간으로 나눔
-
+  
   const sectionXBOX = document.querySelectorAll("#leftSide-barBox div");
-
+  
   window.addEventListener('scroll', function() {
-      displayScrollHeight(sectionXBOX, count, height);
+    displayScrollHeight(sectionXBOX, count, height);
   });
+  setInterval( () => {
+    fullHeight = document.documentElement.scrollHeight;
+    windowHeight = window.innerHeight;
+    height = fullHeight - windowHeight;
+
+    displayScrollHeight(sectionXBOX, count, height);
+
+  } , 1000);
 });
 
 function getFullHeight(divCount) {

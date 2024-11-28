@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import edu.kh.plklj.sms.dto.SmsDto;
+
 @Mapper
 public interface ScheduleMapper {
 
@@ -20,5 +22,7 @@ public interface ScheduleMapper {
 	int cellPice(int pieceNo);
 
 	int prisoners();
+
+	SmsDto getSmsInfo(int pieceNo);
 
 }

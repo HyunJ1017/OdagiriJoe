@@ -178,7 +178,7 @@ public class MyPageController {
 		
 		Member getArtistInfo = service.getArtistInfo(memberNo);
 		log.info("getArtistInfo : {}", getArtistInfo);
-		if(getArtistInfo.getArtistPortfolio() != null) {
+		if(getArtistInfo != null) {
 			ra.addFlashAttribute("message", "이전 신청내역이 아직 처리중입니다.");
 			return "redirect:/member/myPage";
 		}
