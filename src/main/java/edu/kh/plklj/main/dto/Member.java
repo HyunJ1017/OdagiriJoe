@@ -33,6 +33,13 @@ public class Member {
 	private String bankCode; // 은행코드
 	private String bankNo; // 작품
 	
+	// 관리자
+	private int manageNo; // 관리자 번호
+	private String manageNickname; // 관리자명
+	private String manageId; // 관리자아이디
+	private String managePw; // 관리자비밀번호
+	private String manageDelFl; // 관리자 탈퇴 여부
+	
 	// 입금 기록
 	private int recordNo;
 	private int payAmount;

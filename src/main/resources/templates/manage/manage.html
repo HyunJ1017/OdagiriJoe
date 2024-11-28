@@ -6,8 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>관리자 페이지</title>
   <link rel="stylesheet" href="/css/manage/manage.css">
-
-
+  <link rel="stylesheet" href="/css/delevery/delevery.css">
 </head>
 
 <body id="top">
@@ -31,6 +30,7 @@
           <li><a href="#noticeN" class="nav-item" data-tab="faq">공지사항</a></li>
           <li><a href="#back" class="nav-item" data-tab="notice">작가 환전</a></li>
           <li><a href="#onequestion" class="nav-item" data-tab="support">1:1 문의</a></li>
+          <li><a href="#delivery" class="nav-item" data-tab="delivery">배송 상태 변경</a></li>
         </ul>
       </nav>
     </section>
@@ -457,9 +457,9 @@
         </ul>
       </section>
       <div class="pagination-box" id="paginationBoxQuestion"></div>
-
-
     </section>
+
+
 
     <th:block th:replace="~{/manage/reportPopup.html}"></th:block>
     <script src="/js/manage/manage.js"></script>
