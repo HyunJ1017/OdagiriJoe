@@ -82,10 +82,10 @@
 
 	<select id="getContentList" resultType="map">
 		SELECT
-		R.REPORT_NO
-		"reportNo",
-		R.MEMBER_NO "memberNo",
+		R.REPORT_NO AS "reportNo",
+		R.MEMBER_NO AS "memberNo",
 		P.PIECE_TITLE AS "pieceName",
+		R.REPORT_DATE,
 		P.SIZE_X || ' x ' || P.SIZE_Y AS "pieceSize",
 	    TO_CHAR(A.END_PRICE, 'FM999,999,999,999,999,999') AS "auctionPrice",
 		D.ARTIST_NICKNAME AS "artistNickname",
@@ -99,7 +99,7 @@
 		LEFT JOIN ARTIST D ON R.MEMBER_NO = D.MEMBER_NO
 		WHERE
 		R.REPORT_DEL_FL ='N'
-
+		ORDER BY REPORT_DATE DESC
 	</select>
 	
 	
@@ -137,6 +137,10 @@
 	
 	</update>
 	
+	
+
+	
+	
 	<!-- 작가 정지  -->
 	<update id="suspendAritist">
 	UPDATE "MEMBER"
@@ -149,17 +153,34 @@
  	WHERE A.ARTIST_REG = 'Y')
 	
 	</update>
+	
 	<!-- 작가 탈퇴 -->
+
+	<!-- MEMBER 상태를 탈퇴로 업데이트 -->
+	<update id="withdrawArtist2">
+    UPDATE MEMBER
+    SET MEMBER_DEL_FL = 'Y'
+    WHERE MEMBER_NO = #{memberNo}
+    
+	</update>
+
+	<!-- ARTIST 상태를 비활성화로 업데이트 -->
 	<update id="withdrawArtist">
-	UPDATE "MEMBER"
+    UPDATE ARTIST
+    SET ARTIST_REG = 'N'
+    WHERE MEMBER_NO = #{memberNo}
+	</update>
+
+    
+	<!-- UPDATE "MEMBER"
 	SET MEMBER_DEL_FL = 'Y'
 	WHERE MEMBER_NO IN (
   	SELECT M.MEMBER_NO
   	FROM "MEMBER" M
   	LEFT JOIN ARTIST A ON M.MEMBER_NO = A.MEMBER_NO
   	WHERE A.MEMBER_NO = #{memberNo}
-  	AND A.ARTIST_REG = 'Y')
-	</update>
+  	AND A.ARTIST_REG = 'Y') -->
+
 	
 	<!--콘텐츠 관리 상세보기  -->
  	<select id="contentsDetailList">
@@ -303,6 +324,7 @@
 	    QUESTION_DEL_FL = 'N'
 	AND
 		 QUESTION_ANS_FL = 'N'
+	ORDER BY QUESTION_DATE DESC
 	</select>
 <!-- 	
 	<select id="getQuestionList" resultType="map">

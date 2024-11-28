@@ -256,7 +256,7 @@ h2 {
     background-color: white;
     color: #3A4F48;
 
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
 }
 
@@ -346,7 +346,8 @@ h2 {
 }
 .content-info {
     display: flex;
-        flex-direction: column;
+    flex-direction: column;
+    margin-left: 30px;
 }
 
 .content-info h2 {
@@ -355,6 +356,7 @@ h2 {
     color: #333;
     margin-bottom: 20px;
     margin-left: 5px;
+    margin-top:0;
 }
 
 .content-info p {
@@ -384,6 +386,7 @@ h2 {
 .view-button {
     background-color: #5e7c71;
     color: white;
+    margin-top: 18px;
 }
 
 .warn-button {
@@ -581,7 +584,7 @@ h2 {
 }
 
 .label {
-  font-size: 14px;
+  font-size: 17px;
   color: #5e7c71;
   margin-top: 20px;
  
@@ -598,7 +601,7 @@ h2 {
   .inquiry-row {
     cursor: pointer;
     font-size: 18px;
-    margin-bottom: 10px;
+
     display: flex;
     align-items: center;
   }
@@ -768,7 +771,7 @@ h2 {
 
 .notice-item {
     border-bottom: 1px solid #ddd;
-    padding: 10px 0;
+    padding: 13px 20px;
 }
 
 .notice-row {
@@ -784,7 +787,7 @@ h2 {
 }
 
 .notice-question {
-    font-size: 20px;
+    font-size: 17px;
     color: #3A4F48;
 }
 
@@ -795,11 +798,11 @@ h2 {
     margin-top: 22px;
     text-align: center;
 }
-    .-noticelist {
-        list-style: none; /* 목록 기호 제거 */
-        padding: 0;       /* 내부 여백 제거 */
-        margin: 0;        /* 외부 여백 제거 */
-      }
+.-noticelist {
+    list-style: none; /* 목록 기호 제거 */
+    padding: 0;       /* 내부 여백 제거 */
+    margin: 0;        /* 외부 여백 제거 */
+}
 
 
 .label {
@@ -839,11 +842,11 @@ h2 {
     justify-content: space-between;
 
 }
-.status-info>.count,
+.status-info .count,
 .status-info>#total-list{
     user-select: none;
 }
-.status-info>.count:hover,
+.status-info .count:hover,
 .status-info>#total-list:hover{
     cursor: pointer;
 }
@@ -964,7 +967,7 @@ h2 {
 .inquiry-list {
     list-style-type: none;
     border-radius: 8px;
-    padding: 10px 0;
+
 }
 
 
@@ -973,8 +976,8 @@ h2 {
 .inquiry-item {
  
     align-items: center;
-    padding: 10px 20px;
-    border-bottom: 1px solid #3A4F48;
+    padding: 15px 20px;
+    border-bottom: 1px solid #ddd;
 }
 
 .inquiry-item:last-child {
@@ -996,7 +999,7 @@ h2 {
 .filter-container{
 display: flex;
 justify-content: flex-end;
-margin-right: 300px;
+margin-right: 700px;
 }
 
 
@@ -1085,6 +1088,10 @@ margin-right: 300px;
     visibility: visible !important;
   }
   
+  #questionFilter{
+    font-size: 15px;
+    padding: 2px;
+  }
   /* 공지사항  */
 /*   .notice-item {
     max-width: 1000px;

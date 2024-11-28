@@ -25,6 +25,7 @@ public interface ManageService {
 
 	// 작가 탈퇴
 	int withdrawArtist(int memberNo);
+	int withdrawMember2(int memberNo);
 
 	// 신고내용 불러오기
 	List<Manage> contentsDetailList(int reportNo);
@@ -62,6 +63,8 @@ public interface ManageService {
 
 	// 1대 1문의 답변하기
 	void answerList(int questionNo, String questionAnswer);
+
+	
 
 
 
