@@ -170,9 +170,9 @@ keyCheck.addEventListener("click", () => {
   })
   .then(result => {
     if(result == 1){
-      
-      if(inputId !== undefined){
-        console.log(result);
+      // 카운터 정지
+      clearInterval(authTimer);
+      if(inputId){
         /* 비밀번호 재입력창 열기 */
         openPwReinput();
       } else {
@@ -209,6 +209,7 @@ const sendIdList = (phoneNumber) => {
   .then(result => {
     if(result > 0){
       alert("아이디 목록을 휴대전화로 보내드렸습니다.");
+      location.href = "/member/login";
     } else {
       alert("아이디 조회에 실패하였습니다.");
     }

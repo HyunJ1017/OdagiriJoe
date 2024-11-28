@@ -85,7 +85,7 @@ public class ManageServiceImpl implements ManageService {
 		case "5":
 			listCount = mapper.getNoticeListCount();
 
-			limit = 5;
+			limit = 7;
 			pg = new Pagination(cp, listCount, limit, 10);
 			offset = (cp - 1) * limit;
 			RowBounds noticeBounds = new RowBounds(offset, limit);
@@ -97,7 +97,7 @@ public class ManageServiceImpl implements ManageService {
 		case "6":
 			listCount = mapper.getQuestionListCount();
 
-			limit = 5;
+			limit = 7;
 			pg = new Pagination(cp, listCount, limit, 10);
 			offset = (cp - 1) * limit;
 			RowBounds questionBounds = new RowBounds(offset, limit);
@@ -142,6 +142,13 @@ public class ManageServiceImpl implements ManageService {
 
 		return mapper.withdrawArtist(memberNo);
 	}
+	
+	@Override
+	public int withdrawMember2(int memberNo) {
+	
+		return mapper.withdrawArtist2(memberNo);
+	}
+	
 
 	// 상세보기 신고목록 불러오기
 	@Override

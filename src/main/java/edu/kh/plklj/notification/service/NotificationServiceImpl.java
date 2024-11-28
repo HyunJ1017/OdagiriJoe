@@ -98,6 +98,12 @@ public class NotificationServiceImpl implements NotificationService {
 		return 1;
 	}
 	
+	
+	@Override
+	public void oneDayBeforeNotification(int daysBefore, String message) {
+		
+	}
+	
 	@Override
 	public List<Notification> selectNotification(int memberNo) {
 		return mapper.selectNotificationList(memberNo);
@@ -120,7 +126,5 @@ public class NotificationServiceImpl implements NotificationService {
 	public void deleteNotification(int notiNo) {
 		mapper.deleteNotification(notiNo);
 	}
-
-
 
 }

@@ -3,8 +3,8 @@
 /* url 모음 */
 const urls = {
   /* 상세보기 */ "detail" : "/auction/main",
-  /* 경매진행작 */ "detailCurrent" : "/auction/currentDetail?pieceNo=",
-  /* 경매대기작 */ "detailUpcommig" : "/auction/upCommingDetail?pieceNo=",
+  /* 경매진행작 */ "detailCurrent" : "/auction/auctionDetail?pieceNo=",
+  /* 경매대기작 */ "detailUpcommig" : "/auction/auctionDetail?pieceNo=",
   /* 배달정보 */ "delivery" : "/",
   /* 작성하기 */ "rewrite" : "/piece/upload?pieceNo=",
   /* 삭제하기 */ "remove" : "/piece/removeTemp?pieceNo="

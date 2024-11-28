@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>화사 :: 愛 :: 화공</title>
     <th:block th:replace= "~{/common/common.html :: cssLinks}"></th:block>
     <link rel="stylesheet" href="/css/myPage/progressiveAuction.css">
   </head>
@@ -12,6 +12,13 @@
 
   <main id="myPage-main" class="myPage-main">
     <h1>경매진행목록</h1>
+
+    <section class="content-counter">
+      <p>낙찰 현황 : </p>
+      <p id="bidStatus"></p>
+      <p>참여 현황 : </p>
+      <p id="joinStatus"></p>
+    </section>
 
     <section id="content-section">
 
@@ -25,6 +32,7 @@
           <div>
             <h3 th:text="*{pieceTitle}">무제</h3>
             <h4 th:text="*{artistNickname}">작가명</h4>
+            <p th:text="|구매일 *{startDate}|">11/28(목)</p>
             <p th:text="|경매액 \₩*{finalPrice}|">경매액 ₩50,000,000</p>
             <p th:text="|*{sizeX} x *{sizeY}|">15 x 30</p>
             <div class="piece-payment"

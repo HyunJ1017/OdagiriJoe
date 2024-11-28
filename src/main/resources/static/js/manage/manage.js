@@ -260,6 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
   showArtistBtn.addEventListener("click", () => {
     artistList.style.display = "flex";
     memberList.style.display = "none";
+    paginationBoxArtist.style.display = "flex";
     paginationBoxMember.style.display = "none";
     console.log("작가 보기 활성화");
     getList(1, 1)
@@ -276,7 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   getList(1, 1); // 작가목록
-  getList(2, 1); // 작가목록
+
 
   getList(3, 1); // 콘텐츠관리
   getList(4, 1) // 승인 요청 내역
@@ -369,7 +370,7 @@ function displayRequestContents(contents) {
   requestGrid.innerHTML = ''; // 기존 콘텐츠 초기화'
 
   contents.forEach(content => {
-    console.log("콘텐츠로딩");
+
     const requestCard = document.createElement('div');
     requestCard.classList.add('request-card');
     requestCard.dataset.memberNo = content.memberNo;
@@ -390,6 +391,7 @@ function displayRequestContents(contents) {
     requestGrid.appendChild(requestCard);
 
   });
+  detailButtonsEventAdd();
 }
 
 // 공지사항 표시함수
@@ -442,13 +444,20 @@ function displayquestionContents(contents) {
   }
   questionList.innerHTML = '';
   contents.forEach(content => {
+    const questionCategoryName = content.questionCategoryNo === 1 
+    ? "일반문의" 
+    : content.questionCategoryNo === 2 
+      ? "배송 및 운탁문의" 
+      : "기타";
     const questionItem = document.createElement('li');
     questionItem.classList.add('inquiry-item');
     questionItem.dataset.questionNo = content.questionNo;
+    questionItem.dataset.category = content.questionCategoryNo;
+
     questionItem.innerHTML = `
         <div class="inquiry-row">
                 <span class="icon">&#9654;</span>
-                <span class="inquiry">1 : 1 문의</span>
+                <span class="inquiry">${questionCategoryName}</span>
         </div>
             <div class="details" style="display: none;">
                 <label for="inquiry-content" class="label">문의 내용</label>
@@ -461,34 +470,57 @@ function displayquestionContents(contents) {
                 <button class="delete-button" data-question-no="${content.questionNo}">삭제하기</button>
                 </div>
               </div>
+              
       `;
     questionList.appendChild(questionItem);
   });
   questionToggleFn();
-
-
 }
 
-// 승인요청내역 정보상세보기
-const detailButtons = document.querySelectorAll(".detail-button");
+/* 1대 1문의 드롭다운 */
+function applyFilter(category) {
+  const items = document.querySelectorAll('.inquiry-item');
 
+  items.forEach(item => {
+    const itemCategory = item.dataset.category;
 
-if (detailButtons) {
-  detailButtons.forEach(detailButton => {
-    detailButton.addEventListener("click", (event) => {
+    if (category === 'all' || itemCategory === category) {
+      item.style.display = 'block'; // 필터 조건에 맞는 항목 표시
+    } else {
+      item.style.display = 'none'; // 조건에 맞지 않는 항목 숨김
+    }
+  });
+}
 
-      const memberNo = event.target.dataset.memberNo;
+// 드롭다운 이벤트 리스너
+document.getElementById('questionFilter').addEventListener('change', function (event) {
+  const selectedCategory = event.target.value;
+  applyFilter(selectedCategory);
+});
 
+const detailButtonsEventAdd = () => {
+  
+  // 승인요청내역 정보상세보기
+  const detailButtons = document.querySelectorAll(".detail-button");
+  
+  if (detailButtons) {
+    detailButtons.forEach(detailButton => {
+      detailButton.addEventListener("click", (event) => {
+  
+        const memberNo = event.target.dataset.memberNo;
+  
+  
+        if (!memberNo) {
+          alert("해당 회원 번호를 찾을 수 없습니다.");
+          return;
+        }
+        location.href = `/manage/confirm/${memberNo}`;
+      });
+    })
+  } else {
+    console.error("detailButton 요소를 찾을 수 없습니다.");
+  }
 
-      if (!memberNo) {
-        alert("해당 회원 번호를 찾을 수 없습니다.");
-        return;
-      }
-      location.href = `/manage/confirm/${memberNo}`;
-    });
-  })
-} else {
-  console.error("detailButton 요소를 찾을 수 없습니다.");
 }
 
 // 작가 거절
@@ -968,7 +1000,7 @@ const completedCountDiv = document.getElementById('completed-count');
 const holdCountDiv = document.getElementById('hold-count');
 const slaesExcelBtn = document.getElementById('slaes-excelBtn');
 const salesCompletedBtn = document.getElementById('sales-completedBtn');
-
+let currentMonth = '';
 let getListResult;
 
 // 페이지 로드시 현재월에 해당하는 매출표 가져오기
@@ -978,9 +1010,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // 현재 연도와 월을 "YYYY-MM" 형식으로 설정
   const year = now.getFullYear();
   const month = String(now.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
-  selectMonthInput.value = `${year}-${month}`;
+  currentMonth = `${year}-${month}`;
+  selectMonthInput.value = currentMonth;
 
-  getWithdrawList(`${year}-${month}`);
+  getWithdrawList(currentMonth);
 })
 
 // 월 선택시 해당하는 매출표 가져오기
@@ -1033,16 +1066,20 @@ const getWithdrawList = (selectMonth) => {
     })
     .then(result => {
       getListResult = result;
-      renderingWithdrawList(getListResult, 'A');
+      renderingWithdrawList(getListResult, 'A', selectMonth);
 
     })
     .catch(err => console.error(err));
 
 }
 
-const renderingWithdrawList = (list, flag) => {
+const renderingWithdrawList = (list, flag, selectMonth) => {
   // 전달받은 작가님네임, 판매작품수, 은행이름, 계좌번호, 총판매금액, 수수료, 입금상태 추가하기
   salesTableBody.innerHTML = '';
+
+  if(selectMonth === undefined){
+    selectMonth = selectMonthInput.value;
+  }
 
   let totalCount = 0;
   let waitCount = 0;
@@ -1058,7 +1095,7 @@ const renderingWithdrawList = (list, flag) => {
     if (flag === 'A' || flag === withdraw.priceFl) {
       const tr = document.createElement('tr');
       tr.innerHTML = `
-              <td><input ${withdraw.priceFl === 'W' ? 'class="wait-checkbox" data-member-no="' + withdraw.memberNo + '"' : 'disabled'} type="checkbox"></td>
+              <td><input ${withdraw.priceFl === 'W' && selectMonth != currentMonth ? 'class="wait-checkbox" data-member-no="' + withdraw.memberNo + '"' : 'disabled'} type="checkbox"></td>
               <td>${withdraw.artistNickname}</td>
               <td>${withdraw.allPieceCount}</td>
               <td>${withdraw.bankName}</td>

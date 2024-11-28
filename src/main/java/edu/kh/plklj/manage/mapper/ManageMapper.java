@@ -42,6 +42,7 @@ public interface ManageMapper {
 	
 	// 작가 탈퇴
 	int withdrawArtist(int memberNo);
+	int withdrawArtist2(int memberNo);
 	
 	// 콘텐츠 관리 상세보기
 	List<Map<String, Object>> getContentsDetailList();

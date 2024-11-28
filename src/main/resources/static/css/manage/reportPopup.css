@@ -13,7 +13,7 @@
 .popup-content {
   padding: 20px;
   height: 400px;
-  width: 650px;
+  width: 700px;
 }
 
 .popup-title {
@@ -53,15 +53,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  margin-top: 40px;
+  gap: 40px;
+  margin-top: 60px;
 }
 
 .btn {
   padding: 8px 20px;
   border: none;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 17px;
   cursor: pointer;
   background-color: #5c7c77;
   color: white;

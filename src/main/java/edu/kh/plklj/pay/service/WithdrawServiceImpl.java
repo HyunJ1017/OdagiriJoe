@@ -60,7 +60,7 @@ public class WithdrawServiceImpl implements WithdrawService {
 		int result = 0;
 		
 		for(PaymentDto dto : list) {
-			result += mapper.saveWithdraw(dto);
+			result += mapper.saveWithdraw(dto, selectMonth);
 		}
 		
 		return result;

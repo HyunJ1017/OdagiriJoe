@@ -22,30 +22,36 @@
       <div class="upcoming-title">예정 경매</div>
   
       <!-- 리스트 반복 -->
-      <div th:each="piece, iterStat : ${upCommingList}" 
-          class="upcoming-box"
-          th:style="${iterStat.last} ? 'border-right: none;' : 'border-right: 2px solid #aaaaaa;'">
-      <div class="upcoming-imgbox">
-        <img th:src="@{${piece.pieceRename} ?: '/images/default.jpg'}" alt="경매 이미지" class="content-img" onload="hideLoader(this)">
-        <div class="loader"></div>
-      </div>
+        <div th:each="piece, iterStat : ${upCommingList}" 
+            class="upcoming-box"
+            th:style="${iterStat.last} ? 'border-right: none;' : 'border-right: 2px solid #aaaaaa;'">
+          <div class="upcoming-imgbox">
+            <img th:src="@{${piece.pieceRename} ?: '/images/default.jpg'}" alt="경매 이미지" class="content-img" onload="hideLoader(this)">
+            <div class="loader"></div>
+          </div>
 
-      <div class="upcoming-text">
-        <h1 th:text="${piece.pieceTitle ?: '제목 없음'}"></h1>
-    
-        <div style="margin-top: 35px;">프리뷰</div>
-        <div th:text="${piece.previewPeriod}" style="margin-top: 8px;"></div>
-    
-        <div style="margin-top: 25px;">경매일</div>
-        <div th:text="${piece.auctionDateDisplay + ' 10:00'}" style="margin-top: 8px;"></div>
-    
-        <hr class="dotted-line">
-        <button class="detail-button" id="upCommingBtn" th:attr="data-id=${piece.pieceNo}">상세보기</button>
-      </div>
-      
-    </div>
+          <div class="upcoming-text">
+            <h1 th:text="${piece.pieceTitle ?: '제목 없음'}"></h1>
+        
+            <div style="margin-top: 35px;">프리뷰</div>
+            <div th:text="${piece.previewPeriod}" style="margin-top: 8px;"></div>
+        
+            <div style="margin-top: 25px;">경매일</div>
+            <div th:text="${piece.auctionDateDisplay + ' 10:00'}" style="margin-top: 8px;"></div>
+        
+            <hr class="dotted-line">
+            <button class="detail-button" id="upCommingBtn" th:attr="data-id=${piece.pieceNo}">상세보기</button>
+          </div>
+        </div>
  
 
+      <div th:if="${upCommingList == null or #lists.isEmpty(upCommingList)}" 
+            class="upcoming-box no-upcoming">
+        <div class="no-upcoming-text">
+          <h1>예정된 경매가 없습니다.</h1>
+          <p style="margin-top: 20px;">현재 예정된 경매가 없습니다. 새로운 경매를 기다려주세요!</p>
+        </div>
+      </div>
     </section>
 
 
@@ -77,6 +83,15 @@
             <!-- 작품 이미지 -->
             <img th:src="@{${auction.pieceRename} ?: '/images/default.jpg'}" alt="경매 이미지" class="content-img" onload="hideLoader(this)">
             <div class="loader"></div>
+        </div>
+      </div>
+
+
+       <!-- 데이터가 없을 경우 -->
+      <div th:if="${currentList == null or #lists.isEmpty(currentList)}" class="no-ongoing">
+        <div class="no-ongoing-text">
+          <h1 class="no-ongoing-title">진행 중인 경매가 없습니다.</h1>
+          <p style="font-size: 18px; margin-top: 20px; color: #555555;">현재 진행 중인 경매가 없습니다. 새로운 경매를 기다려주세요!</p>
         </div>
       </div>
     </section>

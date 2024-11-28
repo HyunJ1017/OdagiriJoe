@@ -1,13 +1,11 @@
 package edu.kh.plklj.common.scheduling.scheduler;
 
-import java.util.List;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import edu.kh.plklj.common.scheduling.service.ScheduleService;
 import edu.kh.plklj.image.service.ImageService;
-import edu.kh.plklj.notification.dto.Notification;
 import edu.kh.plklj.notification.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -68,13 +66,24 @@ public class AuctionScheduler {
 	
 	
 
-	// 스케줄러 이용한 알림 보내기
+	// 스케줄러 이용한 한시간 전 알림 보내기
 	@Scheduled(cron = "0 0 9 * * *")
-//	 @Scheduled(cron = "0/10 * * * * *")
+	// @Scheduled(cron = "0/10 * * * * *")
 	public void notifyAuctionItems() {
 		
 		// 당일 알림
 		notificationService.sendAuctionNotifications(0, "찜한 게시물의 경매가 한 시간 뒤에 시작됩니다.");
 	}
+	
+	
+	// 스케줄러 이용한 하루 전 알림 보내기
+	@Scheduled(cron = "0 0 10 * * *")
+	public void oneDayBeforeNotification() {
+		
+		// 당일 알림
+		notificationService.oneDayBeforeNotification(-1, "찜한 게시물의 경매가 내일 시작됩니다. 기대해주세요!");
+	}
+	
+	
 
 }

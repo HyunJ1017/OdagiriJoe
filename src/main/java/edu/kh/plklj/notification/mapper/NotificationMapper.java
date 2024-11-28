@@ -48,6 +48,10 @@ public interface NotificationMapper {
    * @return
    */
   List<Integer>  getAuctionNotification(int daysBefore);
+  
+  
+  
+  
 
   /** 읽지 않은 알림 개수 조회
    * @param memberNo
