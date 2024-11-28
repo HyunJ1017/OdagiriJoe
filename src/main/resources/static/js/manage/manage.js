@@ -260,6 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
   showArtistBtn.addEventListener("click", () => {
     artistList.style.display = "flex";
     memberList.style.display = "none";
+    paginationBoxArtist.style.display = "flex";
     paginationBoxMember.style.display = "none";
     console.log("작가 보기 활성화");
     getList(1, 1)
@@ -276,7 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   getList(1, 1); // 작가목록
-  getList(2, 1); // 작가목록
+
 
   getList(3, 1); // 콘텐츠관리
   getList(4, 1) // 승인 요청 내역
@@ -442,13 +443,20 @@ function displayquestionContents(contents) {
   }
   questionList.innerHTML = '';
   contents.forEach(content => {
+    const questionCategoryName = content.questionCategoryNo === 1 
+    ? "일반문의" 
+    : content.questionCategoryNo === 2 
+      ? "배송 및 운탁문의" 
+      : "기타";
     const questionItem = document.createElement('li');
     questionItem.classList.add('inquiry-item');
     questionItem.dataset.questionNo = content.questionNo;
+    questionItem.dataset.category = content.questionCategoryNo;
+
     questionItem.innerHTML = `
         <div class="inquiry-row">
                 <span class="icon">&#9654;</span>
-                <span class="inquiry">1 : 1 문의</span>
+                <span class="inquiry">${questionCategoryName}</span>
         </div>
             <div class="details" style="display: none;">
                 <label for="inquiry-content" class="label">문의 내용</label>
@@ -461,13 +469,33 @@ function displayquestionContents(contents) {
                 <button class="delete-button" data-question-no="${content.questionNo}">삭제하기</button>
                 </div>
               </div>
+              
       `;
     questionList.appendChild(questionItem);
   });
   questionToggleFn();
-
-
 }
+
+/* 1대 1문의 드롭다운 */
+function applyFilter(category) {
+  const items = document.querySelectorAll('.inquiry-item');
+
+  items.forEach(item => {
+    const itemCategory = item.dataset.category;
+
+    if (category === 'all' || itemCategory === category) {
+      item.style.display = 'block'; // 필터 조건에 맞는 항목 표시
+    } else {
+      item.style.display = 'none'; // 조건에 맞지 않는 항목 숨김
+    }
+  });
+}
+
+// 드롭다운 이벤트 리스너
+document.getElementById('questionFilter').addEventListener('change', function (event) {
+  const selectedCategory = event.target.value;
+  applyFilter(selectedCategory);
+});
 
 // 승인요청내역 정보상세보기
 const detailButtons = document.querySelectorAll(".detail-button");

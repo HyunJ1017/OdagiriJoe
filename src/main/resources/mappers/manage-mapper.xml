@@ -294,13 +294,33 @@
 	QUESTION_CONTENT AS "questionContent", 
 	QUESTION_DEL_FL AS "questionDelFl", 
 	QUESTION_ANS_FL AS "questionAnsFl", 
-	QUESTION_ANSWER AS "questionAnswer"
-	FROM QUESTION
+	QUESTION_ANSWER AS "questionAnswer",
+	QUESTION_CATEGORY_NO AS "questionCategoryNo"
+
+	FROM QUESTION 
+	
+	WHERE
+	    QUESTION_DEL_FL = 'N'
+	AND
+		 QUESTION_ANS_FL = 'N'
+	</select>
+<!-- 	
+	<select id="getQuestionList" resultType="map">
+	SELECT 
+	Q.QUESTION_NO AS "Q.questionNo", 
+	Q.MEMBER_NO AS "Q.memberNo", 
+	Q.QUESTION_CONTENT AS "questionContent", 
+	Q.QUESTION_DEL_FL AS "questionDelFl", 
+	Q.QUESTION_ANS_FL AS "questionAnsFl", 
+	Q.QUESTION_ANSWER AS "questionAnswer",
+	C.QUESTION_CATEGORY_NAME AS "questionCategoryName"
+	FROM QUESTION Q
+	LEFT JOIN QUESTION_CATEGORY C ON Q.QUESTION_CATEGORY_NO = C.QUESTION_CATEGORY_NO
 	WHERE
 	    QUESTION_DEL_FL = 'N'
 	   AND
 		 QUESTION_ANS_FL = 'N'
-	</select>
+	</select> -->
 	
 	<!-- 1대 1문의 삭제하기  -->
 	<update id="deleteQuestionList">

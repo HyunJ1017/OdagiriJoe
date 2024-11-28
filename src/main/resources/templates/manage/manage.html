@@ -27,7 +27,6 @@
           <li><a href="#memberManage" class="nav-item" data-tab="visitor">작가 및 회원 관리</a></li>
           <li><a href="#contentsManage" class="nav-item" data-tab="charge">콘텐츠 관리</a></li>
           <li><a href="#approval" class="nav-item" data-tab="distance">승인 요청 내역</a></li>
-          <li><a href="#questionQ" class="nav-item" data-tab="work">자주 묻는 질문(FAQ)</a></li>
           <li><a href="#noticeN" class="nav-item" data-tab="faq">공지사항</a></li>
           <li><a href="#back" class="nav-item" data-tab="notice">작가 환전</a></li>
           <li><a href="#onequestion" class="nav-item" data-tab="support">1:1 문의</a></li>
@@ -327,26 +326,6 @@
         </div>
       </section>
 
-      <!-- 자주 묻는 질문 -->
-      <div id="questionQ"></div>
-      <h2>자주 묻는 질문(FAQ)</h2>
-      <section class="faq-section">
-        <ul class="faq-list">
-          <li class="faq-item">
-            <div class="question-row">
-              <span class="icon">&#9654;</span>
-              <span class="question">자주 묻는 질문</span>
-            </div>
-            <div class="answer" style="display: none;">
-              견뎌야 합니다 ㅎㅎㅎ
-            </div>
-            <div class="ques-buttons" style="display: none;">
-              <button class="edit-button">수정하기</button>
-              <button class="delete-button">삭제하기</button>
-            </div>
-          </li>
-        </ul>
-      </section>
 
       <!--공지사항 -->
       <div id="noticeN"></div>
@@ -434,6 +413,14 @@
       <!-- 1 : 1 문의 -->
       <div id="onequestion"></div>
       <h2>1 : 1 문의</h2>
+      <!-- 드롭다운 -->
+      <div class="filter-container">
+        <select id="questionFilter" class="question-filter">
+          <option value="all">전체보기</option>
+          <option value="1">일반문의</option>
+          <option value="2">배송 및 운탁문의</option>
+        </select>
+      </div>
       <section class="inquiry-section" id="questionGrid">
         <ul class="inquiry-list">
           <li class="inquiry-item">
@@ -456,6 +443,10 @@
           </li>
         </ul>
       </section>
+      <ul id="questionGrid" class="inquiry-list">
+        <!-- 문의 내용이 동적으로 추가될 예정 -->
+      </ul>
+      
       <div class="pagination-box" id="paginationBoxQuestion"></div>
 
 
