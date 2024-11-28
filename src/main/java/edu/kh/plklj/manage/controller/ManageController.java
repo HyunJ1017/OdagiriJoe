@@ -61,7 +61,7 @@ public class ManageController {
 	public String withdrawMember(@RequestBody int memberNo) {
 		int result = service.withdrawMember(memberNo);
 		if (result > 0) {
-			return "탈퇴 완료 되었습니다.";
+				return "탈퇴 완료 되었습니다.";
 		}
 
 		return "탈퇴 실패";
@@ -84,7 +84,8 @@ public class ManageController {
 	@ResponseBody
 	public String withdrawArtist(@RequestBody int memberNo) {
 		int result = service.withdrawArtist(memberNo);
-		if (result > 0) {
+		int result2 = service.withdrawMember2(memberNo);
+		if (result > 0 && result2 > 0) {
 			return "탈퇴 완료 되었습니다";
 		}
 		return "탈퇴 실패";
@@ -213,17 +214,16 @@ public class ManageController {
 
 	}
 
-	
-	  // 1대 1문의
-	  
-	  @PostMapping("/answer/{questionNo}")
-	  @ResponseBody 
-	  public String answerList(@PathVariable("questionNo") int questionNo, @RequestBody String questionAnswer) { 
+	// 1대 1문의
 
-		  service.answerList(questionNo, questionAnswer);
-		  return "답변 성공";
-	  }
-	 
+	@PostMapping("/answer/{questionNo}")
+	@ResponseBody
+	public String answerList(@PathVariable("questionNo") int questionNo, @RequestBody String questionAnswer) {
+
+		service.answerList(questionNo, questionAnswer);
+		return "답변 성공";
+	}
+
 	@PostMapping("/delete/{questionNo}")
 	@ResponseBody
 	public void deleteQuestionList(@PathVariable("questionNo") int questionNo) {

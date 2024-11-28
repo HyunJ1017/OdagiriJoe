@@ -15,28 +15,34 @@
 
   <main class="main-content">
     <section class="profile-section">
-     <div th:each= "profile:${profileList}" style="display: flex; flex-direction: row;">
+      <!-- 프로필 리스트에서 첫 번째 항목만 표시 -->
+      <div style="display: flex; flex-direction: row;">
         <div class="profile-image">
-            <img th:src="${profile.artistProfile}" alt="대표 이미지">
+            <img th:src="${profileList[0].artistProfile}" alt="대표 이미지">
         </div>
         <div class="profile-info">
-            <h2 class="name" th:text = "${profile.artistNickname}"></h2>
+            <h2 class="name" th:text="${profileList[0].artistNickname}"></h2>
 
             <h3 class="section-title">작가 경력 사항</h3>
-            <th:block th:each= "detail:${profile.workDetail}">
-              <p th:text ="${detail}"></p>
+            <th:block th:each="detail : ${profileList[0].workDetail}">
+              <p th:text="${detail}"></p>
             </th:block>
-          
 
             <h3 class="section-title">포트폴리오</h3>
-            <a th:if= "${profile.artistPortfolio}" th:href="${profile.artistPortfolio}"  class="pdf-link" download="|포트폴리오${profile.memberNo}|">포트폴리오 다운로드</a>
+            <a th:if="${profileList[0].artistPortfolio}" 
+               th:href="${profileList[0].artistPortfolio}" 
+               class="pdf-link" 
+               download="|포트폴리오${profileList[0].memberNo}|">
+               포트폴리오 다운로드
+            </a>
         </div>
       </div>
     </section>
-</main>
+  </main>
 
   <!-- 푸터 -->
   <th:block th:replace="~{/common/footer.html}"></th:block>
 </body>
+
 
 </html>

@@ -370,7 +370,7 @@ function displayRequestContents(contents) {
   requestGrid.innerHTML = ''; // 기존 콘텐츠 초기화'
 
   contents.forEach(content => {
-    console.log("콘텐츠로딩");
+
     const requestCard = document.createElement('div');
     requestCard.classList.add('request-card');
     requestCard.dataset.memberNo = content.memberNo;
@@ -391,6 +391,7 @@ function displayRequestContents(contents) {
     requestGrid.appendChild(requestCard);
 
   });
+  detailButtonsEventAdd();
 }
 
 // 공지사항 표시함수
@@ -497,26 +498,29 @@ document.getElementById('questionFilter').addEventListener('change', function (e
   applyFilter(selectedCategory);
 });
 
-// 승인요청내역 정보상세보기
-const detailButtons = document.querySelectorAll(".detail-button");
+const detailButtonsEventAdd = () => {
+  
+  // 승인요청내역 정보상세보기
+  const detailButtons = document.querySelectorAll(".detail-button");
+  
+  if (detailButtons) {
+    detailButtons.forEach(detailButton => {
+      detailButton.addEventListener("click", (event) => {
+  
+        const memberNo = event.target.dataset.memberNo;
+  
+  
+        if (!memberNo) {
+          alert("해당 회원 번호를 찾을 수 없습니다.");
+          return;
+        }
+        location.href = `/manage/confirm/${memberNo}`;
+      });
+    })
+  } else {
+    console.error("detailButton 요소를 찾을 수 없습니다.");
+  }
 
-
-if (detailButtons) {
-  detailButtons.forEach(detailButton => {
-    detailButton.addEventListener("click", (event) => {
-
-      const memberNo = event.target.dataset.memberNo;
-
-
-      if (!memberNo) {
-        alert("해당 회원 번호를 찾을 수 없습니다.");
-        return;
-      }
-      location.href = `/manage/confirm/${memberNo}`;
-    });
-  })
-} else {
-  console.error("detailButton 요소를 찾을 수 없습니다.");
 }
 
 // 작가 거절
