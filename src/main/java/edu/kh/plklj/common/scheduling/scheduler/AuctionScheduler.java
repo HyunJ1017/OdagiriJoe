@@ -1,6 +1,8 @@
 package edu.kh.plklj.common.scheduling.scheduler;
 
 
+import java.time.LocalDateTime;
+
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -71,17 +73,25 @@ public class AuctionScheduler {
 	// @Scheduled(cron = "0/10 * * * * *")
 	public void notifyAuctionItems() {
 		
-		// 당일 알림
-		notificationService.sendAuctionNotifications(0, "찜한 게시물의 경매가 한 시간 뒤에 시작됩니다.");
+    int result = notificationService.sendAuctionNotifications(0, "찜한 게시물의 경매가 한 시간 뒤에 시작됩니다.");
+    
+    log.info(">> ------------------------------- >>");
+    log.info(">> 한 시간 전 알림 시작");
+    log.info(">> 한 시간 전 알림 완료: {} 건", result);
+    log.info(">> ------------------------------- >>");
 	}
 	
 	
 	// 스케줄러 이용한 하루 전 알림 보내기
 	@Scheduled(cron = "0 0 10 * * *")
-	public void oneDayBeforeNotification() {
+	public void notifyAuctionOneDayBefore() {
 		
-		// 당일 알림
-		notificationService.oneDayBeforeNotification(-1, "찜한 게시물의 경매가 내일 시작됩니다. 기대해주세요!");
+		int result = notificationService.sendAuctionNotifications(1, "찜한 게시물의 경매가 내일 시작됩니다. 기대해주세요!"); 
+		
+		log.info(">> ------------------------------- >>");
+		log.info(">> 하루 전 알림 시작");
+		log.info(">> 하루 전 알림 : {} 건", result);
+		log.info(">> ------------------------------- <<");
 	}
 	
 	

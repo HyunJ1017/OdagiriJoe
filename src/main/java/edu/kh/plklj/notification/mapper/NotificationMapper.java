@@ -50,9 +50,6 @@ public interface NotificationMapper {
   List<Integer>  getAuctionNotification(int daysBefore);
   
   
-  
-  
-
   /** 읽지 않은 알림 개수 조회
    * @param memberNo
    * @return
@@ -68,4 +65,9 @@ public interface NotificationMapper {
    * @param notiNo
    */
   void deleteNotification(int notiNo);
+
+	
+
+  
+  
 }

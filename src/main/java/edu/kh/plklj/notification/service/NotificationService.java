@@ -40,7 +40,7 @@ public interface NotificationService {
    */
   void updateNotification(int notiNo);
 
-  /** 경매 한시간 전 알림 목록 조회
+  /** 경매 한시간 전, 하루 전 알림 목록 조회
    * @param daysBefore
    * @param message
    * @return
@@ -48,11 +48,4 @@ public interface NotificationService {
 	int sendAuctionNotifications(int daysBefore, String message);
 
 	
-	/** 경매 하루 전 알림
-	 * 
-	 * @param daysBefore
-   * @param message
-   * @return
-	 */
-	void oneDayBeforeNotification(int oneDayBefore, String message);
 }
