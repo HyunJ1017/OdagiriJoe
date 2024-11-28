@@ -52,26 +52,7 @@ public class NotificationServiceImpl implements NotificationService {
 		return list;
 	}
 
-	@Override
-	public List<Notification> selectNotification(int memberNo) {
-		return mapper.selectNotificationList(memberNo);
-	}
-
-	@Override
-	public int readCheck(int memberNo) {
-		return mapper.readCheck(memberNo);
-	}
-
-	@Override
-	public void deleteNotification(int notiNo) {
-		mapper.deleteNotification(notiNo);
-	}
-
-	@Override
-	public void updateNotification(int notiNo) {
-		mapper.updateNotification(notiNo);
-	}
-
+	/* 위시리스트에 관한 알림 보내기 */
 	@Override
 	public int sendAuctionNotifications(int daysBefore, String message) {
 
@@ -116,4 +97,30 @@ public class NotificationServiceImpl implements NotificationService {
 
 		return 1;
 	}
+	
+	@Override
+	public List<Notification> selectNotification(int memberNo) {
+		return mapper.selectNotificationList(memberNo);
+	}
+
+	/* 읽지 않은 알림 */
+	@Override
+	public int readCheck(int memberNo) {
+		return mapper.readCheck(memberNo);
+	}
+	
+	/* 알림 읽음 여부 변경 */
+	@Override
+	public void updateNotification(int notiNo) {
+		mapper.updateNotification(notiNo);
+	}
+	
+	/* 알림 삭제 */
+	@Override
+	public void deleteNotification(int notiNo) {
+		mapper.deleteNotification(notiNo);
+	}
+
+
+
 }
