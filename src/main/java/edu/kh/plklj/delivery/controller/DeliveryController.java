@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 @Controller
@@ -45,6 +46,7 @@ public class DeliveryController {
 		model.addAttribute("selectDeliveryList", selectDeliveryList);
 		return "/delivery/main";
 	}
+	
 
 	@GetMapping("uploadDelivery")
 	public String selectDelivery(Model model) {
