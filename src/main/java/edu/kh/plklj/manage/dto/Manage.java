@@ -99,6 +99,12 @@ public class Manage {
 		// 문의 분류
 		private int questionCategoryName;
 		
+		// 방문자 수 대시보드
+		private String visitorDate; // 방문 날짜
+		private int dailyVisitor; // 해당 날짜의 방문자 수
+		private int weekGroup; // 주차를 나타내는 그룹 번
+		private int visitCount; // 방문자 수
+		
 	
 
 }

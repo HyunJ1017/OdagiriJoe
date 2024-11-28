@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "edu.kh.plklj.manage.mapper.DashboardMapper">
+
+	<!-- 오늘 날짜 방문자 수 증가 -->
+	<update id="incrementVisitorCountForToday">
+		MERGE INTO VISITOR V
+		USING (SELECT TRUNC(SYSDATE) AS VISITOR_DATE FROM DUAL) D
+		ON (V.VISITOR_DATE = D.VISITOR_DATE)
+		WHEN MATCHED THEN
+			UPDATE SET V.DAILY_VISITS = V.DAILY_VISITS + 1
+		WHEN NOT MATCHED THEN
+			INSERT (VISITOR_DATE, DAILY_VISITS, WEEK_GROUP)
+			VALUES (D.VISITOR_DATE, 1, TO_CHAR(D.VISITOR_DATE, 'YYYYWW'))
+	</update>
+	
+	<!-- 최근 7일 방문자 수 조회 -->
+	<select id="getVisitorCountForLastWeek" resultType="Manage">
+		SELECT TO_CHAR(VISITOR_DATE, 'YYYY-MM-DD') AS VISITOR_DATE,
+				NVL(DAILY_VISITS, 0) AS VISIT_COUNT
+		FROM
+			VISITOR
+		WHERE
+			VISITOR_DATE >= TRUNC(SYSDATE) - 6
+		ORDER BY
+			VISITOR_DATE
+	</select>
+	
+	<!-- 이번달 방문자 수 합계 -->
+	<select id="getMonthlyTotal" resultType="_int">
+		SELECT NVL(SUM(DAILY_VISITS), 0) AS MONTHLY_VISITS
+		FROM VISITOR
+		WHERE TO_CHAR(VISITOR_DATE, 'YYYY-MM') = TO_CHAR(SYSDATE, 'YYYY-MM')
+	</select>
+
+  	
+
+</mapper>
