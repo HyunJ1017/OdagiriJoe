@@ -174,3 +174,18 @@ body{
   width: 100%;
   height: 30px;
 }
+
+#myPage-main>.content-counter{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0 10px;
+}
+#myPage-main>.content-counter>p:nth-child(2n-1){
+  color: #5e7c71;
+}
+#myPage-main>.content-counter>p:nth-child(2n){
+  color: black;
+  margin: 10px;
+}

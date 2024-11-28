@@ -173,11 +173,18 @@ artistNickname?.addEventListener("focus", () => {
   span.id="inputMessage";
   span.innerText = "한글로된 2~12자의 닉네임을 입력해 주세요";
   nicknameMessage.appendChild(span);
+  doNicknameConfirm();
 });
 
 // 닉네임 입력시
 artistNickname.addEventListener("input", ()=>{
 
+  doNicknameConfirm();
+
+});
+
+const doNicknameConfirm = () => {
+  
   artistNickname.classList.remove("confirm-red");
   // 메세지창
   const inputMessage = document.querySelector("#inputMessage");
@@ -197,7 +204,6 @@ artistNickname.addEventListener("input", ()=>{
     inputMessage.innerText = "한글만 입력해 주세요";
     return;
   }
-
 
   if(inputNickname.length > 12){
     artistNickname.classList.add("confirm-red");
@@ -221,8 +227,7 @@ artistNickname.addEventListener("input", ()=>{
     }
   })
   .catch(err => console.error(err));
-
-});
+}
 
 
 /* 계좌번호체크 */

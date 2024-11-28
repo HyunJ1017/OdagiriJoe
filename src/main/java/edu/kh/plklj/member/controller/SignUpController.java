@@ -1,9 +1,12 @@
 package edu.kh.plklj.member.controller;
 
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -50,8 +53,16 @@ public class SignUpController {
 	@PostMapping("")
 	@ResponseBody
 	public int signUp(
-			@ModelAttribute Member member,
-			@RequestParam("inputPw") String inputPw) {
+			@RequestBody Map<String, String> map) {
+		
+		Member member = Member.builder()
+				.memberId(map.get("memberId"))
+				.memberName(map.get("memberName"))
+				.memberEmail(map.get("memberEmail"))
+				.memberPhone(map.get("memberPhone"))
+				.build();
+		
+		String inputPw = map.get("inputPw");
 		
 		int result = service.signUp(member, inputPw);
 		

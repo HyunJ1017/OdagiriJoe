@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -116,6 +118,16 @@ public class NotificationController {
 		return service.readCheck(memberLogin.getMemberNo());
 	}
 	
+	/** 알림 수정
+	 * @param notiNo
+	 */
+	@PutMapping("noti")
+	@ResponseBody
+	public void updateNotification(@RequestBody int notiNo) {
+	    service.updateNotification(notiNo);
+	}
+
+	
 	/** 알림 삭제
 	 * @param notificationNo
 	 */
@@ -123,14 +135,6 @@ public class NotificationController {
 	@DeleteMapping("/delete/{notiNo}")
 	public void deleteNotification(@PathVariable("notiNo") int notiNo) {
 		service.deleteNotification(notiNo);
-	}
-	
-	/** 알림 읽음 여부 변경
-	 * @param notificationNo
-	 */
-	@PutMapping("noti")
-	public void updateNotification(@RequestBody int notiNo) {
-		service.updateNotification(notiNo);
 	}
 
 }

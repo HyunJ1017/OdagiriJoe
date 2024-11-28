@@ -2,17 +2,23 @@
 
 /* url 모음 */
 const urls = {
-  /* 상세보기 */ "detail" : "/",
-  /* 입금화면 */ "payment" : "/",
+  /* 상세보기 */ "auction" : "/auction/auctionDetail?pieceNo=",
+  /* 상세보기 */ "detail" : "/piece/onlineDetail?pieceNo=",
   /* 배달정보 */ "delivery" : "/"
 }
 
 // 상세정보 버튼 클릭시 상세정보 페이지로 이동
 const detailBtnAddEvent = () => {
-  const detailBtns = document.querySelectorAll(".detailBtn");
-  detailBtns?.forEach(btn => {
+  const detailAuctionBtns = document.querySelectorAll(".piece-auction");
+  detailAuctionBtns?.forEach(btn => {
     btn.addEventListener("click", () => {
-      location.href = urls.detail;
+      location.href = urls.auction + btn.dataset.pieceNo;
+    })
+  })
+  const detailOnlineBtns = document.querySelectorAll(".piece-detales");
+  detailOnlineBtns?.forEach(btn => {
+    btn.addEventListener("click", () => {
+      location.href = urls.detail + btn.dataset.pieceNo;
     })
   }) // detailBtns end
 }
@@ -83,16 +89,17 @@ const loadMoreContent = () => {
             <div>
               <h3>${piece.pieceTitle}</h3>
               <h4>작가명 ${piece.artistNickname}</h4>
+              <p>구매일 ${piece.regDate}</p>
               <p>구매가 ₩${piece.finalPrice}</p>
               <p>${piece.sizeX} x ${piece.sizeY}</p>
-              <div class="piece-detales" data-piece-no="${piece.pieceNo}">상세정보</div>
+              <div class=${piece.pieceType === 1 ? "piece-detales" : "piece-auction"} data-piece-no="${piece.pieceNo}">상세정보</div>
             </div>
           `;
     
           // 컨테이너에 content-div 추가
           contentContainer.appendChild(contentDiv);
-          detailBtnAddEvent();
         })
+        detailBtnAddEvent();
       } else {
 
         // 끝내기

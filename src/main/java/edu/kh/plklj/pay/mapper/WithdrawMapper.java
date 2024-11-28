@@ -18,6 +18,8 @@ public interface WithdrawMapper {
 			@Param("selectMonth") String selectMonth,
 			@Param("intarr") List<Integer> intarr);
 
-	int saveWithdraw(PaymentDto dto);
+	int saveWithdraw(
+			@Param("dto") PaymentDto dto,
+			@Param("selectMonth") String selectMonth);
 
 }

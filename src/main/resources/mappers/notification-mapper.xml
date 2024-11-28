@@ -46,14 +46,8 @@
 		FROM "NOTIFICATION"
 		WHERE RECEIVE_MEMBER_NO = #{memberNo}
 		AND READ_CHECK = 'N'
+		AND READ_CHECK = 'Y'
 	</select>
-	
-	<!-- 알림 삭제 -->
-	<delete id="deleteNotification">
-		DELETE 
-		FROM "NOTIFICATION"
-		WHERE NOTI_NO = #{notiNo}
-	</delete>
 	
 	<!-- 알림 읽음 여부 변경 -->
 	<update id="updateNotification">
@@ -61,6 +55,13 @@
 		SET READ_CHECK = 'Y'
 		WHERE NOTI_NO = #{notiNo}
 	</update>
+	
+	<!-- 알림 삭제 -->
+	<delete id="deleteNotification">
+		DELETE 
+		FROM "NOTIFICATION"
+		WHERE NOTI_NO = #{notiNo}
+	</delete>
 	
 	<!-- 팔로우 작가 게시물 알림 -->
  	<select id="selectFollowList" resultType="int">
@@ -75,7 +76,6 @@
 		FROM WISH
 		WHERE PIECE_NO = #{pieceNo}
 	</select>
-
 
 	<!-- 찜한 게시물 알림 삽입 쿼리 -->
 	<insert id="insertAuctionNotifications" parameterType="map">

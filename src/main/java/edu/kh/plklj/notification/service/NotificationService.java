@@ -4,6 +4,8 @@ import java.util.List;
 
 import java.util.Map;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import edu.kh.plklj.main.dto.Member;
 import edu.kh.plklj.notification.dto.Notification;
 import edu.kh.plklj.piece.dto.Piece;

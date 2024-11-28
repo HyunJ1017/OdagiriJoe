@@ -28,7 +28,7 @@
 			#{memberPw},
 			#{memberEmail},
 			#{memberPhone},
-			DEFAULT, DEFAULT, DEFAULT
+			DEFAULT, DEFAULT
 			)
 		
   </insert>
