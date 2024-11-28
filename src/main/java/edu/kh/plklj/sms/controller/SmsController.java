@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
+import edu.kh.plklj.sms.dto.SmsDto;
 import edu.kh.plklj.sms.service.SmsService;
 
 import java.io.IOException;
@@ -113,10 +114,10 @@ public class SmsController {
         OkHttpClient client = new OkHttpClient();
 
         RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-        .addFormDataPart("phone", phoneNumber) // 수신번호를 입력해 주세요. (수신번호가 두 개 이상인 경우 ',' 를 이용하여 입력합니다. ex) 01011112222,01033334444)
+        .addFormDataPart("phone", phoneNumber) 	// 수신번호를 입력해 주세요. (수신번호가 두 개 이상인 경우 ',' 를 이용하여 입력합니다. ex) 01011112222,01033334444)
         .addFormDataPart("callback", callPhoneNumber) // 발신번호를 입력해 주세요.
-        .addFormDataPart("message", message) // SMS 내용을 입력해 주세요.
-        .addFormDataPart("refkey", refkey) // 발송 결과 조회를 위한 임의의 랜덤 키 값을 입력해 주세요.
+        .addFormDataPart("message", message) 	// SMS 내용을 입력해 주세요.
+        .addFormDataPart("refkey", refkey) 		// 발송 결과 조회를 위한 임의의 랜덤 키 값을 입력해 주세요.
         .build();
 
         Request request = new Request.Builder()
@@ -156,6 +157,15 @@ public class SmsController {
 			@RequestParam("authKey") String authKey,
 			@RequestParam("phoneNumber") String phoneNumber) {
 		return service.authKeyCheck(phoneNumber, authKey);
+	}
+
+	
+	/** 경매알림문자
+	 * @param smsDto
+	 */
+	public void sendAuctionSms(SmsDto smsDto) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

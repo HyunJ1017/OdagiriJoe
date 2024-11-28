@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.plklj.common.scheduling.mapper.ScheduleMapper;
+import edu.kh.plklj.sms.controller.SmsController;
+import edu.kh.plklj.sms.dto.SmsDto;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -14,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class ScheduleServiceImpl implements ScheduleService {
 	
 	private final ScheduleMapper mapper;
+	private final SmsController smsController;
 	
 	// 오늘자 시작 경매 업데이트
 	@Override
@@ -31,6 +34,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 		if(list.size() > 0) {
 			for(int pieceNo : list) {
 				int result = mapper.successfulAuction(pieceNo);
+				SmsDto smsDto = mapper.getSmsInfo(pieceNo);
+				smsController.sendAuctionSms(smsDto);
+				
 				if(result > 0) count++;
 			}
 		}
