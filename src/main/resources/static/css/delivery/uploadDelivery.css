@@ -1,0 +1,151 @@
+/* 공통 버튼 스타일 */
+button {
+  cursor: pointer;
+  background-color: #ffffff;
+  border: 1px solid #5e7c71;
+  color: #414141;
+  font-size: 14px;
+  border-radius: 3px;
+  padding: 0.5em 1em;
+}
+/* 달력 스타일 */
+.calendar {
+  cursor: pointer;
+  background-color: #ffffff;
+  border: 1px solid #5e7c71;
+  color: #414141;
+  font-size: 14px;
+  border-radius: 3px;
+  padding: 0.5em 1em;
+}
+.calendars {
+  color : #ffffff;
+  font-size: 16px;
+}
+
+.date:hover, .selectBtn:hover, .inserttBtn:hover {
+  background-color: #5e7c71;
+  color: #ffffff;
+  border: 1px solid #FFFFFF;
+}
+
+/* ---------------------------------------------------------------- */
+
+/* 메인 컨테이너 */
+.main-container {
+  margin: 5% 0 0 15%;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 헤더 컨테이너 */
+.session-container > h3 {
+  color: #414141;
+  font-size: 22px;
+  margin-bottom: 0.5em;
+}
+
+/* 구분선 */
+.custom-line {
+  border-bottom: 1px solid #5e7c71;
+  width: 90%;
+  margin-bottom: 1%;
+}
+
+/* 버튼 컨테이너 */
+.dateType-container {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+  padding: 1em;
+  background-color: #5e7c71;
+}
+
+/* 정렬 방식 컨테이너 */
+.arr-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: start;
+  width: 8%;
+}
+
+.sort-select {
+  text-align: center;
+  border-radius: 2px;
+  height: 15%;
+  width: 100%;
+  cursor: pointer;
+  background-color: white;
+  color: #414141;
+  padding: 0.5%;
+  border: 1px solid #ffffff;
+}
+
+option {
+  text-align: center;
+}
+
+/* 날짜 버튼 */
+.date-container {
+  display: flex;
+  width: 50%;
+  justify-content: space-between;
+  color: #ffffff;
+}
+
+/* 달력 및 조회 버튼 컨테이너 */
+.calendar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 40%;
+  margin: 0% 0% 0% 2%;
+  color: #ffffff;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+  float: right;
+}
+
+.search {
+  color: #ffffff;
+  font-size: 100%;
+  font-weight: 400;
+  margin-right: 4%;
+}
+
+/* 테이블 스타일 */
+.table-container {
+  width: 80%;
+  border-collapse: collapse;
+  margin-top: 1%;
+  color: #414141;
+  font-size: 14px;
+}
+
+.table-container thead {
+  background-color: #94aa9e;
+}
+
+.table-container th, .table-container td {
+  border: 1px solid #5e7c71;
+  text-align: center;
+  padding: 0.5em;
+  font-weight: 500;
+}
+
+.table-container tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.table-container tbody tr:nth-child(even) {
+  background-color: #e0e0e0;
+}

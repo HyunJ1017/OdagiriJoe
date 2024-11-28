@@ -21,7 +21,7 @@ function onSortChange(event) {
 
 
 // ---------------------------------------------------------------------------------------------------------------
- /* 날짜 기준 변경 이벤트 */
+/* 날짜 기준 변경 이벤트 */
 // 오늘 날짜 설정
 let today = new Date();
 let day = today.getDate();
@@ -64,12 +64,11 @@ returnDateInput.addEventListener("change", () => {
   }
 });
 
-
 // 조회 버튼 클릭 이벤트
 document.getElementById("select").addEventListener("click", () => {
   // 날짜 입력 필드 값 가져오기
-  const startDate = document.getElementById("start-date").value;
-  const returnDate = document.getElementById("return-date").value;
+  const startDate = startDateInput.value;
+  const returnDate = returnDateInput.value;
 
   // 입력값 검증
   if (!startDate || !returnDate) {
@@ -83,34 +82,53 @@ document.getElementById("select").addEventListener("click", () => {
 
   // 모든 테이블 행 가져오기
   const rows = document.querySelectorAll(".table-content tr");
+  let visibleRowCount = 0; // 조회된 결과가 있는지 확인하기 위해 카운트 변수
 
   rows.forEach(row => {
     // 각 행의 주문 일자 가져오기
     const deliveryDateText = row.querySelector(".deliveryDate")?.innerText.trim();
+    
+    if (deliveryDateText) {
+      // "YYYY년 MM월 DD일" 형식을 "YYYY-MM-DD"로 변환
+      const formattedDateText = deliveryDateText
+        .replace("년", "-")
+        .replace("월", "-")
+        .replace("일", "")
+        .trim();
 
-    // "YYYY년 MM월 DD일" 형식을 "YYYY-MM-DD"로 변환
-    const formattedDateText = deliveryDateText
-      .replace("년", "-")
-      .replace("월", "-")
-      .replace("일", "")
-      .trim();
+      const deliveryDate = new Date(formattedDateText); // 변환된 날짜
 
-    const deliveryDate = new Date(formattedDateText); // 변환된 날짜
-
-    // 행 표시 여부 결정
-    if (deliveryDate >= start && deliveryDate <= end) {
-      row.style.display = ""; // 조건에 맞으면 표시
+      // 행 표시 여부 결정
+      if (deliveryDate >= start && deliveryDate <= end) {
+        row.style.display = ""; // 조건에 맞으면 표시
+        visibleRowCount++;
+      } else {
+        row.style.display = "none"; // 조건에 맞지 않으면 숨김
+      }
     } else {
-      row.style.display = "none"; // 조건에 맞지 않으면 숨김
+      row.style.display = "none"; // 날짜 정보가 없는 경우 숨김
     }
   });
 
+  // 조회 결과가 없을 경우 메시지 표시
+  const messageContainer = document.getElementById('no-results-message');
+  if (!messageContainer) {
+    // 메시지를 처음 추가하는 경우
+    const tableContainer = document.querySelector('.table-container');
+    const noResultsMessage = document.createElement('div');
+    noResultsMessage.id = 'no-results-message';
+    noResultsMessage.style.textAlign = 'center';
+    noResultsMessage.style.marginTop = '20px';
+    noResultsMessage.style.color = '#5e7c71';
+    tableContainer.parentNode.insertBefore(noResultsMessage, tableContainer.nextSibling);
+  }
 
+  // 조회된 결과가 없으면 메시지 표시, 있으면 숨김
+  if (visibleRowCount === 0) {
+    document.getElementById('no-results-message').innerText = "배송 조회 결과가 없습니다.";
+  } else {
+    document.getElementById('no-results-message').innerText = ""; // 메시지 제거
+  }
 });
-
-
-
-
-
 
 

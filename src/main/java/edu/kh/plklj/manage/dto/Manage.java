@@ -18,6 +18,13 @@ import lombok.ToString;
 @Builder
 public class Manage {
 	
+	// 관리자
+	private int manageNo; // 관리자 번호
+	private String manageNickname; // 관리자명
+	private String manageId; // 관리자아이디
+	private String managePw; // 관리자비밀번호
+	private String manageDelFl; // 관리자 탈퇴 여부
+	
 	// 작품
 		private int pieceNo;
 		private String pieceRename;

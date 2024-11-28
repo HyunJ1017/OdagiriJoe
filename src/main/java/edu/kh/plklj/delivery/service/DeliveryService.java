@@ -13,5 +13,22 @@ public interface DeliveryService {
 	 */
 	List<Manage> selectDeliveryList(int memberNo);
 
+	List<Manage> deliveryList();
+	
+	
+	/** 배송 상태 변경
+	 * @param manageNo
+	 * @return
+	 */
+	List<Manage> deliveryList(int manageNo);
+
+	
+//	/** 배송 상태 변경
+//	 * @param memberNo
+//	 * @return
+//	 */
+//	Map<String, Object> updateDelevery(List<Manage> delivery);
+
+
 
 }
