@@ -65,6 +65,7 @@ body{
 .content-div>div>p{
   margin: 5px;
 }
+.content-div>div>.piece-auction,
 .content-div>div>.piece-detales{
   user-select: none;
   align-self: center;
@@ -81,6 +82,7 @@ body{
   align-items: center;
   cursor: pointer;
 }
+.content-div>div>.piece-auction:hover,
 .content-div>div>.piece-detales:hover{
   border: 2px solid #5e7c71;
   background-color: white;

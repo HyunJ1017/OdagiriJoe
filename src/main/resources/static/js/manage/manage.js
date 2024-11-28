@@ -968,7 +968,7 @@ const completedCountDiv = document.getElementById('completed-count');
 const holdCountDiv = document.getElementById('hold-count');
 const slaesExcelBtn = document.getElementById('slaes-excelBtn');
 const salesCompletedBtn = document.getElementById('sales-completedBtn');
-
+let currentMonth = '';
 let getListResult;
 
 // 페이지 로드시 현재월에 해당하는 매출표 가져오기
@@ -978,9 +978,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // 현재 연도와 월을 "YYYY-MM" 형식으로 설정
   const year = now.getFullYear();
   const month = String(now.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
-  selectMonthInput.value = `${year}-${month}`;
+  currentMonth = `${year}-${month}`;
+  selectMonthInput.value = currentMonth;
 
-  getWithdrawList(`${year}-${month}`);
+  getWithdrawList(currentMonth);
 })
 
 // 월 선택시 해당하는 매출표 가져오기
@@ -1033,14 +1034,14 @@ const getWithdrawList = (selectMonth) => {
     })
     .then(result => {
       getListResult = result;
-      renderingWithdrawList(getListResult, 'A');
+      renderingWithdrawList(getListResult, 'A', selectMonth);
 
     })
     .catch(err => console.error(err));
 
 }
 
-const renderingWithdrawList = (list, flag) => {
+const renderingWithdrawList = (list, flag, selectMonth) => {
   // 전달받은 작가님네임, 판매작품수, 은행이름, 계좌번호, 총판매금액, 수수료, 입금상태 추가하기
   salesTableBody.innerHTML = '';
 
@@ -1058,7 +1059,7 @@ const renderingWithdrawList = (list, flag) => {
     if (flag === 'A' || flag === withdraw.priceFl) {
       const tr = document.createElement('tr');
       tr.innerHTML = `
-              <td><input ${withdraw.priceFl === 'W' ? 'class="wait-checkbox" data-member-no="' + withdraw.memberNo + '"' : 'disabled'} type="checkbox"></td>
+              <td><input ${withdraw.priceFl === 'W' && selectMonth != currentMonth ? 'class="wait-checkbox" data-member-no="' + withdraw.memberNo + '"' : 'disabled'} type="checkbox"></td>
               <td>${withdraw.artistNickname}</td>
               <td>${withdraw.allPieceCount}</td>
               <td>${withdraw.bankName}</td>
