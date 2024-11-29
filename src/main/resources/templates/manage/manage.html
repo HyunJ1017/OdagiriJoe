@@ -10,12 +10,10 @@
 </head>
 
 <body id="top">
-
   <!-- 헤더 -->
   <header class="main-header">
     <button class="exit-btn" onclick="">나가기</button>
   </header>
-
 
   <section class="container">
     <!-- 사이드바 -->
@@ -29,7 +27,6 @@
           <li><a href="#noticeN" class="nav-item" data-tab="faq">공지사항</a></li>
           <li><a href="#back" class="nav-item" data-tab="notice">작가 환전</a></li>
           <li><a href="#onequestion" class="nav-item" data-tab="support">1:1 문의</a></li>
-          <li><a href="#delivery" class="nav-item" data-tab="delivery">배송 상태 변경</a></li>
         </ul>
       </nav>
     </section>
@@ -37,22 +34,20 @@
     <section class="main-content">
       <section class="tab-buttons">
         <button class="tab-btn" id="tab-btn" onclick="loadDashboardData('visitor')">방문자 현황</button>
+        <button class="tab-btn" id="tab-btn" onclick="loadDashboardData('charge')">충전 현황</button>
         <button class="tab-btn" id="tab-btn" onclick="loadDashboardData('distance')">거래 현황</button>
         <button class="tab-btn" id="tab-btn" onclick="loadDashboardData('work')">작품 현황</button>
       </section>
 
-
-
-
       <!-- 콘텐츠를 가로로 정렬할 컨테이너 -->
       <section>
         <h2>대시보드</h2>
-
+        <div class="custom-line"></div>
         <div class="content-row">
           <!-- 방문자 현황 -->
           <div class="tab-content active" id="visitor">
             <div class="chart-container">
-              <canvas id="dashboardChart">방문자형황차트</canvas>
+              <canvas id="dashboardChart"></canvas>
             </div>
             <div class="data-table">
               <h3>일자별 요약</h3>
@@ -61,32 +56,28 @@
                   <tr>
                     <th>일자</th>
                     <th>방문자</th>
-                    <th>금액</th>
                   </tr>
                 </thead>
                 <tbody id="tableBody">
                   <!-- 데이터 렌더링 -->
                 </tbody>
-                <tfoot id="tableFooter">
-                    <td id="weeklyTotal"></td>
-                    <td id="monthlyTotal"></td>
-                </tfoot>
               </table>
             </div>
           </div>
+          <div class="custom-line"></div>
       </section>
 
       <!-- 작가 및 회원 관리 섹션 -->
-      <div class="custom-line"></div>
       <div id="memberManage"></div><!-- 사이드바스크s롤 -->
       <h2>작가 및 회원 관리</h2>
+      <div class="custom-line"></div>
       <div class="button-group">
         <button id="show-artist" class="toggle-btn">작가 보기</button>
         <button id="show-member" class="toggle-btn">회원 보기</button>
       </div>
       <section class="writer-row">
-        <!-- 왼쪽 섹션: 작가 리스트 -->
 
+        <!-- 왼쪽 섹션: 작가 리스트 -->
         <div class="member-list" id="artist-list">
           <div class="artist-item" data-member-no="123">
             <img src="/images/profile/profile1.jpg" alt="작가 이미지">
@@ -101,9 +92,9 @@
             </div>
           </div>
         </div>
-
         <!-- 페이지네이션 -->
         <div class="pagination-box" id="paginationBoxArtist"></div>
+        <div class="custom-line"></div>
 
         <!-- 오른쪽 섹션: 회원 요약 -->
         <div class="member-list" id="member-list">
@@ -121,23 +112,113 @@
       </section>
       <!-- 페이지네이션 -->
       <div class="pagination-box" id="paginationBoxMember">
+        <div class="custom-line"></div>
       </div>
 
-      <div class="custom-line"></div>
+
       <!-- 콘텐츠 관리 -->
       <div id="contentsManage"></div>
       <h2>콘텐츠 관리</h2>
+      <div class="custom-line"></div>
       <section class="contents-manage" id="contentGrid">
+        <!-- <div class="content-grid">
+          <div class="content-card">
+            <img src="image1.jpg" alt="신운모" class="content-image">
+            <div class="content-info">
+              <h2>성윤모</h2>
+              <p>작품명</p>
+              <p>낙찰가: ₩10,000,000</p>
+              <p>크기: 15 x 10</p>
+              <div class="buttons">
+                <button class="view-button">상세보기</button>
+                <button class="warn-button">정지</button>
+                <button class="release-button">해제</button>
+              </div>
+            </div>
+          </div>
+          <div class="content-card">
+            <img src="image2.jpg" alt="쿰순이" class="content-image">
+            <div class="content-info">
+              <h2>콩순이</h2>
+              <p>작품명</p>
+              <p>낙찰가: ₩10,000,000</p>
+              <p>크기: 20 x 15</p>
+              <div class="buttons">
+                <button class="view-button">상세보기</button>
+                <button class="warn-button">정지</button>
+                <button class="release-button">해제</button>
+              </div>
+            </div>
+          </div>
+          <div class="content-card">
+            <img src="image2.jpg" alt="쿰순이" class="content-image">
+            <div class="content-info">
+              <h2>팀장님</h2>
+              <p>작품명</p>
+              <p>낙찰가: ₩10,000,000</p>
+              <p>크기: 20 x 15</p>
+              <div class="buttons">
+                <button class="view-button">상세보기</button>
+                <button class="warn-button">정지</button>
+                <button class="release-button">해제</button>
+              </div>
+            </div>
+          </div>
+          <div class="content-card">
+            <img src="image2.jpg" alt="쿰순이" class="content-image">
+            <div class="content-info">
+              <h2>조정치</h2>
+              <p>작품명</p>
+              <p>낙찰가: ₩10,000,000</p>
+              <p>크기: 20 x 15</p>
+              <div class="buttons">
+                <button class="view-button">상세보기</button>
+                <button class="warn-button">정지</button>
+                <button class="release-button">해제</button>
+              </div>
+            </div>
+          </div>
+          <div class="content-card">
+            <img src="image2.jpg" alt="쿰순이" class="content-image">
+            <div class="content-info">
+              <h2>쿰순이</h2>
+              <p>작품명</p>
+              <p>낙찰가: ₩10,000,000</p>
+              <p>크기: 20 x 15</p>
+              <div class="buttons">
+                <button class="view-button">상세보기</button>
+                <button class="warn-button">정지</button>
+                <button class="release-button">해제</button>
+              </div>
+            </div>
+          </div>
+          <div class="content-card">
+            <img src="image2.jpg" alt="쿰순이" class="content-image">
+            <div class="content-info">
+              <h2>쿰순이</h2>
+              <p>작품명</p>
+              <p>낙찰가: ₩10,000,000</p>
+              <p>크기: 20 x 15</p>
+              <div class="buttons">
+                <button class="view-button">상세보기</button>
+                <button class="warn-button">정지</button>
+                <button class="release-button">해제</button>
+
+              </div>
+            </div>
+          </div>
+        </div> -->
       </section>
       <!-- 페이지네이션 -->
       <div class="pagination-box" id="paginationBoxContent">
+        <div class="custom-line"></div>
       </div>
 
 
-      <!-- 승인 요청 내역 -->
       <div id="approval"></div>
-      <div class="custom-line"></div>
+      <!-- 승인 요청 내역 -->
       <h2>승인 요청 내역</h2>
+      <div class="custom-line"></div>
       <section class="accept-list">
         <div class="request-grid" id="requestGrid">
           <div class="request-card">
@@ -156,119 +237,46 @@
             </div>
           </div>
           <!-- 페이지네이션 -->
-          <div class="pagination-box" id="paginationBoxRequest">
-          </div>
-
-          <div class="request-card">
-            <img src="image1.jpg" alt="박현준" class="profile-image">
-            <div class="info">
-              <h2>박현준</h2>
-              <div class="action-buttons">
-                <div class="detail-btn">
-                  <button class="detail-button">정보 상세보기</button>
-                </div>
-                <div class="two-btn">
-                  <button class="approve-button">승인</button>
-                  <button class="reject-button">거절</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="request-card">
-            <img src="image1.jpg" alt="박현준" class="profile-image">
-            <div class="info">
-              <h2>박현준</h2>
-              <div class="action-buttons">
-                <div class="detail-btn">
-                  <button class="detail-button">정보 상세보기</button>
-                </div>
-                <div class="two-btn">
-                  <button class="approve-button">승인</button>
-                  <button class="reject-button">거절</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="request-card">
-            <img src="image1.jpg" alt="박현준" class="profile-image">
-            <div class="info">
-              <h2>박현준</h2>
-              <div class="action-buttons">
-                <div class="detail-btn">
-                  <button class="detail-button">정보 상세보기</button>
-                </div>
-                <div class="two-btn">
-                  <button class="approve-button">승인</button>
-                  <button class="reject-button">거절</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="request-card">
-            <img src="image1.jpg" alt="박현준" class="profile-image">
-            <div class="info">
-              <h2>박현준</h2>
-              <div class="action-buttons">
-                <div class="detail-btn">
-                  <button class="detail-button">정보 상세보기</button>
-                </div>
-                <div class="two-btn">
-                  <button class="approve-button">승인</button>
-                  <button class="reject-button">거절</button>
-                  <div id="questionQ"></div><!-- 사이드바 스크롤 -->
-                </div>
-              </div>
-            </div>
-          </div>
         </section>
         <div class="pagination-box" id="paginationBoxRequest">
+          <div class="custom-line"></div>
         </div>
 
-      <!-- 자주 묻는 질문 -->
-      <div class="custom-line"></div>
-      <div id="questionQ"></div>
-      <h2>자주 묻는 질문(FAQ)</h2>
-      <section class="faq-section">
-        <ul class="faq-list">
-          <li class="faq-item">
-            <div class="question-row">
-              <span class="icon">&#9654;</span>
-              <span class="question">자주 묻는 질문</span>
-            </div>
-            <div class="answer" style="display: none;">
-              견뎌야 합니다 ㅎㅎㅎ
-            </div>
-            <div class="ques-buttons" style="display: none;">
-              <button class="edit-button">수정하기</button>
-              <button class="delete-button">삭제하기</button>
-            </div>
-          </li>
-        </ul>
-      </section>
-
       <!--공지사항 -->
-      <div class="custom-line"></div>
       <div id="noticeN"></div>
       <h2 id="noticeNN">공지사항</h2>
+      <div class="custom-line"></div>
       <section class="notice-section" id="noticeGrid">
         <div class="notice-header">
           <button class="add-button" onclick="window.location.href='/manage/write'">작성하기</button>
         </div>
         <ul class="-noticelist">
           <li class="notice-item">
+            <!-- <div class="notice-row">
+              <span class="icon">&#9654;</span>
+              <span class="notice-question">공지사항</span>
+            </div>
+            <div class="notice-answer" style="display: none;">
+              공지사항입니다
+            </div>
+
+            <div class="notice-buttons" style="display: none;">
+              <button class="revise-button" onclick="window.location.href='/manage/revise'">수정하기</button>
+              <button class="erase-button">삭제하기</button>
+            </div> -->
           </li>
           </div>
         </ul>
       </section>
       <div class="pagination-box" id="paginationBoxNotice"></div>
+      <div class="custom-line"></div>
+
+
 
       <!-- 작가 환전 -->
-      <div class="custom-line"></div>
       <div id="back"></div><!-- 사이드바 스크롤 -->
       <h2>작가 환전</h2>
+      <div class="custom-line"></div>
       <section class="sales-section">
         <div class="writer-header">
           <h3>작가 판매 목록</h3>
@@ -311,12 +319,13 @@
             <!-- 추가 행들 -->
           </tbody>
         </table>
+        <div class="custom-line"></div>
       </section>
 
       <!-- 1 : 1 문의 -->
-      <div class="custom-line"></div>
       <div id="onequestion"></div>
       <h2>1 : 1 문의</h2>
+      <div class="custom-line"></div>
       <!-- 드롭다운 -->
       <div class="filter-container">
         <select id="questionFilter" class="question-filter">
@@ -350,8 +359,8 @@
       <ul id="questionGrid" class="inquiry-list">
         <!-- 문의 내용이 동적으로 추가될 예정 -->
       </ul>
-      
       <div class="pagination-box" id="paginationBoxQuestion"></div>
+      <div class="custom-line"></div>
 
       <!-- 배송 상태 변경 -->
       <div class="custom-line"></div>
