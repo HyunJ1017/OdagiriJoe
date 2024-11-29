@@ -48,8 +48,6 @@ document.addEventListener("DOMContentLoaded", function() {
       newRows.forEach(row => {
         tbody.appendChild(row.cloneNode(true));
       });
-
-      console.log("테이블 업데이트 완료");
     })
     .catch(error => {
       console.error("데이터 조회 중 오류 발생: ", error);
@@ -75,10 +73,6 @@ function updateDeliveryTable(deliveryList) {
       separator.appendChild(separatorTd);
       deliveryTbody.appendChild(separator);
     }
-
-    // 배송 데이터를 이용하여 테이블에 새로운 행 추가하는 로직 (생략 가능)
-    // 예시: const newRow = document.createElement("tr");
-    // 여기서 newRow에 필요한 데이터를 채워넣은 뒤 deliveryTbody에 append
   });
 }
 
@@ -114,24 +108,6 @@ async function saveDeliveryData(data) {
     console.error('배송 데이터 저장 중 오류 발생:', error);
   }
 }
-
-// 개별 체크박스 상태에 따른 전체 체크박스 업데이트
-function attachCheckboxEvents() {
-  const checkboxes = document.querySelectorAll('input[type="checkbox"].filter-checkbox');
-  const selectAllCheckbox = document.getElementById('selectAll');
-  checkboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', () => {
-      // 모든 개별 체크박스가 선택된 경우 전체 선택 체크박스를 선택 상태로 변경
-      const isChecked = Array.from(checkboxes).every(cb => cb.checked);
-      if (selectAllCheckbox) {
-        selectAllCheckbox.checked = isChecked;
-      }
-    });
-  });
-}
-
-// 초기 체크박스 이벤트 연결
-attachCheckboxEvents();
 
 // ---------------------------------------------------------------------------------------------------------------
 /* 날짜 기준 변경 이벤트 */
@@ -246,4 +222,84 @@ document.getElementById("select").addEventListener("click", () => {
 
 
 // ---------------------------------------------------------------------------------------------------------------
-/* 정렬 선택 시 테이블 저장 */
+document.addEventListener("DOMContentLoaded", () => {
+  const selectAllCheckbox = document.getElementById("selectAll"); // 전체 선택 체크박스
+  const insertButton = document.getElementById("insert"); // 저장 버튼
+  const checkboxes = document.querySelectorAll('input[type="checkbox"].filter-checkbox'); // 개별 체크박스
+
+  // 전체 선택 체크박스 이벤트
+  if (selectAllCheckbox) {
+    selectAllCheckbox.addEventListener("change", () => {
+      const isChecked = selectAllCheckbox.checked;
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = isChecked;
+      });
+    });
+  }
+
+  // 개별 체크박스 상태에 따른 전체 선택 체크박스 업데이트
+  checkboxes.forEach((checkbox) => {
+    checkbox.addEventListener("change", () => {
+      const allChecked = Array.from(checkboxes).every((cb) => cb.checked);
+      if (selectAllCheckbox) {
+        selectAllCheckbox.checked = allChecked;
+      }
+    });
+  });
+
+  // 저장 버튼 클릭 이벤트
+  if (insertButton) {
+    insertButton.addEventListener("click", () => {
+      const rows = document.querySelectorAll("tbody tr"); // 테이블 행 선택
+      const requestData = [];
+
+      rows.forEach((row) => {
+        const checkbox = row.querySelector(".filter-checkbox");
+        if (checkbox && checkbox.checked) {
+          const deliveryNo = checkbox.getAttribute("data-delivery-no"); // 송장 번호
+          const sortSelect = row.querySelector(".sort-select").value; // 정렬 방식
+          const deliveryIngDate = row.querySelector(".deliveryIngDate").value; // 배송 예정일
+          const deliveryEndDate = row.querySelector(".deliveryEndDate").value; // 배송 완료일
+
+          requestData.push({
+            deliveryNo,
+            sortStatus: sortSelect || null,
+            deliveryStartDate: deliveryIngDate || null,
+            deliveryEndDate: deliveryEndDate || null,
+          });
+        }
+      });
+
+      if (requestData.length === 0) {
+        alert("저장할 데이터를 선택해주세요.");
+        return;
+      }
+
+      console.log("서버로 전송할 데이터:", requestData);
+
+      // 서버로 데이터 전송
+      fetch("/delivery/update", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error("요청이 실패되었습니다.");
+          }
+        })
+        .then((data) => {
+          alert("배송 정보가 저장 되었습니다.");
+          console.log("응답 데이터:", data);
+        })
+        .catch((error) => {
+          alert("저장 중 오류가 발생했습니다. 다시 시도해주세요.");
+          console.error("에러:", error);
+        });
+    });
+  }
+});

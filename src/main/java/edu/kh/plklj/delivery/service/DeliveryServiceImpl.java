@@ -31,14 +31,14 @@ public class DeliveryServiceImpl implements DeliveryService{
 	
 
 	
-//	/* 배송 상태 변경 */
-//	@Override
-//	public Map<String, Object> updateDelevery(List<Manage> delivery) {
-//		Map<String, Object> map = mapper.deliveryIngDateUpdate(delivery);
-//		map.put("deleveryEndDateUpdate", mapper.deliveryEndDateUpdate(delivery));
-//		map.put("deleveryStatusUpdate", mapper.deliveryStatusUpdate(delivery));
-//		return map;
-//	}
+	/* 배송 상태 변경 */
+	@Override
+	public Map<String, Object> updateDelevery(List<Manage> delivery) {
+		Map<String, Object> map = mapper.deliveryIngDateUpdate(delivery);
+		map.put("deleveryEndDateUpdate", mapper.deliveryEndDateUpdate(delivery));
+		map.put("deleveryStatusUpdate", mapper.deliveryStatusUpdate(delivery));
+		return map;
+	}
 
 	@Override
 	public List<Manage> deliveryList() {

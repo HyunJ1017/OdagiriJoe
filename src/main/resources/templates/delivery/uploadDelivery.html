@@ -56,10 +56,10 @@
                 <td th:text="${manage.deliveryAddress}">주소</td>
 
                 <!-- 배송 예정 일자 -->
-                <td><input type="date" id="deliveryIngDate"></td>
+                <td><input type="date" id="deliveryIngDate" class="calendarin deliveryIngDate"></td>
                 
                 <!-- 배송 완료 일자 -->
-                <td><input type="date" id="deliveryEndDate"></td>
+                <td><input type="date" id="deliveryEndDate" class="calendarin deliveryEndDate"></td>
                 <td class="arr-container">
                 <select id="sort" class="sort-select" onChange="onSortChange(event)">
                   <option id="pickup" value="visit">방문수령</option>

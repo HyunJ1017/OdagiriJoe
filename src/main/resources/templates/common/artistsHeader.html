@@ -33,12 +33,10 @@
         </form>
       </article>
     </section>
-
-    <!-- 알림 영역 -->
+    
+    <!-- 알림 섹션 -->
     <section id="notification-section" style="display: none;">
-      <!-- 알림 컨테이너 -->
-      <div class="notification-container" th:if="${session.memberLogin != null}">
-
+      <div class="notification-container" th:if="${session.artistLogin != null}">
         <!-- 알림 목록 -->
         <ul class="notification-list">
           <div class="custom-line"></div>
@@ -46,7 +44,8 @@
       </div>
     </section>
     <!-- 알림 개수 표시 -->
-    <div class="notification-count" th:text="${notificationCount != null ? notificationCount : '♥ 0'}" style="display: none;">
+    <div class="notification-count" th:text="${notificationCount != null ? notificationCount : '♥ 0'}"
+      style="display: none;">
     </div>
 
     <!-- 중앙 메뉴 -->
