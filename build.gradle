@@ -79,6 +79,9 @@ dependencies {
   		// 엑셀
   		implementation 'org.apache.poi:poi:5.3.0'
     	implementation 'org.apache.poi:poi-ooxml:5.3.0'
+    	
+    	// api 문자보내기
+    	implementation 'net.nurigo:sdk:4.3.0'
 	  
 }
 
