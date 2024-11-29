@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>화사 :: 愛 :: 화공</title>
+  <th:block th:replace= "~{/common/common.html :: cssLinks}"></th:block>
+  <link rel="stylesheet" href="/css/member-sign/signUp.css">
+</head>
+<body>
+  <th:block th:replace= "~{/common/common.html :: headerLinks}"></th:block>
+
+  <section id="signMain">
+    <th:block th:replace= "~{/member-sign/logIn.html}"></th:block>
+    <th:block th:replace= "~{/member-sign/signUp.html}"></th:block>
+    <th:block th:replace= "~{/member-sign/findId.html}"></th:block>
+    <th:block th:replace= "~{/member-sign/findPw.html}"></th:block>
+  </section>
+
+
+  <div id="signMain-bottom">
+    <div class="signMain-btn">로그인</div>
+    <div class="signMain-hr">|</div><div class="signMain-btn">아이디 찾기</div>
+    <div class="signMain-hr">|</div><div class="signMain-btn">비밀번호 찾기</div>
+    <div class="signMain-hr">|</div><div class="signMain-btn">회원가입</div>
+  </div>
+  
+  <th:block th:replace= "~{/common/footer.html}"></th:block>
+  <script th:inline="javascript">
+    const pageKey = /*[[${pageKey}]]*/ "requestPageKey";
+  </script>
+  <script src="/js/member-sign/signMain.js"></script>
+</body>
+</html>

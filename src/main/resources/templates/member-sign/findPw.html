@@ -1,73 +1,56 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>화사 :: 愛 :: 화공</title>
-  <th:block th:replace= "~{/common/common.html :: cssLinks}"></th:block>
-  <link rel="stylesheet" href="/css/member-sign/signUp.css">
-</head>
-<body>
-  <th:block th:replace= "~{/common/common.html :: headerLinks}"></th:block>
+<main id="member-findPw" class="member-main" th:fragment="findPw">
 
-  <main id="member-main" class="member-main">
+  <h3 style="margin-top: 100px;">비밀번호 찾기</h3>
 
-    <h3 style="margin-top: 100px;">비밀번호 찾기</h3>
+  <!-- 아이디 -->
+  <div class="signUp-sec">
+    <div>아이디</div>
+    <label for="findPw-inputId">
+      <input type="text" id="findPw-inputId" placeholder="아이디를 입력해 주세요.">
+    </label>
+  </div>
 
-    <!-- 아이디 -->
-    <div class="signUp-sec">
-      <div>아이디</div>
-      <label for="inputId">
-        <input type="text" id="inputId" placeholder="아이디를 입력해 주세요.">
-      </label>
-    </div>
+  <!-- 전화전호 -->
+  <div class="signUp-sec">
+    <div>전화번호</div>
+    <label for="findPw-inputPh">
+      <input type="text" id="findPw-inputPh" placeholder="'-'빼고 숫자만 입력">
+      <div class="member-hov" id="findPw-phCheck">인증번호</div>
+    </label>
+  </div>
+  
+  <!-- 전화전호 인증 확인 -->
+  <div class="signUp-sec">
+    <div>전화번호 인증 확인</div>
+    <label for="findPw-inputPhC">
+      <input type="text" id="findPw-inputPhC" placeholder="인증번호를 입력해 주세요.">
+      <div id="findPw-count" class="signUp-count"></div>
+      <div class="member-hov" id="findPw-keyCheck">인증확인</div>
+    </label>
+  </div>
+  
+  
+  <!-- 새 비밀번호 -->
+  <div id="findPw-inputPwBox" class="sign-displayNone signUp-sec">
+    <div>새 비밀번호</div>
+    <label for="findPw-inputPw">
+      <input type="password" id="findPw-inputPw" placeholder="사용할 비밀번호를 입력해 주세요.">
+    </label>
+    <div id="findPw-pwMessage"></div>
+  </div>
+  
+  
+  <!-- 새 비밀번호 확인 -->
+  <div id="findPw-inputPwCBox" class="sign-displayNone signUp-sec">
+    <div>새 비밀번호 확인</div>
+    <label for="findPw-inputPwC">
+      <input type="password" id="findPw-inputPwC" placeholder="비밀번호를 다시한번 입력해 주세요.">
+      <div class="member-hov" id="findPw-submitPwChange">변경하기</div>
+    </label>
+  </div>
 
-    <!-- 전화전호 -->
-    <div class="signUp-sec">
-      <div>전화번호</div>
-      <label for="inputPh">
-        <input type="text" id="inputPh" placeholder="'-'빼고 숫자만 입력">
-        <div class="member-hov" id="phCheck">인증번호</div>
-      </label>
-    </div>
-    
-    <!-- 전화전호 인증 확인 -->
-    <div class="signUp-sec">
-      <div>전화번호 인증 확인</div>
-      <label for="inputPhC">
-        <input type="text" id="inputPhC" placeholder="인증번호를 입력해 주세요.">
-        <div id="signUp-count"></div>
-        <div class="member-hov" id="keyCheck">인증확인</div>
-      </label>
-    </div>
-    
-    
-    <!-- 새 비밀번호 -->
-    <div id="inputPwBox" class="sign-displayNone signUp-sec">
-      <div>새 비밀번호</div>
-      <label for="inputPw">
-        <input type="password" id="inputPw" placeholder="사용할 비밀번호를 입력해 주세요.">
-      </label>
-      <div id="pwMessage"></div>
-    </div>
-    
-    
-    <!-- 새 비밀번호 확인 -->
-    <div id="inputPwCBox" class="sign-displayNone signUp-sec">
-      <div>새 비밀번호 확인</div>
-      <label for="inputPwC">
-        <input type="password" id="inputPwC" placeholder="비밀번호를 다시한번 입력해 주세요.">
-        <div class="member-hov" id="submitPwChange">변경하기</div>
-      </label>
-    </div>
+  <section>
+    <a href="/member/login" class="member-hov member-btnA">로그인</a>
+  </section>
 
-    <section>
-      <a href="/member/login" class="member-hov member-btnA">로그인</a>
-    </section>
-
-  </main>
-
-  <th:block th:replace= "~{/common/footer.html}"></th:block>
-  <script src="/js/member-sign/findingIdPw.js"></script>
-</body>
-</html>
+</main>
