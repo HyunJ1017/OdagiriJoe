@@ -27,7 +27,7 @@ public interface DeliveryService {
 	 * @param memberNo
 	 * @return
 	 */
-	Map<String, Object> updateDelevery(List<Manage> delivery);
+	boolean updateDelivery(List<Manage> delivery);
 
 
 

@@ -38,6 +38,9 @@ public class LogInController {
 	 */
 	@GetMapping("")
 	public String logInPage(
+				@RequestParam(value="message", required = false) String message,
+				RedirectAttributes ra,
+				Model model,
 				// 개발자 도구에서 refer 확인
 				// 세션에 저장
 				@RequestHeader("referer") String referer,
@@ -46,7 +49,15 @@ public class LogInController {
 		
 		session.setAttribute("returnUrl", referer);
 		
-		return "member-sign/logIn";
+		// param에 있는 message를 숨기고 재요청
+		if(message != null) {
+			ra.addFlashAttribute("message", message);
+			return "redirect:/member/login";
+		}
+		
+		String pageKey = "logIn";
+		model.addAttribute("pageKey", pageKey);
+		return "member-sign/signMain";
 	}
 	
 	/** 아이디찾기 페이지로 이동
@@ -142,6 +153,17 @@ public class LogInController {
 		status.setComplete();
 		
 		return "redirect:/";
+	}
+	
+	
+	/** 테스트용
+	 * @return
+	 */
+	@GetMapping("test")
+	public String goTestPage(Model model) {
+		String pageKey = "logIn";
+		model.addAttribute("pageKey", pageKey);
+		return "member-sign/signMain";
 	}
 	
 	

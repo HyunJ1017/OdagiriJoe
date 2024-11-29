@@ -1,7 +1,6 @@
 package edu.kh.plklj.manage.mapper;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -10,10 +9,16 @@ import edu.kh.plklj.manage.dto.Manage;
 @Mapper
 public interface DashboardMapper {
 
-	void incrementVisitorCountForToday();
+	int incrementVisitorCountForToday(String clientIp);
 
 	List<Manage> getVisitorCountForLastWeek();
 
 	int getMonthlyTotal();
+
+	List<Manage> getDailyTrades();
+
+
+
+	int getMonthlyTradeTotal();
 
 }

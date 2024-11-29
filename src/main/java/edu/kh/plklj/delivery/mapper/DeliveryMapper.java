@@ -27,19 +27,19 @@ public interface DeliveryMapper {
 	 * @param memberNo
 	 * @return
 	 */
-	Map<String, Object> deliveryIngDateUpdate(List<Manage> delivery);
+	int deliveryIngDateUpdate(Manage manage);
 
 	/** 배송 완료일 수정하기
 	 * @param memberNo
 	 * @return
 	 */
-	Map<String, Object> deliveryEndDateUpdate(List<Manage> delivery);
+	int deliveryEndDateUpdate(Manage manage);
 
 	/** 배송 상태 변경하기
 	 * @param memberNo
 	 * @return
 	 */
-	Map<String, Object> deliveryStatusUpdate(List<Manage> delivery);
+	int deliveryStatusUpdate(Manage manage);
 
 	List<Manage> deliveryList();
 

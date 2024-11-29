@@ -7,22 +7,21 @@ const signConfirm = {
   "phonCheck"  : false
 }
 
-
 /* 이름 체크 */
-const inputName = document.querySelector("#inputName");
-const nameMessage = document.querySelector("#nameMessage");
+const inputName = document.querySelector("#signUp-inputName");
+const nameMessage = document.querySelector("#signUp-nameMessage");
 
 // 이름입력창이 선택되었을때
 inputName?.addEventListener("focus", () => {
   // 다른곳에 열려있던 메세지가 있었다면 지우기
-  const otherCheck = document.querySelector("#inputMessage");
+  const otherCheck = document.querySelector("#signUp-inputMessage");
   if(otherCheck !== null){
     otherCheck.remove();
   }
   // 메세지창 초기화
   nameMessage.innerHTML = "";
   const span = document.createElement("span");
-  span.id="inputMessage";
+  span.id="signUp-inputMessage";
   span.innerText = "이름을 입력해 주세요";
   // 메세지추가
   nameMessage.appendChild(span);
@@ -32,7 +31,7 @@ inputName?.addEventListener("focus", () => {
 inputName?.addEventListener("input", ()=>{
 
   // 메세지창
-  const inputMessage = document.querySelector("#inputMessage");
+  const inputMessage = document.querySelector("#signUp-inputMessage");
 
   signConfirm.nameCheck = false;
   const inputNameV = inputName.value.trim();
@@ -68,20 +67,20 @@ inputName?.addEventListener("input", ()=>{
 
 
 /* 아이디체크 */
-const inputId = document.querySelector("#inputId");
-const idCheckBtn = document.querySelector("#idCheck");
-const idMessage = document.querySelector("#idMessage");
+const inputId = document.querySelector("#signUp-inputId");
+const idCheckBtn = document.querySelector("#signUp-idCheck");
+const idMessage = document.querySelector("#signUp-idMessage");
 
 // 아이디입력창이 선택되었을때
 inputId?.addEventListener("focus", () => {
   // 다른곳에 열려있던 메세지가 있었다면 지우기
-  const otherCheck = document.querySelector("#inputMessage");
+  const otherCheck = document.querySelector("#signUp-inputMessage");
   if(otherCheck !== null){
     otherCheck.remove();
   }
   idMessage.innerHTML = "";
   const span = document.createElement("span");
-  span.id="inputMessage";
+  span.id="signUp-inputMessage";
   span.innerText = "영어와 숫자로 구성된 6~12자의 ID를 입력해 주세요";
   idMessage.appendChild(span);
 });
@@ -90,7 +89,7 @@ inputId?.addEventListener("focus", () => {
 inputId.addEventListener("input", ()=>{
 
   // 메세지창
-  const inputMessage = document.querySelector("#inputMessage");
+  const inputMessage = document.querySelector("#signUp-inputMessage");
 
   signConfirm.idCheck = false;
   const inputIdV = inputId.value.trim();
@@ -128,7 +127,7 @@ idCheckBtn?.addEventListener("click", ()=>{
   signConfirm.idCheck = false;
   const inputIdV = inputId.value.trim();
   // 메세지창
-  const inputMessage = document.querySelector("#inputMessage");
+  const inputMessage = document.querySelector("#signUp-inputMessage");
 
   if(inputIdV.length === 0){
     inputMessage.classList.add("confirm-red");
@@ -153,17 +152,17 @@ idCheckBtn?.addEventListener("click", ()=>{
     throw new Error("AJAX 통신 실패");
   })
   .then(result => {
-    document.querySelector("#inputMessage").innerText = '';
+    document.querySelector("#signUp-inputMessage").innerText = '';
     if(result > 0){
-      document.querySelector("#inputMessage").classList.add("confirm-red");
-      document.querySelector("#inputMessage").classList.remove("confirm-green");
-      document.querySelector("#inputMessage").innerText = "이미 사용중인 ID 입니다.";
+      document.querySelector("#signUp-inputMessage").classList.add("confirm-red");
+      document.querySelector("#signUp-inputMessage").classList.remove("confirm-green");
+      document.querySelector("#signUp-inputMessage").innerText = "이미 사용중인 ID 입니다.";
       //alert("이미 사용중인 ID 입니다.");
       return;
     } else {
-      document.querySelector("#inputMessage").classList.remove("confirm-red");
-      document.querySelector("#inputMessage").classList.add("confirm-green");
-      document.querySelector("#inputMessage").innerText = "사용 가능한 ID 입니다.";
+      document.querySelector("#signUp-inputMessage").classList.remove("confirm-red");
+      document.querySelector("#signUp-inputMessage").classList.add("confirm-green");
+      document.querySelector("#signUp-inputMessage").innerText = "사용 가능한 ID 입니다.";
       console.log(inputMessage);
       //alert("사용 가능한 ID 입니다.");
       signConfirm.idCheck = true;
@@ -176,20 +175,20 @@ idCheckBtn?.addEventListener("click", ()=>{
 
 
 /*이메일 체크 */
-const inputEmail = document.querySelector("#inputEmail");
-const emailMessage = document.querySelector("#emailMessage");
+const inputEmail = document.querySelector("#signUp-inputEmail");
+const emailMessage = document.querySelector("#signUp-emailMessage");
 
 // 이메일입력창이 선택되었을때
 inputEmail?.addEventListener("focus", () => {
   // 다른곳에 열려있던 메세지가 있었다면 지우기
-  const otherCheck = document.querySelector("#inputMessage");
+  const otherCheck = document.querySelector("#signUp-inputMessage");
   if(otherCheck !== null){
     otherCheck.remove();
   }
   // 메세지창 초기화
   emailMessage.innerHTML = "";
   const span = document.createElement("span");
-  span.id="inputMessage";
+  span.id="signUp-inputMessage";
   span.innerText = "[whasaAnd@whapung.com] 형태의 이메일을 입력 해 주세요.";
   // 메세지추가
   emailMessage.appendChild(span);
@@ -201,7 +200,7 @@ inputEmail?.addEventListener("input", ()=>{
   signConfirm.emailCheck = false;
   const inputEmailV = inputEmail.value.trim();
   // 메세지창
-  const inputMessage = document.querySelector("#inputMessage");
+  const inputMessage = document.querySelector("#signUp-inputMessage");
 
   const regEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if(regEx.test(inputEmailV) === true ){
@@ -218,9 +217,9 @@ inputEmail?.addEventListener("input", ()=>{
 
 
 /* 비밀번호 체크 */
-const inputPw = document.querySelector("#inputPw");
-const inputPwC = document.querySelector("#inputPwC");
-const pwMessage = document.querySelector("#pwMessage");
+const inputPw = document.querySelector("#signUp-inputPw");
+const inputPwC = document.querySelector("#signUp-inputPwC");
+const pwMessage = document.querySelector("#signUp-pwMessage");
 
 // 비밀번호입력창이 선택되었을때
 inputPw?.addEventListener("focus", () => {
@@ -230,14 +229,14 @@ inputPw?.addEventListener("focus", () => {
 // 비밀번호 입력 창 밑에 메세지창 만들기
 const focusPassword = () => {
     // 다른곳에 열려있던 메세지가 있었다면 지우기
-    const otherCheck = document.querySelector("#inputMessage");
+    const otherCheck = document.querySelector("#signUp-inputMessage");
     if(otherCheck !== null){
       otherCheck.remove();
     }
     // 메세지창 초기화
     pwMessage.innerHTML = "";
     const section = document.createElement("section");
-    section.id = "inputMessage";
+    section.id="signUp-inputMessage";
   
     const div1 = document.createElement("div");
     const check1 = document.createElement("i");
@@ -355,22 +354,22 @@ inputPwC?.addEventListener("input", ()=>{
 
 
 /* 전화번호 */
-const inputPh = document.querySelector("#inputPh");
-const phoneCheckBtn = document.querySelector("#phCheck");
-const phMessage = document.querySelector("#phMessage");
+const inputPh = document.querySelector("#signUp-inputPh");
+const phoneCheckBtn = document.querySelector("#signUp-phCheck");
+const phMessage = document.querySelector("#signUp-phMessage");
 let keyFl = false;
 
 // 전화번호입력창이 선택되었을때
 inputPh?.addEventListener("focus", () => {
   // 다른곳에 열려있던 메세지가 있었다면 지우기
-  const otherCheck = document.querySelector("#inputMessage");
+  const otherCheck = document.querySelector("#signUp-inputMessage");
   if(otherCheck !== null){
     otherCheck.remove();
   }
   // 메세지창 초기화
   phMessage.innerHTML = "";
   const span = document.createElement("span");
-  span.id="inputMessage";
+  span.id="signUp-inputMessage";
   span.innerText = "전화번호를 입력해 주세요";
   // 메세지추가
   phMessage.appendChild(span);
@@ -378,7 +377,7 @@ inputPh?.addEventListener("focus", () => {
 
 inputPh?.addEventListener("change", ()=>{
 
-  const inputMessage = document.querySelector("#inputMessage");
+  const inputMessage = document.querySelector("#signUp-inputMessage");
 
   signConfirm.phonCheck = false;
   const inputPhoneV = inputPh.value.trim();
@@ -457,7 +456,7 @@ let min        = initMin; // 실제 줄어든 시간 분
 let sec        = initSec; // 실제 줄어든 시간 초
 let authTimer;            // 타이머 역할의 setInterval을 저장할 변수
 //                           타이머를 멈추는 clearInterval 수행을 위해 필요
-const inputPhC = document.querySelector("#inputPhC");
+const inputPhC = document.querySelector("#signUp-inputPhC");
 
 // 카운트 스타트
 const startCount = () => {
@@ -494,7 +493,7 @@ function addZero(num){
 }
 
 // 인증확인버튼
-const keyCheck = document.querySelector("#keyCheck");
+const keyCheck = document.querySelector("#signUp-keyCheck");
 keyCheck.addEventListener("click", () => {
   if(keyFl === false) return;
 

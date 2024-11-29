@@ -18,6 +18,7 @@ import lombok.ToString;
 @Builder
 public class Manage {
 	
+	
 	// 관리자
 	private int manageNo; // 관리자 번호
 	private String manageNickname; // 관리자명
@@ -104,7 +105,18 @@ public class Manage {
 		private int dailyVisitor; // 해당 날짜의 방문자 수
 		private int weekGroup; // 주차를 나타내는 그룹 번
 		private int visitCount; // 방문자 수
+		private String clientIp;
 		
+		// 금액 관련 대쉬보드
+		private int recordNo;
+		private String merchantUid;
+		private int payAmount;
+		private String payDate;
+		private String payName;
+		private String payPhone;
+		
+		public Manage(List<Manage> dailyTrades, int weeklyTotal, int monthlyTotal) {
+		}
 	
 
 }

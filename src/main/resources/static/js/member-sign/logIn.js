@@ -1,7 +1,7 @@
 /* 로그인 */
 const logInBtn = document.querySelector("#logIn-btn");
-const inputPw = document.querySelector("#inputPw");
-const inputId = document.querySelector("#inputId");
+const inputPw = document.querySelector("#logIn-inputPw");
+const inputId = document.querySelector("#logIn-inputId");
 
 logInBtn.addEventListener("click", () => {
 
