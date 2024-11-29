@@ -2,6 +2,7 @@ package edu.kh.plklj.delivery.service;
 
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,16 +30,22 @@ public class DeliveryServiceImpl implements DeliveryService{
 		return mapper.deliveryList(manageNo);
 	}
 	
-
-	
-	/* 배송 상태 변경 */
 	@Override
-	public Map<String, Object> updateDelevery(List<Manage> delivery) {
-		Map<String, Object> map = mapper.deliveryIngDateUpdate(delivery);
-		map.put("deleveryEndDateUpdate", mapper.deliveryEndDateUpdate(delivery));
-		map.put("deleveryStatusUpdate", mapper.deliveryStatusUpdate(delivery));
-		return map;
+	public boolean updateDelivery(List<Manage> delivery) {
+	    
+	    int result = 0;
+			for(Manage manage : delivery) {
+				
+				if(manage.getDeliveryIngDate() != null && !manage.getDeliveryIngDate().equals("NaN-NaN-NaN")) result =  mapper.deliveryIngDateUpdate(manage);
+				if(manage.getDeliveryEndDate() != null && !manage.getDeliveryEndDate().equals("NaN-NaN-NaN")) result += mapper.deliveryEndDateUpdate(manage);
+				result += mapper.deliveryStatusUpdate(manage);
+				
+				if(result == 0) return false; // 실패 시
+			}
+	    
+	    return true;
 	}
+
 
 	@Override
 	public List<Manage> deliveryList() {
