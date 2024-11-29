@@ -1,14 +1,18 @@
 /* 로그인 */
-#logIn-main{
+body{
+  min-height: 100vh;
   display: flex;
+  flex-direction: column;
+}
+#member-logIn{
   flex-direction: column;
   align-items: center;
   width: 100%;
 }
-#logIn-main>*{
+#member-logIn>*{
   margin: 10px 0 10px;
 }
-#logIn-main>.logIn-sec{
+#member-logIn>.logIn-sec{
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,70 +20,86 @@
 
   width: 400px;
 }
-#logIn-main>.logIn-sec>*{
+#member-logIn>.logIn-sec>*{
   margin: 10px 0 10px;
 }
-#logIn-main>.logIn-sec>label{
+#member-logIn>.logIn-sec>label{
   height: 52px;
 }
-#logIn-main>.logIn-sec>label>input{
+#member-logIn>.logIn-sec>label>input{
   text-align: center;
 }
-#logIn-main>#logIn-btn{
+#member-logIn>#logIn-btn{
   width: 400px;
   border-radius: 8px;
   padding: 10px;
   margin-bottom: 40px;
 }
-#logIn-main>div>a{
+
+#signMain-bottom{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 50px 0 150px;
+  justify-self: flex-end;
+}
+#signMain-bottom>.signMain-btn{
   margin: 0 5px 0;
   padding: 0;
   color: #5e7c71;
 }
+#signMain-bottom>.signMain-btn:hover{
+  cursor: pointer;
+}
 
 /* 회원가입, 아이디찾기, 비밀전호찾기 */
-#member-main{
-  display: flex;
+.member-main{
   flex-direction: column;
   align-items: center;
   width: 100%;
+  display: none;
 }
-#member-main>*{
+.member-main>*{
   margin: 68px 0 10px;
 }
-#member-main>.signUp-sec{
+.member-main>.signUp-sec{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 
   width: 820px;
 }
-#member-main>.signUp-sec>*{
+.member-main>.signUp-sec>*{
   margin: 0 0 15px;
 }
-#member-main>.signUp-sec>label{
+.member-main>.signUp-sec>label{
   height: 57px;
 }
-#member-main>.signUp-sec>label>#signUp-count{
-color: red;
+.member-main>.signUp-sec>label>.signUp-count{
 display: flex;
 flex-direction: row;
 justify-content: center;
 align-items: center;
 margin: 0 10px 0;
 }
-#member-main>#signUp-btn{
+.member-main>#signUp-btn{
   width: 400px;
   border-radius: 8px;
   padding: 10px;
 }
-#member-main>section:last-child{
+.member-main>section:last-child{
   margin-top: 80px;
   display: flex;
   flex-direction: row;
 }
 
 /* 공통 */
+#signMain{
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
 main>h3{
   color: #5e7c71;
   font-size: 1.8em;
