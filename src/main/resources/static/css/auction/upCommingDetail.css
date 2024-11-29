@@ -19,74 +19,92 @@
   align-items: center;
   position: relative;
   z-index: 1; /* 기본 박스가 뒤에 위치하도록 설정 */
+  border-radius: 20px; /* 테두리에 부드러운 곡선 추가 */
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2), -5px -5px 15px rgba(255, 255, 255, 0.5);
 }
 
 .ongoing-status {
   position: absolute;
   top: 40px;
+  font-size: 30px;
+  color: #5e7c71;
+  text-shadow: 0 2px 8px rgba(94, 124, 113, 0.5); /* 텍스트에 빛나는 효과 추가 */
 }
 
 .ongoingDetail-imageBox {
   width: 180px;
   height: 180px;
-}
-
-.hours-box {
-  width: 180px;
-  height: 180px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #D9D9D9;
-  font-size: 40px;
-  border-radius: 20px;
+  gap: 10px; /* 라벨과 숫자 간의 간격 추가 */
 }
 
 
-.hours-text {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 10px;
-}
-
-.minutes-box {
-  width: 180px;
-  height: 180px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #D9D9D9;
-  font-size: 40px;
-  border-radius: 20px;
-}
-
-
-.minutes-text {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 10px;
-}
-
-
+.hours-box,
+.minutes-box,
 .seconds-box {
   width: 180px;
   height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #D9D9D9;
-  font-size: 40px;
+  background: linear-gradient(145deg, #f0f0f0, #d8d8d8); /* 입체적 배경 */
   border-radius: 20px;
+  font-size: 50px;
+  color: #5e7c71;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(94, 124, 113, 0.4);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2), -4px -4px 10px rgba(255, 255, 255, 0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* 부드러운 효과 */
 }
 
 
-.seconds-text {
+
+.hours-text h3,
+.minutes-text h3,
+.seconds-text h3 {
+  font-size: 16px;
+  color: #6e8381;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  animation: fadeIn 1s ease-in-out;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 10px;
+}
+
+
+/* 구분자(:) 스타일 */
+.ongoingDetail > div[style="font-size: 50px;"] {
+  font-size: 60px;
+  color: #5e7c71;
+  text-shadow: 0 0 8px rgba(94, 124, 113, 0.5);
+  animation: pulse 1s infinite;
+}
+
+
+
+/* 애니메이션: 구분자가 부드럽게 커졌다 작아지는 효과 */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+/* 라벨 애니메이션 */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 

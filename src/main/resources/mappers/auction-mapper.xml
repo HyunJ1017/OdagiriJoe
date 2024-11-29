@@ -4,10 +4,10 @@
 	
 	
 	<!-- ************ 예정경매 관련  ************ -->
-  <!-- 
-    PA.START_DATE <= SYSDATE 경매 시작일이 현재 날짜와 같거나 과거여야 함.
-    PA.END_DATE >= SYSDATE 경매 종료일이 현재 날짜와 같거나 미래여야 함.
-   -->
+  	<!-- 
+	    PA.START_DATE <= SYSDATE 경매 시작일이 현재 날짜와 같거나 과거여야 함.
+	    PA.END_DATE >= SYSDATE 경매 종료일이 현재 날짜와 같거나 미래여야 함.
+   	-->
 	<select id="upCommingList" resultType="Piece">
         SELECT
             P.PIECE_NO,

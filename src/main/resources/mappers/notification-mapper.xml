@@ -86,7 +86,7 @@
 	    FROM PIECE_LIKE PL
 	    JOIN PIECE P ON PL.PIECE_NO = P.PIECE_NO
 	    WHERE P.START_DATE = TRUNC(SYSDATE + #{daysBefore})
-	   AND P.PIECE_TYPE = 2;
+	   	AND P.PIECE_TYPE = 2
 	</insert>
 
 

@@ -67,7 +67,9 @@ public class AuctionScheduler {
 	
 	
 	
-
+	/************************** 예정경매 알림 **************************/
+	
+	
 	// 스케줄러 이용한 한시간 전 알림 보내기
 	@Scheduled(cron = "0 0 9 * * *")
 	// @Scheduled(cron = "0/10 * * * * *")
@@ -92,14 +94,19 @@ public class AuctionScheduler {
 		log.info(">> 하루 전 알림 시작");
 		log.info(">> 하루 전 알림 : {} 건", result);
 		log.info(">> ------------------------------- <<");
+		
 	}
 	
+
+	/************************** 예정경매 알림 **************************/
+
 	// 스케줄러 이용한 방문자 테이블 한달 데이터 삭제
 	@Scheduled(cron = "0 0 0 1 * *")
 	public void deleteVisitor() {
 		
 		int result = service.deleteVisitor();
 	}
+
 	
 	
 
