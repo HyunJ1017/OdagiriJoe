@@ -64,25 +64,25 @@ public class DeliveryController {
 //	}
 	
 
-//	/* 배송 상태 변경 */
-//	@PutMapping("update")
-//	@ResponseBody
-//	public String updateDelevery(@SessionAttribute(value = "manageLogin", required = false) Manage manageLogin,
-//															 @RequestBody List<Manage> delivery, Model model) {
-//
-//		// 배송상태 변경
-//		int manaqgeNo = manageLogin.getManageNo();
-//		Map<String, Object> map = service.updateDelevery(delivery);
-//
-//		List<Piece> deleveryIngDateUpdate = (List<Piece>) map.get("deleveryIngDateUpdate");
-//		List<Piece> deleveryEndDateUpdate = (List<Piece>) map.get("deleveryEndDateUpdate");
-//		List<Piece> deleveryStatusUpdate = (List<Piece>) map.get("deleveryStatusUpdate");
-//
-//		model.addAttribute("deleveryIngDateUpdate", deleveryIngDateUpdate);
-//		model.addAttribute("deleveryEndDateUpdate", deleveryEndDateUpdate);
-//		model.addAttribute("deleveryStatusUpdate", deleveryStatusUpdate);
-//
-//		return "delivery/uploadDelivery";
-//	}
+	/* 배송 상태 변경 */
+	@PutMapping("update")
+	@ResponseBody
+	public String updateDelevery(@SessionAttribute(value = "manageLogin", required = false) Manage memberLogin,
+															 @RequestBody List<Manage> delivery, Model model) {
+
+		// 배송상태 변경
+		int memberNo = memberLogin.getMemberNo();
+		Map<String, Object> map = service.updateDelevery(delivery);
+
+		List<Piece> deleveryIngDateUpdate = (List<Piece>) map.get("deleveryIngDateUpdate");
+		List<Piece> deleveryEndDateUpdate = (List<Piece>) map.get("deleveryEndDateUpdate");
+		List<Piece> deleveryStatusUpdate = (List<Piece>) map.get("deleveryStatusUpdate");
+
+		model.addAttribute("deleveryIngDateUpdate", deleveryIngDateUpdate);
+		model.addAttribute("deleveryEndDateUpdate", deleveryEndDateUpdate);
+		model.addAttribute("deleveryStatusUpdate", deleveryStatusUpdate);
+
+		return "delivery/uploadDelivery";
+	}
 
 }

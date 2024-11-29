@@ -23,11 +23,11 @@ public interface DeliveryService {
 	List<Manage> deliveryList(int manageNo);
 
 	
-//	/** 배송 상태 변경
-//	 * @param memberNo
-//	 * @return
-//	 */
-//	Map<String, Object> updateDelevery(List<Manage> delivery);
+	/** 배송 상태 변경
+	 * @param memberNo
+	 * @return
+	 */
+	Map<String, Object> updateDelevery(List<Manage> delivery);
 
 
 

@@ -10,7 +10,7 @@
         </a>
       </div>
       <!-- 오른쪽 사용자 액션 영역 -->
-      <div class="header-actions">
+      <div class="header-actions"> 
         <a href="/member/login/logout" class="header-item">Logout</a>
         <!-- 알림 아이콘 -->
         <i class="fa-regular fa-bell header-item" id="notification-icon"></i>
@@ -33,12 +33,10 @@
         </form>
       </article>
     </section>
-
-    <!-- 알림 영역 -->
+    
+    <!-- 알림 섹션 -->
     <section id="notification-section" style="display: none;">
-      <!-- 알림 컨테이너 -->
       <div class="notification-container" th:if="${session.memberLogin != null}">
-
         <!-- 알림 목록 -->
         <ul class="notification-list">
           <div class="custom-line"></div>
@@ -46,8 +44,10 @@
       </div>
     </section>
     <!-- 알림 개수 표시 -->
-    <div class="notification-count" th:text="${notificationCount != null ? notificationCount : '♥ 0'}" style="display: none;">
+    <div class="notification-count" th:text="${notificationCount != null ? notificationCount : '♥ 0'}"
+      style="display: none;">
     </div>
+
 
     <!-- 중앙 메뉴 -->
     <nav class="header-menu">
