@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,17 +19,17 @@
       </div>
       <div class="custom-line"></div>
       <div class="dateType-container">
-      <div class="calendar-container">
-        <div class="search">배송 기간 조회 : </div>
-        <input type="date" id="start-date" min="" max="" class="calendar">
-        <p class="calendars">~</p>
-        <input type="date" id="return-date" min="" max="" class="calendar">
-        <button class="selectBtn" id="select" type="submit">조회</button>
-      </div>
+        <div class="calendar-container">
+          <div class="search">직접 설정 : </div>
+          <input type="date" id="start-date" min="" max="" class="calendar">
+          <p class="calendars">~</p>
+          <input type="date" id="return-date" min="" max="" class="calendar">
+          <button class="selectBtn" id="select" type="submit">조회</button>
+        </div>
         <div class="btn-container">
-        <button class="inserttBtn" id="insert" type="submit">저장</button>
+          <button class="inserttBtn" id="insert" type="submit">저장</button>
+        </div>
       </div>
-    </div>
       <table class="table-container">
         <thead class="table-header">
           <tr>
@@ -43,37 +44,49 @@
             <th>주문 처리 상태</th>
           </tr>
         </thead>
-            <tbody class="table-content" id="delivery-tbody">
-              <tr th:each="manage : ${deliveryList}">
-                <th><input type="checkbox" class="filter-checkbox" th:data-delivery-no="${manage.deliveryNo}"></th>
-                <td th:text="${manage.deliveryNo}">송장번호</td>
-                <td th:text="${manage.deliveryDate}" class="deliveryDate">주문 일자</td>
-                <td th:text="${manage.pieceTitle}">작품 제목</td>
-    
-                <td th:if="${manage.pieceType == 1 and manage.pieceStatus == 'F'}" th:text="|${manage.sellPrice} 원|">입찰 금액(갤러리)</td>
-                <td th:if="${manage.pieceType == 2 and manage.pieceStatus == 'F'}" th:text="|${manage.endPrice} 원|">입찰 금액(경매)</td>
-                
-                <td th:text="${manage.deliveryAddress}">주소</td>
-
-                <!-- 배송 예정 일자 -->
-                <td><input type="date" id="deliveryIngDate" class="calendarin deliveryIngDate"></td>
-                
-                <!-- 배송 완료 일자 -->
-                <td><input type="date" id="deliveryEndDate" class="calendarin deliveryEndDate"></td>
-                <td class="arr-container">
-                <select id="sort" class="sort-select" onChange="onSortChange(event)">
-                  <option id="pickup" value="visit">방문수령</option>
-                  <option id="preparing" value="preparing">배송 준비중</option>
-                  <option id="shipping" value="in_transit">배송중</option>
-                  <option id="delivered" value="completed">배송 완료</option>
-                </select>
-              </td>
-                </tr>
-                </tbody>
-          </table>
-        </section>
+        <tbody class="table-content" id="delivery-tbody">
+          <!-- 반복문으로 데이터 렌더링 -->
+          <tr th:each="manage : ${deliveryList}" th:id="'row-' + ${manage.deliveryNo}">
+            <th>
+              <input type="checkbox" class="filter-checkbox" th:data-delivery-no="${manage.deliveryNo}" th:checked="false"/>
+            </th>
+            <td th:text="${manage.deliveryNo}">송장번호</td>
+            <td th:text="${manage.deliveryDate}" class="deliveryDate">주문 일자</td>
+            <td th:text="${manage.pieceTitle}">작품 제목</td>
+  
+            <!-- 입찰 금액 -->
+            <td th:text="${manage.pieceType == 1 ? manage.sellPrice + ' 원' : (manage.pieceType == 2 ? manage.endPrice + ' 원' : '')}">입찰 금액</td>
+            <td th:text="${manage.deliveryAddress}">주소</td>
+  
+            <!-- 배송 예정 일자 -->
+            <td>
+              <input type="date" class="calendarin deliveryIngDate" th:if="${manage.deliveryAddress != null && manage.deliveryIngDate == null}" th:data-key="${manage.deliveryNo}"/>
+              <input type="text" class="calendarin deliveryIngDate" th:if="${manage.deliveryAddress != null && manage.deliveryIngDate != null}" th:value="${manage.deliveryIngDate}" th:data-key="${manage.deliveryNo}" disabled/>
+            </td>
+  
+            <!-- 배송 완료 일자 -->
+            <td>
+              <input type="date" class="calendarin deliveryEndDate" th:if="${manage.deliveryAddress != null && manage.deliveryEndDate == null}" th:data-key="${manage.deliveryNo}" >
+              <input type="text" class="calendarin deliveryEndDate" th:if="${manage.deliveryAddress != null && manage.deliveryEndDate != null}" th:value="${manage.deliveryEndDate}" th:data-key="${manage.deliveryNo}" disabled/>
+            </td>
+  
+            <!-- 정렬 방식 -->
+            <td class="arr-container">
+              <select class="sort-select" th:data-key="${manage.deliveryNo}" onChange="onSortChange(event)" th:disabled="${manage.deliveryAddress == null}">
+                <option value="0" th:selected="${manage.deliveryAddress == null || manage.deliveryStatus == 0}">방문수령 </option>
+                <option value="1"  th:selected="${manage.deliveryAddress != null && manage.deliveryStatus == 1}"  th:disabled="${manage.deliveryAddress == null}"> 배송 준비중 </option>
+                <option value="2"  th:selected="${manage.deliveryAddress != null && manage.deliveryStatus == 2}" th:disabled="${manage.deliveryAddress == null}"> 배송중</option>
+                <option value="3"  th:selected="${manage.deliveryAddress != null && manage.deliveryStatus == 3}"  th:disabled="${manage.deliveryAddress == null}"> 배송 완료 </option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
     <div class="pagination-box" id="paginationBoxQuestion"></div>
   </main>
   <script src="/js/delivery/uploadDelivery.js"></script>
 </body>
+<th:block th:replace="~{/common/footer.html}"></th:block>
+
 </html>

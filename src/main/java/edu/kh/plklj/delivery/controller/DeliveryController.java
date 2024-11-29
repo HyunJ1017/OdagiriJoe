@@ -17,6 +17,7 @@ import edu.kh.plklj.manage.dto.Manage;
 import edu.kh.plklj.piece.dto.Piece;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -67,22 +68,14 @@ public class DeliveryController {
 	/* 배송 상태 변경 */
 	@PutMapping("update")
 	@ResponseBody
-	public String updateDelevery(@SessionAttribute(value = "manageLogin", required = false) Manage memberLogin,
+	public String updateDelevery(@SessionAttribute(value = "memberLogin", required = false) Member memberLogin,
 															 @RequestBody List<Manage> delivery, Model model) {
 
 		// 배송상태 변경
 		int memberNo = memberLogin.getMemberNo();
-		Map<String, Object> map = service.updateDelevery(delivery);
+		boolean result = service.updateDelivery(delivery);
 
-		List<Piece> deleveryIngDateUpdate = (List<Piece>) map.get("deleveryIngDateUpdate");
-		List<Piece> deleveryEndDateUpdate = (List<Piece>) map.get("deleveryEndDateUpdate");
-		List<Piece> deleveryStatusUpdate = (List<Piece>) map.get("deleveryStatusUpdate");
-
-		model.addAttribute("deleveryIngDateUpdate", deleveryIngDateUpdate);
-		model.addAttribute("deleveryEndDateUpdate", deleveryEndDateUpdate);
-		model.addAttribute("deleveryStatusUpdate", deleveryStatusUpdate);
-
-		return "delivery/uploadDelivery";
+		return "redirect:uploadDelivery";
 	}
 
 }
