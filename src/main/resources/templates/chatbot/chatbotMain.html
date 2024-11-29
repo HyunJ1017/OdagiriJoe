@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clova Chatbot</title>
+    <link rel="stylesheet" href="/css/chatbot/chatbotMain.css">
+</head>
+<body>
+    <!-- Chatbot Icon -->
+    <div id="chatbot-icon" onclick="toggleChatbot()">💬</div>
+
+    <!-- Chatbot Window -->
+    <div id="chatbot-container" class="hidden">
+        <div id="chatbot-header">
+            Clova Chatbot
+            <span onclick="toggleChatbot()">✖️</span>
+        </div>
+        <div id="chatbot-body">
+            <div id="chat-messages"></div>
+        </div>
+        <div id="chatbot-footer">
+            <input type="text" id="chat-input" placeholder="Type your message" onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script src="/js/chatbot/chatbotMain.js"></script>
+</body>
+</html>
