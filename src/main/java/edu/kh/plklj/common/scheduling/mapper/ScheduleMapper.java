@@ -25,4 +25,6 @@ public interface ScheduleMapper {
 
 	SmsDto getSmsInfo(int pieceNo);
 
+	int deleteVisitor();
+
 }

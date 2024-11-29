@@ -102,5 +102,12 @@
 			) ACT ON (ACT.PIECE_NO = P.PIECE_NO)
 		WHERE P.PIECE_NO = #{pieceNo}
 	</select>
+	
+	<delete id="deleteVisitor">
+		<![CDATA[
+		    DELETE FROM VISITOR
+		    WHERE VISITOR_DATE < ADD_MONTHS(TRUNC(SYSDATE), -1)
+    	]]>
+	</delete>
 		
 </mapper>

@@ -20,11 +20,7 @@ public class DashboardServiceImpl implements DashboardService {
 	
 	private final DashboardMapper mapper;
 	
-	@Override
-		public void incrementVisitorCount() {
-			mapper.incrementVisitorCountForToday();
-		}
-
+	
 	
 	@Override
 	public Map<String, Integer> getVisitorCountForLastWeek() {
@@ -44,8 +40,33 @@ public class DashboardServiceImpl implements DashboardService {
 		return mapper.getMonthlyTotal();
 	}
 	
+	@Override
+	public boolean checkAndIncrementVisitor(String clientIp) {
+
+		int updateedRows = mapper.incrementVisitorCountForToday(clientIp);
+		return updateedRows > 0;
+	}
+	
+	@Override
+	public Map<String, Integer> getDailyTrades() {
+		
+		List<Manage> dailyTrades = mapper.getDailyTrades();
+		
+		Map<String, Integer> tradeData = new LinkedHashMap<>();
+		for (Manage trade : dailyTrades) {
+			tradeData.put(trade.getPayDate(), trade.getPayAmount());
+		}
+		
+		
+		return tradeData;
+	}
 	
 
+	
+	@Override
+	public int getMonthlyTradeTotal() {
+		return mapper.getMonthlyTradeTotal();
+	}
 
 
 

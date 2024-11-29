@@ -205,4 +205,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 		return result.get("access_token");
 		
 	}
+	
+	@Override
+	public int deleteVisitor() {
+		return mapper.deleteVisitor();
+	}
 }
