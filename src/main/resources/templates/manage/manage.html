@@ -33,10 +33,9 @@
 
     <section class="main-content">
       <section class="tab-buttons">
-        <button class="tab-btn" id="tab-btn" onclick="loadDashboardData('visitor')">방문자 현황</button>
-        <button class="tab-btn" id="tab-btn" onclick="loadDashboardData('charge')">충전 현황</button>
-        <button class="tab-btn" id="tab-btn" onclick="loadDashboardData('distance')">거래 현황</button>
-        <button class="tab-btn" id="tab-btn" onclick="loadDashboardData('work')">작품 현황</button>
+        <button class="tab-btn" id="visitor-btn" data-target="visitor">방문자 현황</button>
+        <button class="tab-btn" id="trade-btn" data-target="trade">거래 현황</button>
+        <button class="tab-btn" id="artwork-btn" data-target="artwork">작품 현황</button>
       </section>
 
       <!-- 콘텐츠를 가로로 정렬할 컨테이너 -->
@@ -47,7 +46,7 @@
           <!-- 방문자 현황 -->
           <div class="tab-content active" id="visitor">
             <div class="chart-container">
-              <canvas id="dashboardChart"></canvas>
+              <canvas id="dashboardChart">방문자 차트</canvas>
             </div>
             <div class="data-table">
               <h3>일자별 요약</h3>
@@ -56,7 +55,8 @@
                   <tr>
                     <th>일자</th>
                     <th>방문자</th>
-                  </tr>
+                    <th>매출액</th>
+                    <th>주문수</th>
                 </thead>
                 <tbody id="tableBody">
                   <!-- 데이터 렌더링 -->
@@ -64,7 +64,20 @@
               </table>
             </div>
           </div>
-          <div class="custom-line"></div>
+
+          <!-- 거래 현황 -->
+           <div class="tab-content" id="trade">
+            <div class="chart-container">
+              <canvas id="tradeChart">거래 현황 차트</canvas>
+            </div>
+           </div>
+
+          <!-- 작품 현황 -->
+           <div class="tab-content" id="artwork">
+            <div class="chart-container">
+              <canvas id="artworkChart">작품 현황 차트</canvas>
+            </div>
+           </div>
       </section>
 
       <!-- 작가 및 회원 관리 섹션 -->

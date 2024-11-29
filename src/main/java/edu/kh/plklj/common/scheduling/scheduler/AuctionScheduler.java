@@ -94,6 +94,13 @@ public class AuctionScheduler {
 		log.info(">> ------------------------------- <<");
 	}
 	
+	// 스케줄러 이용한 방문자 테이블 한달 데이터 삭제
+	@Scheduled(cron = "0 0 0 1 * *")
+	public void deleteVisitor() {
+		
+		int result = service.deleteVisitor();
+	}
+	
 	
 
 }

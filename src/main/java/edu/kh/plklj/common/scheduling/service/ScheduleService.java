@@ -10,5 +10,7 @@ public interface ScheduleService {
 
 	int prisoners();
 
+	int deleteVisitor();
+
 
 }
