@@ -32,11 +32,15 @@ public class ChatbotController {
     @ResponseBody
     public Map<String, String> sendMessage(@RequestBody Map<String, String> request) {
     	
+    		// 클라이언트 메시지 값 받아오기
         String userMessage = request.get("message");
         
+        // 메시지 값 응답
         String botResponse = chatbotService.processMessage(userMessage);
 
+        
         Map<String, String> response = new HashMap<>();
+        
         response.put("response", botResponse);
 
         return response;
