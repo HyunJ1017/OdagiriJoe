@@ -21,7 +21,7 @@ public interface DeliveryMapper {
 	 * @param manageNo
 	 * @return
 	 */
-	List<Manage> deliveryList(int manageNo);
+	List<Manage> deliveryList(int cp);
 	
 	/** 배송 예정일 수정하기
 	 * @param memberNo
@@ -40,9 +40,4 @@ public interface DeliveryMapper {
 	 * @return
 	 */
 	int deliveryStatusUpdate(Manage manage);
-
-	List<Manage> deliveryList();
-
-
-
 }

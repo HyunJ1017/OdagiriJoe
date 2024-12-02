@@ -7,30 +7,11 @@
   <title>관리자 페이지</title>
   <link rel="stylesheet" href="/css/manage/manage.css">
   <link rel="stylesheet" href="/css/delivery/uploadDelivery.css">
+  <th:block th:replace="~{/common/common.html :: cssLinks}"></th:block>
 </head>
 
-<body id="top">
-  <!-- 헤더 -->
-  <header class="main-header">
-    <button class="exit-btn" onclick="">나가기</button>
-  </header>
-
-  <section class="container">
-    <!-- 사이드바 -->
-    <section class="sidebar">
-      <nav>
-        <ul>
-          <li><a href="#top" class="nav-item" data-tab="board">대시보드</a></li>
-          <li><a href="#memberManage" class="nav-item" data-tab="visitor">작가 및 회원 관리</a></li>
-          <li><a href="#contentsManage" class="nav-item" data-tab="charge">콘텐츠 관리</a></li>
-          <li><a href="#approval" class="nav-item" data-tab="distance">승인 요청 내역</a></li>
-          <li><a href="#noticeN" class="nav-item" data-tab="faq">공지사항</a></li>
-          <li><a href="#back" class="nav-item" data-tab="notice">작가 환전</a></li>
-          <li><a href="#onequestion" class="nav-item" data-tab="support">1:1 문의</a></li>
-          <li><a href="#delivery" class="nav-item" data-tab="delivery">배송 상태 변경</a></li>
-        </ul>
-      </nav>
-    </section>
+<body>
+  <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
 
     <section class="main-content">
       <section class="tab-buttons">
@@ -67,22 +48,22 @@
           </div>
 
           <!-- 거래 현황 -->
-           <div class="tab-content" id="trade">
+          <div class="tab-content" id="trade">
             <div class="chart-container">
               <canvas id="tradeChart">거래 현황 차트</canvas>
             </div>
-           </div>
+          </div>
 
           <!-- 작품 현황 -->
-           <div class="tab-content" id="artwork">
+          <div class="tab-content" id="artwork">
             <div class="chart-container">
               <canvas id="artworkChart">작품 현황 차트</canvas>
             </div>
-           </div>
+          </div>
       </section>
 
       <!-- 작가 및 회원 관리 섹션 -->
-      <div id="memberManage"></div><!-- 사이드바스크s롤 -->
+      <div id="memberManage"></div><!-- 사이드바스크롤 -->
       <h2>작가 및 회원 관리</h2>
       <div class="custom-line"></div>
       <div class="button-group">
@@ -377,7 +358,7 @@
           </tbody>
         </table>
       </section>
-    <div class="pagination-box" id="paginationBoxQuestion"></div>
+    <div class="pagination-box" id="paginationDelivery"></div>
     </section>
     <th:block th:replace="~{/manage/reportPopup.html}"></th:block>
     <script src="/js/manage/manage.js"></script>

@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchSection = document.getElementById('search-section');
   const sideMenu = document.getElementById('side-menu');
   const notificationCount = document.querySelector('.notificationCount');
+  connectSse();
 
   // 알림 아이콘 클릭 이벤트
   notificationIcon?.addEventListener('click', () => {
@@ -33,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // 서버로부터 알림을 수신하는 SSE (Server-Sent Events) 연결 함수
-let hideNotificationTimeout;
+let reConnectCount = 0;
 
 const connectSse = () => {
   if (typeof notificationLoginCheck === 'undefined' || notificationLoginCheck === false) return; // 로그인이 안 된 경우, SSE 연결 중단
@@ -50,22 +51,25 @@ const connectSse = () => {
       if (data.notiCount > 0) {
         notiCount.style.display = "flex";
         notiCount.innerText = data.notiCount; // 수신된 알림 개수로 업데이트
-
-        // 알림 count 창이 10초 후 없어지게 설정 (기존 타이머가 있다면 클리어)
-        clearTimeout(hideNotificationTimeout);
-        hideNotificationTimeout = setTimeout(() => {
-          notiCount.style.display = 'none';
-        }, 10000); // 10초 후에 알림 count 창 숨김
       } else {
         notiCount.style.display = "none";
       }
     }
+
+    // 알림 count 창이 10초 후 없어지게 설정
+    setTimeout(() => {
+      if (notiCount) {
+        notiCount.style.display = 'none';
+      }
+    }, 10000); // 10초 후에 알림 count 창 숨김
   });
 
   // SSE 연결 실패 시 재연결 시도
   eventSource.addEventListener("error", () => {
+    if(reConnectCount > 4) return;
     console.error("SSE 연결 실패, 재연결 시도...");
-    setTimeout(connectSse, 5000); // 5초 후 재연결 시도
+    setTimeout(connectSse, 15000); // 15초 후 재연결 시도
+    reConnectCount++;
   });
 };
 
@@ -81,9 +85,8 @@ function updateNotificationCount() {
     // 알림 배지 표시
     notificationCount.style.display = 'inline-block'; // 알림이 있으면 배지를 보이게 함
 
-    // 알림 count 창이 10초 후 없어지게 설정 (기존 타이머가 있다면 클리어)
-    clearTimeout(hideNotificationTimeout);
-    hideNotificationTimeout = setTimeout(() => {
+    // 알림 count 창이 10초 후 없어지게 설정
+    setTimeout(() => {
       notificationCount.style.display = 'none';
     }, 10000); // 10초 후에 알림 count 창 숨김
   }
@@ -127,14 +130,6 @@ function markNotificationAsRead(notiNo) {
       console.log('알림 읽음 처리 성공');
     })
     .catch(console.error);
-}
-
-// 알림 항목 클릭 시 읽음 처리
-function handleNotificationClick(notiItem, notiNo) {
-  notiItem.addEventListener('click', () => {
-    markNotificationAsRead(notiNo);
-    // 필요한 경우 추가적인 처리 (예: 페이지 이동 등)
-  });
 }
 
 //----------------------------------------------------------------------------------------------------------------
@@ -280,12 +275,15 @@ function renderNotifications(groupedNotifications) {
 
       // 알림 내용 클릭 시 URL로 이동
       notiContent.addEventListener("click", () => {
-        location.href = data.notiUrl;
-      });
 
+        markNotificationAsRead(data.notiNo); // 필요한 경우 추가적인 처리 (예: 페이지 이동 등)
+        location.href = data.notiUrl; // 알림 항목 클릭 시 읽음 처리
+      });
+      
       // 각 알림 항목에 데이터 추가
-      notiItem.append(notiContent, notiType, notiDate, notiDelete);
+      notiItem.append(notiContent, notiType, notiDate, notiDelete );
       notificationList.appendChild(notiItem);
+      
     });
 
     isFirstSection = false; // 첫 섹션 렌더링 후 false로 변경
@@ -317,7 +315,7 @@ const readCheck = () => {
       throw new Error("알림 개수 조회 실패");
     })
     .then((count) => {
-      const notificationCount = document.querySelector(".notificationCount");
+      const notificationCount = document.querySelector(".notification-count");
       notificationCount.innerText = count;
 
       const notificationIcon = document.querySelector(".notification-icon");
