@@ -19,7 +19,12 @@
       <div class="myPage-sec">
         <div>닉네임</div>
         <label class="labely" for="artistNickname">
-          <input type="text" name="artistNickname" id="artistNickname" placeholder="작가 활동 시 사용할 입력해 주세요." th:value="${artist.artistNickname}">
+          <th:block th:if="${artist}">
+            <input type="text" name="artistNickname" id="artistNickname" placeholder="작가 활동 시 사용할 입력해 주세요." th:value="${artist.artistNickname}">
+          </th:block>
+          <th:block th:unless="${artist}">
+            <input type="text" name="artistNickname" id="artistNickname" placeholder="작가 활동 시 사용할 입력해 주세요.">
+          </th:block>
         </label>
         <div id="nicknameMessage"></div>
       </div>
@@ -29,7 +34,12 @@
         <div>대표작품</div>
         <div id="imgBorder">
           <div id="deleteImg">x</div>
-          <img th:src="${artist.artistProfile ?: '/images/artist1.jpg'}" id="imgPreview" alt="작가프로필">
+          <th:block th:if="${artist}">
+            <img th:src="${artist.artistProfile}" id="imgPreview" alt="작가프로필">
+          </th:block>
+          <th:block th:unless="${artist}">
+            <img src="/images/artist1.jpg" id="imgPreview" alt="작가프로필">
+          </th:block>
         </div>
         <label for="artistProfile" class="member-hov" id="artistProfileLabel">
           이미지 선택
@@ -41,8 +51,14 @@
       <div class="myPage-sec">
         <div>수상경력</div>
         <section id="workDetailSection">
-          <th:block th:if= "${#lists.size(artist.workList) > 0}" th:each= "work:${artist.workList}">
-            <input type="text" name="workDetail" class="workDetail" placeholder="경력사항이나 수상내역을 입력해 주세요." th:value="${work}">
+          <th:block th:if="${artist}">
+            <th:block th:if= "${#lists.size(artist.workList) > 0}" th:each= "work:${artist.workList}">
+              <input type="text" name="workDetail" class="workDetail" placeholder="경력사항이나 수상내역을 입력해 주세요." th:value="${work}">
+            </th:block>
+            <th:block th:if= "${#lists.size(artist.workList) = 0}" th:each= "work:${artist.workList}">
+              <input type="text" name="workDetail" class="workDetail" placeholder="경력사항이나 수상내역을 입력해 주세요.">
+              <input type="text" name="workDetail" class="workDetail" placeholder="경력사항이나 수상내역을 입력해 주세요.">
+            </th:block>
           </th:block>
           <th:block th:unless= "${artist}">
             <input type="text" name="workDetail" class="workDetail" placeholder="경력사항이나 수상내역을 입력해 주세요.">
@@ -56,7 +72,12 @@
         <div>포트폴리오</div>
         <label class="labely" for="artistPortfolio">
           <span id="artistPortfolioName">포트폴리오를 첨부해 주세요.</span>
-          <input class="hiddenInput" name="inputArtistPortfolio" type="file" id="artistPortfolio" th:value="${artist.artistPortfolio ?: ''}">
+          <th:block th:if="${artist}">
+            <input class="hiddenInput" name="inputArtistPortfolio" type="file" id="artistPortfolio" th:value="${artist.artistPortfolio}">
+          </th:block>
+          <th:block th:unless="${artist}">
+            <input class="hiddenInput" name="inputArtistPortfolio" type="file" id="artistPortfolio">
+          </th:block>
           <div class="member-hov">
             첨부하기
           </div>
@@ -67,7 +88,12 @@
       <div class="myPage-sec">
         <div>계좌번호</div>
         <div id="artistBank" class="labely" for="artistPortfolio">
-          <input type="text" name="bankNo" id="bankNo" th:value="${artist.bankNo ?: ''}">
+          <th:block th:if="${artist}">
+            <input type="text" name="bankNo" id="bankNo" th:value="${artist.bankNo}">
+          </th:block>
+          <th:block th:unless="${artist}">
+            <input type="text" name="bankNo" id="bankNo">
+          </th:block>
           <div class="member-hov" id="selectBank">
             은행선택
           </div>
@@ -86,9 +112,9 @@
     const memberNo = /*[[${session.memberLogin.memberNo}]]*/ "defaultMemberNo";
     const defaultProfileImg = "/images/artist1.jpg";
     const artistFl = /*[[${artist != null}]]*/ false;
-    const preArtistNickname = /*[[${artist.artistNickname}]]*/ null;
-    const preBankCode = /*[[${artist.bankCode}]]*/ '000';
-    const prePortfolio = /*[[${artist.artistPortfolio}]]*/ null;
+    const preArtistNickname = /*[[${artist?.artistNickname}]]*/ '';
+    const preBankCode = /*[[${artist?.bankCode}]]*/ '000';
+    const prePortfolio = /*[[${artist?.artistPortfolio}]]*/ '';
   </script>
   <script src="/js/myPage/artistRegistration.js"></script>
 
