@@ -8,4 +8,12 @@
 		WHERE MEMBER_PHONE = #{phoneNumber}
 	</select>
 	
+	<select id="getSmsMember">
+		SELECT
+			MEMBER_PHONE,
+			MEMBER_NAME
+		FROM "MEMBER"
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
 </mapper>
