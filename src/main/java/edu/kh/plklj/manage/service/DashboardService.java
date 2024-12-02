@@ -18,6 +18,10 @@ public interface DashboardService {
 
 	int getMonthlyTradeTotal();
 
+	Map<String, Integer> getDailyArtworks();
+
+	int getMonthlyArtworkTotal();
+
 	
 
 	

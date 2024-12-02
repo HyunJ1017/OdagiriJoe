@@ -86,23 +86,43 @@ public class ManageController1 {
 		
 		return ResponseEntity.ok(data);
 	}
+	
+	
+	@GetMapping("artworkData")
+	public ResponseEntity<Map<String, Object>> getArtworkData() {
+		Map<String, Integer> map = service.getDailyArtworks();
+		int monthlyTotal = service.getMonthlyArtworkTotal();
+		
+		log.info("dailyArtworks: {}", map);
+		log.info("weeklyTotal: {}", map);
+		log.info("monthlyTotal: {}", monthlyTotal);
+		
+		Map<String, Object> data = Map.of(
+					"dailyArtworks", map,
+					"weeklyTotal", map.values().stream().mapToInt(Integer::intValue).sum(),
+					"monthlyTotal", monthlyTotal
+				);
+		
+		return ResponseEntity.ok(data);
+	}
   
   
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

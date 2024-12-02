@@ -51,7 +51,7 @@ public class DashboardServiceImpl implements DashboardService {
   } catch (DuplicateKeyException e) {
       // 이미 존재하는 경우, 에러를 무시하고 처리
       return false;
-  	}
+  }
 	}
 	
 	@Override
@@ -73,6 +73,27 @@ public class DashboardServiceImpl implements DashboardService {
 	@Override
 	public int getMonthlyTradeTotal() {
 		return mapper.getMonthlyTradeTotal();
+	}
+	
+	
+	
+	@Override
+	public Map<String, Integer> getDailyArtworks() {
+		
+		List<Manage> dailyArtworks = mapper.getDailyArtworks();
+		
+		Map<String, Integer> artworkData = new LinkedHashMap<>();
+		for (Manage artwork : dailyArtworks) {
+			artworkData.put(artwork.getRegDate(), artwork.getPieceCount());
+		}
+		
+		return artworkData;
+	}
+	
+	
+	@Override
+	public int getMonthlyArtworkTotal() {
+		return mapper.getMonthlyArtworkTotal();
 	}
 
 
