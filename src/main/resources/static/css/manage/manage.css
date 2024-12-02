@@ -1,75 +1,13 @@
-@font-face {
-  font-family: 'ChosunKm';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunKm.woff') format('woff');
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'ChosunKm', Helvetica;
-}
-
-.container {
-  padding: 0;
-  /* 원하는 패딩을 추가 */
+body {
+  margin-left: 15%; /* 사이드바 너비만큼 왼쪽 여백 설정 */
+  padding: 0%;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
+  flex-direction: column;
+  min-height: 100vh;
 }
-
-.main-header {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  background-color: #5e7c71;
-  padding: 30px 40px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.exit-btn {
-  background-color: #f5f5f5;
-  color: #526D64;
-  padding: 8px 16px;
-  border: 1px solid #5e7c71;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 20px;
-  font-weight: bold;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.sidebar {
-  min-width: 210px;
-  background-color: #5e7c71;
-  color: white;
-}
-
-.sidebar>nav {
-  top: 0;
-  font-size: 18px;
-  position: fixed;
-
-  padding-top: 80px;
-}
-
-.nav-item {
-  display: block;
-  padding: 15px 20px;
-  color: white;
-  text-decoration: none;
-  transition: background-color 0.3s;
-}
-
-.nav-item:hover,
-.nav-item.active {
-  background-color: #3A4F48;
-}
-
 
 .main-content {
   flex-grow: 1;
-  margin-top: 50px;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -85,7 +23,7 @@
 }
 
 .tab-buttons {
-  margin-bottom: 20px;
+  margin-top: 10%;
   display: flex;
   justify-content: space-around;
 }
@@ -106,52 +44,44 @@
 
 .content-row {
   display: flex;
-  gap: 20px;
-  padding: 20px 40px;
   justify-items: center;
-  margin-top: 5px;
-  /* margin-left: 50px; */
-
+  margin: 1% 0 1% 0;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
 }
-
-
 
 .tab-content {
   flex: 1;
-  padding: 20px;
+  padding: 1%;
   background-color: white;
-
-
+  margin: 1%;
   display: none;
 
 }
 
 .active {
-
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  /* width: 1500px; */
-
-
 }
 
 .chart-container {
-  height: 400px;
-  width: 500px;
-  border: 1px solid #ddd;
+  height: 100%;
+  width: 50%;
+  border: 1px solid #dddd;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  padding: 20px;
 }
 
 .data-table {
-  width: 500px;
+  width: 46%;
   overflow-x: auto;
-  margin-left: 50pxpx;
   border: 1px solid #ddd;
+  padding: 2%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  margin: 0 2% 0 2%;
+  flex-wrap: wrap;
 }
 
 
@@ -166,7 +96,7 @@ h3 {
 
 th,
 td {
-  padding: 12px;
+  padding: 2%;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
@@ -178,10 +108,10 @@ th {
 
 /* 작가 및 회원 관리 스타일 */
 h2 {
-  color: #3A4F48;
+  color: #414141;
   font-size: 23px;
   margin-left: 70px;
-  margin-top: 150px;
+  margin-top: 3%;
 }
 
 
@@ -251,8 +181,8 @@ h2 {
   border-radius: 5px;
   background-color: white;
   color: #3A4F48;
-    font-size: 16px;
-    cursor: pointer;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .withdraw-btn {

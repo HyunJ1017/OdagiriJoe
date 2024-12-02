@@ -40,6 +40,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: left;
 }
 
 /* 헤더 컨테이너 */
@@ -51,14 +52,14 @@ button {
 
 /* 구분선 */
 .custom-line {
-  border-bottom: 1px solid #5e7c71;
-  width: 90%;
+  border-bottom: 1px solid #dbdbdb;
+  width: 94%;
   margin-bottom: 1%;
 }
 
 /* 버튼 컨테이너 */
 .dateType-container {
-  width: 80%;
+  width: 90%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -74,6 +75,10 @@ button {
   justify-content: center;
   width: 100%;
   border: none;
+}
+
+.deliveryNoneDate {
+  cursor: default;
 }
 
 .sort-select {
@@ -115,6 +120,7 @@ option {
   border-radius: 3px;
   padding: 0.5em 1em;
   background: #ffffff00;
+  display: flex;
 }
 
 .btn-container {
@@ -134,7 +140,7 @@ option {
 
 /* 테이블 스타일 */
 .table-container {
-  width: 80%;
+  width: 90%;
   border-collapse: collapse;
   margin-top: 1%;
   color: #414141;
@@ -160,4 +166,73 @@ option {
 /* 테이블 짝수 행 */
 .table-container tbody tr:nth-child(even) {
   background-color: #e0e0e0;
+}
+
+/* ------------------------------------------------------------------------------- */
+/* 페이지네이션 */
+.pagination-box {
+  display: flex;
+  justify-content: center;
+  /* 중앙 정렬 */
+  margin-top: auto;
+  /* 남은 공간만큼 아래로 이동 */
+  width: 100%;
+  margin-bottom: 50px;
+
+}
+
+.pagination-box>.page-btn {
+  margin: 0 10px;
+  /* 페이지 번호 간격 조절 (양쪽을 넓힘) */
+  cursor: pointer;
+  /* 마우스 포인터를 클릭 가능으로 변경 */
+  padding: 5px;
+  /* 패딩 추가하여 클릭 영역 확대 */
+  display: flex;
+  /* Flexbox 사용 */
+  align-items: center;
+  /* 세로 중앙 정렬 */
+  justify-content: center;
+  /* 가로 중앙 정렬 */
+  width: 30px;
+  /* 고정된 너비 */
+  height: 30px;
+  /* 고정된 높이 */
+  transition: color 0.3s;
+  /* 부드러운 색상 전환 */
+  text-align: center;
+}
+
+.pagination-box>.page-btn:hover {
+  border-radius: 50%;
+  background-color: #5e7c71;
+  /* 원형의 배경색 */
+  color: #fff;
+  /* 글자색 흰색 */
+}
+
+/* 페이지 네이션 색상 */
+.pagination-box>.page-btn.active {
+  border-radius: 50%;
+  background-color: #5e7c71;
+  /* 원형의 배경색 */
+  color: #fff;
+  /* 글자색 흰색 */
+  font-weight: bold;
+}
+
+.pagination-box a {
+  color: inherit;
+  /* 부모 요소의 색상으로 설정 */
+  text-decoration: none;
+  margin: 0 10px;
+  /* 링크 간격 조절 */
+  display: flex;
+  /* Flexbox 사용 */
+  align-items: center;
+  /* 세로 중앙 정렬 */
+  justify-content: center;
+  /* 가로 중앙 정렬 */
+  padding: 5px;
+  /* 패딩 추가하여 클릭 영역 확대 */
 }

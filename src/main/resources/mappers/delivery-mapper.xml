@@ -73,6 +73,5 @@
 		WHERE
 		DELIVERY_NO = #{deliveryNo}
 	</update>
-
 	
 </mapper>
