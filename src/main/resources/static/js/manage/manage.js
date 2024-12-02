@@ -583,7 +583,7 @@ function approveArtist(memberNo) {
 function rejectArtists(memberNo) {
   if (!confirm("이 작가를 거절하시겠습니까?")) return;
 
-   // 해당 작가의 전화번호를 가져옴 (예시로 임시 전화번호 사용)
+  // 해당 작가의 전화번호를 가져옴 (예시로 임시 전화번호 사용)
 
   // 거절 요청과 문자 전송
   fetch(`/manage/reject`, {
@@ -608,7 +608,7 @@ function rejectArtists(memberNo) {
 }
 
 
-function sendRejectionMessage(memberNo){
+function sendRejectionMessage(memberNo) {
 
 
   fetch(`/api/message/send`, {
@@ -620,14 +620,14 @@ function sendRejectionMessage(memberNo){
   })
     .then((response) => {
       if (!response.ok) { throw new Error("문자 전송 실패"); }
-      return response.json();
+      return response.text();
     })
     .then((data) => {
-      alert(`문자 전송 성공: ${data.message}`);
+      alert(`문자 전송 성공: ${data}`);
     })
     .catch((error) => {
       console.error("문자 전송 에러:", error);
-      alert(`문자 전송 실패: ${error.message}`);
+      alert(`문자 전송 실패: ${error}`);
     });
 }
 
