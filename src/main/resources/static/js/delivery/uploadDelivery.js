@@ -1,33 +1,107 @@
-// 배송 상태 수정
-function updateDeliveryTable(deliveryList) {
-  const deliveryTbody = document.getElementById('delivery-tbody');
-  deliveryTbody.innerHTML = ''; // 현재 테이블 내용을 비우기
-  let isFirstRow = true;
-  deliveryList.forEach((deliveryItem, index) => {
-    if (index !== 0) { // 첫 행이 아닌 경우에만 구분선 추가
-      const separator = document.createElement("tr");
-      separator.className = "separator-row";
-      const separatorTd = document.createElement("td");
-      separatorTd.colSpan = 9; // 테이블의 모든 열을 차지하도록 설정
-      separatorTd.style.borderTop = "1px solid #ccc";
-      separatorTd.style.padding = "10px 0";
-      separator.appendChild(separatorTd);
-      deliveryTbody.appendChild(separator);
+// 배송 상태 페이지네이션 설정 함수
+function setupDeliveryPagination(pg) {
+  const paginationContainer = document.getElementById('paginationDelivery');
+  if (!paginationContainer) return;
+
+  paginationContainer.innerHTML = ''; // 기존 페이지네이션 버튼 제거
+
+  const totalPages = pg.totalPages; // 서버에서 받은 총 페이지 수
+  const currentPage = pg.currentPage; // 현재 페이지 번호
+  const fragment = document.createDocumentFragment();
+
+  for (let i = 1; i <= totalPages; i++) {
+    const pageButton = document.createElement('button');
+    pageButton.className = 'pagination-button';
+    pageButton.innerText = i;
+
+    // 현재 페이지 표시
+    if (i === currentPage) {
+      pageButton.classList.add('active');
     }
-  });
+
+    // 페이지 버튼 클릭 이벤트
+    pageButton.addEventListener('click', () => {
+      fetchDeliveryList(null, null, i); // 해당 페이지 데이터 가져오기
+    });
+
+    fragment.appendChild(pageButton);
+  }
+
+  paginationContainer.appendChild(fragment);
 }
 
-// 배송 상태 드롭다운 변경을 처리하는 함수
-function onSortChange(event) {
-  console.log('배송 상태가 변경되었습니다:', event.target.value); // 변경된 배송 상태 로그 출력
-}
+// 배송 상태 데이터 조회 함수 - 페이지네이션 추가
+function fetchDeliveryList(startDate = null, returnDate = null, page = 1) {
+  const url = `/delivery/uploadDelivery?cp=${page}`;
+  fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "text/html"
+    }
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`네트워크 응답에 문제가 있습니다. 상태 코드: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(html => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+      const newRows = doc.querySelectorAll("#delivery-tbody tr");
+      const tbody = document.getElementById("delivery-tbody");
+      if (!tbody) {
+        console.error("테이블 본문 요소를 찾을 수 없습니다.");
+        return;
+      }
+      tbody.innerHTML = ""; // 기존 데이터 비우기
+      if (newRows.length === 0) {
+        console.warn("조회된 데이터가 없습니다.");
+        displayNoResultsMessage();
+        return;
+      }
 
-// 모든 개별 체크박스의 상태를 업데이트하는 함수
-function updateAllCheckboxes(isChecked) {
-  const checkboxes = document.querySelectorAll('input[type="checkbox"].filter-checkbox');
-  checkboxes.forEach(checkbox => {
-    checkbox.checked = isChecked; // 전체 체크박스 상태에 따라 개별 체크박스 상태 변경
-  });
+      // 날짜 필터링 및 데이터 추가
+      const fragment = document.createDocumentFragment();
+      let visibleRowCount = 0;
+      newRows.forEach(row => {
+        const deliveryDateText = row.querySelector(".deliveryDate")?.innerText.trim();
+        if (deliveryDateText) {
+          const formattedDateText = deliveryDateText
+            .replace("년", "-")
+            .replace("월", "-")
+            .replace("일", "")
+            .trim();
+          const deliveryDate = new Date(formattedDateText);
+
+          // 날짜 필터링
+          if (
+            (!startDate || deliveryDate >= new Date(startDate)) &&
+            (!returnDate || deliveryDate <= new Date(returnDate))
+          ) {
+            fragment.appendChild(row.cloneNode(true));
+            visibleRowCount++;
+          }
+        }
+      });
+      tbody.appendChild(fragment);
+      if (visibleRowCount === 0) {
+        displayNoResultsMessage();
+      } else {
+        hideNoResultsMessage();
+      }
+
+      // 페이지네이션 설정 (가정: 서버에서 총 페이지 수와 현재 페이지 정보 제공)
+      const paginationData = {
+        currentPage: page,
+        totalPages: 10 // 서버에서 실제 페이지 수에 따라 동적으로 설정할 필요가 있음
+      };
+      setupDeliveryPagination(paginationData);
+    })
+    .catch(error => {
+      console.error("데이터 조회 중 오류 발생: ", error);
+      alert("데이터를 불러오는 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+    });
 }
 
 // ----------------------------------------------------------------------
@@ -41,6 +115,7 @@ async function saveDeliveryData(data) {
       },
       body: JSON.stringify(data)
     });
+    
     if (!response.ok) {
       throw new Error('배송 데이터 저장 실패');
     }
@@ -96,6 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const rows = document.querySelectorAll("tbody tr"); // 테이블 행 선택
       const deliveryList = []; // 서버로 전송할 데이터 리스트
       const uniqueDeliveryNos = new Set(); // 중복 방지를 위한 Set
+      
       rows.forEach((row) => {
         const checkbox = row.querySelector(".filter-checkbox");
         if (checkbox && checkbox.checked) {
@@ -125,6 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         }
       });
+      
       if (deliveryList.length === 0) {
         alert("저장할 데이터를 선택해주세요.");
         return;
@@ -204,6 +281,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // 데이터 조회 함수
   function fetchDeliveryList(startDate = null, returnDate = null) {
     const url = `/delivery/uploadDelivery`;
+
     fetch(url, {
       method: "GET",
       headers: {
@@ -293,3 +371,69 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
   // -------------------------------------------------------------------------------------------------------------
+
+  function fetchDeliveryList(code, page) {
+    fetch(`/delivery/uploadDelivery?code=${code}&cp=${page}`)
+      .then(response => {
+        if (response.ok) return response.json();
+        throw new Error("AJAX 통신 실패");
+      })
+      .then(result => {
+  
+        if (code === 1) {
+          page1 = page;
+          fetchDeliveryList(result.resultList); // 배송 상태 변경 페이지네이션 렌더링
+          setupPagination(result.pg, code, "paginationDelivery"); // 배송 상태 변경 페이지네이션 설정
+        } else {
+          console.log("기타 코드값을 불러와 실행됨");
+          console.error("알 수 없는 코드:", code);
+        }
+      })
+      .catch(err => console.error(err));
+  }
+  // 페이지네이션 설정 함수
+  function setupPagination(pg, code, paginationContainerId) {
+  
+    const paginationContainer = document.getElementById(paginationContainerId);
+  
+    if (!paginationContainer) {
+      console.error("페이지네이션 컨테이너를 찾을 수 없습니다:", paginationContainerId);
+      return;
+    }
+    paginationContainer.innerHTML = ""; // 기존 버튼 초기화
+    const createPageButton = (page, text, isActive = false, isDisabled = false) => {
+      const btn = document.createElement("a");
+      btn.href = "#";
+      btn.textContent = text;
+      btn.classList.add("page-btn");
+      if (isActive) btn.classList.add("active");
+      if (isDisabled) btn.classList.add("disabled");
+  
+      if (!isDisabled) {
+        btn.addEventListener("click", (event) => {
+          event.preventDefault();
+          getList(code, page); // 해당 페이지 데이터 로드
+        });
+      }
+  
+      return btn;
+    };
+  
+    // << 버튼 (첫 페이지로 이동)
+    paginationContainer.appendChild(createPageButton(1, "<<", false, pg.currentPage === 1));
+  
+    // < 버튼 (이전 페이지로 이동)
+    paginationContainer.appendChild(createPageButton(pg.prevPage, "<", false, pg.currentPage === 1));
+  
+  
+    // 페이지 번호 버튼
+    for (let i = pg.startPage; i <= pg.endPage; i++) {
+      paginationContainer.appendChild(createPageButton(i, i, i === pg.currentPage));
+    }
+  
+    // > 버튼 (다음 페이지로 이동)
+    paginationContainer.appendChild(createPageButton(pg.nextPage, ">", false, pg.currentPage === pg.totalPageCount));
+  
+    // >> 버튼 (마지막 페이지로 이동)
+    paginationContainer.appendChild(createPageButton(pg.totalPageCount, ">>", false, pg.currentPage === pg.totalPageCount));
+  }

@@ -4,6 +4,7 @@ let page3 = 1;
 let page4 = 1;
 let page5 = 1;
 let page6 = 1;
+let page7 = 1;
 
 function showTab(tabId, button) {
   // 모든 탭 버튼에서 'active' 클래스 제거
@@ -776,9 +777,9 @@ function getList(code, page) {
         page6 = page;
         displayquestionContents(result.resultList); // 1대1문의 리스트 렌더링
         setupPagination(result.pg, code, "paginationBoxQuestion"); // 1대1문의 페이지네이션 설정
-      } else if (code === 7) {
+      } else if (code === 6) {
         page7 = page;
-        displayquestionContents(result.resultList); // 배송 상태 변경 리스트 렌더링
+        displayDeliveryContents(result.resultList); // 배송 상태 변경 페이지네이션 렌더링
         setupPagination(result.pg, code, "paginationDelivery"); // 배송 상태 변경 페이지네이션 설정
       } else {
         console.log("기타 코드값을 불러와 실행됨");

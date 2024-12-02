@@ -44,7 +44,9 @@
               </table>
             </div>
           </div>
-
+          <div class="custom-line">
+          </div>
+          
           <!-- 거래 현황 -->
           <div class="tab-content" id="trade">
             <div class="chart-container">
@@ -64,8 +66,6 @@
                 </tbody>
               </table>
             </div>
-           </div>
-
           <!-- 작품 현황 -->
           <div class="tab-content" id="artwork">
             <div class="chart-container">
@@ -85,7 +85,7 @@
                 </tbody>
               </table>
             </div>
-           </div>
+          </div>
       </section>
 
       <!-- 작가 및 회원 관리 섹션 -->
@@ -298,9 +298,9 @@
       <div class="custom-line"></div>
 
       <!-- 배송 상태 변경 -->
+      <h2 id="delivery">배송 상태 변경</h2>
       <section class="main-container">
         <div class="session-container">
-          <h2>배송 상태 변경</h2>
         </div>
         <div class="custom-line"></div>
         <div class="dateType-container">
@@ -358,10 +358,10 @@
       
               <!-- 배송 완료 일자 -->
               <td>
-                <input type="date" class="calendarin deliveryEndDate"
+                <input type="date" class="calendarin deliveryEndDate deliveryCurDate"
                   th:if="${manage.deliveryAddress != null && manage.deliveryEndDate == null}"
                   th:data-key="${manage.deliveryNo}">
-                <input type="text" class="calendarin deliveryEndDate"
+                <input type="text" class="calendarin deliveryEndDate deliveryNoneDate"
                   th:if="${manage.deliveryAddress != null && manage.deliveryEndDate != null}"
                   th:value="${manage.deliveryEndDate}" th:data-key="${manage.deliveryNo}" disabled />
               </td>
@@ -370,7 +370,7 @@
               <td class="arr-container">
                 <select class="sort-select" th:data-key="${manage.deliveryNo}" onChange="onSortChange(event)"
                   th:disabled="${manage.deliveryAddress == null}">
-                  <option value="0" th:selected="${manage.deliveryAddress == null || manage.deliveryStatus == 0}">방문수령
+                  <option onclick="none" value="0" th:selected="${manage.deliveryAddress == null || manage.deliveryStatus == 0}">방문수령
                   </option>
                   <option value="1" th:selected="${manage.deliveryAddress != null && manage.deliveryStatus == 1}"
                     th:disabled="${manage.deliveryAddress == null}"> 배송 준비중 </option>
