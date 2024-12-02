@@ -6,6 +6,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
+import edu.kh.plklj.main.dto.Member;
+import edu.kh.plklj.sms.mapper.SmsMapper;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import javax.annotation.PostConstruct;
 
 import net.nurigo.sdk.NurigoApp;
@@ -14,10 +19,14 @@ import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
 
+@Slf4j
 @Service
-@PropertySource("classpath:/config.properties") 
+@PropertySource("classpath:/config.properties")
+@RequiredArgsConstructor
 public class MessageServiceImpl implements MessageService {
 
+	private final SmsMapper mapper;
+	
     private DefaultMessageService coolSMSService;
 
     @Value("${coolsms.apikey}")
@@ -36,19 +45,26 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public String sendSMS(String toPhoneNumber, String messageText) {
+    public int sendSMS(int memberNo) {
+    	
+    	Member member = mapper.getSmsMember(memberNo);
+    	
         Message message = new Message();
         message.setFrom(fromNumber);      // 발신 번호
-        message.setTo(toPhoneNumber);    // 수신 번호
-        message.setText(messageText);    // 메시지 내용
+        message.setTo(member.getMemberPhone());    // 수신 번호
+        message.setText(member.getMemberName()+"님의 작가 신청이 거절 되었습니다.");    // 메시지 내용
 
         try {
             // 메시지 전송
             SingleMessageSentResponse response = coolSMSService.sendOne(new SingleMessageSendingRequest(message));
-            return "Message sent successfully. Message ID: " + response.getMessageId();
+            log.info("Message sent successfully. Message ID: " + response.getMessageId());
+            return 1;
         } catch (Exception e) {
             e.printStackTrace();
-            return "Failed to send message. Error: " + e.getMessage();
+            log.info("Failed to send message. Error: " + e.getMessage());
+            return 0;
         }
     }
+
+	
 }

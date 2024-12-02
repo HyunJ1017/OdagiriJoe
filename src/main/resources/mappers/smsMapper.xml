@@ -10,4 +10,12 @@
 		AND MEMBER_DEL_FL = 'N'
 	</select>
 	
+	<select id="getSmsMember">
+		SELECT
+			MEMBER_PHONE,
+			MEMBER_NAME
+		FROM "MEMBER"
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
 </mapper>

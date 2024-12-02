@@ -391,6 +391,7 @@ function displayRequestContents(contents) {
 
   });
   detailButtonsEventAdd();
+  
 }
 
 // 공지사항 표시함수
@@ -539,6 +540,8 @@ document.addEventListener("click", (event) => {
   }
 })
 
+
+
 // 작가 승인
 document.addEventListener("click", (event) => {
   if (event.target.classList.contains("approve-button")) {
@@ -579,6 +582,10 @@ function approveArtist(memberNo) {
 // 작가 거절
 function rejectArtists(memberNo) {
   if (!confirm("이 작가를 거절하시겠습니까?")) return;
+
+   // 해당 작가의 전화번호를 가져옴 (예시로 임시 전화번호 사용)
+
+  // 거절 요청과 문자 전송
   fetch(`/manage/reject`, {
     method: "POST",
     headers: {
@@ -587,15 +594,70 @@ function rejectArtists(memberNo) {
     body: memberNo
   })
     .then((response) => {
-      if (!response.ok) { throw new Error("승인 실패") }
+      if (!response.ok) { throw new Error("거절 실패"); }
       return response.text();
     })
     .then((data) => {
       alert(`거절 성공 : ${data}`);
-      getList(4, page4);
+
+      // 문자 전송 호출
+      sendRejectionMessage(memberNo);
+      getList(4, page4); // 목록 새로고침
     })
     .catch(error => alert(`거절 실패 : ${error.message}`));
 }
+
+
+function sendRejectionMessage(memberNo){
+
+
+  fetch(`/api/message/send`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: memberNo
+  })
+    .then((response) => {
+      if (!response.ok) { throw new Error("문자 전송 실패"); }
+      return response.json();
+    })
+    .then((data) => {
+      alert(`문자 전송 성공: ${data.message}`);
+    })
+    .catch((error) => {
+      console.error("문자 전송 에러:", error);
+      alert(`문자 전송 실패: ${error.message}`);
+    });
+}
+
+
+
+
+
+
+
+
+// function rejectArtists(memberNo) {
+//   if (!confirm("이 작가를 거절하시겠습니까?")) return;
+  
+//   fetch(`/manage/reject`, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: memberNo
+//   })
+//     .then((response) => {
+//       if (!response.ok) { throw new Error("승인 실패") }
+//       return response.text();
+//     })
+//     .then((data) => {
+//       alert(`거절 성공 : ${data}`);
+//       getList(4, page4);
+//     })
+//     .catch(error => alert(`거절 실패 : ${error.message}`));
+// }
 
 // 1대 1문의 답변하기
 
