@@ -2,7 +2,6 @@
 function updateDeliveryTable(deliveryList) {
   const deliveryTbody = document.getElementById('delivery-tbody');
   deliveryTbody.innerHTML = ''; // 현재 테이블 내용을 비우기
-  
   let isFirstRow = true;
   deliveryList.forEach((deliveryItem, index) => {
     if (index !== 0) { // 첫 행이 아닌 경우에만 구분선 추가
@@ -42,7 +41,6 @@ async function saveDeliveryData(data) {
       },
       body: JSON.stringify(data)
     });
-    
     if (!response.ok) {
       throw new Error('배송 데이터 저장 실패');
     }
@@ -98,7 +96,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const rows = document.querySelectorAll("tbody tr"); // 테이블 행 선택
       const deliveryList = []; // 서버로 전송할 데이터 리스트
       const uniqueDeliveryNos = new Set(); // 중복 방지를 위한 Set
-      
       rows.forEach((row) => {
         const checkbox = row.querySelector(".filter-checkbox");
         if (checkbox && checkbox.checked) {
@@ -128,7 +125,6 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         }
       });
-      
       if (deliveryList.length === 0) {
         alert("저장할 데이터를 선택해주세요.");
         return;
@@ -196,7 +192,6 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("시작 날짜와 종료 날짜를 모두 선택해주세요.");
         return;
       }
-
       fetchDeliveryList(startDate, returnDate);
     });
   } else {
@@ -209,7 +204,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // 데이터 조회 함수
   function fetchDeliveryList(startDate = null, returnDate = null) {
     const url = `/delivery/uploadDelivery`;
-
     fetch(url, {
       method: "GET",
       headers: {
@@ -226,15 +220,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, "text/html");
         const newRows = doc.querySelectorAll("#delivery-tbody tr");
-
         const tbody = document.getElementById("delivery-tbody");
         if (!tbody) {
           console.error("테이블 본문 요소를 찾을 수 없습니다.");
           return;
         }
-
         tbody.innerHTML = ""; // 기존 데이터 비우기
-
         if (newRows.length === 0) {
           console.warn("조회된 데이터가 없습니다.");
           displayNoResultsMessage();
@@ -244,7 +235,6 @@ document.addEventListener("DOMContentLoaded", function () {
         // 날짜 필터링 및 데이터 추가
         const fragment = document.createDocumentFragment();
         let visibleRowCount = 0;
-
         newRows.forEach(row => {
           const deliveryDateText = row.querySelector(".deliveryDate")?.innerText.trim();
           if (deliveryDateText) {
@@ -265,9 +255,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           }
         });
-
         tbody.appendChild(fragment);
-
         if (visibleRowCount === 0) {
           displayNoResultsMessage();
         } else {

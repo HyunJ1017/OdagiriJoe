@@ -106,14 +106,14 @@ public class NotificationServiceImpl implements NotificationService {
 	
 	/* 알림 읽음 여부 변경 */
 	@Override
-	public void updateNotification(int notiNo) {
-		mapper.updateNotification(notiNo);
+	public void updateNotification(int notiNo, int memberNo) {
+		mapper.updateNotification(notiNo, memberNo);
 	}
 	
 	/* 알림 삭제 */
 	@Override
-	public void deleteNotification(int notiNo) {
-		mapper.deleteNotification(notiNo);
+	public void deleteNotification(int notiNo, int memberNo) {
+		mapper.deleteNotification(notiNo, memberNo);
 	}
 
 }
