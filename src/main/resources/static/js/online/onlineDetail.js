@@ -36,6 +36,7 @@ purchaseBtn.addEventListener("click", () => {
   
   if(!loginCheck) {
     alert("로그인 후 사용할 수 있습니다.");
+    location.href = "/member/login";
     return;
   } // 로그인 하지 않으면 구매하기 불가
 
@@ -90,6 +91,7 @@ wishList.addEventListener("click", e => {
   // 로그인 여부
   if(!loginCheck) {
     alert("로그인 후 사용할 수 있습니다.");
+    location.href = "/member/login";
     return;
   }
 
