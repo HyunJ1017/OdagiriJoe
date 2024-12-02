@@ -49,32 +49,27 @@ public class NotificationServiceImpl implements NotificationService {
 		if (result == reciveMemberNoList.size()) {
 			list = mapper.selectReceiveMember(reciveMemberNoList);
 		}
-
 		return list;
 	}
 
 	/* 위시리스트에 관한 알림 보내기 */
 	@Override
 	public int sendAuctionNotifications(int daysBefore, String message) {
-
 		List<Integer> pieceNoList = mapper.getAuctionNotification(daysBefore);
 
 		// 작품 별 위시리스트 등록 회원 번호 조회
 		for (int pieceNo : pieceNoList) {
 			List<Integer> memberList = mapper.wishList(pieceNo);
-
 			String notiUrl = "/auction/auctionDetail?pieceNo=" + pieceNo;
-
 			Notification notification = new Notification();
 			notification.setPieceNo(pieceNo);
 			notification.setNotiContent(message);
 			notification.setNotiUrl(notiUrl);
-
 			int result = 0;
+			
 			// 회원 번호 별 알림 전송
 			for (int receiveMemberNo : memberList) {
 				notification.setReceiveMemberNo(receiveMemberNo);
-
 				result += mapper.insertNotification(notification); // 알림 삽입
 			}
 
@@ -95,13 +90,8 @@ public class NotificationServiceImpl implements NotificationService {
 				}
 			}
 		}
-
 		return 1;
 	}
-	
-	
-	
-	
 	
 	@Override
 	public List<Notification> selectNotification(int memberNo) {

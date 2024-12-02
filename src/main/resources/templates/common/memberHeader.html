@@ -25,6 +25,7 @@
     <section id="search-section" style="display: none;">
       <article class="search-area">
         <form id="search-form" action="/search" method="GET">
+
           <!-- 검색어 입력 -->
           <input type="search" id="query" name="query" placeholder="작가명, 작품명, 카테고리명으로 검색." autocomplete="off">
 
@@ -37,6 +38,7 @@
     <!-- 알림 섹션 -->
     <section id="notification-section" style="display: none;">
       <div class="notification-container" th:if="${session.memberLogin != null}">
+    
         <!-- 알림 목록 -->
         <ul class="notification-list">
           <div class="custom-line"></div>
@@ -44,9 +46,7 @@
       </div>
     </section>
     <!-- 알림 개수 표시 -->
-    <div class="notification-count" th:text="${notificationCount != null ? notificationCount : '♥ 0'}"
-      style="display: none;">
-    </div>
+    <div class="notificationCount" th:text="${notificationCount != null ? notificationCount : '♥ 0'}" style="display: none;">알림 count</div>
 
 
     <!-- 중앙 메뉴 -->
