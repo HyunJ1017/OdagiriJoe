@@ -37,8 +37,6 @@
                   <tr>
                     <th>일자</th>
                     <th>방문자</th>
-                    <th>매출액</th>
-                    <th>주문수</th>
                 </thead>
                 <tbody id="tableBody">
                   <!-- 데이터 렌더링 -->
@@ -53,6 +51,20 @@
               <canvas id="tradeChart">거래 현황 차트</canvas>
             </div>
           </div>
+            <div class="data-table">
+              <h3>일자별 요약</h3>
+              <table>
+                <thead id="tableHeader">
+                  <tr>
+                    <th>일자</th>
+                    <th>금액</th>
+                </thead>
+                <tbody id="tradeTableBody">
+                  <!-- 데이터 렌더링 -->
+                </tbody>
+              </table>
+            </div>
+           </div>
 
           <!-- 작품 현황 -->
           <div class="tab-content" id="artwork">
@@ -60,6 +72,20 @@
               <canvas id="artworkChart">작품 현황 차트</canvas>
             </div>
           </div>
+            <div class="data-table">
+              <h3>일자별 요약</h3>
+              <table>
+                <thead id="tableHeader">
+                  <tr>
+                    <th>일자</th>
+                    <th>방문자</th>
+                </thead>
+                <tbody id="tableBody">
+                  <!-- 데이터 렌더링 -->
+                </tbody>
+              </table>
+            </div>
+           </div>
       </section>
 
       <!-- 작가 및 회원 관리 섹션 -->
@@ -366,6 +392,8 @@
     <script src="/js/manage/notice.js"></script>
     <script src="/js/delivery/uploadDelivery.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
     <script src="/js/manage/manage1.js"></script>
 </body>
 

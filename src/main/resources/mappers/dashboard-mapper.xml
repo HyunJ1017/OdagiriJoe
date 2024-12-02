@@ -5,13 +5,17 @@
 	<!-- 오늘 날짜 방문자 수 증가 -->
 	<update id="incrementVisitorCountForToday">
 		MERGE INTO VISITOR V
-		USING (SELECT TRUNC(SYSDATE) AS VISITOR_DATE, #{clientIp} AS VISITOR_IP FROM DUAL) D
+		USING (
+		    SELECT TRUNC(SYSDATE) AS VISITOR_DATE, #{clientIp} AS VISITOR_IP
+		    FROM DUAL
+		) D
 		ON (V.VISITOR_DATE = D.VISITOR_DATE AND V.VISITOR_IP = D.VISITOR_IP)
 		WHEN MATCHED THEN
-			UPDATE SET V.DAILY_VISITS = V.DAILY_VISITS + 1
+		    UPDATE SET V.DAILY_VISITS = V.DAILY_VISITS + 1
 		WHEN NOT MATCHED THEN
-			INSERT (VISITOR_DATE, DAILY_VISITS, WEEK_GROUP, VISITOR_IP)
-			VALUES (D.VISITOR_DATE, 1, TO_CHAR(D.VISITOR_DATE, 'YYYYWW'), D.VISITOR_IP)
+	    INSERT (VISITOR_DATE, DAILY_VISITS, WEEK_GROUP, VISITOR_IP)
+	    VALUES (D.VISITOR_DATE, 1, TO_CHAR(D.VISITOR_DATE, 'YYYYWW'), D.VISITOR_IP)
+
 	</update>
 	
 	<!-- 최근 7일 방문자 수 조회 -->
@@ -34,29 +38,32 @@
 	</select>
 	
 	<select id="getDailyTrades" resultType="Manage">
-		SELECT 
-			TO_CHAR(PAY_DATE, 'YYYY-MM-DD') AS PAY_DATE,
-			SUM(PAY_AMOUNT) AS DAILY_TOTAL
-		FROM 
-			PAYMENT_RECORD
-		GROUP BY
-			TO_CHAR(PAY_DATE, 'YYYY-MM-DD')
-		ORDER BY
-			PAY_DATE
-	</select>
+    SELECT 
+        TO_CHAR(PAY_DATE, 'YYYY-MM-DD') AS payDate,
+        SUM(PAY_AMOUNT) AS payAmount
+    FROM 
+        PAYMENT_RECORD
+    WHERE
+        PAY_DATE >= TRUNC(SYSDATE) - 6
+    GROUP BY
+        TO_CHAR(PAY_DATE, 'YYYY-MM-DD')
+    ORDER BY
+        TO_CHAR(PAY_DATE, 'YYYY-MM-DD')
+</select>
+
 	
 	
 	
 	
 	
 	<select id="getMonthlyTradeTotal" resultType="_int">
-		SELECT
-			SUM(PAY_AMOUNT)
-		FROM
-			PAYMENT_RECORD
-		WHERE
-			PAY_DATE >= ADD_MONTHS(SYSDATE, -1)
-	</select>
+    SELECT
+        NVL(SUM(PAY_AMOUNT), 0)
+    FROM
+        PAYMENT_RECORD
+    WHERE
+        TO_CHAR(PAY_DATE, 'YYYY-MM') = TO_CHAR(SYSDATE, 'YYYY-MM')
+</select>
 
   	
 

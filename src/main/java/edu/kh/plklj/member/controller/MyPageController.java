@@ -193,6 +193,7 @@ public class MyPageController {
 			if(getArtistInfo.getArtistReg().equals("N")) {
 				model.addAttribute("message", "이전 신청내역이 아직 처리중입니다.");
 				model.addAttribute("artist", getArtistInfo);
+				log.info("artist 모델세팅함 : {}", getArtistInfo);
 			} else {
 				ra.addFlashAttribute("message", "신청내역이 승인되셨습니다. 다시 로그인 해 주세요");
 				return "redirect:/member/logout";
