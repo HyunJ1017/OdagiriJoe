@@ -15,10 +15,15 @@ public interface DashboardMapper {
 
 	int getMonthlyTotal();
 
+	
 	List<Manage> getDailyTrades();
-
-
 
 	int getMonthlyTradeTotal();
 
+	List<Manage> getDailyArtworks();
+
+	int getMonthlyArtworkTotal();
+
+
+	
 }

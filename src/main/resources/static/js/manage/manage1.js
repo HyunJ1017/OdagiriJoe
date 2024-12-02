@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			} else if (targetId === 'trade') {
 				fetchRenderTradeChart(); // 거래 데이터 렌더링
 			} else if (targetId === 'artwork') {
-				renderArtworkChart(); // 작품 데이터 렌더링
+				fetchRenderArtworkChart(); // 작품 데이터 렌더링
 			}
 		});
 	});
@@ -199,7 +199,7 @@ function fetchRenderTradeChart() {
 		const weeklyTradeTotal = data.weeklyTotal || 0;
 		const monthlyTradeTotal = data.monthlyTotal || 0;
 
-		console.log(dailyTrades);
+		console.log("데이터 타입 :",dailyTrades);
 		console.log(weeklyTradeTotal);
 		console.log(monthlyTradeTotal);
 
@@ -310,3 +310,134 @@ function renderTradeTable(labels, counts, weeklyTradeTotal, monthlyTradeTotal) {
 	tradeTableBody.appendChild(monthlyRow);
 }
 
+
+/* 작품 관련 데이터 렌더링 */
+function fetchRenderArtworkChart() {
+	fetch('/dashboard/artworkData')
+	.then(response => {
+		if(response.ok) return response.json();
+		throw new Error("AJAX 통신 실패");
+	})
+	.then(data => {
+		const dailyArtwork = data.dailyArtwork || {};
+		const weeklyArtworkTotal = data.weeklyTotal || 0;
+		const monthlyArtworkTotal = data.monthlyTotal || 0;
+
+		console.log("차트 데이터:", dailyArtwork);
+		console.log("차트 데이터:", weeklyArtworkTotal);
+		console.log("차트 데이터:", monthlyArtworkTotal);
+
+
+		for (let i = 6; i >= 0; i--) {
+			const date = new Date();
+			date.setDate(date.getDate() - i); // i만큼 날짜를 빼면서 최근 7일 계산
+
+			// 연도, 월, 일을 "YYYY-MM-DD" 형식으로 설정
+			const year = date.getFullYear();
+			const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+			const day = String(date.getDate()).padStart(2, '0'); // 일자를 2자리로 설정
+			
+			weekKey = `${year}-${month}-${day}`;
+			if (!(weekKey in dailyArtwork)) {
+				dailyArtwork[weekKey] = 0; // 해당 날짜 키에 0을 기본 값으로 설정
+			}
+	}
+
+		// 날짜 키 정렬
+		const sortedKeys = Object.keys(dailyArtwork).sort((a, b) => new Date(a) - new Date(b));
+
+		// 정렬된 날짜 키를 사용해 데이터를 다시 추출
+		const sortedData = sortedKeys.reduce((acc, key) => {
+			acc[key] = dailyArtwork[key];
+			return acc;
+		}, {});
+
+		renderArtworkChart(sortedKeys, sortedData);
+
+		// 테이블 렌더일
+		renderArtworkTable(sortedKeys, sortedData, weeklyArtworkTotal, monthlyArtworkTotal);
+	})
+	.catch(err => console.error(err));
+}
+
+
+/* 작품 관련 차트 렌더링 */
+function renderArtworkChart(labels, data) {
+
+	const ctx = document.getElementById('artworkChart')?.getContext('2d');
+	if(!ctx) {
+		console.error("CanvasRenderingContext2D 객체를 찾을 수 없습니다.");
+		return;
+	}
+
+	
+
+	// 기존 차트가 존재하면 삭제
+	if(window.artworkChart instanceof Chart) {
+		console.log("기존 차트를 삭제하기");
+		window.artworkChart.destroy();
+	}
+
+
+	// 새 차트 생성
+	const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+	gradient.addColorStop(0, 'rgba(54, 162, 235, 0.5)');
+	gradient.addColorStop(1, 'rgba(54, 162, 235, 0)');
+
+
+	window.artworkChart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: labels,
+			datasets: [{
+				label: '작품 개수',
+				data: Object.values(data),
+				borderColor: 'rgba(54, 162, 235, 1)',
+				backgroundColor: gradient,
+				borderWidth: 2,
+				tension: 0.4,
+				fill: true
+			}]
+		},
+		options: {
+			responsive: true,
+			scales: {
+				x: { title: { display: true, text: '날짜' } },
+				y: { title: { display: true, text: '작품 개수' }, beginAtZero: true }
+			}
+		}
+	});
+	console.log("차트 라벨:", labels);
+    console.log("차트 데이터:", Object.values(data));
+
+
+}
+
+
+// 작품 테이블 렌더링
+function renderArtworkTable(labels, counts, weeklyArtworkTotal, monthlyArtworkTotal) {
+	const artworkTableBody = document.getElementById('artworkTableBody');
+
+	if (!artworkTableBody) {
+		console.error("artworkTableBody 요소를 찾을 수 없습니다.");
+		return;
+}
+
+	artworkTableBody.innerHTML = '';
+
+	labels.forEach((label) => {
+		const row = document.createElement('tr');
+		row.innerHTML = `<td>${label}</td><td>${counts[label]}개</td>`
+		artworkTableBody.appendChild(row);
+	});
+
+
+	const weeklyRow = document.createElement('tr');
+	weeklyRow.innerHTML = `<td>일주일 합계</td><td>${weeklyArtworkTotal}개</td>`
+	artworkTableBody.appendChild(weeklyRow);
+
+
+	const monthlyRow = document.createElement('tr');
+	monthlyRow.innerHTML = `<td>한 달 합계</td><td>${monthlyArtworkTotal}개</td>`
+	artworkTableBody.appendChild(monthlyRow);
+}

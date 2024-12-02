@@ -37,6 +37,7 @@ public class Manage {
 		private int pieceType;
 		private String pieceStatus;
 		private int pieceCategoryNo;
+		private int pieceCount; // 팔린 작품 개수
 		
 		// 작가
 		private String artistProfile;

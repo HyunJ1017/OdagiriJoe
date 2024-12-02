@@ -34,7 +34,7 @@
 .main-image img {
   width: 380px;
   height: auto;
-  margin-right: 40px;
+  /* margin-right: 40px; */
 }
 
 /* 우측 정보 패널 스타일 */

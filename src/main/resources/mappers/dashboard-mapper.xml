@@ -38,32 +38,59 @@
 	</select>
 	
 	<select id="getDailyTrades" resultType="Manage">
-    SELECT 
-        TO_CHAR(PAY_DATE, 'YYYY-MM-DD') AS payDate,
-        SUM(PAY_AMOUNT) AS payAmount
-    FROM 
-        PAYMENT_RECORD
-    WHERE
-        PAY_DATE >= TRUNC(SYSDATE) - 6
-    GROUP BY
-        TO_CHAR(PAY_DATE, 'YYYY-MM-DD')
-    ORDER BY
-        TO_CHAR(PAY_DATE, 'YYYY-MM-DD')
-</select>
+	    SELECT 
+	        TO_CHAR(PAY_DATE, 'YYYY-MM-DD') AS payDate,
+	        SUM(PAY_AMOUNT) AS payAmount
+	    FROM 
+	        PAYMENT_RECORD
+	    WHERE
+	        PAY_DATE >= TRUNC(SYSDATE) - 6
+	    GROUP BY
+	        TO_CHAR(PAY_DATE, 'YYYY-MM-DD')
+	    ORDER BY
+	        TO_CHAR(PAY_DATE, 'YYYY-MM-DD')
+	</select>
 
 	
-	
-	
-	
-	
 	<select id="getMonthlyTradeTotal" resultType="_int">
-    SELECT
-        NVL(SUM(PAY_AMOUNT), 0)
-    FROM
-        PAYMENT_RECORD
-    WHERE
-        TO_CHAR(PAY_DATE, 'YYYY-MM') = TO_CHAR(SYSDATE, 'YYYY-MM')
-</select>
+	    SELECT
+	        NVL(SUM(PAY_AMOUNT), 0)
+	    FROM
+	        PAYMENT_RECORD
+	    WHERE
+	        TO_CHAR(PAY_DATE, 'YYYY-MM') = TO_CHAR(SYSDATE, 'YYYY-MM')
+	</select>
+	
+	<select id="getDailyArtworks" resultType="Manage">
+		SELECT 
+			TO_CHAR(REG_DATE, 'YYYY-MM-DD') AS regDate,
+			COUNT(*) AS pieceCount
+		FROM
+			PIECE
+		WHERE
+			REG_DATE >= TRUNC(SYSDATE) - 6
+		AND
+			PIECE_STATUS = 'F'
+		GROUP BY
+			TO_CHAR(REG_DATE, 'YYYY-MM-DD')
+		ORDER BY
+			TO_CHAR(REG_DATE, 'YYYY-MM-DD')
+	</select>
+	
+	<select id="getMonthlyArtworkTotal" resultType="_int">
+		SELECT
+			NVL(COUNT(*), 0)
+		FROM
+			PIECE
+		WHERE
+			TO_CHAR(REG_DATE, 'YYYY-MM') = TO_CHAR(SYSDATE, 'YYYY-MM')
+		AND
+			PIECE_STATUS = 'F'
+	</select>
+	
+	
+	
+	
 
   	
 
