@@ -50,51 +50,47 @@ public class NotificationController {
 	
 	/* 알림 메시지 전송 */
 	@PostMapping("send")
-	public void sendNotifiCation(@RequestBody Notification notification, 
-			@SessionAttribute(value="memberLogin", required = false) Member memberLogin,
-			@SessionAttribute(value="artistLogin", required = false) Member artistLogin) {
-   
+	public void sendNotifiCation(@RequestBody Notification notification,
+			@SessionAttribute(value = "memberLogin", required = false) Member memberLogin,
+			@SessionAttribute(value = "artistLogin", required = false) Member artistLogin) {
 		int memberNo = 0;
-		if(memberLogin == null) {
+		if (memberLogin == null) {
 			memberNo = artistLogin.getMemberNo();
 		} else {
 			memberNo = memberLogin.getMemberNo();
 		}
-		
 		notification.setSendMemberNo(memberNo);
-    
-    
 		List<Map<String, Object>> list = service.notificationInsert(notification);
-		for(Map<String, Object> map : list) {
-		
-	    String clientId = map.get("receiveMemberNo").toString();
-	    SseEmitter emitter = emitters.get(clientId);
-	    if (emitter != null) {
-	        try {
-	            emitter.send(Map.of(clientId, map.get("notiCount").toString()));
-	        } catch (Exception e) {
-	            emitters.remove(clientId);
-	        }
-	    }
-	    
+		for (Map<String, Object> map : list) {
+			String clientId = map.get("receiveMemberNo").toString();
+			SseEmitter emitter = emitters.get(clientId);
+			if (emitter != null) {
+				try {
+					emitter.send(Map.of(clientId, map.get("notificationCount").toString()));
+				} catch (Exception e) {
+					emitters.remove(clientId);
+				}
+			}
 		}
-		
 	}
 	
 	private void sendNotification(Notification notification) {
 		List<Map<String, Object>> list = service.notificationInsert(notification);
-		
-		for(Map<String, Object> map : list) {
-		
-	    String clientId = map.get("receiveMemberNo").toString();
-	    SseEmitter emitter = emitters.get(clientId);
-	    if (emitter != null) {
-	        try {
-	            emitter.send(Map.of(clientId, map.get("notiCount").toString()));
-	        } catch (Exception e) {
-	            emitters.remove(clientId);
-	        }
-	    }
+		for (Map<String, Object> map : list) {
+			String clientId = map.get("receiveMemberNo").toString();
+			SseEmitter emitter = emitters.get(clientId);
+			if (emitter != null) {
+        try {
+            // 안 읽은 알림 개수를 추가해서 보냄
+            int notificationCount = service.readCheck(Integer.parseInt(clientId));
+            emitter.send(Map.of(
+                "clientId", clientId,
+                "notiCount", notificationCount
+            ));
+        } catch (Exception e) {
+            emitters.remove(clientId);
+        }
+			}
 		}
 	}
 
@@ -121,18 +117,17 @@ public class NotificationController {
 	/** 알림 수정
 	 * @param notiNo
 	 */
-	@PutMapping("noti")
+	@PutMapping("noti/{notiNo}")
 	@ResponseBody
-	public void updateNotification(@RequestBody int notiNo) {
+	public void updateNotification(@PathVariable("notiNo") int notiNo) {
 	    service.updateNotification(notiNo);
 	}
 
-	
 	/** 알림 삭제
 	 * @param notificationNo
 	 */
 	@ResponseBody
-	@DeleteMapping("/delete/{notiNo}")
+	@DeleteMapping("delete/{notiNo}")
 	public void deleteNotification(@PathVariable("notiNo") int notiNo) {
 		service.deleteNotification(notiNo);
 	}

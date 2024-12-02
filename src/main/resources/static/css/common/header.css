@@ -211,20 +211,18 @@ main {
 }
 
 /* 알림 개수 */
-.notification-count {
+.notificationCount {
   position: absolute;
-  top: -10px;
-  right: -10px;
+  top: 44px;
+  right: 170px;
   background-color: #5e7c71;
   color: #ffffff;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 3%;
+  height: 25%;
+  border-radius: 10%;
+  text-align: center;
+  padding-top: 0.25%;
   font-size: 14px;
-  font-weight: bold;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
@@ -273,7 +271,7 @@ main {
 /* 알림 날짜 */
 .notification-date {
   color: #414141;
-  margin-left: 1%;
+  margin-left: 4%;
   white-space: nowrap;
   font-size: 12px;
 }

@@ -5,10 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const notificationList = document.querySelector(".notification-list");
   const searchSection = document.getElementById('search-section');
   const sideMenu = document.getElementById('side-menu');
-  console.log(notificationList);
+  const notificationCount = document.querySelector('.notificationCount');
 
   // 알림 아이콘 클릭 이벤트
-  notificationIcon.addEventListener('click', () => {
+  notificationIcon?.addEventListener('click', () => {
     // 검색창과 사이드바 닫기
     searchSection.style.display = 'none';
     sideMenu.classList.remove('open');
@@ -25,11 +25,18 @@ document.addEventListener('DOMContentLoaded', () => {
       notificationList.classList.remove("notification-show");
     }
   });
+
+  // 알림 count 창 초기 설정
+  if (notificationCount) {
+    notificationCount.style.display = 'none';
+  }
 });
 
 // 서버로부터 알림을 수신하는 SSE (Server-Sent Events) 연결 함수
+let hideNotificationTimeout;
+
 const connectSse = () => {
-  if (notificationLoginCheck === false) return; // 로그인이 안 된 경우, SSE 연결 중단
+  if (typeof notificationLoginCheck === 'undefined' || notificationLoginCheck === false) return; // 로그인이 안 된 경우, SSE 연결 중단
 
   const eventSource = new EventSource("/notification/noti"); // 서버에서 알림 데이터를 수신하기 위한 SSE 연결
 
@@ -38,9 +45,21 @@ const connectSse = () => {
     const data = JSON.parse(e.data); // 수신된 데이터를 JSON으로 파싱
 
     // 알림 카운트 요소 업데이트
-    const notiCount = document.querySelector(".notification-count");
-    notiCount.style.display = "flex";
-    notiCount.innerText = data.notiCount; // 수신된 알림 개수로 업데이트
+    const notiCount = document.querySelector(".notificationCount");
+    if (notiCount) {
+      if (data.notiCount > 0) {
+        notiCount.style.display = "flex";
+        notiCount.innerText = data.notiCount; // 수신된 알림 개수로 업데이트
+
+        // 알림 count 창이 10초 후 없어지게 설정 (기존 타이머가 있다면 클리어)
+        clearTimeout(hideNotificationTimeout);
+        hideNotificationTimeout = setTimeout(() => {
+          notiCount.style.display = 'none';
+        }, 10000); // 10초 후에 알림 count 창 숨김
+      } else {
+        notiCount.style.display = "none";
+      }
+    }
   });
 
   // SSE 연결 실패 시 재연결 시도
@@ -52,16 +71,25 @@ const connectSse = () => {
 
 // 알림 수 업데이트 함수 - 알림 개수를 하나 증가시킴
 function updateNotificationCount() {
-  const notificationCount = document.querySelector('.notification-count'); // 알림 카운트 요소
+  const notificationCount = document.querySelector('.notificationCount'); // 알림 카운트 요소
 
-  // 현재 알림 개수를 가져오고 +1 증가
-  const currentCount = parseInt(notificationCount.textContent) || 0;
-  notificationCount.textContent = currentCount + 1;
+  if (notificationCount) {
+    // 현재 알림 개수를 가져오고 +1 증가
+    const currentCount = parseInt(notificationCount.textContent) || 0;
+    notificationCount.textContent = currentCount + 1;
 
-  // 알림 배지 표시
-  notificationCount.style.display = 'inline-block'; // 알림이 있으면 배지를 보이게 함
+    // 알림 배지 표시
+    notificationCount.style.display = 'inline-block'; // 알림이 있으면 배지를 보이게 함
+
+    // 알림 count 창이 10초 후 없어지게 설정 (기존 타이머가 있다면 클리어)
+    clearTimeout(hideNotificationTimeout);
+    hideNotificationTimeout = setTimeout(() => {
+      notificationCount.style.display = 'none';
+    }, 10000); // 10초 후에 알림 count 창 숨김
+  }
 }
 
+// ----------------------------------------------------------------------------------------------------------------
 // 알림 전송 함수 (Ajax 사용)
 const sendNotification = (type, url, pkNo, content) => {
   if (notificationLoginCheck === false) return; // 로그인이 안 된 경우 전송 중단
@@ -87,8 +115,29 @@ const sendNotification = (type, url, pkNo, content) => {
     .catch(console.error); // 오류 로그 출력
 };
 
-//----------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
+// 알림 읽음 여부 업데이트 함수
+function markNotificationAsRead(notiNo) {
+  fetch(`/notification/noti/${notiNo}`, { // URL에 notiNo를 포함하여 수정
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+  })
+    .then(response => {
+      if (!response.ok) throw new Error('알림 읽음 처리 실패');
+      console.log('알림 읽음 처리 성공');
+    })
+    .catch(console.error);
+}
 
+// 알림 항목 클릭 시 읽음 처리
+function handleNotificationClick(notiItem, notiNo) {
+  notiItem.addEventListener('click', () => {
+    markNotificationAsRead(notiNo);
+    // 필요한 경우 추가적인 처리 (예: 페이지 이동 등)
+  });
+}
+
+//----------------------------------------------------------------------------------------------------------------
 /* 날짜 함수 - 알림 시간을 사람이 읽기 쉽게 변환 */
 // 알림 시간을 현재와 비교하여 사람이 읽기 쉬운 형태로 포맷
 function formatNotificationDate(dateString) {
@@ -163,6 +212,7 @@ function groupNotificationsByDate(notifications) {
   return groupedNotifications;
 }
 
+// ------------------------------------------------------------------------------------------------------------------
 // 알림 데이터를 화면에 렌더링
 function renderNotifications(groupedNotifications) {
   const notificationList = document.querySelector(".notification-list");
@@ -202,6 +252,7 @@ function renderNotifications(groupedNotifications) {
       notiDate.className = "notification-date";
       notiDate.innerText = formatNotificationDate(data.notiDate);
 
+      // ------------------------------------------------------------------------------------------------------------------
       // 알림 삭제 버튼
       const notiDelete = document.createElement("button");
       notiDelete.className = "notification-delete";
@@ -240,11 +291,11 @@ function renderNotifications(groupedNotifications) {
     isFirstSection = false; // 첫 섹션 렌더링 후 false로 변경
   }
 }
-
+// ------------------------------------------------------------------------------------------------------------------
 // 서버에서 알림 데이터를 가져와 렌더링
 const selectNotificationList = () => {
   if (!notificationLoginCheck) return; // 로그인이 안 된 경우 중단
-
+  
   fetch("/notification/list")
     .then((response) => {
       if (response.ok) return response.json();
@@ -255,9 +306,10 @@ const selectNotificationList = () => {
       renderNotifications(groupedNotifications); // 알림 목록 화면에 렌더링
     })
     .catch(console.error); // 오류 처리
-};
-
-// 읽지 않은 알림 개수 조회 및 화면 업데이트
+  };
+  
+  // ------------------------------------------------------------------------------------------------------------------
+  // 읽지 않은 알림 개수 조회 및 화면 업데이트
 const readCheck = () => {
   fetch("/notification/readCheck")
     .then((response) => {
@@ -265,7 +317,7 @@ const readCheck = () => {
       throw new Error("알림 개수 조회 실패");
     })
     .then((count) => {
-      const notificationCount = document.querySelector(".notification-count");
+      const notificationCount = document.querySelector(".notificationCount");
       notificationCount.innerText = count;
 
       const notificationIcon = document.querySelector(".notification-icon");
