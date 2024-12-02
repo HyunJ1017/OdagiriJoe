@@ -1,5 +1,7 @@
 package edu.kh.plklj.main.dto;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,6 +34,7 @@ public class Member {
 	private String artistPortfolio; // 작가 포트폴리오
 	private String bankCode; // 은행코드
 	private String bankNo; // 작품
+	private List<String> workList;
 	
 	// 관리자
 	private int manageNo; // 관리자 번호

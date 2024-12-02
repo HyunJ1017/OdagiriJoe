@@ -67,6 +67,24 @@
 		)
 	</insert>
 	
+	<update id="updateArtist">
+		UPDATE "ARTIST"
+		SET
+			ARTIST_PROFILE = #{artistProfile},
+			ARTIST_NICKNAME = #{artistNickname},
+			ARTIST_PORTFOLIO= #{artistPortfolio},
+			BANK_CODE = #{bankCode},
+			BANK_NO = #{bankNo}
+		WHERE	
+			MEMBER_NO = #{memberNo}
+	</update>
+	
+	<delete id="deleteWork">
+		DELETE FROM "WORK"
+		WHERE
+			MEMBER_NO = #{memberNo}
+	</delete>
+	
 	
 	<!-- 1:1 문의사항 등록 -->
 	<insert id="insertQuestion">
@@ -321,9 +339,34 @@
 	</update>
 	
 	<!-- 작가 신청여부 확인 -->
-	<select id="getArtistInfo" resultType="Member">
-		SELECT MEMBER_NO
+	<select id="getArtistInfo" resultMap="artist_rm">
+		SELECT
+			MEMBER_NO,
+			ARTIST_NICKNAME,
+			ARTIST_PROFILE,
+			ARTIST_PORTFOLIO,
+			BANK_CODE,
+			BANK_NO,
+			ARTIST_REG
 		FROM ARTIST
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<resultMap type="Member" id="artist_rm">
+		<id property="memberNo" column="MEMBER_NO"/>
+		<collection 
+			property="workList"
+			select="selectWorkList"
+			column="MEMBER_NO"
+			javaType="java.util.ArrayList"
+			ofType="string"
+		/>
+	</resultMap>
+	
+	<select id="selectWorkList" resultType="string">
+		SELECT
+			WORK_DETAIL
+		FROM WORK
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
 	

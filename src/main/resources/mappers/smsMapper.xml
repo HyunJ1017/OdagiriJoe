@@ -5,7 +5,9 @@
 	<select id="getIdList" resultType="string">
 		SELECT MEMBER_ID
 		FROM "MEMBER"
-		WHERE MEMBER_PHONE = #{phoneNumber}
+		WHERE
+			MEMBER_PHONE = #{phoneNumber}
+		AND MEMBER_DEL_FL = 'N'
 	</select>
 	
 </mapper>

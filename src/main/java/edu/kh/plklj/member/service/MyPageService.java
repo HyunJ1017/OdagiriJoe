@@ -32,6 +32,7 @@ public interface MyPageService {
 
 	// 작가 등록
 	int insertArtist(Member artist, MultipartFile inputArtistPortfolio, List<String> workDetails);
+	int updateArtist(Member artist, MultipartFile inputArtistPortfolio, List<String> workDetails);
 
 	// 1:1 문의사항 등록
 	int insertQuestion(Notice question);
@@ -83,6 +84,7 @@ public interface MyPageService {
 
 	// 회원탈퇴
 	int deleteMember(int memberNo);
+
 
 	
 

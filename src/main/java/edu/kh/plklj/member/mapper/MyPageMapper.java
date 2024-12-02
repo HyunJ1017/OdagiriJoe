@@ -27,6 +27,12 @@ public interface MyPageMapper {
 	int checkNickname(String inputNickname);
 
 	int insertArtist(Member artist);
+	
+	int insertWork(@Param("memberNo") int memberNo, @Param("workDetail") String workDetails);
+	
+	int updateArtist(Member artist);
+
+	int deleteWork(int memberNo);
 
 	int insertQuestion(Notice question);
 
@@ -45,8 +51,6 @@ public interface MyPageMapper {
 	int getFollowListCount(int memberNo);
 
 	int getWishListCount(int memberNo);
-
-	int insertWork(@Param("memberNo") int memberNo, @Param("workDetail") String workDetails);
 
 	List<Piece> artistAuction(int memberNo);
 
@@ -75,7 +79,5 @@ public interface MyPageMapper {
 	List<Piece> getPurchaseList(int memberNo, RowBounds rowBounds);
 
 	int deleteMember(int memberNo);
-
-	
 
 }

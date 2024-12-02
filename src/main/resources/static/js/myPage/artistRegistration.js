@@ -5,7 +5,8 @@ const submitConfirm = {
   "bankNo"        : false,
   "bankCode"     : false
 }
-
+let preProfileFl = false;
+let prePortfolioFl = false;
 
 /* 프로필 이미지 */
 
@@ -39,6 +40,8 @@ const inputPreview = (img) => {
 
 // 이미지 input에 이미지가 선택, 취소 된 경우
 imgInput.addEventListener("change", e => {
+  // 이미지가 변경되었으면 이전이미지 필요없음
+  preProfileFl = false;
   const img = e.target.files[0];
   
   // 이미지 유효성 검사
@@ -105,7 +108,8 @@ const returnImig = () => {
 const artistPortfolio = document.querySelector("#artistPortfolio");
 
 artistPortfolio.addEventListener("change", e => {
-
+  // 포트폴리오가 변경되었으면 이전 포트폴리오 필요없음
+  prePortfolioFl = false;
   const portfolio = e.target.files[0];
   
   let fileName = '';
@@ -116,7 +120,7 @@ artistPortfolio.addEventListener("change", e => {
   }
 
   const artistPortfolioName = document.querySelector("#artistPortfolioName");
-
+  artistPortfolioName.innerHTML = '';
   artistPortfolioName.innerText = fileName;
 });
 
@@ -125,7 +129,10 @@ artistPortfolio.addEventListener("change", e => {
 const selectBank = document.querySelector("#selectBank");
 let bankList;
 selectBank.addEventListener("click", () => {
-  
+  bankFetch();
+});
+
+const bankFetch = () => {
   fetch("/member/myPage/getBankList")
   .then(response => {
     if (response.ok) return response.json();
@@ -135,8 +142,7 @@ selectBank.addEventListener("click", () => {
     showBankList(result);
   })
   .catch(err => console.error(err));
-  
-});
+}
 
 const artistBank = document.querySelector("#artistBank");
 // 은행목록 보여주기 창 띄우기
@@ -154,6 +160,9 @@ const showBankList = (bankList) => {
 
   artistBank.appendChild(bankListSelect);
   submitConfirm.bankCode =true;
+  if(artistFl){
+    bankListSelect.value = preBankCode;
+  }
 };
 
 
@@ -177,7 +186,7 @@ artistNickname?.addEventListener("focus", () => {
 });
 
 // 닉네임 입력시
-artistNickname.addEventListener("input", ()=>{
+artistNickname.addEventListener("change", ()=>{
 
   doNicknameConfirm();
 
@@ -220,6 +229,7 @@ const doNicknameConfirm = () => {
     submitConfirm.artistNickname = true;
     artistNickname.classList.remove("confirm-red");
     inputMessage.innerText = "사용 가능한 닉네임 입니다.";
+    if(artistFl && preArtistNickname === inputNickname) return;
     if(result > 0){
       submitConfirm.artistNickname = false;
       artistNickname.classList.add("confirm-red");
@@ -280,40 +290,6 @@ bankNo.addEventListener("input", ()=>{
   submitConfirm.bankNo = true;
 });
 
-/* 제출 */
-const artistSubmit = document.querySelector("#myPage-main");
-artistSubmit?.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  if(submitConfirm.artistNickname === false){
-    e.preventDefault();
-    alert("닉네임 확인 후 제출해 주시기 바랍니다");
-    return;
-  }
-  if(imgInput.files[0] === undefined){
-    e.preventDefault();
-    alert("대표작품을 등록을 확인하여 주세요");
-    return;
-  }
-  if(artistPortfolio.files[0] === undefined){
-    e.preventDefault();
-    alert("포트폴리오 등록을 확인하여 주세요");
-    return;
-  }
-  if(submitConfirm.bankNo === false){
-    e.preventDefault();
-    alert("계좌번호 입력이 잘못되었습니다.");
-    return;
-  }
-  if(submitConfirm.bankCode === false){
-    e.preventDefault();
-    alert("은행 선택 버튼을 클릭해 주세요.");
-    return;
-  }
-
-  profileUpload();
-});
-
 // 경력사항 입력칸 추가
 let MaxCount = 0;
 document.getElementById('workDetailSection').addEventListener('input', function (e) {
@@ -343,8 +319,55 @@ document.getElementById('workDetailSection').addEventListener('input', function 
   }
 });
 
+/* 제출 */
+const artistSubmit = document.querySelector("#myPage-main");
+artistSubmit?.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  if(submitConfirm.artistNickname === false){
+    e.preventDefault();
+    alert("닉네임 확인 후 제출해 주시기 바랍니다");
+    return;
+  }
+  if(imgInput.files[0] === undefined && preProfileFl === false){
+    e.preventDefault();
+    alert("대표작품을 등록을 확인하여 주세요");
+    return;
+  }
+  if(artistPortfolio.files[0] === undefined && prePortfolioFl === false){
+    e.preventDefault();
+    alert("포트폴리오 등록을 확인하여 주세요");
+    return;
+  }
+  if(submitConfirm.bankNo === false){
+    e.preventDefault();
+    alert("계좌번호 입력이 잘못되었습니다.");
+    return;
+  }
+  if(submitConfirm.bankCode === false){
+    e.preventDefault();
+    alert("은행 선택 버튼을 클릭해 주세요.");
+    return;
+  }
+
+  profileUpload();
+});
 // 파일등록함수
 const profileUpload = () => {
+
+  // 이전 등록이미지를 그대로 사용할 경우
+  if(preProfileFl){
+    const input1 = document.createElement("input");
+    input1.type="hidden";
+    input1.name="memberNo";
+    input1.value=memberNo;
+    artistSubmit.appendChild(input1);
+    const form = document.querySelector("#myPage-main");
+    form.action = 'updateArtist';
+    form.submit()
+    return;
+  }
+
   const formData = new FormData();
   const fileRename = "profile" + memberNo + "." +  imgInput.files[0].name.split(".").pop();
   formData.append("image", imgInput.files[0]);
@@ -374,6 +397,19 @@ const profileUpload = () => {
       input2.value=result;
       artistSubmit.appendChild(input2);
 
+      // 신청정보 업데이트인경우
+      if(artistFl){
+        const input1 = document.createElement("input");
+        input1.type="hidden";
+        input1.name="memberNo";
+        input1.value=memberNo;
+        artistSubmit.appendChild(input1);
+        const form = document.querySelector("#myPage-main");
+        form.action = 'updateArtist';
+        form.submit();
+        return;
+      }
+
       document.querySelector("#myPage-main").submit();
     } else {
       alertM("프로필 이미지 등록에 실패하였습니다.");
@@ -382,3 +418,40 @@ const profileUpload = () => {
   })
   .catch(err => console.error(err));
 };
+
+document.addEventListener("DOMContentLoaded", () => {
+  if(artistFl === false) return;
+
+  // 이전 신청내역을 가져와서
+  // 이미지 가져와서 인풋태그에 저장 X
+  // 제출할때 pass
+  // 은행코드 선택
+  // 포트폴리오 다운로드 생성 및 label>span 채워주기
+  // 일단 유효성 검사플레그 다 Y로 변경
+
+  // 이전 이미지 확인용 플레그 세우기
+  preProfileFl = true;
+  prePortfolioFl = true;
+
+  // 포트폴리오 다운로드 생성
+  const artistPortfolioName = document.querySelector("#artistPortfolioName");
+  artistPortfolioName.innerHTML = '';
+  const a = document.createElement("a");
+  a.href = prePortfolio;
+  a.id = "profileAtag";
+  a.download = `|포트폴리오${memberNo}|`;
+  a.innerText = "포트폴리오 다운로드";
+  artistPortfolioName.appendChild(a);
+  a.addEventListener("click", (event) => {
+    event.stopPropagation();
+  })
+
+  // 은행코드 가져오기
+  bankFetch();
+
+  // 유효성검사 플레그 다 변경
+  submitConfirm.artistNickname = true;
+  submitConfirm.artistProfile = true;
+  submitConfirm.bankNo = true;
+  submitConfirm.bankCode = true;
+});
