@@ -70,7 +70,7 @@ for(let i=0; i<signMainBtns.length; i++) {
         links[i].style.transform = "translateX(0)";
       }, 10);
     }, 300);
-
+    
     // 슬라이드 종료 후 높이 축소 (더 작은 경우)
     setTimeout(() => {
       if (targetHeight < maxHeight) {
@@ -94,7 +94,7 @@ const allDisplayNone = (i) => {
     links[num1].style.display = "none";
     links[num1].innerHTML = backupHTML[num1];
     // 이벤트 재지정
-    switch(num1) {
+    switch(i) {
       case 0:
         logInEventAdd();
         break;
@@ -242,6 +242,7 @@ const findIdEventAdd = () => {
 
 // 비밀번호 찾기
 const findPwEventAdd = () => {
+  console.log("비밀번호 이벤트 시작");
 
   const inputId = document.querySelector("#findPw-inputId");
   const inputPh = document.querySelector("#findPw-inputPh");
@@ -252,7 +253,9 @@ const findPwEventAdd = () => {
   let lastCheckId = '';
   let lastCheckPhone = '';
 
-  phoneCheckBtn?.addEventListener("click", ()=>{
+  phoneCheckBtn?.addEventListener("click", (e)=>{
+    // 부모요소 이벤트 막기
+    e.stopPropagation();
 
     const inputPhoneV = inputPh.value.trim();
 
@@ -337,8 +340,12 @@ const findPwEventAdd = () => {
 
   // 비밀번호 변경창 열기
   const openPwReinput = () => {
-    document.querySelector("#find-inputPwBox").classList.remove("sign-displayNone");
-    document.querySelector("#find-inputPwCBox").classList.remove("sign-displayNone");
+    document.querySelector("#findPw-inputPwBox").classList.remove("sign-displayNone");
+    document.querySelector("#findPw-inputPwCBox").classList.remove("sign-displayNone");
+    console.log(document.querySelector("#signMain").style.height);
+    console.log(document.querySelector("#member-findPw").scrollHeight);
+    document.querySelector("#signMain").style.height = document.querySelector("#member-findPw").scrollHeight + 'px';
+    console.log(document.querySelector("#signMain").style.height);
     /* 비밀번호 체크 */
     const inputPw = document.querySelector("#findPw-inputPw");
     const inputPwC = document.querySelector("#findPw-inputPwC");
