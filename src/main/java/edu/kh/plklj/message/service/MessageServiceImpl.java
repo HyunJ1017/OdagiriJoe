@@ -2,6 +2,7 @@ package edu.kh.plklj.message.service;
 
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
@@ -22,12 +23,15 @@ import net.nurigo.sdk.message.service.DefaultMessageService;
 @Slf4j
 @Service
 @PropertySource("classpath:/config.properties")
-@RequiredArgsConstructor
 public class MessageServiceImpl implements MessageService {
 
-	private final SmsMapper mapper;
+	@Autowired
+	private SmsMapper mapper;
 	
-    private DefaultMessageService coolSMSService;
+//	@Autowired
+//	private DefaultMessageService messageService;
+	
+//    final DefaultMessageService messageService;
 
     @Value("${coolsms.apikey}")
     private String apiKey;
@@ -39,31 +43,50 @@ public class MessageServiceImpl implements MessageService {
     private String fromNumber;
 
     // Spring에서 필드가 초기화된 후 CoolSMS 서비스를 초기화
-    @PostConstruct
-    public void initializeCoolSMSService() {
-        this.coolSMSService = NurigoApp.INSTANCE.initialize(apiKey, apiSecret, "https://api.coolsms.co.kr");
-    }
+//    @PostConstruct
+//    public void initializeCoolSMSService() {
+//    	DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecret, "https://api.coolsms.co.kr");
+//    	this.messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecret, "https://api.coolsms.co.kr");
+//    }
 
     @Override
     public int sendSMS(int memberNo) {
     	
+//    	Member member = mapper.getSmsMember(memberNo);
+//    	DefaultMessageService coolSMSService = NurigoApp.INSTANCE.initialize(apiKey, apiSecret, "https://api.coolsms.co.kr");
+//    	
+//        Message message = new Message();
+//        message.setFrom(fromNumber);      // 발신 번호
+//        message.setTo(member.getMemberPhone());    // 수신 번호
+//        message.setText(member.getMemberName()+"님의 작가 신청이 거절 되었습니다.");    // 메시지 내용
+//
+//        try {
+//            // 메시지 전송
+//            SingleMessageSentResponse response = coolSMSService.sendOne(new SingleMessageSendingRequest(message));
+//            log.info("Message sent successfully. Message ID: " + response.getMessageId());
+//            return 1;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            log.info("Failed to send message. Error: " + e.getMessage());
+//            return 0;
+//        }
+    	DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecret, "https://api.coolsms.co.kr");
     	Member member = mapper.getSmsMember(memberNo);
-    	
-        Message message = new Message();
-        message.setFrom(fromNumber);      // 발신 번호
-        message.setTo(member.getMemberPhone());    // 수신 번호
-        message.setText(member.getMemberName()+"님의 작가 신청이 거절 되었습니다.");    // 메시지 내용
+    	Message message = new Message();
+        // 발신번호 및 수신번호는 반드시 01012345678 형태로 입력되어야 합니다.
+    	message.setFrom(fromNumber);      // 발신 번호
+    	message.setTo(member.getMemberPhone());    // 수신 번호
+    	message.setText("[화사:愛:화공]입니다." + member.getMemberName()+"님의 작가 신청이 승인되지 않아 안내드립니다.");    // 메시지 내용
 
         try {
-            // 메시지 전송
-            SingleMessageSentResponse response = coolSMSService.sendOne(new SingleMessageSendingRequest(message));
-            log.info("Message sent successfully. Message ID: " + response.getMessageId());
-            return 1;
-        } catch (Exception e) {
-            e.printStackTrace();
-            log.info("Failed to send message. Error: " + e.getMessage());
-            return 0;
-        }
+          // 메시지 전송
+    	messageService.send(message);	
+      } catch (Exception e) {
+          e.printStackTrace();
+          log.info("Failed to send message. Error: " + e.getMessage());
+          return 0;
+      }
+        return 1;
     }
 
 	
