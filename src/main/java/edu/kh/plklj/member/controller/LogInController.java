@@ -113,6 +113,8 @@ public class LogInController {
 			}
 			
 			return "redirect:/";
+		} else if (result.getArtistReg().equals("M")) {
+			return "redirect:/manage";
 		} else {
 			model.addAttribute("artistLogin", result);
 			
