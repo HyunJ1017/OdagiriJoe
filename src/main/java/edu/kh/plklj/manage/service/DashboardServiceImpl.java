@@ -1,12 +1,13 @@
 package edu.kh.plklj.manage.service;
 
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.plklj.manage.dto.Manage;
 import edu.kh.plklj.manage.mapper.DashboardMapper;
@@ -16,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 @RequiredArgsConstructor
+@Transactional
 public class DashboardServiceImpl implements DashboardService {
 	
 	private final DashboardMapper mapper;
@@ -43,8 +45,13 @@ public class DashboardServiceImpl implements DashboardService {
 	@Override
 	public boolean checkAndIncrementVisitor(String clientIp) {
 
-		int updateedRows = mapper.incrementVisitorCountForToday(clientIp);
-		return updateedRows > 0;
+		try {
+      int result = mapper.incrementVisitorCountForToday(clientIp);
+      return result > 0;
+  } catch (DuplicateKeyException e) {
+      // 이미 존재하는 경우, 에러를 무시하고 처리
+      return false;
+  	}
 	}
 	
 	@Override
