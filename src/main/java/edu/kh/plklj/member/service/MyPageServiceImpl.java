@@ -133,6 +133,69 @@ public class MyPageServiceImpl implements MyPageService {
 	    return result;
 	}
 	
+	// 이전 신청내역 불러오기
+	@Override
+	public Member getArtistInfo(int memberNo) {
+		return mapper.getArtistInfo(memberNo);
+	}
+
+	// 작가 정보 수정
+	@Override
+	public int updateArtist(Member artist, MultipartFile inputArtistPortfolio, List<String> workDetails) {
+		
+		Member preArtistInfo = mapper.getArtistInfo(artist.getMemberNo());
+		
+		if(artist.getArtistProfile() == null) {
+			artist.setArtistProfile(preArtistInfo.getArtistProfile());
+		}
+		
+		if(inputArtistPortfolio.isEmpty() == false) {
+			log.info("inputArtistPortfolio : {}", inputArtistPortfolio);
+			String originalFileName = inputArtistPortfolio.getOriginalFilename();
+			int index = originalFileName.lastIndexOf(".");
+			String ext = originalFileName.substring(index);
+			
+			/*포트폴리오 저장 및 파일명 저장*/
+			String blob = "portfolio/" + "portpolio" + artist.getMemberNo() + ext;
+		    try {
+		        // 기존 파일 삭제
+		        Blob existingBlob = bucket.get(blob);
+		        if (existingBlob != null) {
+		            existingBlob.delete();
+		        }
+	
+		        // InputStream으로 파일 업로드
+		        try (InputStream inputStream = inputArtistPortfolio.getInputStream()) {
+		            bucket.create(blob, inputStream, inputArtistPortfolio.getContentType());
+		        }
+	
+		    } catch (Exception e) {
+		        log.error("profile upload failed", e);
+		        throw new RuntimeException("ErrorCode.IMAGE_UPLOAD_FAILED");
+		    }
+			
+		    // https://firebasestorage.googleapis.com/v0/b/ 프로젝트ID .firebasestorage.app/o/ 파일경로 / 파일명$.확장자 ?alt=media
+		    artist.setArtistPortfolio( portfolioPrePath + "portpolio" + artist.getMemberNo() + ext + appPath);
+		} else {
+			log.info("preArtistInfo.getArtistPortfolio() : {}", preArtistInfo.getArtistPortfolio());
+			artist.setArtistPortfolio(preArtistInfo.getArtistPortfolio());
+		}
+	    
+	    int result = mapper.updateArtist(artist);
+	    
+	    if(workDetails.isEmpty() == false && workDetails.get(0).length() > 0) {
+	    	result += mapper.deleteWork(artist.getMemberNo());
+	    	workDetails = workDetails.stream()
+	    		    .filter(detail -> detail != null && !detail.trim().isEmpty())
+	    		    .collect(Collectors.toList());
+	    	for(String workDetail : workDetails) {
+	    		result += mapper.insertWork(artist.getMemberNo(), workDetail);
+	    	}
+	    }
+	    
+	    return result;
+	}
+	
 	// 1:1 문의사항 등록
 	@Override
 	public int insertQuestion(Notice question) {
@@ -309,12 +372,6 @@ public class MyPageServiceImpl implements MyPageService {
 		return mapper.setArtistProfile(artist);
 	}
 	
-	// 이전 신청내역 불러오기
-	@Override
-	public Member getArtistInfo(int memberNo) {
-		return mapper.getArtistInfo(memberNo);
-	}
-	
 	// 작가 월별 판매작품목록 및 총 판매량
 	@Override
 	public Map<String, Object> getSalesConfirmation(int memberNo, String selectedMonth) {
@@ -357,4 +414,5 @@ public class MyPageServiceImpl implements MyPageService {
 	public int deleteMember(int memberNo) {
 		return mapper.deleteMember(memberNo);
 	}
+
 }

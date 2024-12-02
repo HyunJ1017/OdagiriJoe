@@ -3,6 +3,7 @@ const findIdMain = document.querySelector("#member-findId");
 const findPwMain = document.querySelector("#member-findPw");
 const signUpMain = document.querySelector("#member-signUp");
 let currentPage = 0;
+let keyFl = false;
 
 // 초기화용 저장객체
 const backupHTML = [
@@ -52,13 +53,9 @@ for(let i=0; i<signMainBtns.length; i++) {
     links[i].style.visibility = "";
     links[i].style.position = "";
     links[i].style.display = "none";
-    console.log("불러온 페이지 : " + i);
 
     // 최대 높이 선택
     const maxHeight = Math.max(currentHeight, targetHeight);
-    console.log(maxHeight);
-    console.log(currentHeight);
-    console.log(targetHeight);
 
     // 부모 컨테이너 높이를 부드럽게 변경
     container.style.transition = "height 0.3s ease";
@@ -158,7 +155,7 @@ const findIdEventAdd = () => {
   const inputPh = document.querySelector("#findId-inputPh");
   const phoneCheckBtn = document.querySelector("#findId-phCheck");
   const signUpCounter = document.querySelector("#findId-count");
-  let keyFl = false;
+  keyFl = false;
   let lastCheckPhone = '';
 
   phoneCheckBtn?.addEventListener("click", ()=>{
@@ -182,7 +179,7 @@ const findIdEventAdd = () => {
     }
 
     lastCheckPhone = inputPh.value.replace(/[^\d]/g, "");
-    sendSms(lastCheckPhone, signUpCounter, keyFl);
+    sendSms(lastCheckPhone, signUpCounter);
 
   });
 
@@ -250,7 +247,7 @@ const findPwEventAdd = () => {
   const inputPh = document.querySelector("#findPw-inputPh");
   const phoneCheckBtn = document.querySelector("#findPw-phCheck");
   const signUpCounter = document.querySelector("#findPw-count");
-  let keyFl = false;
+  keyFl = false;
   let pwCheck = false;
   let lastCheckId = '';
   let lastCheckPhone = '';
@@ -292,7 +289,7 @@ const findPwEventAdd = () => {
       if(result == 0){
         alertM("전화번호와 일치하는 ID가 없습니다.");
       } else {
-        sendSms(lastCheckPhone, signUpCounter, keyFl);
+        sendSms(lastCheckPhone, signUpCounter);
       }
     })
     .catch(err => console.error(err));
@@ -495,7 +492,7 @@ const findPwEventAdd = () => {
 } // findPwEventAdd end
 
 
-const sendSms = (phoneNumber, CounterDom, keyFl) => {
+const sendSms = (phoneNumber, CounterDom) => {
   fetch("/sms/sendSms?phoneNumber=" + phoneNumber + "&typeCode=1")
   .then(response => {
     if (response.ok) return response.text();
@@ -903,7 +900,7 @@ const signUpEventAdd = () => {
   const phoneCheckBtn = document.querySelector("#signUp-phCheck");
   const phMessage = document.querySelector("#signUp-phMessage");
   const signUpCounter = document.querySelector("#signUp-count");
-  let keyFl = false;
+  keyFl = false;
 
   // 전화번호입력창이 선택되었을때
   inputPh?.addEventListener("focus", () => {
@@ -956,7 +953,7 @@ const signUpEventAdd = () => {
   phoneCheckBtn?.addEventListener("click", ()=>{
 
     signConfirm.phonCheck = false;
-    const inputPhoneV = inputPh.value.trim();
+    let inputPhoneV = inputPh.value.trim();
 
     if(inputPhoneV.length === 0){
       alertM("전화번호를 입력해 주세요");
@@ -970,12 +967,12 @@ const signUpEventAdd = () => {
     }
 
     inputPhoneV = inputPhoneV.replace(/[^\d]/g, "");
-    if (inputPhoneV.replace(/[^\d]/g, "").length !==11 && inputPhoneV.replace(/[^\d]/g, "").length !==10) {
+    if (inputPhoneV.length !==11 && inputPhoneV.length !==10) {
       alertM("10 ~ 11 자리의 번호를 입력해 주세요.");
       return;
     }
-
-    sendSms(inputPhoneV, signUpCounter, keyFl);
+    
+    sendSms(inputPhoneV, signUpCounter);
 
   });
 
@@ -984,6 +981,7 @@ const signUpEventAdd = () => {
   const keyCheck = document.querySelector("#signUp-keyCheck");
   const inputPhC = document.querySelector("#signUp-inputPhC");
   keyCheck.addEventListener("click", () => {
+    
     if(keyFl === false) return;
 
     if(signUpCounter.classList.contains("confirm-red")){
@@ -998,7 +996,7 @@ const signUpEventAdd = () => {
       throw new Error("AJAX 통신 실패");
     })
     .then(result => {
-      console.log(result);
+      
       if(result == 1){
         clearInterval(authTimer);
         alertM("전화번호 인증이 완료되었습니다.");
@@ -1052,8 +1050,6 @@ const signUpEventAdd = () => {
       "inputPw" : inputPw.value,
       "memberPhone" : inputPh.value
     }
-
-    console.log(signUpObj);
 
     fetch("/member/signUp", {
       method: "POST",
