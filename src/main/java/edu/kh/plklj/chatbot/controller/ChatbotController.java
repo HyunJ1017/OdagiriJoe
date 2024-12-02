@@ -25,13 +25,6 @@ public class ChatbotController {
     private final ChatbotService chatbotService;
     
     
-    @GetMapping("main")
-    public String main() {
-    	
-    	return "chatbot/chatbotMain";
-    }
-    
-
     @PostMapping("/send")
     @ResponseBody
     public Map<String, String> sendMessage(

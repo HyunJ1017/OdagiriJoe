@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>화사 :: 愛 :: 화공</title>
   <link rel="stylesheet" href="/css/common/main.css">
+  <link rel="stylesheet" href="/css/chatbot/chatbotMain.css">
   <th:block th:replace="~{/common/common.html :: cssLinks}"></th:block>
 </head>
 
@@ -102,6 +103,26 @@
         </div>
       </div>
       <div class="custom-line"></div>
+
+      <!-- Chatbot Icon -->
+      <div id="chatbot-icon">
+        <img src="/images/howto/chatbot2.png">
+      </div>
+
+      <!-- Chatbot Window -->
+      <div id="chatbot-container" class="hidden">
+          <div id="chatbot-header">
+              화사 愛 화공
+              <span id="chatbot-close">✖️</span>
+          </div>
+          <div id="chatbot-body">
+              <div id="chat-messages" class="chat-messages"></div>
+          </div>
+          <div id="chatbot-footer">
+              <input type="text" id="chat-input" placeholder="궁금한 사항을 입력해주세요.">
+              <button id="send-button">전송</button>
+          </div>
+      </div>
       
       <!-- 경매 슬라이더 인디케이터 바 -->
       <div class="auctions-progress-container">
@@ -113,6 +134,7 @@
       </div>
   </section>
   <script src="/js/common/main.js"></script>
+  <script src="/js/chatbot/chatbotMain.js"></script>
 </body>
 <th:block th:replace="~{/common/footer.html}"></th:block>
 </html>
