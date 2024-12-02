@@ -224,6 +224,7 @@ main {
   padding-top: 0.25%;
   font-size: 14px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding-left: 1%;
 }
 
 /* 알림 리스트 */

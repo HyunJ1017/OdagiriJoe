@@ -13,14 +13,12 @@ public interface DeliveryService {
 	 */
 	List<Manage> selectDeliveryList(int memberNo);
 
-	List<Manage> deliveryList();
-	
-	
 	/** 배송 상태 변경
 	 * @param manageNo
+	 * @param cp
 	 * @return
 	 */
-	List<Manage> deliveryList(int manageNo);
+	List<Manage> deliveryList(int cp);
 
 	
 	/** 배송 상태 변경
@@ -28,7 +26,4 @@ public interface DeliveryService {
 	 * @return
 	 */
 	boolean updateDelivery(List<Manage> delivery);
-
-
-
 }

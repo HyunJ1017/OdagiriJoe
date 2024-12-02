@@ -4,9 +4,15 @@
 
 	<!-- 아이디 중복검사 -->
 	<select id="idCheck" resultType="_int">
+	SELECT (
 		SELECT COUNT(*)
 		FROM "MEMBER"
-		WHERE MEMBER_ID = #{inputId}
+		WHERE MEMBER_ID = #{inputId})
+		+
+		(SELECT COUNT(*)
+		FROM "MANAGE"
+		WHERE MANAGE_ID = #{inputId}
+	) FROM DUAL
 	</select>
 	
 	<!-- 회원가입 -->

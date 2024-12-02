@@ -776,8 +776,11 @@ function getList(code, page) {
         page6 = page;
         displayquestionContents(result.resultList); // 1대1문의 리스트 렌더링
         setupPagination(result.pg, code, "paginationBoxQuestion"); // 1대1문의 페이지네이션 설정
-      }
-      else {
+      } else if (code === 7) {
+        page7 = page;
+        displayquestionContents(result.resultList); // 배송 상태 변경 리스트 렌더링
+        setupPagination(result.pg, code, "paginationDelivery"); // 배송 상태 변경 페이지네이션 설정
+      } else {
         console.log("기타 코드값을 불러와 실행됨");
         console.error("알 수 없는 코드:", code);
       }

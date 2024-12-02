@@ -36,7 +36,8 @@
     
     <!-- 알림 섹션 -->
     <section id="notification-section" style="display: none;">
-      <div class="notification-container" th:if="${session.artistLogin != null}">
+      <div class="notification-container" th:if="${session.memberLogin != null}">
+    
         <!-- 알림 목록 -->
         <ul class="notification-list">
           <div class="custom-line"></div>
@@ -44,9 +45,7 @@
       </div>
     </section>
     <!-- 알림 개수 표시 -->
-    <div class="notification-count" th:text="${notificationCount != null ? notificationCount : '♥ 0'}"
-      style="display: none;">
-    </div>
+    <div class="notificationCount" th:text="${notificationCount != null ? notificationCount : '♥ 0'}" >알림 count</div>
 
     <!-- 중앙 메뉴 -->
     <nav class="header-menu">

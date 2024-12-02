@@ -26,8 +26,8 @@ public class DeliveryServiceImpl implements DeliveryService{
 
 	/* 배송 상태 조회 */
 	@Override
-	public List<Manage> deliveryList(int manageNo) {
-		return mapper.deliveryList(manageNo);
+	public List<Manage> deliveryList(int cp) {
+		return mapper.deliveryList(cp);
 	}
 	
 	@Override
@@ -44,12 +44,6 @@ public class DeliveryServiceImpl implements DeliveryService{
 			}
 	    
 	    return true;
-	}
-
-
-	@Override
-	public List<Manage> deliveryList() {
-		return mapper.deliveryList();
 	}
 
 

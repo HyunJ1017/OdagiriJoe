@@ -88,7 +88,7 @@ public class AuctionScheduler {
 	@Scheduled(cron = "0 0 10 * * *")
 	public void notifyAuctionOneDayBefore() {
 		
-		int result = notificationService.sendAuctionNotifications(1, "찜한 게시물의 경매가 내일 시작됩니다. 기대해주세요!"); 
+		int result = notificationService.sendAuctionNotifications(1, "찜한 게시물의 경매가 내일 오전 10시에 시작됩니다."); 
 		
 		log.info(">> ------------------------------- >>");
 		log.info(">> 하루 전 알림 시작");

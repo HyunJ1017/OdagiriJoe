@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("member/login")
 @RequiredArgsConstructor
-@SessionAttributes({"memberLogin", "artistLogin"})
+@SessionAttributes({"memberLogin", "artistLogin", "manageLogin"})
 public class LogInController {
 
 	private final LogInService service;
@@ -113,6 +113,9 @@ public class LogInController {
 			}
 			
 			return "redirect:/";
+		} else if (result.getArtistReg().equals("M")) {
+			model.addAttribute("manageLogin", result);
+			return "redirect:/manage";
 		} else {
 			model.addAttribute("artistLogin", result);
 			
