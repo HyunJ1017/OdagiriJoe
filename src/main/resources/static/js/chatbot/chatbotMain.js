@@ -60,6 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .then((response) => response.json())
         .then((data) => {
 
+          console.log(data);
+
           const botResponse = data.response || '챗봇 응답 오류';
 
           // 로딩 표시 제거 후 챗봇 응답 추가
