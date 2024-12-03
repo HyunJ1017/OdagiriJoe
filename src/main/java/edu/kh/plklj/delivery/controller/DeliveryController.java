@@ -49,10 +49,10 @@ public class DeliveryController {
 	}
 	
 	/* 관리자 배송 리스트 조회 */
-	@GetMapping("uploadDelivery")
+	@GetMapping("uploadDelivery?")
 	public String selectDelivery(Model model) {
 		List<Manage> deliveryList = service.deliveryList();
-		model.addAttribute("deliveryList", deliveryList); 
+		model.addAttribute("deliveryList", deliveryList);
 		return "delivery/uploadDelivery";
 	}
 	
@@ -60,7 +60,7 @@ public class DeliveryController {
 	/* 배송 상태 변경 */
 	@PutMapping("update")
 	@ResponseBody
-	public String updateDelevery(@SessionAttribute(value = "manegeLogin", required = false) Manage manegeLogin,
+	public String updateDelevery(@SessionAttribute(value = "manageLogin", required = false) Member manegeLogin,
 															 @RequestBody List<Manage> delivery, Model model) {
 
 		// 배송상태 변경
