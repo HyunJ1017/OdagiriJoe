@@ -41,6 +41,7 @@ button {
   flex-direction: column;
   align-items: center;
   text-align: left;
+  margin-bottom: 3%;
 }
 
 /* 헤더 컨테이너 */
@@ -54,7 +55,7 @@ button {
 .custom-line {
   border-bottom: 1px solid #dbdbdb;
   width: 94%;
-  margin-bottom: 1%;
+  margin: 0% 3% 2% 3%;
 }
 
 /* 버튼 컨테이너 */
