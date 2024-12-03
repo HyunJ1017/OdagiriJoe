@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const sendButton = document.getElementById('send-button');
   const chatInput = document.getElementById('chat-input');
   const chatMessages = document.getElementById('chat-messages');
+  const keywordButtons = document.querySelectorAll('.keyword-button'); 
 
   // 웰컴 메시지 요청 여부를 확인하는 플래그
   let isWelcomeMessageSent = false;
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
       requestWelcomeMessage();
       isWelcomeMessageSent = true; // 웰컴 메시지 요청 완료 상태로 설정
     }
+
   });
 
   // x 버튼 클릭 시 창 닫기
@@ -29,18 +31,24 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // 메시지 전송 버튼 클릭 시
-  sendButton.addEventListener('click', sendMessage);
+  sendButton.addEventListener('click', () => sendMessage(chatInput.value.trim()));
 
   // Enter 키로 메시지 전송
   chatInput.addEventListener('keypress', (event) => {
     if (event.key === 'Enter') {
-      sendMessage();
+      sendMessage(chatInput.value.trim());
     }
   });
 
-  function sendMessage() {
-    // input 공백 제거
-    const message = chatInput.value.trim();
+ // 키워드 버튼 클릭 이벤트
+ keywordButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    const keyword = button.textContent.trim(); // 버튼 텍스트 가져오기
+    sendMessage(keyword); // 버튼 텍스트 전송
+  });
+});
+
+  function sendMessage(message) {
 
     if (message) {
       addMessage(message, 'user'); // 사용자 메시지 추가
