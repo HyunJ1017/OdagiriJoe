@@ -125,7 +125,7 @@
   <script src="/js/howto/howToMain.js"></script>
 
   <script th:inline="javascript">
-    const isLoggedIn = /*[[${session.memberLogin != null}]]*/ false;
+    const loginCheck = /*[[${session.memberLogin != null || session.artistLogin != null}]]*/ false;
   </script>
 
 </body>
