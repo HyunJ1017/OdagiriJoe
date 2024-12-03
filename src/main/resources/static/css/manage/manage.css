@@ -52,9 +52,9 @@ body {
 }
 
 .tab-content {
-  /* flex: 1;
+  flex: 1;
   padding: 20px;
-  background-color: white; */
+  background-color: white;
   display: none;
 
 }
@@ -62,7 +62,6 @@ body {
 .tab-content.active {
   display: flex;
   flex-direction: row;
-  margin-left: 250px;
   justify-content: space-around;
 }
 
@@ -83,6 +82,28 @@ body {
   margin: 0 2% 0 2%;
   flex-wrap: wrap;
 }
+
+.data-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table thead {
+  background-color: #5c6462c2;
+  color: white;
+}
+
+.data-table tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+.data-table tbody td,
+.data-table thead th {
+  text-align: left;
+  padding: 2%;
+}
+
+
 
 
 #visitor table {

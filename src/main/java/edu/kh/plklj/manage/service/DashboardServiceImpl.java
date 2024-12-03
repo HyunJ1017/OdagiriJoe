@@ -47,7 +47,9 @@ public class DashboardServiceImpl implements DashboardService {
 
 		try {
       int result = mapper.incrementVisitorCountForToday(clientIp);
+      
       return result > 0;
+      
   } catch (DuplicateKeyException e) {
       // 이미 존재하는 경우, 에러를 무시하고 처리
       return false;
