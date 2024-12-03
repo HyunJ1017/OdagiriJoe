@@ -9,7 +9,9 @@ import edu.kh.plklj.manage.service.DashboardService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 public class VisitorInterceptor implements HandlerInterceptor {
 
@@ -19,6 +21,8 @@ public class VisitorInterceptor implements HandlerInterceptor {
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+		
+		log.info("[인터셉터거침]");
 		
 		// 방문자 쿠키 확인
 		Cookie[] cookies = request.getCookies();
@@ -32,8 +36,11 @@ public class VisitorInterceptor implements HandlerInterceptor {
 				}
 			}
 		}
+		log.info(">> visitedToday : {}", visitedToday);
+
 		
 		if (!visitedToday) {
+			log.info(">> service.checkAndIncrementVisitor 실행");
 			// 방문자 증가
 			String clientIp = IpUtil.getClientIp(request);
 			service.checkAndIncrementVisitor(clientIp);

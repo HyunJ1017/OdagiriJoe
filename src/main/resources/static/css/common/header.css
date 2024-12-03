@@ -535,6 +535,7 @@ header > .custom-line {
   box-shadow: 0 2px 5px #ffffff;
   color: #ffffff;
   left: 0;
+  z-index: 9999;
 }
 
 /* 사용자 섹션 */

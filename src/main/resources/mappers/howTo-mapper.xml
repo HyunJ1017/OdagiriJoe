@@ -38,6 +38,8 @@
 			"NOTICE"
 		WHERE
 			NOTICE_DEL_FL = 'N'
+		ORDER BY
+			NOTICE_DATE DESC
 	</select>
 	
 
