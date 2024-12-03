@@ -56,7 +56,7 @@
   <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
   <script th:inline="javascript">
     const memberNo = /*[[${session.artistLogin != null} ? ${session.artistLogin.memberNo} : ${session.memberLogin.memberNo}]]*/ "defaultMemberNo";
-    const loginName = /*[[${session.artistLogin != null} ? ${session.artistLogin.memberName} : ${session.memberLogin.memberName}]]*/ "defaultMemberNo";
+    const loginName = /*[[${session.artistLogin != null} ? ${session.artistLogin.memberName} : ${session.memberLogin.memberName}]]*/ "memberName";
   </script>
   <script src="/js/online/purchasePopup.js"></script>
 </body>

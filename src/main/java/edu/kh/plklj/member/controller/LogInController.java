@@ -103,7 +103,7 @@ public class LogInController {
 			ra.addFlashAttribute("message", "정지 해제까지 " + result.getMemberPenalty() + "일 남으셨습니다.");
 			return "redirect:/member/login";
 			
-		} else if ( result.getArtistReg() == null || result.getArtistReg().equals("N")) {
+		} else if ( result.getArtistReg() == null || result.getArtistReg().equals("N") || result.getArtistReg().equals("D")) {
 			model.addAttribute("memberLogin", result);
 			
 			// url이 있다면 저장된 세션 얻어오기
