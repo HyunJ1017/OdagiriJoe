@@ -73,6 +73,8 @@ function renderArtistWorks(works) {
     `).join("");
 }
 
+
+
 // 페이지 로드 시 작품 목록 로드
 document.addEventListener("DOMContentLoaded", () => {
 
