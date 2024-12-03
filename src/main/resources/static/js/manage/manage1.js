@@ -65,7 +65,7 @@ function fetchAndRenderVisitorData() {
             const weeklyTotal = data.weeklyTotal || 0; // 기본값: 0
             const monthlyTotal = data.monthlyTotal || 0; // 기본값: 0
 
-            for (let i = 6; i > 0; i--) {
+            for (let i = 6; i >= 0; i--) {
                 const date = new Date();
                 date.setDate(date.getDate() - i); // i만큼 날짜를 빼면서 최근 7일 계산
         
@@ -280,7 +280,8 @@ window.tradeChart = new Chart(ctx, {
         scales: {
             x: { title: { display: true, text: '날짜' } },
             y: { title: { display: true, text: '결제 금액' }, beginAtZero: true }
-        }
+        },
+				
     }
 });
 
@@ -319,13 +320,15 @@ function fetchRenderArtworkChart() {
 		throw new Error("AJAX 통신 실패");
 	})
 	.then(data => {
-		const dailyArtwork = data.dailyArtwork || {};
+		console.log(data);
+
+		const dailyArtwork = data.dailyArtworks || {};
 		const weeklyArtworkTotal = data.weeklyTotal || 0;
 		const monthlyArtworkTotal = data.monthlyTotal || 0;
 
-		console.log("차트 데이터:", dailyArtwork);
-		console.log("차트 데이터:", weeklyArtworkTotal);
-		console.log("차트 데이터:", monthlyArtworkTotal);
+		console.log("차트 데이터:", data.dailyArtworks);
+		console.log("차트 데이터:", data.monthlyTotal);
+		console.log("차트 데이터:", data.weeklyTotal);
 
 
 		for (let i = 6; i >= 0; i--) {
@@ -408,7 +411,7 @@ function renderArtworkChart(labels, data) {
 		}
 	});
 	console.log("차트 라벨:", labels);
-    console.log("차트 데이터:", Object.values(data));
+  console.log("차트 데이터:", Object.values(data));
 
 
 }
