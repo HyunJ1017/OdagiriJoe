@@ -341,7 +341,7 @@ h2 {
   object-fit: cover;
 }
 
-.info h2 {
+.info h1 {
   font-size: 18px;
   color: #5e7c71;
   margin-bottom: 10px;
@@ -436,7 +436,7 @@ h2 {
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
-  position: absolute;
+  position: static;
   margin-left: 10px;
   justify-items: flex-end;
 }
@@ -898,7 +898,7 @@ h1 {
 .filter-container{
 display: flex;
 justify-content: flex-end;
-margin-right: 700px;
+margin-right: 360px;
 }
 
 
