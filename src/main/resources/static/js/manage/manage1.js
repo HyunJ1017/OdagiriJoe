@@ -110,8 +110,9 @@ function renderVisitorChart(labels, data) {
 	
 		// 그라데이션 생성
 		const gradient = ctx.createLinearGradient(0, 0, 0, 400); // (x0, y0, x1, y1)
-		gradient.addColorStop(0, 'rgba(54, 162, 235, 0.5)'); // 상단 색상
-		gradient.addColorStop(1, 'rgba(54, 162, 235, 0)'); // 하단 색상
+		// 상단 색상: 메인 컬러의 밝은 버전
+		gradient.addColorStop(0, 'rgba(255, 99, 132, 0.5)');  // 밝은 핑크
+		gradient.addColorStop(1, 'rgba(255, 99, 132, 0)');    // 투명
 
     // 새 차트 생성
 		window.dashboardChart = new Chart(ctx, {
@@ -121,7 +122,7 @@ function renderVisitorChart(labels, data) {
 					datasets: [{
 							label: '방문자 수',
 							data: Object.values(data), // y축 데이터 (방문자 수)
-							borderColor: 'rgba(54, 162, 235, 1)', // 라인 색상
+							borderColor: 'rgba(255, 99, 132, 1)', // 라인 색상
 							backgroundColor: gradient, // 그라데이션 배경
 							borderWidth: 2,
 							tension: 0.4, // 선의 곡률 (0: 직선, 1: 완전 곡선)
@@ -258,9 +259,8 @@ function renderTradeChart(labels, data) {
 
 	// 새 차트 생성
 	const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-	gradient.addColorStop(0, 'rgba(54, 162, 235, 0.5)'); // 상단 색상
-	gradient.addColorStop(1, 'rgba(54, 162, 235, 0)'); // 하단 색상
-
+	gradient.addColorStop(0, 'rgba(255, 99, 132, 0.5)');  // 밝은 핑크
+	gradient.addColorStop(1, 'rgba(255, 99, 132, 0)');    // 투명
 window.tradeChart = new Chart(ctx, {
     type: 'line',
     data: {
@@ -268,7 +268,7 @@ window.tradeChart = new Chart(ctx, {
         datasets: [{
             label: '결제 금액',
             data: Object.values(data),
-            borderColor: 'rgba(54, 162, 235, 1)',
+            borderColor: 'rgba(255, 99, 132, 1)',
             backgroundColor: gradient, // 그라데이션 효과
             borderWidth: 2,
             tension: 0.4,
@@ -384,8 +384,8 @@ function renderArtworkChart(labels, data) {
 
 	// 새 차트 생성
 	const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-	gradient.addColorStop(0, 'rgba(54, 162, 235, 0.5)');
-	gradient.addColorStop(1, 'rgba(54, 162, 235, 0)');
+	gradient.addColorStop(0, 'rgba(255, 99, 132, 0.5)');  // 밝은 핑크
+	gradient.addColorStop(1, 'rgba(255, 99, 132, 0)');    // 투명
 
 
 	window.artworkChart = new Chart(ctx, {
@@ -395,7 +395,7 @@ function renderArtworkChart(labels, data) {
 			datasets: [{
 				label: '작품 개수',
 				data: Object.values(data),
-				borderColor: 'rgba(54, 162, 235, 1)',
+				borderColor: 'rgba(255, 99, 132, 1)',
 				backgroundColor: gradient,
 				borderWidth: 2,
 				tension: 0.4,

@@ -87,13 +87,15 @@ button:hover {
 }
 
 .tab-content {
+  flex: 1;
+  padding: 20px;
+  background-color: white;
   display: none;
 }
 
 .tab-content.active {
   display: flex;
   flex-direction: row;
-  margin-left: 250px;
   justify-content: space-around;
 }
 
@@ -113,6 +115,26 @@ button:hover {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin: 0 2% 0 2%;
   flex-wrap: wrap;
+}
+
+.data-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table thead {
+  background-color: #5c6462c2;
+  color: white;
+}
+
+.data-table tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+.data-table tbody td,
+.data-table thead th {
+  text-align: left;
+  padding: 2%;
 }
 
 #visitor table {
