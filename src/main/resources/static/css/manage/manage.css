@@ -52,17 +52,17 @@ body {
 }
 
 .tab-content {
-  flex: 1;
-  padding: 1%;
-  background-color: white;
-  margin: 1%;
+  /* flex: 1;
+  padding: 20px;
+  background-color: white; */
   display: none;
 
 }
 
-.active {
+.tab-content.active {
   display: flex;
   flex-direction: row;
+  margin-left: 250px;
   justify-content: space-around;
 }
 
