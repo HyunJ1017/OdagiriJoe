@@ -1,9 +1,8 @@
-/* Chatbot Icon */
 #chatbot-icon {
   position: fixed;
   bottom: 30px;
   right: 30px;
-  background-color: #D4D4D4; /* 따뜻한 오렌지 톤 */
+  background-color: #D4D4D4;
   color: white;
   font-size: 24px;
   border-radius: 50%;
@@ -15,8 +14,8 @@
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   transition: background-color 0.3s ease, transform 0.2s ease;
+  z-index: 9999; /* 매우 높은 값 */
 }
-
 
 .hidden {
   display: none !important;
