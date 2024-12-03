@@ -76,16 +76,14 @@ button {
   justify-content: center;
   width: 100%;
   border: none;
-}
-
-.deliveryNoneDate {
-  cursor: default;
+  margin-right: 14%;
 }
 
 .sort-select {
   text-align: center;
   border-radius: 2px;
   width: 100%;
+  margin-right: 14%;
   cursor: pointer;
   background: #ffffff00;
   color: #414141;
@@ -100,7 +98,7 @@ option {
 /* 날짜 버튼 */
 .date-container {
   display: flex;
-  width: 50%;
+  width: 40%;
   justify-content: space-between;
 }
 
@@ -108,9 +106,9 @@ option {
 .calendar-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 40%;
-  margin: 0% 0% 0% 2%;
+  justify-content: flex-start;
+  width: 60%;
+  margin: 0% 0% 0% 4%;
 }
 
 .calendarin {
@@ -119,9 +117,12 @@ option {
   color: #414141;
   font-size: 14px;
   border-radius: 3px;
-  padding: 0.5em 1em;
   background: #ffffff00;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
 }
 
 .btn-container {
@@ -146,6 +147,7 @@ option {
   margin-top: 1%;
   color: #414141;
   font-size: 14px;
+  justify-content: space-between;
 }
 
 .table-container thead {
@@ -179,7 +181,6 @@ option {
   /* 남은 공간만큼 아래로 이동 */
   width: 100%;
   margin-bottom: 50px;
-
 }
 
 .pagination-box>.page-btn {
