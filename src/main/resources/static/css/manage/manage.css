@@ -53,10 +53,8 @@ body {
 
 .tab-content {
   flex: 1;
-  padding: 1%;
+  padding: 20px;
   background-color: white;
-  margin: 1%;
-  display: none;
 
 }
 
@@ -64,24 +62,25 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  /* width: 1500px; */
 }
 
 .chart-container {
-  height: 100%;
-  width: 50%;
-  border: 1px solid #dddd;
+  width: 500px;
+  overflow-x: auto;
+  margin-left: 50px;
+  border: 1px solid #ddd;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
+  padding: 20px;
 }
 
 .data-table {
-  width: 46%;
+  width: 500px;
   overflow-x: auto;
+  margin-left: 50pxpx;
   border: 1px solid #ddd;
-  padding: 2%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin: 0 2% 0 2%;
-  flex-wrap: wrap;
+  padding: 20px;
 }
 
 
@@ -1060,7 +1059,7 @@ margin-right: 700px;
   .toggle-btn:hover {
     background-color: #e0e0e0; /* 호버 시 배경색 변경 */
   }
- 
+
   #noticeGrid {
     display: block !important;
     visibility: visible !important;
@@ -1069,6 +1068,10 @@ margin-right: 700px;
   #questionFilter{
     font-size: 15px;
     padding: 2px;
+  }
+
+  .request-section {
+    padding: 6% 0 0 0;
   }
   /* 공지사항  */
 /*   .notice-item {

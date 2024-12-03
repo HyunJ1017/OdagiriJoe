@@ -50,8 +50,8 @@ public class DeliveryController {
 	
 	/* 관리자 배송 리스트 조회 */
 	@GetMapping("uploadDelivery")
-	public String selectDelivery(Model model) {
-		List<Manage> deliveryList = service.deliveryList();
+	public String selectDelivery(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+		List<Manage> deliveryList = service.deliveryList(cp);
 		model.addAttribute("deliveryList", deliveryList); 
 		return "delivery/uploadDelivery";
 	}
@@ -60,11 +60,11 @@ public class DeliveryController {
 	/* 배송 상태 변경 */
 	@PutMapping("update")
 	@ResponseBody
-	public String updateDelevery(@SessionAttribute(value = "manegeLogin", required = false) Manage manegeLogin,
+	public String updateDelevery(@SessionAttribute(value = "manageLogin", required = false) Member manageLogin,
 															 @RequestBody List<Manage> delivery, Model model) {
 
 		// 배송상태 변경
-		int manageNo = manegeLogin.getManageNo();
+		int manageNo = manageLogin.getManageNo();
 		boolean result = service.updateDelivery(delivery);
 
 		return "redirect:uploadDelivery";

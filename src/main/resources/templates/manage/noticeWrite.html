@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>공지사항 작성</title>
   <link rel="stylesheet" href="/css/manage/noticeRevise.css">
-  <th:block th:replace= "~{/common/common}"></th:block>
+  <th:block th:replace="~{/common/common.html :: cssLinks}"></th:block>
 </head>
+
 <body>
-  <!-- 헤더 -->
-  <th:block th:replace="~{common/header}"></th:block>
+  <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
   
   <main>
     <section class="container">
@@ -34,5 +34,5 @@
   <!-- 푸터 -->
   <th:block th:replace= "~{/common/footer.html}"></th:block>
 
- </body>
+</body>
 </html>
