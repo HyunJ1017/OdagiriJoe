@@ -374,9 +374,12 @@ public class MyPageServiceImpl implements MyPageService {
 	
 	// 작가 월별 판매작품목록 및 총 판매량
 	@Override
-	public Map<String, Object> getSalesConfirmation(int memberNo, String selectedMonth) {
+	public Map<String, Object> getSalesConfirmation(Map<String, Object> map) {
 		
 		Map<String, Object> resultMap = new HashMap<>();
+		
+		int memberNo = Integer.parseInt(map.get("memberNo").toString());
+		String selectedMonth = map.get("selectedMonth").toString();
 		
 		// 작가 월별 판매작품목록 작품이름,낙찰가,입금상태, 작품타입
 		List<SellInfo> sellList = mapper.getSellList(memberNo, selectedMonth);

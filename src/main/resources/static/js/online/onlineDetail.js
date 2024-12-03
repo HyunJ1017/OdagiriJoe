@@ -65,7 +65,7 @@ purchaseBtn.addEventListener("click", () => {
           if (statusCode === 'error') {
             console.log('결제중 오류가 발생했습니다.');
           } else if (statusCode === 'success') {
-            window.location.href = '/member/myPage/purchaseDetails';
+            window.location.href = '/delivery/main';
           } else {
             console.log('창닫기');
           }

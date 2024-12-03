@@ -77,7 +77,7 @@ public interface MyPageService {
 	Member getArtistInfo(int memberNo);
 
 	// 작가 월별 판매작 및 총액
-	Map<String, Object> getSalesConfirmation(int memberNo, String selectedMonth);
+	Map<String, Object> getSalesConfirmation(Map<String, Object> map);
 
 	// 회원 구매목록 불러오기
 	List<Piece> getPurchases(int memberNo, int cp);

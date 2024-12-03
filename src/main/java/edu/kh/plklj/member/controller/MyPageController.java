@@ -480,13 +480,10 @@ public class MyPageController {
 	@PostMapping("getSalesConfirmation")
 	@ResponseBody
 	public Map<String, Object> getSalesConfirmation(
-			@RequestBody Map<String, String> map) {
-		
-		int memberNo = Integer.parseInt( map.get("memberNo") );
-		String selectedMonth = map.get("selectedMonth");
+			@RequestBody Map<String, Object> map) {
 		
 		// 월별 작가 판매작품 및 총액
-		Map<String, Object> resultMap = service.getSalesConfirmation(memberNo, selectedMonth);
+		Map<String, Object> resultMap = service.getSalesConfirmation(map);
 		
 		return resultMap;
 	}

@@ -47,16 +47,16 @@ const submitId = () => {
   const inputName = document.querySelector("#memberName").value.trim();
 
   if(inputName.length < 2){
-    alert("이름을 입력해 주세요");
+    alertM("이름을 입력해 주세요");
     return;
   }
   const regEx = /^[가-힣]+$/;
   if (regEx.test(inputName) === false) {
-    alert("한글로 된 이름만 입력해 주세요");
+    alertM("한글로 된 이름만 입력해 주세요");
     return;
   }
   if(inputName.length > 6){
-    alert("6자 까지만 입력해 주세요.");
+    alertM("6자 까지만 입력해 주세요.");
     return;
   }
 
@@ -79,7 +79,7 @@ const submitId = () => {
       nameSecBackUp = inputName;
       nameCancle();
     } else {
-      alert("다시 시도해 주새요");
+      alertM("다시 시도해 주새요");
       return;
     }
   })
@@ -267,7 +267,7 @@ pwSec.addEventListener("click", () => {
 const submitPw = () => {
 
   if(!pwCheck) {
-    alert("새 비밀번호의 형식이 올바르지 않습니다.")
+    alertM("새 비밀번호의 형식이 올바르지 않습니다.")
     return;
   }
 
@@ -293,7 +293,7 @@ const submitPw = () => {
     if(result > 0){
       nameSec.innerHTML = pwSecBackUp;
     } else {
-      alert("현재 비밀번호가 일치하지 않습니다.");
+      alertM("현재 비밀번호가 일치하지 않습니다.");
       return;
     }
   })
@@ -400,19 +400,19 @@ const requestAuthNo = () => {
   lastCheckedPhone = document.querySelector("#memberPhone").value.trim();
 
   if(lastCheckedPhone.length === 0){
-    alert("전화번호를 입력해 주세요");
+    alertM("전화번호를 입력해 주세요");
     return;
   }
 
   const regEx = /^[0-9]+$/;
   if (regEx.test(lastCheckedPhone) === false) {
-    alert("숫자만 입력 해 주세요");
+    alertM("숫자만 입력 해 주세요");
     return;
   }
 
   const regEx2 = /^[0-9]{10,11}$/;
   if (regEx2.test(lastCheckedPhone) === false) {
-    alert('올바른 형태의 전화번호를 입력해 주세요.\n"010"을 포함한 10~11자리의 숫자만 입력 가능합니다.');
+    alertM('올바른 형태의 전화번호를 입력해 주세요.\n"010"을 포함한 10~11자리의 숫자만 입력 가능합니다.');
     return;
   }
 
@@ -424,10 +424,10 @@ const requestAuthNo = () => {
   .then(result => {
     if(result > 0){
       keyFl = true;
-      alert("인증번호가 발송되었습니다.");
+      alertM("인증번호가 발송되었습니다.");
       startCount();
     } else {
-      alert("인증번호 발송에 실패하였습니다.\n전화번호를 다시 확인하시거나 관리자에게 문의하십시오");
+      alertM("인증번호 발송에 실패하였습니다.\n전화번호를 다시 확인하시거나 관리자에게 문의하십시오");
     }
   })
   .catch(err => console.error(err));
@@ -440,7 +440,7 @@ const keyCheck = () => {
   if(keyFl === false) return;
 
   if(signUpCounter.classList.contains("confirm-red")){
-    alert("입력시간이 만료되었습니다.");
+    alertM("입력시간이 만료되었습니다.");
   }
 
   fetch("/sms/authKeyCheck?authKey=" + inputPhC.value.trim() + "&phoneNumber=" + inputPh.value.trim() )
@@ -454,10 +454,10 @@ const keyCheck = () => {
       submitPhone();
       return;
     } else if (result == 2) {
-      alert("인증번호가 잘못 입력되었습니다.\n다시 확인해 주세요");
+      alertM("인증번호가 잘못 입력되었습니다.\n다시 확인해 주세요");
       return;
     } else {
-      alert("입력시간이 만료되었습니다.");
+      alertM("입력시간이 만료되었습니다.");
       keyFl = false;
       return;
     }
@@ -489,7 +489,7 @@ const submitPhone = () => {
     if(result > 0){
       phoneSec.innerHTML = lastCheckedPhone;
     } else {
-      alert("다시 시도해 주새요");
+      alertM("다시 시도해 주새요");
       return;
     }
   })
@@ -508,7 +508,7 @@ myPageUpdateBtn.addEventListener("click", () => {
   str += '\n[이름]';
   str += '\n[비밀번호]';
   str += '\n[전화번호]';
-  alert(str);
+  alertM(str);
 })
 
 const myPageDelete = document.querySelector("#myPage-delete");
