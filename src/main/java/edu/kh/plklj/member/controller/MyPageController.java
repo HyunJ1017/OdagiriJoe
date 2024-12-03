@@ -190,13 +190,13 @@ public class MyPageController {
 		Member getArtistInfo = service.getArtistInfo(memberNo);
 		log.info("getArtistInfo : {}", getArtistInfo);
 		if(getArtistInfo != null) {
-			if(getArtistInfo.getArtistReg().equals("N")) {
+			if(getArtistInfo.getArtistReg().equals("N") || getArtistInfo.getArtistReg().equals("D")) {
 				model.addAttribute("message", "이전 신청내역이 아직 처리중입니다.");
 				model.addAttribute("artist", getArtistInfo);
 				log.info("artist 모델세팅함 : {}", getArtistInfo);
 			} else {
 				ra.addFlashAttribute("message", "신청내역이 승인되셨습니다. 다시 로그인 해 주세요");
-				return "redirect:/member/logout";
+				return "redirect:/member/login/logout";
 			}
 		}
 		
@@ -480,13 +480,10 @@ public class MyPageController {
 	@PostMapping("getSalesConfirmation")
 	@ResponseBody
 	public Map<String, Object> getSalesConfirmation(
-			@RequestBody Map<String, String> map) {
-		
-		int memberNo = Integer.parseInt( map.get("memberNo") );
-		String selectedMonth = map.get("selectedMonth");
+			@RequestBody Map<String, Object> map) {
 		
 		// 월별 작가 판매작품 및 총액
-		Map<String, Object> resultMap = service.getSalesConfirmation(memberNo, selectedMonth);
+		Map<String, Object> resultMap = service.getSalesConfirmation(map);
 		
 		return resultMap;
 	}

@@ -33,7 +33,7 @@ button {
 
 /* 메인 컨테이너 */
 .main-container {
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -45,6 +45,7 @@ button {
   color: #414141;
   font-size: 22px;
   margin-bottom: 0.5em;
+  margin-top: 40%;
 }
 
 /* 구분선 */
@@ -102,9 +103,9 @@ option {
 .calendar-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 35%;
-  margin: 0% 0% 0% 2%;
+  justify-content: space-evenly;
+  width: 60%;
+  margin: 0% 2% 0% 2%;
   color: #ffffff;
 }
 .search {

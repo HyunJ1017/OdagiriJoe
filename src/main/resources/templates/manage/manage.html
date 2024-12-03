@@ -12,40 +12,39 @@
 
 <body>
   <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
+  <main>
 
-  <section class="main-content">
+  <section>
+    <!-- 콘텐츠를 가로로 정렬할 컨테이너 -->
     <section class="tab-buttons">
+      <h2 class="request-section dash">대시보드</h2>
       <button class="tab-btn" id="visitor-btn" data-target="visitor">방문자 현황</button>
       <button class="tab-btn" id="trade-btn" data-target="trade">거래 현황</button>
       <button class="tab-btn" id="artwork-btn" data-target="artwork">작품 현황</button>
     </section>
-
-      <!-- 콘텐츠를 가로로 정렬할 컨테이너 -->
-      <section>
-        <h2>대시보드</h2>
-        <div class="custom-line"></div>
-        <div class="content-row">
-          <!-- 방문자 현황 -->
-          <div class="tab-content active" id="visitor">
-            <div class="chart-container">
-              <canvas id="dashboardChart">방문자 차트</canvas>
-            </div>
-            <div class="data-table">
-              <h3>일자별 요약</h3>
-              <table>
-                <thead>
-                  <tr>
-                    <th>일자</th>
-                    <th>방문자</th>
-                  </tr>
-                </thead>
-                <tbody id="tableBody">
-                  <!-- 데이터 렌더링 -->
-                </tbody>
-              </table>
-            </div>
+    <div class="custom-line"></div>
+    <section class="main-content">
+      <div class="content-row">
+        <!-- 방문자 현황 -->
+        <div class="tab-content active" id="visitor">
+          <div class="chart-container">
+            <canvas id="dashboardChart">방문자 차트</canvas>
           </div>
-      
+          <div class="data-table">
+            <h3>일자별 요약</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>일자</th>
+                  <th>방문자</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody">
+                <!-- 데이터 렌더링 -->
+              </tbody>
+            </table>
+          </div>
+        </div>
           <!-- 거래 현황 -->
           <div class="tab-content" id="trade">
             <div class="chart-container">
@@ -91,29 +90,6 @@
       </section>
       
 
-        <!-- 작품 현황 -->
-        <div class="tab-content" id="artwork">
-          <div class="chart-container">
-            <canvas id="artworkChart">작품 현황 차트</canvas>
-          </div>
-        </div>
-        <div class="data-table">
-          <h3>일자별 요약</h3>
-          <table>
-            <thead id="tableHeader">
-              <tr>
-                <th>일자</th>
-                <th>주문</th>
-            </thead>
-            <tbody id="artworkTableBody">
-              <!-- 데이터 렌더링 -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="custom-line"></div>
-    </section>
-
     <!-- 작가 및 회원 관리 섹션 -->
     <div id="memberManage"></div><!-- 사이드바스크롤 -->
     <h2 class="request-section">작가 및 회원 관리</h2>
@@ -141,7 +117,6 @@
       </div>
       <!-- 페이지네이션 -->
       <div class="pagination-box" id="paginationBoxArtist"></div>
-      <div class="custom-line"></div>
 
 
       <!-- 오른쪽 섹션: 회원 요약 -->
@@ -160,12 +135,12 @@
     </section>
     <!-- 페이지네이션 -->
     <div class="pagination-box" id="paginationBoxMember">
-      <div class="custom-line"></div>
     </div>
 
 
     <!-- 콘텐츠 관리 -->
     <div id="contentsManage"></div>
+    <div class="custom-line"></div>
     <h2 class="request-section">콘텐츠 관리</h2>
     <div class="custom-line"></div>
     <section class="contents-manage" id="contentGrid">
@@ -173,11 +148,11 @@
     </section>
     <!-- 페이지네이션 -->
     <div class="pagination-box" id="paginationBoxContent">
-      <div class="custom-line"></div>
     </div>
 
 
     <div id="approval"></div>
+    <div class="custom-line"></div>
     <!-- 승인 요청 내역 -->
     <h2 class="request-section">승인 요청 내역</h2>
     <div class="custom-line"></div>
@@ -206,6 +181,7 @@
 
     <!--공지사항 -->
     <div id="noticeN"></div>
+    <div class="custom-line"></div>
     <h2 id="noticeNN" class="request-section">공지사항</h2>
     <div class="custom-line"></div>
     <section class="notice-section" id="noticeGrid">
@@ -279,13 +255,14 @@
         </thead>
         <tbody id="sales-table-body">
           <!-- 추가 행들 -->
+          <div class="custom-line"></div>
         </tbody>
       </table>
-      <div class="custom-line"></div>
     </section>
 
     <!-- 1 : 1 문의 -->
     <div id="onequestion"></div>
+    <div class="custom-line"></div>
     <h2 class="request-section">1 : 1 문의</h2>
     <div class="custom-line"></div>
     <!-- 드롭다운 -->
@@ -414,6 +391,7 @@
     </section>
     <div class="pagination-box" id="paginationDelivery"></div>
   </section>
+</main>
   <th:block th:replace="~{/manage/reportPopup.html}"></th:block>
   <script src="/js/manage/manage.js"></script>
   <script src="/js/manage/suspend.js"></script>
