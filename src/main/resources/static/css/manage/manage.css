@@ -64,29 +64,28 @@ body {
   flex-direction: row;
   margin-left: 250px;
   justify-content: space-around;
-  /* width: 1500px; */
 }
 
 .chart-container {
-  width: 500px;
-  overflow-x: auto;
-  margin-left: 50px;
-  border: 1px solid #ddd;
+  height: 100%;
+  width: 50%;
+  border: 1px solid #dddd;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  border-radius: 5px;
 }
 
 .data-table {
-  width: 500px;
+  width: 46%;
   overflow-x: auto;
-  margin-left: 50pxpx;
   border: 1px solid #ddd;
+  padding: 2%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  margin: 0 2% 0 2%;
+  flex-wrap: wrap;
 }
 
 
-table {
+#visitor table {
   width: 100%;
   border-collapse: collapse;
 }
@@ -95,17 +94,18 @@ h3 {
   margin-bottom: 10px;
 }
 
-th,
-td {
+#visitor th,
+#visitor td {
   padding: 2%;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
 
-th {
+#visitor th {
   background-color: #717a77c2;
   color: white;
 }
+
 
 /* 작가 및 회원 관리 스타일 */
 h2 {
@@ -186,15 +186,15 @@ h2 {
   cursor: pointer;
 }
 
+.btn:hover {
+  background-color: #5e7c71;
+  color: white;
+}
+
 .withdraw-btn {
   background-color: #5e7c71;
   color: white;
 
-}
-
-.btn:hover {
-  background-color: #5e7c71;
-  color: white;
 }
 
 /* 오른쪽 섹션: 회원 요약 스타일 */
@@ -296,9 +296,7 @@ h2 {
 
 }
 
-.view-button,
-.warn-button,
-.release-button {
+.view-button{
     padding: 9px 50px;
     border: none;
     border-radius: 4px;
@@ -312,24 +310,6 @@ h2 {
     margin-top: 40px;
 }
 
-.warn-button {
-  background-color: white;
-  color: #4A7A5C;
-  border: 1px solid #5e7c71;
-
-}
-
-.release-button {
-  background-color: white;
-  color: #4A7A5C;
-  border: 1px solid #5e7c71;
-
-}
-
-
-/* .content-grid>.content-grid:first-child {
-    border-right: 0.3px solid grey;
-} */
 
 /* 승인 요구 내역 */
 .request-grid {
@@ -399,14 +379,6 @@ h2 {
   background-color: white;
   transition: background-color 0.3s, color 0.3s;
 
-}
-
-.approve-button {
-  background-color: white;
-}
-
-.reject-button {
-  background-color: white;
 }
 
 .two-btn {
@@ -516,9 +488,7 @@ h2 {
 
 /* 1대1문의 토글 */
 /* 1:1 문의 전체 섹션 스타일 */
-.inquiry-section {
-    font-family: Arial, sans-serif;
-  }
+
   
   /* 문의 항목 스타일 */
   .inquiry-row {
@@ -549,20 +519,6 @@ h2 {
   margin-bottom: 10px;
   display: flex;
   align-items: center;
-}
-
-.icon {
-  margin-right: 8px;
-  font-size: 20px;
-}
-
-.details {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  /* 문의 내용과 답변 내용 간격 */
-  margin-top: 10px;
-
 }
 
 
@@ -730,11 +686,6 @@ h2 {
   cursor: pointer;
 }
 
-.icon {
-  font-size: 20px;
-  color: #3A4F48;
-  margin-right: 40px;
-}
 
 .notice-question {
     font-size: 17px;
@@ -765,12 +716,7 @@ h2 {
 }
 
 
-.label {
-  font-size: 14px;
-  color: #5e7c71;
-  margin-top: 20px;
 
-}
 
 /* 작가 환전 */
 .sales-section {
@@ -782,8 +728,7 @@ h2 {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-h1,
-h2 {
+h1 {
   color: #3A4F48;
   margin-bottom: 20px;
 }
@@ -942,11 +887,7 @@ h2 {
   border-bottom: none;
 }
 
-.icon {
-  font-size: 20px;
-  color: #3A4F48;
-  margin-right: 40px;
-}
+
 
 .content {
   font-size: 20px;
@@ -1061,7 +1002,7 @@ margin-right: 700px;
   .toggle-btn:hover {
     background-color: #e0e0e0; /* 호버 시 배경색 변경 */
   }
-
+ 
   #noticeGrid {
     display: block !important;
     visibility: visible !important;
@@ -1072,31 +1013,4 @@ margin-right: 700px;
     padding: 2px;
   }
 
-  .request-section {
-    padding: 6% 0 0 0;
-  }
-  /* 공지사항  */
-/*   .notice-item {
-    max-width: 1000px;
-    max-height: 700px;
-    margin: 20px 250px;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .notice-title {
-    cursor: pointer;
-    font-size: 20px;
-  }
-  
-  .notice-content {
-    display: none;
-    padding-top: 10px;
-  }
-  
-  .toggle-icon {
-    margin-right: 5px;
-  } */
 

@@ -195,3 +195,34 @@
   background-color: #7e9a8d;
   transform: scale(1.05); /* 버튼 살짝 커짐 */
 }
+
+
+/* Keyword Buttons */
+#chatbot-keywords {
+  display: flex;
+  flex-wrap: wrap; /* 여러 줄로 배치 */
+  justify-content: center; /* 가운데 정렬 */
+  gap: 10px; /* 버튼 간격 */
+  padding: 10px 15px;
+  background-color: #f7f7f7;
+}
+
+.keyword-button {
+  flex: 1 1 30%; /* 버튼 크기 설정 (30% 넓이) */
+  max-width: 110px; /* 버튼 최대 크기 제한 */
+  padding: 8px 16px;
+  background-color: #5e7c71;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.keyword-button:hover {
+  background-color: #7e9a8d;
+  transform: scale(1.1);
+}

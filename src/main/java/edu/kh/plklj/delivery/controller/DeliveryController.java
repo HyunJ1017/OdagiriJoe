@@ -50,9 +50,9 @@ public class DeliveryController {
 	
 	/* 관리자 배송 리스트 조회 */
 	@GetMapping("uploadDelivery")
-	public String selectDelivery(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
-		List<Manage> deliveryList = service.deliveryList(cp);
-		model.addAttribute("deliveryList", deliveryList); 
+	public String selectDelivery(Model model) {
+		List<Manage> deliveryList = service.deliveryList();
+		model.addAttribute("deliveryList", deliveryList);
 		return "delivery/uploadDelivery";
 	}
 	

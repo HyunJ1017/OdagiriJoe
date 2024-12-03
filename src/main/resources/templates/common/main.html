@@ -37,11 +37,11 @@
       <!-- 인디케이터 바 -->
       <!-- 이전/다음 버튼 -->
       <div class="indicator-container">
-        <button class="prev-btn" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="prev-btn" onclick="moveMainSlide(-1)">&#10094;</button>
         <div class="progress-bar-container">
           <div class="progress-bar"></div>
         </div>
-        <button class="next-btn" onclick="moveSlide(1)">&#10095;</button>
+        <button class="next-btn" onclick="moveMainSlide(1)">&#10095;</button>
       </div>
     </main>
 
@@ -117,6 +117,14 @@
           </div>
           <div id="chatbot-body">
               <div id="chat-messages" class="chat-messages"></div>
+               <!-- Keyword Buttons -->
+              <div id="chatbot-keywords">
+                <button class="keyword-button">회원가입</button>
+                <button class="keyword-button">경매방법</button>
+                <button class="keyword-button">입찰방법</button>
+                <button class="keyword-button">날씨</button>
+                <button class="keyword-button">KH</button>
+            </div>
           </div>
           <div id="chatbot-footer">
               <input type="text" id="chat-input" placeholder="궁금한 사항을 입력해주세요.">

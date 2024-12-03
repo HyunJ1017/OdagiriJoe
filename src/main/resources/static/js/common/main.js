@@ -47,15 +47,14 @@ function updateProgressBar(duration = 1000) {
 }
 
 // 이전/다음 버튼으로 슬라이드를 이동시키는 함수
-function moveSlide(n) {
+function moveMainSlide(n) {
     // 슬라이드 인덱스 업데이트 (모듈로 연산으로 순환)
     slideIndex = (slideIndex + n + totalSlides) % totalSlides;
-
     slideIndex = slideIndex >= totalSlides ? 0 : slideIndex;
   
     // 슬라이드 이동 애니메이션 설정
-    totalSlides.style.transition = 'transform 1s ease-in-out'; // 빠른 애니메이션 설정
-    totalSlides.style.transform = `translateX(-${slideIndex * slidesContainer.clientWidth / 4}px)`; // 슬라이드 이동
+    slidesContainer.style.transition = 'transform 1s ease-in-out'; // 빠른 애니메이션 설정
+    slidesContainer.style.transform = `translateX(-${slideIndex * slidesContainer.clientWidth / 4}px)`; // 슬라이드 이동
   
   // 진행 바 업데이트
   updateProgressBar(1000);
@@ -71,7 +70,7 @@ function goToSlide(index) {
 
   // 슬라이드 이동 애니메이션 설정
   slidesContainer.style.transition = 'transform 1s ease-in-out'; // 빠른 애니메이션 설정
-  slidesContainer.style.transform = `translateX(-${slideIndex * 100}vw)`; // 슬라이드 이동
+  slidesContainer.style.transform = `translateX(-${slideIndex * slidesContainer.clientWidth * 100}}vw)`; // 슬라이드 이동
 
   // 진행 바 업데이트
   updateProgressBar(1000);
@@ -80,6 +79,8 @@ function goToSlide(index) {
   clearTimeout(slideTimer); // 기존 타이머 초기화
   slideTimer = setTimeout(showSlides, 6000); // 새로운 타이머 설정
 }
+
+
 
 //-------------------------------------------------------------
 // 현재 슬라이드 인덱스 초기화
@@ -136,7 +137,6 @@ function moveSlide(n) {
 
   // 슬라이드 인덱스 업데이트 (모듈로 연산으로 순환)
   auctionsSlideIndex = (auctionsSlideIndex + n + auctionTotalSlides) % auctionTotalSlides;
-
   auctionsSlideIndex = auctionsSlideIndex >= auctionTotalSlides ? 0 : auctionsSlideIndex;
 
   // 슬라이드 이동 애니메이션 설정
