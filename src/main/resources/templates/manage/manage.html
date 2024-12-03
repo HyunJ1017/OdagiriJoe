@@ -40,6 +40,25 @@
                 </thead>
                 <tbody id="tableBody">
                   <!-- 데이터 렌더링 -->
+                  <!-- 거래 현황 -->
+                  <div class="tab-content" id="trade">
+                    <div class="chart-container">
+                      <canvas id="tradeChart">거래 현황 차트</canvas>
+                    </div>
+                  </div>
+                    <div class="data-table">
+                      <h3>일자별 요약</h3>
+                      <table>
+                        <thead id="tableHeader">
+                          <tr>
+                            <th>일자</th>
+                            <th>매출</th>
+                        </thead>
+                        <tbody id="tradeTableBody">
+                          <!-- 데이터 렌더링 -->
+                        </tbody>
+                      </table>
+                    </div>
                 </tbody>
               </table>
             </div>
@@ -47,25 +66,6 @@
           <div class="custom-line">
           </div>
           
-          <!-- 거래 현황 -->
-          <div class="tab-content" id="trade">
-            <div class="chart-container">
-              <canvas id="tradeChart">거래 현황 차트</canvas>
-            </div>
-          </div>
-            <div class="data-table">
-              <h3>일자별 요약</h3>
-              <table>
-                <thead id="tableHeader">
-                  <tr>
-                    <th>일자</th>
-                    <th>매출</th>
-                </thead>
-                <tbody id="tradeTableBody">
-                  <!-- 데이터 렌더링 -->
-                </tbody>
-              </table>
-            </div>
           <!-- 작품 현황 -->
           <div class="tab-content" id="artwork">
             <div class="chart-container">
@@ -86,11 +86,12 @@
               </table>
             </div>
           </div>
+          <div class="custom-line"></div>
       </section>
 
       <!-- 작가 및 회원 관리 섹션 -->
       <div id="memberManage"></div><!-- 사이드바스크롤 -->
-      <h2>작가 및 회원 관리</h2>
+      <h2 class="request-section">작가 및 회원 관리</h2>
       <div class="custom-line"></div>
       <div class="button-group">
         <button id="show-artist" class="toggle-btn">작가 보기</button>
@@ -115,7 +116,6 @@
         </div>
         <!-- 페이지네이션 -->
         <div class="pagination-box" id="paginationBoxArtist"></div>
-        <div class="custom-line"></div>
 
         <!-- 오른쪽 섹션: 회원 요약 -->
         <div class="member-list" id="member-list">
@@ -139,10 +139,9 @@
 
       <!-- 콘텐츠 관리 -->
       <div id="contentsManage"></div>
-      <h2>콘텐츠 관리</h2>
+      <h2 class="request-section">콘텐츠 관리</h2>
       <div class="custom-line"></div>
       <section class="contents-manage" id="contentGrid">
-
       </section>
       <!-- 페이지네이션 -->
       <div class="pagination-box" id="paginationBoxContent">
@@ -152,7 +151,7 @@
 
       <div id="approval"></div>
       <!-- 승인 요청 내역 -->
-      <h2>승인 요청 내역</h2>
+      <h2 class="request-section">승인 요청 내역</h2>
       <div class="custom-line"></div>
       <section class="accept-list">
         <div class="request-grid" id="requestGrid">
@@ -179,7 +178,7 @@
 
       <!--공지사항 -->
       <div id="noticeN"></div>
-      <h2 id="noticeNN">공지사항</h2>
+      <h2 id="noticeNN" class="request-section">공지사항</h2>
       <div class="custom-line"></div>
       <section class="notice-section" id="noticeGrid">
         <div class="notice-header">
@@ -210,7 +209,7 @@
 
       <!-- 작가 환전 -->
       <div id="back"></div><!-- 사이드바 스크롤 -->
-      <h2>작가 환전</h2>
+      <h2 class="request-section">작가 환전</h2>
       <div class="custom-line"></div>
       <section class="sales-section">
         <div class="writer-header">
@@ -259,7 +258,7 @@
 
       <!-- 1 : 1 문의 -->
       <div id="onequestion"></div>
-      <h2>1 : 1 문의</h2>
+      <h2 class="request-section">1 : 1 문의</h2>
       <div class="custom-line"></div>
       <!-- 드롭다운 -->
       <div class="filter-container">
@@ -298,7 +297,7 @@
       <div class="custom-line"></div>
 
       <!-- 배송 상태 변경 -->
-      <h2 id="delivery">배송 상태 변경</h2>
+      <h2 id="delivery" class="request-section">배송 상태 변경</h2>
       <section class="main-container">
         <div class="session-container">
         </div>
@@ -331,7 +330,7 @@
           </thead>
           <tbody class="table-content" id="delivery-tbody">
             <!-- 반복문으로 데이터 렌더링 -->
-            <tr th:each="manage : ${deliveryList}" th:id="'row-' + ${manage.deliveryNo}">
+            <!-- <tr th:each="manage : ${deliveryList}" th:id="'row-' + ${manage.deliveryNo}">
               <th>
                 <input type="checkbox" class="filter-checkbox" th:data-delivery-no="${manage.deliveryNo}"
                   th:checked="false" />
@@ -340,13 +339,11 @@
               <td th:text="${manage.deliveryDate}" class="deliveryDate">주문 일자</td>
               <td th:text="${manage.pieceTitle}">작품 제목</td>
       
-              <!-- 입찰 금액 -->
               <td
                 th:text="${manage.pieceType == 1 ? manage.sellPrice + ' 원' : (manage.pieceType == 2 ? manage.endPrice + ' 원' : '')}">
                 입찰 금액</td>
               <td th:text="${manage.deliveryAddress}">주소</td>
       
-              <!-- 배송 예정 일자 -->
               <td>
                 <input type="date" class="calendarin deliveryIngDate"
                   th:if="${manage.deliveryAddress != null && manage.deliveryIngDate == null}"
@@ -356,7 +353,6 @@
                   th:value="${manage.deliveryIngDate}" th:data-key="${manage.deliveryNo}" disabled />
               </td>
       
-              <!-- 배송 완료 일자 -->
               <td>
                 <input type="date" class="calendarin deliveryEndDate deliveryCurDate"
                   th:if="${manage.deliveryAddress != null && manage.deliveryEndDate == null}"
@@ -366,7 +362,6 @@
                   th:value="${manage.deliveryEndDate}" th:data-key="${manage.deliveryNo}" disabled />
               </td>
       
-              <!-- 정렬 방식 -->
               <td class="arr-container">
                 <select class="sort-select" th:data-key="${manage.deliveryNo}" onChange="onSortChange(event)"
                   th:disabled="${manage.deliveryAddress == null}">
@@ -380,7 +375,7 @@
                     th:disabled="${manage.deliveryAddress == null}"> 배송 완료 </option>
                 </select>
               </td>
-            </tr>
+            </tr> -->
           </tbody>
         </table>
       </section>
