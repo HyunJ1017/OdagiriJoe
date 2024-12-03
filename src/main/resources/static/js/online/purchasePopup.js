@@ -76,7 +76,7 @@ paymentBtn.addEventListener("click", () => {
     return;
   }
   payPhone = onlyNumbers;
-  payName = loginName;
+  payName = loginName; 
   pieceTitle = document.querySelector("#pieceTitle").value;
   payAmount = document.querySelector("#payAmount").value;
   const urlParams = new URLSearchParams(window.location.search);
@@ -154,7 +154,7 @@ const notified = async (response) => {
     memberNo: memberNo,
     pieceNo: pieceNo,
     payAmount: payAmount,
-    payName: payName,
+    payName: loginName,
     payPhone: payPhone,
     deliveryType: deliveryType,
     deliveryAddress: deliveryAddress
