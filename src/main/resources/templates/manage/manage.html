@@ -13,182 +13,181 @@
 <body>
   <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
 
-    <section class="main-content">
-      <section class="tab-buttons">
-        <button class="tab-btn" id="visitor-btn" data-target="visitor">방문자 현황</button>
-        <button class="tab-btn" id="trade-btn" data-target="trade">거래 현황</button>
-        <button class="tab-btn" id="artwork-btn" data-target="artwork">작품 현황</button>
-      </section>
+  <section class="main-content">
+    <section class="tab-buttons">
+      <button class="tab-btn" id="visitor-btn" data-target="visitor">방문자 현황</button>
+      <button class="tab-btn" id="trade-btn" data-target="trade">거래 현황</button>
+      <button class="tab-btn" id="artwork-btn" data-target="artwork">작품 현황</button>
+    </section>
 
-      <!-- 콘텐츠를 가로로 정렬할 컨테이너 -->
-      <section>
-        <h2>대시보드</h2>
-        <div class="custom-line"></div>
-        <div class="content-row">
-          <!-- 방문자 현황 -->
-          <div class="tab-content active" id="visitor">
-            <div class="chart-container">
-              <canvas id="dashboardChart">방문자 차트</canvas>
-            </div>
-            <div class="data-table">
-              <h3>일자별 요약</h3>
-              <table>
-                <thead id="tableHeader">
-                  <tr>
-                    <th>일자</th>
-                    <th>방문자</th>
-                </thead>
-                <tbody id="tableBody">
-                  <!-- 데이터 렌더링 -->
-                  <!-- 거래 현황 -->
-                  <div class="tab-content" id="trade">
-                    <div class="chart-container">
-                      <canvas id="tradeChart">거래 현황 차트</canvas>
-                    </div>
-                  </div>
-                    <div class="data-table">
-                      <h3>일자별 요약</h3>
-                      <table>
-                        <thead id="tableHeader">
-                          <tr>
-                            <th>일자</th>
-                            <th>매출</th>
-                        </thead>
-                        <tbody id="tradeTableBody">
-                          <!-- 데이터 렌더링 -->
-                        </tbody>
-                      </table>
-                    </div>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="custom-line">
-          </div>
-          
-          <!-- 작품 현황 -->
-          <div class="tab-content" id="artwork">
-            <div class="chart-container">
-              <canvas id="artworkChart">작품 현황 차트</canvas>
-            </div>
-          </div>
-            <div class="data-table">
-              <h3>일자별 요약</h3>
-              <table>
-                <thead id="tableHeader">
-                  <tr>
-                    <th>일자</th>
-                    <th>주문</th>
-                </thead>
-                <tbody id="artworkTableBody">
-                  <!-- 데이터 렌더링 -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="custom-line"></div>
-      </section>
-
-      <!-- 작가 및 회원 관리 섹션 -->
-      <div id="memberManage"></div><!-- 사이드바스크롤 -->
-      <h2 class="request-section">작가 및 회원 관리</h2>
+    <!-- 콘텐츠를 가로로 정렬할 컨테이너 -->
+    <section>
+      <h2>대시보드</h2>
       <div class="custom-line"></div>
-      <div class="button-group">
-        <button id="show-artist" class="toggle-btn">작가 보기</button>
-        <button id="show-member" class="toggle-btn">회원 보기</button>
-      </div>
-      <section class="writer-row">
+      <div class="content-row">
+        <!-- 방문자 현황 -->
+        <div class="tab-content active" id="visitor">
+          <div class="chart-container">
+            <canvas id="dashboardChart">방문자 차트</canvas>
+          </div>
+          <div class="data-table">
+            <h3>일자별 요약</h3>
+            <table>
+              <thead id="tableHeader">
+                <tr>
+                  <th>일자</th>
+                  <th>방문자</th>
+              </thead>
+              <tbody id="tableBody">
+                <!-- 데이터 렌더링 -->
+                <!-- 거래 현황 -->
+                <div class="tab-content" id="trade">
+                  <div class="chart-container">
+                    <canvas id="tradeChart">거래 현황 차트</canvas>
+                  </div>
+                </div>
+                <div class="data-table">
+                  <h3>일자별 요약</h3>
+                  <table>
+                    <thead id="tableHeader">
+                      <tr>
+                        <th>일자</th>
+                        <th>매출</th>
+                    </thead>
+                    <tbody id="tradeTableBody">
+                      <!-- 데이터 렌더링 -->
+                    </tbody>
+                  </table>
+                </div>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="custom-line">
+        </div>
 
-        <!-- 왼쪽 섹션: 작가 리스트 -->
-        <div class="member-list" id="artist-list">
-          <div class="artist-item" data-member-no="123">
-            <img src="/images/profile/profile1.jpg" alt="작가 이미지">
-            <div class="artist-info">
-              <h3>박현준 | 작가</h3>
-              <p>경매 금액: ₩20,000,000</p>
-              <p>판매 금액: ₩980,000,000</p>
+        <!-- 작품 현황 -->
+        <div class="tab-content" id="artwork">
+          <div class="chart-container">
+            <canvas id="artworkChart">작품 현황 차트</canvas>
+          </div>
+        </div>
+        <div class="data-table">
+          <h3>일자별 요약</h3>
+          <table>
+            <thead id="tableHeader">
+              <tr>
+                <th>일자</th>
+                <th>주문</th>
+            </thead>
+            <tbody id="artworkTableBody">
+              <!-- 데이터 렌더링 -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="custom-line"></div>
+    </section>
+
+    <!-- 작가 및 회원 관리 섹션 -->
+    <div id="memberManage"></div><!-- 사이드바스크롤 -->
+    <h2 class="request-section">작가 및 회원 관리</h2>
+    <div class="custom-line"></div>
+    <div class="button-group">
+      <button id="show-artist" class="toggle-btn">작가 보기</button>
+      <button id="show-member" class="toggle-btn">회원 보기</button>
+    </div>
+    <section class="writer-row">
+
+      <!-- 왼쪽 섹션: 작가 리스트 -->
+      <div class="member-list" id="artist-list">
+        <div class="artist-item" data-member-no="123">
+          <img src="/images/profile/profile1.jpg" alt="작가 이미지">
+          <div class="artist-info">
+            <h3>박현준 | 작가</h3>
+            <p>경매 금액: ₩20,000,000</p>
+            <p>판매 금액: ₩980,000,000</p>
+          </div>
+          <div class="artist-actions">
+            <button class="btn artist-suspend-btn">정지</button>
+            <button class="btn artist-withdraw-btn">탈퇴</button>
+          </div>
+        </div>
+      </div>
+      <!-- 페이지네이션 -->
+      <div class="pagination-box" id="paginationBoxArtist"></div>
+      <div class="custom-line"></div>
+
+      <!-- 오른쪽 섹션: 회원 요약 -->
+      <div class="member-list" id="member-list">
+        <div class="member-summary" data-member-no="123">
+          <div class="summary-item">
+            <h3>박현준 | 회원</h3>
+            <p>경매 금액: ₩1,890,000,000</p>
+            <div class="summary-actions">
+              <button class="btn member-suspend-btn">정지</button>
+              <button class="btn member-withdraw-btn">탈퇴</button>
             </div>
-            <div class="artist-actions">
-              <button class="btn artist-suspend-btn">정지</button>
-              <button class="btn artist-withdraw-btn">탈퇴</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- 페이지네이션 -->
+    <div class="pagination-box" id="paginationBoxMember">
+      <div class="custom-line"></div>
+    </div>
+
+
+    <!-- 콘텐츠 관리 -->
+    <div id="contentsManage"></div>
+    <h2 class="request-section">콘텐츠 관리</h2>
+    <div class="custom-line"></div>
+    <section class="contents-manage" id="contentGrid">
+    </section>
+    <!-- 페이지네이션 -->
+    <div class="pagination-box" id="paginationBoxContent">
+      <div class="custom-line"></div>
+    </div>
+
+
+    <div id="approval"></div>
+    <!-- 승인 요청 내역 -->
+    <h2 class="request-section">승인 요청 내역</h2>
+    <div class="custom-line"></div>
+    <section class="accept-list">
+      <div class="request-grid" id="requestGrid">
+        <div class="request-card">
+          <img src="image1.jpg" alt="박현준" class="profile-image">
+          <div class="info">
+            <h2>박현준</h2>
+            <div class="action-buttons">
+              <div class="detail-btn">
+                <button class="detail-button">정보 상세보기</button>
+              </div>
+              <div class="two-btn">
+                <button class="approve-button">승인</button>
+                <button class="reject-button">거절</button>
+              </div>
             </div>
           </div>
         </div>
         <!-- 페이지네이션 -->
-        <div class="pagination-box" id="paginationBoxArtist"></div>
-        <div class="custom-line"></div>
-
-        <!-- 오른쪽 섹션: 회원 요약 -->
-        <div class="member-list" id="member-list">
-          <div class="member-summary" data-member-no="123">
-            <div class="summary-item">
-              <h3>박현준 | 회원</h3>
-              <p>경매 금액: ₩1,890,000,000</p>
-              <div class="summary-actions">
-                <button class="btn member-suspend-btn">정지</button>
-                <button class="btn member-withdraw-btn">탈퇴</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- 페이지네이션 -->
-      <div class="pagination-box" id="paginationBoxMember">
-        <div class="custom-line"></div>
-      </div>
-
-
-      <!-- 콘텐츠 관리 -->
-      <div id="contentsManage"></div>
-      <h2 class="request-section">콘텐츠 관리</h2>
+    </section>
+    <div class="pagination-box" id="paginationBoxRequest">
       <div class="custom-line"></div>
-      <section class="contents-manage" id="contentGrid">
+    </div>
 
-      </section>
-      <!-- 페이지네이션 -->
-      <div class="pagination-box" id="paginationBoxContent">
-        <div class="custom-line"></div>
+    <!--공지사항 -->
+    <div id="noticeN"></div>
+    <h2 id="noticeNN" class="request-section">공지사항</h2>
+    <div class="custom-line"></div>
+    <section class="notice-section" id="noticeGrid">
+      <div class="notice-header">
+        <button class="add-button" onclick="window.location.href='/manage/write'">작성하기</button>
       </div>
-
-
-      <div id="approval"></div>
-      <!-- 승인 요청 내역 -->
-      <h2 class="request-section">승인 요청 내역</h2>
-      <div class="custom-line"></div>
-      <section class="accept-list">
-        <div class="request-grid" id="requestGrid">
-          <div class="request-card">
-            <img src="image1.jpg" alt="박현준" class="profile-image">
-            <div class="info">
-              <h2>박현준</h2>
-              <div class="action-buttons">
-                <div class="detail-btn">
-                  <button class="detail-button">정보 상세보기</button>
-                </div>
-                <div class="two-btn">
-                  <button class="approve-button">승인</button>
-                  <button class="reject-button">거절</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- 페이지네이션 -->
-      </section>
-      <div class="pagination-box" id="paginationBoxRequest">
-        <div class="custom-line"></div>
-      </div>
-
-      <!--공지사항 -->
-      <div id="noticeN"></div>
-      <h2 id="noticeNN" class="request-section">공지사항</h2>
-      <div class="custom-line"></div>
-      <section class="notice-section" id="noticeGrid">
-        <div class="notice-header">
-          <button class="add-button" onclick="window.location.href='/manage/write'">작성하기</button>
-        </div>
-        <ul class="-noticelist">
-          <li class="notice-item">
-            <!-- <div class="notice-row">
+      <ul class="-noticelist">
+        <li class="notice-item">
+          <!-- <div class="notice-row">
               <span class="icon">&#9654;</span>
               <span class="notice-question">공지사항</span>
             </div>
@@ -200,202 +199,203 @@
               <button class="revise-button" onclick="window.location.href='/manage/revise'">수정하기</button>
               <button class="erase-button">삭제하기</button>
             </div> -->
-          </li>
-          </div>
-        </ul>
-      </section>
-      <div class="pagination-box" id="paginationBoxNotice"></div>
-      <div class="custom-line"></div>
-
-
-
-      <!-- 작가 환전 -->
-      <div id="back"></div><!-- 사이드바 스크롤 -->
-      <h2 class="request-section">작가 환전</h2>
-      <div class="custom-line"></div>
-      <section class="sales-section">
-        <div class="writer-header">
-          <h3>작가 판매 목록</h3>
-          <div class="select-buttons">
-            <button class="select-btn" id="slaes-excelBtn">선택 엑셀 출력</button>
-            <button class="hold-btn" id="sales-completedBtn">선택 완료 처리</button>
-          </div>
+        </li>
         </div>
-        <div class="status-info">
-          <div class="info-box" id="total-list">전체 목록</div>
-          <div class="info-box">전체 <span class="count" id="total-count">0건</span></div>
-          <div class="info-box">대기 <span class="count" id="wait-count">0건</span></div>
-          <div class="info-box">완료 <span class="count" id="completed-count">0건</span></div>
-          <div class="info-box">보류 <span class="count" id="hold-count">0건</span></div>
-        </div>
-        <div class="search-section">
-          <div class="search-box">
-            <label for="artist-id">작가명</label>
-            <input type="text" id="artist-id" placeholder="작가명 입력">
-          </div>
-          <div class="month-select">
-            <label for="selectMonth">월별 검색</label>
-            <input type="month" id="selectMonth">
-          </div>
-        </div>
-        <table class="sales-table">
-          <thead>
-            <tr>
-              <th><input type="checkbox" id="sales-selectAll"></th>
-              <th>작가</th>
-              <th>판매 작품 수</th>
-              <th>은행</th>
-              <th>입금계좌번호</th>
-              <th>총 판매 금액</th>
-              <th>수수료 (%)</th>
-              <th>입금 상태</th>
-            </tr>
-          </thead>
-          <tbody id="sales-table-body">
-            <!-- 추가 행들 -->
-          </tbody>
-        </table>
-        <div class="custom-line"></div>
-      </section>
-
-      <!-- 1 : 1 문의 -->
-      <div id="onequestion"></div>
-      <h2 class="request-section">1 : 1 문의</h2>
-      <div class="custom-line"></div>
-      <!-- 드롭다운 -->
-      <div class="filter-container">
-        <select id="questionFilter" class="question-filter">
-          <option value="all">전체보기</option>
-          <option value="1">일반문의</option>
-          <option value="2">배송 및 운탁문의</option>
-        </select>
-      </div>
-      <section class="inquiry-section" id="questionGrid">
-        <ul class="inquiry-list">
-          <li class="inquiry-item">
-            <div class="inquiry-row">
-              <span class="icon">&#9654;</span>
-              <span class="inquiry">1 : 1 문의</span>
-            </div>
-            <div class="details" style="display: none;">
-              <label for="inquiry-content" class="label">문의 내용</label>
-              <input type="text" id="inquiry-content" class="inquiry-content" placeholder="문의 내용을 입력하세요">
-
-              <label for="response-content" class="label">답변</label>
-              <input type="text" id="response-content" class="response-content" placeholder="답변 내용을 입력하세요">
-
-              <div class="inquiry-buttons" style="display: none;">
-                <button class="answer-button">답변하기</button>
-                <button class="delete-button">삭제하기</button>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </section>
-      <ul id="questionGrid" class="inquiry-list">
-        <!-- 문의 내용이 동적으로 추가될 예정 -->
       </ul>
-      <div class="pagination-box" id="paginationBoxQuestion"></div>
-      <div class="custom-line"></div>
-
-      <!-- 배송 상태 변경 -->
-      <h2 id="delivery" class="request-section">배송 상태 변경</h2>
-      <section class="main-container">
-        <div class="session-container">
-        </div>
-        <div class="custom-line"></div>
-        <div class="dateType-container">
-          <div class="calendar-container">
-            <div class="search">직접 설정 : </div>
-            <input type="date" id="start-date" min="" max="" class="calendar">
-            <p class="calendars">~</p>
-            <input type="date" id="return-date" min="" max="" class="calendar">
-            <button class="selectBtn" id="select" type="submit">조회</button>
-          </div>
-          <div class="btn-container">
-            <button class="inserttBtn" id="insert" type="submit">저장</button>
-          </div>
-        </div>
-        <table class="table-container">
-          <thead class="table-header">
-            <tr>
-              <th><input type="checkbox" id="selectAll"></th>
-              <th>송장 번호</th>
-              <th>주문 일자</th>
-              <th>작품명</th>
-              <th>입찰 금액</th>
-              <th>주소</th>
-              <th>배송 예정일</th>
-              <th>배송 완료일</th>
-              <th>주문 처리 상태</th>
-            </tr>
-          </thead>
-          <tbody class="table-content" id="delivery-tbody">
-            <!-- 반복문으로 데이터 렌더링 -->
-            <tr th:each="manage : ${deliveryList}" th:id="'row-' + ${manage.deliveryNo}">
-              <th>
-                <input type="checkbox" class="filter-checkbox" th:data-delivery-no="${manage.deliveryNo}"
-                  th:checked="false" />
-              </th>
-              <td th:text="${manage.deliveryNo}">송장번호</td>
-              <td th:text="${manage.deliveryDate}" class="deliveryDate">주문 일자</td>
-              <td th:text="${manage.pieceTitle}">작품 제목</td>
-      
-              <!-- 입찰 금액 -->
-              <td
-                th:text="${manage.pieceType == 1 ? manage.sellPrice + ' 원' : (manage.pieceType == 2 ? manage.endPrice + ' 원' : '')}">
-                입찰 금액</td>
-              <td th:text="${manage.deliveryAddress}">주소</td>
-      
-              <!-- 배송 예정 일자 -->
-              <td>
-                <input type="date" class="calendarin deliveryIngDate"
-                  th:if="${manage.deliveryAddress != null && manage.deliveryIngDate == null}"
-                  th:data-key="${manage.deliveryNo}" />
-                <input type="text" class="calendarin deliveryIngDate"
-                  th:if="${manage.deliveryAddress != null && manage.deliveryIngDate != null}"
-                  th:value="${manage.deliveryIngDate}" th:data-key="${manage.deliveryNo}" disabled />
-              </td>
-      
-              <!-- 배송 완료 일자 -->
-              <td>
-                <input type="date" class="calendarin deliveryEndDate deliveryCurDate"
-                  th:if="${manage.deliveryAddress != null && manage.deliveryEndDate == null}"
-                  th:data-key="${manage.deliveryNo}">
-                <input type="text" class="calendarin deliveryEndDate deliveryNoneDate"
-                  th:if="${manage.deliveryAddress != null && manage.deliveryEndDate != null}"
-                  th:value="${manage.deliveryEndDate}" th:data-key="${manage.deliveryNo}" disabled />
-              </td>
-      
-              <!-- 정렬 방식 -->
-              <td class="arr-container">
-                <select class="sort-select" th:data-key="${manage.deliveryNo}" onChange="onSortChange(event)"
-                  th:disabled="${manage.deliveryAddress == null}">
-                  <option onclick="none" value="0" th:selected="${manage.deliveryAddress == null || manage.deliveryStatus == 0}">방문수령
-                  </option>
-                  <option value="1" th:selected="${manage.deliveryAddress != null && manage.deliveryStatus == 1}"
-                    th:disabled="${manage.deliveryAddress == null}"> 배송 준비중 </option>
-                  <option value="2" th:selected="${manage.deliveryAddress != null && manage.deliveryStatus == 2}"
-                    th:disabled="${manage.deliveryAddress == null}"> 배송중</option>
-                  <option value="3" th:selected="${manage.deliveryAddress != null && manage.deliveryStatus == 3}"
-                    th:disabled="${manage.deliveryAddress == null}"> 배송 완료 </option>
-                </select>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-    <div class="pagination-box" id="paginationDelivery"></div>
     </section>
-    <th:block th:replace="~{/manage/reportPopup.html}"></th:block>
-    <script src="/js/manage/manage.js"></script>
-    <script src="/js/manage/suspend.js"></script>
-    <script src="/js/manage/notice.js"></script>
-    <script src="/js/delivery/uploadDelivery.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <div class="pagination-box" id="paginationBoxNotice"></div>
+    <div class="custom-line"></div>
 
-    <script src="/js/manage/manage1.js"></script>
+
+
+    <!-- 작가 환전 -->
+    <div id="back"></div><!-- 사이드바 스크롤 -->
+    <h2 class="request-section">작가 환전</h2>
+    <div class="custom-line"></div>
+    <section class="sales-section">
+      <div class="writer-header">
+        <h3>작가 판매 목록</h3>
+        <div class="select-buttons">
+          <button class="select-btn" id="slaes-excelBtn">선택 엑셀 출력</button>
+          <button class="hold-btn" id="sales-completedBtn">선택 완료 처리</button>
+        </div>
+      </div>
+      <div class="status-info">
+        <div class="info-box" id="total-list">전체 목록</div>
+        <div class="info-box">전체 <span class="count" id="total-count">0건</span></div>
+        <div class="info-box">대기 <span class="count" id="wait-count">0건</span></div>
+        <div class="info-box">완료 <span class="count" id="completed-count">0건</span></div>
+        <div class="info-box">보류 <span class="count" id="hold-count">0건</span></div>
+      </div>
+      <div class="search-section">
+        <div class="search-box">
+          <label for="artist-id">작가명</label>
+          <input type="text" id="artist-id" placeholder="작가명 입력">
+        </div>
+        <div class="month-select">
+          <label for="selectMonth">월별 검색</label>
+          <input type="month" id="selectMonth">
+        </div>
+      </div>
+      <table class="sales-table">
+        <thead>
+          <tr>
+            <th><input type="checkbox" id="sales-selectAll"></th>
+            <th>작가</th>
+            <th>판매 작품 수</th>
+            <th>은행</th>
+            <th>입금계좌번호</th>
+            <th>총 판매 금액</th>
+            <th>수수료 (%)</th>
+            <th>입금 상태</th>
+          </tr>
+        </thead>
+        <tbody id="sales-table-body">
+          <!-- 추가 행들 -->
+        </tbody>
+      </table>
+      <div class="custom-line"></div>
+    </section>
+
+    <!-- 1 : 1 문의 -->
+    <div id="onequestion"></div>
+    <h2 class="request-section">1 : 1 문의</h2>
+    <div class="custom-line"></div>
+    <!-- 드롭다운 -->
+    <div class="filter-container">
+      <select id="questionFilter" class="question-filter">
+        <option value="all">전체보기</option>
+        <option value="1">일반문의</option>
+        <option value="2">배송 및 운탁문의</option>
+      </select>
+    </div>
+    <section class="inquiry-section" id="questionGrid">
+      <ul class="inquiry-list">
+        <li class="inquiry-item">
+          <div class="inquiry-row">
+            <span class="icon">&#9654;</span>
+            <span class="inquiry">1 : 1 문의</span>
+          </div>
+          <div class="details" style="display: none;">
+            <label for="inquiry-content" class="label">문의 내용</label>
+            <input type="text" id="inquiry-content" class="inquiry-content" placeholder="문의 내용을 입력하세요">
+
+            <label for="response-content" class="label">답변</label>
+            <input type="text" id="response-content" class="response-content" placeholder="답변 내용을 입력하세요">
+
+            <div class="inquiry-buttons" style="display: none;">
+              <button class="answer-button">답변하기</button>
+              <button class="delete-button">삭제하기</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <ul id="questionGrid" class="inquiry-list">
+      <!-- 문의 내용이 동적으로 추가될 예정 -->
+    </ul>
+    <div class="pagination-box" id="paginationBoxQuestion"></div>
+    <div class="custom-line"></div>
+
+    <!-- 배송 상태 변경 -->
+    <h2 id="delivery" class="request-section">배송 상태 변경</h2>
+    <section class="main-container">
+      <div class="session-container">
+      </div>
+      <div class="custom-line"></div>
+      <div class="dateType-container">
+        <div class="calendar-container">
+          <div class="search">직접 설정 : </div>
+          <input type="date" id="start-date" min="" max="" class="calendar">
+          <p class="calendars">~</p>
+          <input type="date" id="return-date" min="" max="" class="calendar">
+          <button class="selectBtn" id="select" type="submit">조회</button>
+        </div>
+        <div class="btn-container">
+          <button class="inserttBtn" id="insert" type="submit">저장</button>
+        </div>
+      </div>
+      <table class="table-container">
+        <thead class="table-header">
+          <tr>
+            <th><input type="checkbox" id="selectAll"></th>
+            <th>송장 번호</th>
+            <th>주문 일자</th>
+            <th>작품명</th>
+            <th>입찰 금액</th>
+            <th>주소</th>
+            <th>배송 예정일</th>
+            <th>배송 완료일</th>
+            <th>주문 처리 상태</th>
+          </tr>
+        </thead>
+        <tbody class="table-content" id="delivery-tbody">
+          <!-- 반복문으로 데이터 렌더링 -->
+          <tr th:each="manage : ${deliveryList}" th:id="'row-' + ${manage.deliveryNo}">
+            <th>
+              <input type="checkbox" class="filter-checkbox" th:data-delivery-no="${manage.deliveryNo}"
+                th:checked="false" />
+            </th>
+            <td th:text="${manage.deliveryNo}">송장번호</td>
+            <td th:text="${manage.deliveryDate}" class="deliveryDate">주문 일자</td>
+            <td th:text="${manage.pieceTitle}">작품 제목</td>
+
+            <!-- 입찰 금액 -->
+            <td
+              th:text="${manage.pieceType == 1 ? manage.sellPrice + ' 원' : (manage.pieceType == 2 ? manage.endPrice + ' 원' : '')}">
+              입찰 금액</td>
+            <td th:text="${manage.deliveryAddress}">주소</td>
+
+            <!-- 배송 예정 일자 -->
+            <td>
+              <input type="date" class="calendarin deliveryIngDate"
+                th:if="${manage.deliveryAddress != null && manage.deliveryIngDate == null}"
+                th:data-key="${manage.deliveryNo}" />
+              <input type="text" class="calendarin deliveryIngDate"
+                th:if="${manage.deliveryAddress != null && manage.deliveryIngDate != null}"
+                th:value="${manage.deliveryIngDate}" th:data-key="${manage.deliveryNo}" disabled />
+            </td>
+
+            <!-- 배송 완료 일자 -->
+            <td>
+              <input type="date" class="calendarin deliveryEndDate deliveryCurDate"
+                th:if="${manage.deliveryAddress != null && manage.deliveryEndDate == null}"
+                th:data-key="${manage.deliveryNo}">
+              <input type="text" class="calendarin deliveryEndDate deliveryNoneDate"
+                th:if="${manage.deliveryAddress != null && manage.deliveryEndDate != null}"
+                th:value="${manage.deliveryEndDate}" th:data-key="${manage.deliveryNo}" disabled />
+            </td>
+
+            <!-- 정렬 방식 -->
+            <td class="arr-container">
+              <select class="sort-select" th:data-key="${manage.deliveryNo}" onChange="onSortChange(event)"
+                th:disabled="${manage.deliveryAddress == null}">
+                <option onclick="none" value="0"
+                  th:selected="${manage.deliveryAddress == null || manage.deliveryStatus == 0}">방문수령
+                </option>
+                <option value="1" th:selected="${manage.deliveryAddress != null && manage.deliveryStatus == 1}"
+                  th:disabled="${manage.deliveryAddress == null}"> 배송 준비중 </option>
+                <option value="2" th:selected="${manage.deliveryAddress != null && manage.deliveryStatus == 2}"
+                  th:disabled="${manage.deliveryAddress == null}"> 배송중</option>
+                <option value="3" th:selected="${manage.deliveryAddress != null && manage.deliveryStatus == 3}"
+                  th:disabled="${manage.deliveryAddress == null}"> 배송 완료 </option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <div class="pagination-box" id="paginationDelivery"></div>
+  </section>
+  <th:block th:replace="~{/manage/reportPopup.html}"></th:block>
+  <script src="/js/manage/manage.js"></script>
+  <script src="/js/manage/suspend.js"></script>
+  <script src="/js/manage/notice.js"></script>
+  <script src="/js/delivery/uploadDelivery.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+  <script src="/js/manage/manage1.js"></script>
 </body>
 
 </html>
