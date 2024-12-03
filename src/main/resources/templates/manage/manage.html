@@ -33,52 +33,53 @@
             <div class="data-table">
               <h3>일자별 요약</h3>
               <table>
-                <thead id="tableHeader">
+                <thead>
                   <tr>
                     <th>일자</th>
                     <th>방문자</th>
+                  </tr>
                 </thead>
                 <tbody id="tableBody">
                   <!-- 데이터 렌더링 -->
-                  <!-- 거래 현황 -->
-                  <div class="tab-content" id="trade">
-                    <div class="chart-container">
-                      <canvas id="tradeChart">거래 현황 차트</canvas>
-                    </div>
-                  </div>
-                    <div class="data-table">
-                      <h3>일자별 요약</h3>
-                      <table>
-                        <thead id="tableHeader">
-                          <tr>
-                            <th>일자</th>
-                            <th>매출</th>
-                        </thead>
-                        <tbody id="tradeTableBody">
-                          <!-- 데이터 렌더링 -->
-                        </tbody>
-                      </table>
-                    </div>
                 </tbody>
               </table>
             </div>
           </div>
-          <div class="custom-line">
+      
+          <!-- 거래 현황 -->
+          <div class="tab-content" id="trade">
+            <div class="chart-container">
+              <canvas id="tradeChart">거래 현황 차트</canvas>
+            </div>
+            <div class="data-table">
+              <h3>일자별 요약</h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>일자</th>
+                    <th>매출</th>
+                  </tr>
+                </thead>
+                <tbody id="tradeTableBody">
+                  <!-- 데이터 렌더링 -->
+                </tbody>
+              </table>
+            </div>
           </div>
-          
+      
           <!-- 작품 현황 -->
           <div class="tab-content" id="artwork">
             <div class="chart-container">
               <canvas id="artworkChart">작품 현황 차트</canvas>
             </div>
-          </div>
             <div class="data-table">
               <h3>일자별 요약</h3>
               <table>
-                <thead id="tableHeader">
+                <thead>
                   <tr>
                     <th>일자</th>
                     <th>주문</th>
+                  </tr>
                 </thead>
                 <tbody id="artworkTableBody">
                   <!-- 데이터 렌더링 -->
@@ -86,8 +87,9 @@
               </table>
             </div>
           </div>
-          <div class="custom-line"></div>
+        </div>
       </section>
+      
 
       <!-- 작가 및 회원 관리 섹션 -->
       <div id="memberManage"></div><!-- 사이드바스크롤 -->
