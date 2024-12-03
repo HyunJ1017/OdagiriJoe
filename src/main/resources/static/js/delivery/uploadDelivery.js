@@ -23,27 +23,6 @@ function updateAllCheckboxes(isChecked) {
   });
 }
 
-// ----------------------------------------------------------------------
-// 선택된 배송 데이터를 서버에 저장하는 함수
-async function saveDeliveryData(data) {
-  try {
-    const response = await fetch('/delivery/update', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    });
-    
-    if (!response.ok) {
-      throw new Error('배송 데이터 저장 실패');
-    }
-    alert('선택된 항목이 성공적으로 저장되었습니다!');
-  } catch (error) {
-    console.error('배송 데이터 저장 중 오류 발생:', error);
-  }
-}
-
 // ---------------------------------------------------------------------------------------------------------------
 /* 배송 정보 수정하기 */
 document.addEventListener("DOMContentLoaded", () => {

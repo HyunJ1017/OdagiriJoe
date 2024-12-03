@@ -18,7 +18,7 @@ public interface DeliveryService {
 	 * @param cp
 	 * @return
 	 */
-	List<Manage> deliveryList();
+	List<Manage> deliveryList(int cp);
 
 	
 	/** 배송 상태 변경

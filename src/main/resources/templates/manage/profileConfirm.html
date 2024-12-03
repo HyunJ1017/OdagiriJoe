@@ -6,12 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>승인 요청 시 프로필 확인</title>
   <link rel="stylesheet" href="/css/manage/profileConfirm.css">
-  <th:block th:replace="~{/common/common}"></th:block>
+  <th:block th:replace="~{/common/common.html :: cssLinks}"></th:block>
 </head>
 
 <body>
-  <!-- 헤더 -->
-  <th:block th:replace="~{common/header}"></th:block>
+  <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
 
   <main class="main-content">
     <section class="profile-section">
@@ -30,10 +29,10 @@
 
             <h3 class="section-title">포트폴리오</h3>
             <a th:if="${profileList[0].artistPortfolio}" 
-               th:href="${profileList[0].artistPortfolio}" 
-               class="pdf-link" 
-               download="|포트폴리오${profileList[0].memberNo}|">
-               포트폴리오 다운로드
+              th:href="${profileList[0].artistPortfolio}" 
+              class="pdf-link" 
+              download="|포트폴리오${profileList[0].memberNo}|">
+              포트폴리오 다운로드
             </a>
         </div>
       </div>
