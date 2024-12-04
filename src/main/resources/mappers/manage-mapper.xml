@@ -89,7 +89,7 @@
 		REPORT R
 		JOIN
 		PIECE P ON R.PIECE_NO = P.PIECE_NO
-		LEFT JOIN ARTIST D ON R.MEMBER_NO = D.MEMBER_NO
+		LEFT JOIN ARTIST D ON P.MEMBER_NO = D.MEMBER_NO
 		WHERE
 		R.REPORT_DEL_FL ='N'
 		ORDER BY REPORT_DATE DESC
@@ -129,10 +129,7 @@
 	
 	</update>
 	
-	
 
-	
-	
 	<!-- 작가 정지  -->
 	<update id="suspendAritist">
 	UPDATE "MEMBER"
@@ -226,8 +223,6 @@
 	</update>
 	
 	<!-- 승인 요청 거절  -->
-	
-
     <!-- ARTIST 테이블에서 데이터 삭제 -->
     <delete id="getrejectArtist">
     DELETE FROM ARTIST

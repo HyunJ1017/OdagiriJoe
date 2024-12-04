@@ -128,6 +128,7 @@ public class ManageController {
 	@DeleteMapping("/delete/{pieceNo}")
 	@ResponseBody
 	public void deletePieceList(@PathVariable("pieceNo") int pieceNo) {
+		
 		service.deletePieceList(pieceNo);
 	}
 

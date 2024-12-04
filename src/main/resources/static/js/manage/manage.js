@@ -122,7 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
     paginationBoxArtist.style.display = "none";
     memberList.style.display = "flex";
     paginationBoxMember.style.display = "flex";
-    console.log("회원 보기 활성화");
     getList(2, 1)
   });
   getList(1, 1); // 작가목록
@@ -283,7 +282,7 @@ function displayquestionContents(contents) {
     const questionCategoryName = content.questionCategoryNo === 1 
     ? "일반문의" 
     : content.questionCategoryNo === 2 
-      ? "배송 및 운탁문의" 
+      ? "배송문의" 
       : "기타";
     const questionItem = document.createElement('li');
     questionItem.classList.add('inquiry-item');
@@ -361,8 +360,6 @@ document.addEventListener("click", (event) => {
 
     rejectArtists(memberNo);
 
-  } else {
-    console.log("거절 불가");
   }
 })
 
@@ -375,9 +372,7 @@ document.addEventListener("click", (event) => {
       return;
     }
     approveArtist(memberNo);
-  } else {
-    console.log("승인 불가");
-  }
+  } 
 })
 
 // 작가 승인

@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const checkbox = row.querySelector(".filter-checkbox");
         if (checkbox && checkbox.checked) {
           const deliveryNo = checkbox.getAttribute("data-delivery-no"); // 송장 번호
-          const sortSelect = row.querySelector(".sort-select");
+          const sortSelect = row.querySelector(".sort");
           const deliveryIngDateInput = row.querySelector(".deliveryIngDate");
           const deliveryEndDateInput = row.querySelector(".deliveryEndDate");
           
@@ -289,13 +289,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // -------------------------------------------------------------------------------------------------------------
-
-
-
+/* 페이지 네이션 */
 function makePagination(paginationContainerId) {
-
   const paginationContainer = document.getElementById(paginationContainerId);
-
   if (!paginationContainer) {
     console.error("페이지네이션 컨테이너를 찾을 수 없습니다:", paginationContainerId);
     return;
@@ -308,14 +304,12 @@ function makePagination(paginationContainerId) {
     btn.classList.add("page-btn");
     if (isActive) btn.classList.add("active");
     if (isDisabled) btn.classList.add("disabled");
-
     if (!isDisabled) {
       btn.addEventListener("click", (event) => {
         event.preventDefault();
         displayDeliveryContents(page);
       });
     }
-
     return btn;
   };
 
@@ -324,7 +318,6 @@ function makePagination(paginationContainerId) {
 
   // < 버튼 (이전 페이지로 이동)
   paginationContainer.appendChild(createPageButton(delivertyPg.prevPage, "<", false, delivertyPg.currentPage === 1));
-
 
   // 페이지 번호 버튼
   for (let i = delivertyPg.startPage; i <= delivertyPg.endPage; i++) {
@@ -338,22 +331,16 @@ function makePagination(paginationContainerId) {
   paginationContainer.appendChild(createPageButton(delivertyPg.totalPageCount, ">>", false, delivertyPg.currentPage === delivertyPg.totalPageCount));
 }
 
-
-
 const delivertyPaginationSetting = () => {
   const pageSize = 10;
   const limit = 10;
-
   delivertyPg.maxPage = Math.ceil( listCount / limit );
-	
   // startPage : 페이지 번호 목록의 시작 번호
-  
   // 페이지 번호 목록이 10개(pageSize) 씩 보여질 경우
   delivertyPg.startPage = Math.floor((delivertyPg.currentPage - 1) / pageSize) * pageSize + 1;
   
   // endPage : 페이지 번호 목록의 끝 번호
   delivertyPg.endPage = pageSize - 1 + delivertyPg.startPage;
-  
   
   // 페이지 끝 번호가 최대 페이지 수를 초과한 경우
   if(delivertyPg.endPage > delivertyPg.maxPage)	delivertyPg.endPage = delivertyPg.maxPage;
@@ -361,7 +348,6 @@ const delivertyPaginationSetting = () => {
   // 더 이상 뒤로갈 페이지가 없을 경우
   if(delivertyPg.currentPage < pageSize) {
     delivertyPg.prevPage = 1; 
-  
   } else {
     delivertyPg.prevPage = delivertyPg.startPage - 1;
   }
@@ -369,11 +355,9 @@ const delivertyPaginationSetting = () => {
   // 더 이상 넘어갈 페이지가 없을 경우
   if(delivertyPg.endPage == delivertyPg.maxPage) {
     delivertyPg.nextPage = delivertyPg.maxPage;
-  
   } else {
     delivertyPg.nextPage = endPage + 1;
   }
-
   makePagination("paginationDelivery"); // 페이지네이션 랜더링
 };
 
@@ -397,30 +381,45 @@ const displayDeliveryContents = (page) => {
   for(i; i < j; i++) {
     tbody.appendChild(deliveryTrList[i]);
   }
-
 }
 
-// let deliveryTrList = [];
-// const parser = new DOMParser();
-// const doc = parser.parseFromString(html, "text/html");
-// const newRows = doc.querySelectorAll("#delivery-tbody tr");
-// newRows.forEach(row => {
-//   const deliveryDateText = row.querySelector(".deliveryDate")?.innerText.trim();
-//   if (deliveryDateText) {
-//     const formattedDateText = deliveryDateText
-//       .replace("년", "-")
-//       .replace("월", "-")
-//       .replace("일", "")
-//       .trim();
-//     const deliveryDate = new Date(formattedDateText);
+// ---------------------------------------------------------------------------------------------------------------------
+/* 정렬 기준 변경 이벤트 */
+function onChange(event) {
+  const selectedValue = event.target.value; // 선택된 필터 값 (0, 1, 2, 3, 4)
+  const tbody = document.querySelector("#delivery-tbody"); // 정렬 대상 tbody
+  const rows = Array.from(tbody.querySelectorAll("tr")); // tbody 안의 모든 행 가져오기
 
-//     // 날짜 필터링
-//     if (
-//       (!startDate || deliveryDate >= new Date(startDate)) &&
-//       (!returnDate || deliveryDate <= new Date(returnDate))
-//     ) {
-//       deliveryTrList.put(row);
-//       visibleRowCount++;
-//     }
-//   }
-// });
+    // 상태별 숫자 매핑
+    const statusOrder = {
+      "전체 조회": "4",
+      "방문수령": "0",
+      "배송 준비중": "1",
+      "배송중": "2",
+      "배송 완료": "3",
+    };
+
+  // "전체 조회"일 경우 모든 행을 표시
+  if (selectedValue === "4") {
+    rows.forEach((row) => {
+      row.style.display = ""; // 기본 표시
+    });
+    return; // 함수 종료
+  }
+
+  // 각 행을 확인하여 조건에 맞는 행만 표시
+  rows.forEach((row) => {
+    const rowStatus = row.querySelector(".sort-select")?.value; // 현재 행의 배송 상태 값
+
+    if (rowStatus === selectedValue) {
+      row.style.display = ""; // 조건 만족 시 표시
+    } else {
+      row.style.display = "none"; // 조건 미만족 시 숨김
+    }
+  });
+}
+
+function onSortChange(event) {
+  const rowId = event.target.getAttribute("data-key"); // 해당 행의 ID (deliveryNo)
+  const selectedValue = event.target.value; // 행에서 선택된 값
+}
