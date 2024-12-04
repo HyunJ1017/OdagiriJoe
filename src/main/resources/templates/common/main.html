@@ -94,7 +94,7 @@
                   <p th:if="*{startPrice != null}" th:text="|시작가 (KRW): *{startPrice}|">시작가(KRW)</p>
                   <p th:if="*{startPrice == null}" th:text="|현재가 (KRW): *{hopePrice}|">현재가(KRW)</p>
                   <hr class="dotted-line">
-                  <button class="view-button" role="link" aria-label="상세보기: ${pieceTitle}" th:onclick="|location.href='/auction/currentDetail?pieceNo=*{pieceNo}'|">상세보기</button>
+                  <button class="view-button" role="link" aria-label="상세보기: ${pieceTitle}" th:onclick="|location.href='/auction/auctionDetail?pieceNo=*{pieceNo}'|">상세보기</button>
                 </div>
                 <div class="auction-img">
                 <img th:src="*{pieceRename}" alt="작품: *{pieceTitle}" class="auction-image" th:data-id="*{memberNo}" onload="hideLoader(this)">

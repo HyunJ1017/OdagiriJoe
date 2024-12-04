@@ -12,6 +12,12 @@
   font-weight: 500;
 }
 
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 header a {
   text-decoration-line: none;
   color: #ffffff;

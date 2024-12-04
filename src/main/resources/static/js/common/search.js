@@ -11,8 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 각 항목 확인
     detailItems.forEach(item => {
-      // const category = item.getAttribute('data-category');
-      // const matchingCheckbox = Array.from(checkboxes).find(cb => cb.getAttribute('data-category') === category);
       const category = item.dataset.category;
       const matchingCheckbox = Array.from(checkboxes).find(cb => cb.dataset.category === category);
 
