@@ -15,19 +15,20 @@ body{
 .myPage-main>h1{
   margin-top: 50px;
   user-select: none;
-  color: #5e7c71;
+  color: #414141;
   margin-bottom: 50px;
 }
 .myPage-main>.content-section{
-  display: flex;
+  display: flex ;
   flex-direction: column;
   align-items: flex-start;
-  width: 1000px;
+  width: 80%;
   padding: 0;
-  margin-bottom: 50px;
+  margin-bottom: 5%;
 }
 .myPage-main>.content-section>h2{
   color: #5e7c71;
+  margin-bottom: 3%;
 }
 .myPage-main>.content-section>section{
   width: 100%;
@@ -38,14 +39,15 @@ body{
 }
 .myPage-main>.content-section>section>.content-div{
   align-self: center;
-  width: 86%;
-  margin: 20px;
-  border: 1px solid #80808036;
+  width: 100%;
+  margin: 2%;
+  border-bottom: 1px solid #80808036;
   border-radius: 10px;
-  box-shadow: 5px 7px 6px #00000061;
   display: flex;
-  flex-direction: row;
-  padding: 10PX;
+  flex-direction:
+}
+p {
+  color: #414141;
 }
 
 /* 컨탠츠 내용 */
@@ -54,11 +56,11 @@ body{
   padding: 10px;
 }
 #wishList-section>section>.content-div .image-container{
-  padding: 10px; 
+  padding: 1%;
   position: relative;
   min-width: 182px;
   min-height: 222px;
-  border: 1px solid #80808030;
+  margin-bottom: 1%;
 }
 #wishList-section>section>.content-div .loader { /* 이미지 로딩전까지 보여줄 로딩이미지 */
   position: absolute;
@@ -85,8 +87,8 @@ body{
   margin: 5px;
 }
 #wishList-section>section>.content-div>div>h3{
-  margin-top: 19px;
-  margin-bottom: 0;
+  margin-top: 2%;
+  margin-bottom: 1%;
 }
 #wishList-section>section>.content-div>div>h4{
   margin: 10px 0 10px;
@@ -94,22 +96,22 @@ body{
 #wishList-section>section>.content-div>div>.piece-detales{
   cursor: pointer;
   user-select: none;
-  margin: 10px 0 5px;
-  border-radius: 10px;
-  width: 135px;
-  height: 50px;
-  background-color: #5e7c71;
-  color: white;
-  text-shadow: none;
+  border: 1px solid #5e7c71;
+  background-color: #ffffff;
+  color: #5e7c71;
+  width: 10%;
+  height: 15%;
+  border-radius: 3px;
+  margin: 2% 0% 0% 0%;
+  text-align: center;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 #wishList-section>section>.content-div>div>.piece-detales:hover{
-  border: 2px solid #5e7c71;
-  background-color: white;
-  color: #5e7c71;
+  border: 1px solid #ffffff;
+  background-color: #5e7c71;
+  color: #ffffff;
 }
 
 /* 팔로우 리스트 */
@@ -117,25 +119,28 @@ body{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: flex-start;
   width: 100%;
   padding: 0;
+  justify-content: space-between;
+  margin-bottom: 5%
 }
 .follow-div>.following{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 200px;
-  padding: 10px;
-  height: 300px;
-  margin: 20px 0 20px;
+  margin: 0% 1% 0% 1%;
+  align-items: center;
+  width: 18%;
+  padding: 1%;
+  height: 30%;
 }
 .follow-div>.following .image-container{
-  padding: 10px; 
+  padding: 1%; 
   position: relative;
   min-width: 202px;
   min-height: 272px;
   border: 1px solid #80808030;
+  margin-bottom: 5%;
 }
 .follow-div>.following .loader { /* 이미지 로딩전까지 보여줄 로딩이미지 */
   position: absolute;
@@ -153,8 +158,9 @@ body{
   object-fit: cover; /* 비율을 유지하며 크기에 맞게 잘라냄 */
 }
 .follow-div>.following .artist-img:hover{
-  border: 2px solid #000000b3;
   cursor: pointer;
+  transform: scale(1.05);
+  opacity: 0.85;
 }
 
 /* 페이지 네이션 */
