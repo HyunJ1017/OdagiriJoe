@@ -154,3 +154,10 @@ hr {
   height: 252px; /* 고정 세로 크기 */
   object-fit: cover; /* 비율을 유지하며 크기에 맞게 잘라냄 */
 }
+
+/* 구분선 */
+.custom-line {
+  border-bottom: 1px solid #dbdbdb;
+  width: 100%;
+  margin: 4% 3% 8% 3%;
+}

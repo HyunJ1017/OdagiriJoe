@@ -52,6 +52,7 @@ button {
   align-items: center;
   text-align: left;
   margin-bottom: 3%;
+  min-height: 70vh;
 }
 
 /* 헤더 컨테이너 */

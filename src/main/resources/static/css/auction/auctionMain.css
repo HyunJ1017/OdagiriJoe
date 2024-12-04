@@ -1,4 +1,6 @@
-
+*{
+  font-weight:600;
+}
 /* .upcoming-auctions */
 .upcoming-auctions {
   width: 90%;
@@ -14,11 +16,10 @@
 
 .upcoming-title {
   position: absolute;
-  top: 10px; /* 박스 상단에서의 거리 조정 */
-  left: 80px; /* 박스 왼쪽에서의 거리 조정 */
+  top: 0;
+  left: 80px;
   font-size: 28px;
-  font-weight: bold;
-  color: #5e7c71;;
+  color: #5e7c71;
 }
 
 .upcoming-box {
@@ -94,7 +95,7 @@
 /* .ongoing-auctions */
 .ongoing-auctions {
   width: 90%;
-  height: 1500px;
+  height: 15%;
   margin-top: 100px;
   display: flex;
   flex-direction: column;
@@ -116,10 +117,9 @@
 
 .ongoing-title {
   position: absolute;
-  top: 10px; /* 박스 상단에서의 거리 조정 */
-  left: 80px; /* 박스 왼쪽에서의 거리 조정 */
+  top: -8%;
+  left: 80px;
   font-size: 28px;
-  font-weight: bold;
   color: #5e7c71;
 }
 
@@ -181,7 +181,7 @@
 /* completed-auctions */
 .completed-auctions {
   width: 90%;
-  height: 950px;
+  height: 100%;
   margin-top: 50px;
   display: flex;
   flex-direction: column;
@@ -193,17 +193,16 @@
 
 .completed-title {
   position: absolute;
-  top: 10px; /* 박스 상단에서의 거리 조정 */
-  left: 80px; /* 박스 왼쪽에서의 거리 조정 */
+  top: -4%;
+  left: 80px;
   font-size: 28px;
-  font-weight: bold;
-  color: #5e7c71;;
+  color: #5e7c71;
 }
 
 .completed-imgbox {
   width: 90%;
   height: 100%;
-  margin: 100px 30px 30px 30px;
+  margin: 5% 3% 3% 3%;
   display: flex;
   flex-wrap: wrap;
 }
@@ -372,3 +371,9 @@
 
 
 
+/* 구분선 */
+.custom-line {
+  border-bottom: 1px solid #dbdbdb;
+  width: 90%;
+  margin: 2% 3% 2% 3%;
+}

@@ -20,7 +20,6 @@
 
     <section class="upcoming-auctions">
       <div class="upcoming-title">예정 경매</div>
-  
       <!-- 리스트 반복 -->
         <div th:each="piece, iterStat : ${upCommingList}" 
             class="upcoming-box"
@@ -55,7 +54,6 @@
     </section>
 
 
-    
     <section class="ongoing-auctions">
       <div class="ongoing-title" id="ingAuction">진행 경매</div> 
 
@@ -97,11 +95,11 @@
     </section>
 
 
-    
+    <div class="custom-line"></div>
     <section class="completed-auctions">
       <div class="completed-title" id="endAuction">종료 경매</div> 
-
       <div class="completed-imgbox">
+        <div class="custom-line"></div>
         
       </div>
 
