@@ -437,7 +437,6 @@ header > .custom-line {
   transition: right 0.3s ease;
   padding-top: 60px;
   z-index: 2501;
-  text-shadow: 1px 1px #c9c9c9;
   padding-left: 1%;
 }
 
@@ -569,7 +568,7 @@ header > .custom-line {
   font-size: 1.5rem;
   /* 로고 크기 조정 */
   color: #5e7c71;
-  text-shadow: 1px 1px #c9c9c9;
+  text-shadow: 1px 1px #4e4e4e4e;
 }
 
 .manage-logo {
@@ -578,7 +577,7 @@ header > .custom-line {
   font-size: 1.5rem;
   /* 로고 크기 조정 */
   color: #ffffff;
-  text-shadow: 1px 1px #4e4e4e;
+  text-shadow: 1px 1px #4e4e4e4e;
 }
 
 .manage-text{
@@ -598,7 +597,6 @@ header > .custom-line {
   height: 100%;
   background-color: #5e7c71;
   color: #ffffff;
-  text-shadow: 1px 1px #c9c9c9;
 }
 
 /* 고정된 사이드바 영역 */
