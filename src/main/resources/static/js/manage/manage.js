@@ -534,6 +534,15 @@ function getList(code, page) {
       throw new Error("AJAX 통신 실패");
     })
     .then(result => {
+      const pg = result.pg;
+      const data = result.resultList;
+
+      // 데이터가 없고 이전 페이지가 있을 경우
+      if (data.length === 0 && page > 1) {  
+        getList(code, page - 1); // 이전 페이지 요청
+        return;
+      }
+      // 데이터가 있을 경우 처리
       if (code === 1) {
         page1 = page;
         displayArtistList(result.resultList); // 아티스트 리스트 렌더링
