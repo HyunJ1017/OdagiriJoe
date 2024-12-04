@@ -34,7 +34,6 @@ button {
 }
 
 /* ---------------------------------------------------------------- */
-
 /* 메인 컨테이너 */
 .main-container {
   display: flex;
@@ -55,7 +54,7 @@ button {
 .custom-line {
   border-bottom: 1px solid #dbdbdb;
   width: 94%;
-  margin: 2% 3% 8% 3%;
+  margin: 2% 3% 4% 3%;
 }
 
 /* 버튼 컨테이너 */

@@ -9,6 +9,7 @@
   padding: 0;
   box-sizing: border-box;
   text-decoration-line: none;
+  font-weight: 500;
 }
 
 header a {
@@ -19,6 +20,16 @@ header a {
 main {
   flex-grow: 1;
   padding-top: 10vh;
+}
+
+/* 구분선 */
+.dotted-line {
+  width: 90%;
+  margin: 3% 0% 3% 0%;
+  border: none; /* 기본 선 제거 */
+  height: 1px; /* 선의 높이 */
+  background-image: linear-gradient(to right, #333 30%, rgba(255, 255, 255, 0) 0%);
+  background-size: 5px 5px; /* 점과 점 사이 간격 설정 */
 }
 
 /* 헤더 영역 */
