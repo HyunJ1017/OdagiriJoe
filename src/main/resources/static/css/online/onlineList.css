@@ -4,17 +4,13 @@
     position: relative;
   } */
 
-#onlinePage-main {
+
+.online-gallery-list {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-}
-
-.online-gallery-list {
-  width: 85%;
-  margin: 4% auto;
-  padding: 0 0%;
+  padding: 150px 7.5% 0 7.5%;
   color: #5c7a72;
 }
 
