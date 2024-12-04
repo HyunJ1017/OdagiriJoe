@@ -2,7 +2,7 @@
   width: 50%;
   height: 350px;
   margin: 0 auto;
-  padding-top: 65px;
+  padding-top: 80px;
 }
 
 h2 {
@@ -54,7 +54,7 @@ h2 {
   justify-content: center; /* 중앙 정렬 */
   margin-top: auto; /* 남은 공간만큼 아래로 이동 */
   width: 100%;
-  margin-bottom: 50px;
+  margin: 100px;
 }
 
 .pagination-box > .page-btn {
