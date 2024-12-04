@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function () {
   const deliveryOption = document.getElementById('deliveryOption');
   const pickupOption = document.getElementById('pickupOption');
@@ -115,7 +116,7 @@ const callPayment = (result) => {
     {
       channelKey: channelKey,
       pay_method: "card",
-      merchant_uid: `payment-${crypto.randomUUID()}`, // 주문 고유 번호
+      merchant_uid: `payment-${crypto.randomUUID ? crypto.randomUUID() : Date.now()}`, // 주문 고유 번호
       name: pieceTitle,
       amount: 100,
       buyer_name: payName,
