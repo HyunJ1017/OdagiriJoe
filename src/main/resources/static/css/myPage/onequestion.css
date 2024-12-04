@@ -1,11 +1,16 @@
 *{
   box-sizing: border-box;
 }
+body{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 .myPage-main{
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 761px;
 }
 .myPage-main>h1{
   color: #5e7c71;
