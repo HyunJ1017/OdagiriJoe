@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const chatInput = document.getElementById('chat-input');
   const chatMessages = document.getElementById('chat-messages');
 
-
+ 
   // 챗봇 아이콘 클릭 시 창 열기/닫기 토글
   chatbotIcon.addEventListener('click', () => {
     chatbotContainer.classList.toggle('hidden');
