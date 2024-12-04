@@ -13,7 +13,7 @@ body{
   align-items: center;
 }
 .myPage-main>h1{
-  color: #5e7c71;
+  color: #414141;
   margin: 30px 0 50px;
   user-select: none;
 }
@@ -28,6 +28,7 @@ body{
 .detail>.inquiryInsert{
   width: 98%;
 }
+
 /* 1:1 문의 */
 .inquiry-section {
   max-width: 1000px;
@@ -116,14 +117,16 @@ body{
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: #5e7c71;
-  color: white;
+  background: white;
+  border: 1px solid #5e7c71;
+  color: #5e7c71;
+
 }
 .member-hov:hover{
   cursor: pointer;
-  background: white;
-  border: 2px solid #5e7c71;
-  color: #5e7c71;
+  background-color: #5e7c71;
+  color: white;
+  border: 1px solid #5e7c71;
 }
 .display-none{
   display: none !important;
