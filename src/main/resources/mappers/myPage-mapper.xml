@@ -24,7 +24,7 @@
 			MEMBER_PW,
 			MEMBER_PHONE
 		FROM "MEMBER"
-		WHERE MEMBER_No = #{memberNo}
+		WHERE MEMBER_NO = #{memberNo}
 		AND MEMBER_DEL_FL = 'N'
 	</select>
 	

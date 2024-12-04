@@ -281,6 +281,11 @@ const formSubmitSequence = () => {
       sellPrice.focus();
       return;
     }
+    if(sellPrice.value < 10000){
+      alertM("만원 이상의 판매가격을 입력해 주세요");
+      sellPrice.focus();
+      return;
+    }
   }
   if(salePopup.classList.contains("display-none")){
     // 경매판매창이 열려있는경우
@@ -298,6 +303,11 @@ const formSubmitSequence = () => {
     const hopePrice = document.querySelector("#hopePrice");
     if(hopePrice.value.length === 0){
       hopePrice.placeholder="희망낙찰가를 입력해 주세요";
+      hopePrice.focus();
+      return;
+    }
+    if(hopePrice.value < 100000){
+      alertM("10만원 이상의 희망낙찰가를 입력해 주세요");
       hopePrice.focus();
       return;
     }

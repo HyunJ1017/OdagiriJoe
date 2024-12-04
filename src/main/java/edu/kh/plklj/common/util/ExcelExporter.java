@@ -35,7 +35,7 @@ public class ExcelExporter {
             Row row = sheet.createRow(rowNum++);
             row.createCell(0).setCellValue(dto.getMemberNo());    // ID 필드
             row.createCell(1).setCellValue(dto.getMemberName());  // Name 필드
-            row.createCell(2).setCellValue(dto.getPriceSum());    // Age 필드
+            row.createCell(2).setCellValue( Integer.parseInt(dto.getPriceSum()) * 0.899);    // Age 필드
             row.createCell(3).setCellValue(dto.getBankCode());
             row.createCell(4).setCellValue(dto.getBankName());
 			row.createCell(5).setCellValue(dto.getBankNo());

@@ -167,7 +167,10 @@ public class PieceController {
 		
 		if(result > 0) {
 			model.addAttribute("message", "작품 등록에 성공하였습니다.");
-			return "redirect:/auction/auctionDetail?pieceNo=" + piece.getPieceNo();
+			if(piece.getPieceType() > 1)
+				return "redirect:/auction/auctionDetail?pieceNo=" + piece.getPieceNo();
+			else
+				return "redirect:/auction/onlineDetail?pieceNo=" + piece.getPieceNo();
 		} else {
 			model.addAttribute("message", "작품 등록에 실패하였습니다. 다시 시도해 주십시오.");
 			return "redirect:/piece/upload";
