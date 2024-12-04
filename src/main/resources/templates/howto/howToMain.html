@@ -38,7 +38,7 @@
 
     <section class="howTo-section2">
       <div>
-        <div style="font-size: 25px;">안내 사항</div>
+        <div style="font-size: 25px;" id="guide">안내 사항</div>
       </div>
 
       <div class="section2-imgBox">
@@ -59,7 +59,7 @@
     <!-- FAQ Section -->
     <section class="faq-section">
       <div style="margin-bottom: 30px;">
-        <div style="font-size: 25px; margin: 20px 20px 20px 0; font-weight: bold;">자주 묻는 질문(FAQ)</div>
+        <div style="font-size: 25px; margin: 20px 20px 20px 0; font-weight: bold;" id="faqTitle">자주 묻는 질문(FAQ)</div>
       </div>
 
       <th:block th:unless="${#lists.isEmpty(questionList)}">
@@ -84,7 +84,7 @@
 
   <section class="howTo-section3">
     <div>
-      <div style="font-size: 25px;">공지사항</div>
+      <div style="font-size: 25px;" id="noticeTitle">공지사항</div>
       <a href="/howTo/notice" style="margin-top: 35px; color: #333;">전체 공지사항 보기 +</a>
     </div>
 

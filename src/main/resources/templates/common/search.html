@@ -10,8 +10,8 @@
 
 <body>
   <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
+  <main>
   <div class="main-container">
-    <main>
       <!-- 검색 결과 헤더 -->
       <div class="search-container">
         <h3 th:if="${searchList != null && searchList.size() > 0}" th:text="|${query} 검색 결과입니다.|">검색 결과.</h3>
@@ -37,7 +37,6 @@
         </section>
         <div class="custom-line"></div>
       </div>
-    </main>
   
     <!-- 검색 결과 리스트 -->
     <section class="detail-container">
@@ -106,9 +105,8 @@
       </article>
     </section>
   </div>
-
+</main>
   <script src="/js/common/search.js"></script>
+  <th:block th:replace="~{/common/footer.html}"></th:block>
 </body>
-<th:block th:replace="~{/common/footer.html}"></th:block>
-
 </html>
