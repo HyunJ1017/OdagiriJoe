@@ -112,6 +112,15 @@
 			<if test="order == 'desc'">DESC</if>
 	</select>
 	
+	<select id="getArtistWorkCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM
+			PIECE
+		WHERE MEMBER_NO = #{memberNo}
+		AND   PIECE_STATUS IN ('N', 'F', 'A', 'S')
+	</select>
+	
+	
 	<select id="checkFollow" resultType="_int">
 		SELECT COUNT(*)
 		FROM FOLLOW

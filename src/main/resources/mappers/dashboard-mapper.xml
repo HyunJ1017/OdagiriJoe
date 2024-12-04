@@ -3,7 +3,7 @@
 <mapper namespace = "edu.kh.plklj.manage.mapper.DashboardMapper">
 
 	<!-- 오늘 날짜 방문자 수 증가 -->
-	<update id="incrementVisitorCountForToday">
+	<insert id="incrementVisitorCountForToday">
 		MERGE INTO VISITOR V
 		USING (
 		    SELECT TRUNC(SYSDATE) AS VISITOR_DATE, #{clientIp} AS VISITOR_IP
@@ -16,7 +16,7 @@
 	    INSERT (VISITOR_DATE, DAILY_VISITS, WEEK_GROUP, VISITOR_IP)
 	    VALUES (D.VISITOR_DATE, 1, TO_CHAR(D.VISITOR_DATE, 'YYYYWW'), D.VISITOR_IP)
 
-	</update>
+	</insert>
 	
 	<!-- 최근 7일 방문자 수 조회 -->
 	<select id="getVisitorCountForLastWeek" resultType="Manage">

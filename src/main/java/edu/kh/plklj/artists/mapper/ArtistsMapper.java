@@ -23,7 +23,8 @@ public interface ArtistsMapper {
 
 	List<Artist> getArtistWorks(@Param("memberNo") int memberNo, 
 															@Param("sort") String sort, 
-															@Param("order") String order);
+															@Param("order") String order, 
+															RowBounds rowBounds);
 
 	int checkFollow(@Param("memberNo") int memberNo,@Param("artistNo")  int artistNo);
 
@@ -35,6 +36,8 @@ public interface ArtistsMapper {
 
 
 	Artist getArtistDetail(@Param("artistNo") int artistNo, @Param("memberNo") int memberNo);
+
+	int getArtistWorkCount(int memberNo);
 
 	
 }
