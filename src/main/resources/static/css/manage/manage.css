@@ -13,6 +13,14 @@ body {
   margin-left: 7%;
   width: 30%;
   text-align: left;
+  font-weight: 500;
+  font-size: 25px;
+}
+
+h3{
+  font-weight: 500;
+  color: #414141;
+  margin-bottom: 2%;
 }
 
 /* 버튼 공통 스타일 */
@@ -65,13 +73,8 @@ button:hover {
 
 /* 대시보드 */
 .main-content {
-  flex-grow: 1;
-  background-color: white;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
+  width: 90%;
+  margin-left: 5%
 }
 
 .content-row {
@@ -87,21 +90,22 @@ button:hover {
 /* 대시보드 */
 .tab-content {
   padding: 2%;
-  background-color: white;
+  width: 100%;
   display: none;
 }
 
 .tab-content.active {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
 }
 
 .chart-container {
   height: 100%;
   width: 50%;
-  border: 1px solid #5e7c71;
+  border: 1px solid #dddd;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  border-radius: 2px;
+  border-radius: 3px;
 }
 
 .data-table {
@@ -120,18 +124,22 @@ button:hover {
 }
 
 .data-table thead {
-  background-color: #414141;
+  background-color: #818181;
   color: white;
+  font-weight: 500;
 }
 
 .data-table tbody tr {
   border-bottom: 1px solid #ddd;
+  color: #414141;
+  font-weight: 500;
 }
 
 .data-table tbody td,
 .data-table thead th {
   text-align: left;
   padding: 2%;
+  font-weight: 500;
 }
 
 #visitor table {
@@ -147,8 +155,8 @@ button:hover {
 }
 
 #visitor th {
-  background-color: #717a77c2;
-  color: white;
+  background-color: #818181;
+  padding: 2%;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------------------- */
@@ -372,13 +380,13 @@ margin: 0% 0% 0% 45%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  margin-bottom: 3%;
+  margin: 10% 0% 4% 0%;
 }
 
 .info h1 {
   font-size: 20px;
   color: #5e7c71;
-  margin-bottom: 2%;
+  margin-bottom: 4%;
   text-align: center;
 }
 
@@ -630,6 +638,7 @@ margin: 0% 0% 0% 45%;
 .icon {
   margin-right: 1%;
   font-size: 20px;
+  color: #414141;
 }
 
 .details {
