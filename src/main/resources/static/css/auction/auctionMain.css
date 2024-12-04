@@ -373,7 +373,7 @@
 
 /* 구분선 */
 .custom-line {
-  border-bottom: 1px solid #dbdbdb;
+  border-bottom: 2px solid #aaaaaa;
   width: 90%;
   margin: 2% 3% 2% 3%;
 }
