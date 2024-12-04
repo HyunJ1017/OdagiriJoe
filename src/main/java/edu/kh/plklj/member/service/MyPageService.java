@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.plklj.main.dto.BankCode;
 import edu.kh.plklj.main.dto.Member;
+import edu.kh.plklj.member.dto.FollowAndwish;
 import edu.kh.plklj.notice.dto.Notice;
 import edu.kh.plklj.piece.dto.Piece;
 
@@ -53,7 +54,7 @@ public interface MyPageService {
 	 * @param map { "memberNo" : memberNo, "listType" : listType, "cp" : cp }
 	 * @return { "listType" : listType, "getList" : getList, "getPagination" : getPagination }
 	 */
-	Map<String, Object> paginationCall(Map<String, String> map);
+	Map<String, Object> paginationCall(FollowAndwish req);
 
 	// 낙찰했는데 아직 입금안한 경매품
 	List<Piece> getBuyList(int memberNo);

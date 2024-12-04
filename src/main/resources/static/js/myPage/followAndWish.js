@@ -51,7 +51,8 @@ const pagenationEventAdd = () => {
   const followPaginations = document.querySelectorAll('#paginationBox2 .page-btn');
 
   wishPaginations?.forEach(page => {
-    page.addEventListener('click', () => {
+    page.addEventListener('click', e => {
+      e.preventDefault();
       if(page.classList.contains('current')) return;
 
       listType = 'wishList';
@@ -81,7 +82,8 @@ const pagenationEventAdd = () => {
   });
 
   followPaginations?.forEach(page => {
-    page.addEventListener('click', () => {
+    page.addEventListener('click', e => {
+      e.preventDefault();
       if(page.classList.contains('current')) return;
 
       listType = 'followList';

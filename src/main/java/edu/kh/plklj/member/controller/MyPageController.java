@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.plklj.main.dto.BankCode;
 import edu.kh.plklj.main.dto.Member;
+import edu.kh.plklj.member.dto.FollowAndwish;
 import edu.kh.plklj.member.service.MyPageService;
 import edu.kh.plklj.notice.dto.Notice;
 import edu.kh.plklj.piece.dto.Piece;
@@ -417,8 +418,8 @@ public class MyPageController {
 	@PostMapping("paginationCall")
 	@ResponseBody
 	public Map<String, Object> paginationCall(
-			@RequestBody Map<String, String> map){
-		return service.paginationCall(map);
+			@RequestBody FollowAndwish req){
+		return service.paginationCall(req);
 	}
 	
 	

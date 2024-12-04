@@ -20,6 +20,7 @@ import com.google.cloud.storage.Bucket;
 import edu.kh.plklj.common.util.Pagination;
 import edu.kh.plklj.main.dto.BankCode;
 import edu.kh.plklj.main.dto.Member;
+import edu.kh.plklj.member.dto.FollowAndwish;
 import edu.kh.plklj.member.dto.SellInfo;
 import edu.kh.plklj.member.mapper.LogInMapper;
 import edu.kh.plklj.member.mapper.MyPageMapper;
@@ -283,11 +284,11 @@ public class MyPageServiceImpl implements MyPageService {
 	 * @return { "listType" : listType, "getList" : getList, "getPagination" : getPagination }
 	 */
 	@Override
-	public Map<String, Object> paginationCall(Map<String, String> map) {
+	public Map<String, Object> paginationCall(FollowAndwish req) {
 		
-		String listType = map.get("listType");
-		int memberNo = Integer.parseInt( map.get("memberNo") );
-		int cp = Integer.parseInt( map.get("cp") );
+		String listType = req.getListType();
+		int memberNo = req.getMemberNo();
+		int cp = req.getCp();
 		
 		Map<String, Object> resultMap = new HashMap<>();
 		

@@ -82,9 +82,9 @@ const deleteClickEvent = () => {
 
 /* 페이지네이션 */
 const pageNation = document.querySelector(".pagination");
-const pagenations = pageNation.querySelectorAll("a");
+const pagenations = pageNation?.querySelectorAll("a");
 
-pagenations.forEach((pagenation) => {
+pagenations?.forEach((pagenation) => {
   pagenation.addEventListener("click", (e) => {
     e.preventDefault();
     console.log("된거야만거야");
