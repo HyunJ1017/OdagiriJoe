@@ -33,6 +33,17 @@ button {
   border: 1px solid #FFFFFF;
 }
 
+.sort{
+  text-align: center;
+  border-radius: 2px;
+  width: 8%;
+  margin-right: -14%;
+  cursor: pointer;
+  background: #ffffff00;
+  color: #ffffff;
+  border: none;
+}
+
 /* ---------------------------------------------------------------- */
 /* 메인 컨테이너 */
 .main-container {
@@ -92,6 +103,8 @@ button {
 
 option {
   text-align: center;
+  background-color: #ffffff;
+    color: #414141;
 }
 
 /* 날짜 버튼 */

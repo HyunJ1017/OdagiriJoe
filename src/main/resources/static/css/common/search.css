@@ -1,3 +1,9 @@
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 /* 검색 타이틀 */
 h3 {
   color: #414141;
