@@ -101,6 +101,14 @@ const loadMoreContent = () => {
         })
         detailBtnAddEvent();
       } else {
+        console.log(contentContainer.innerHTML.length);
+        if(contentContainer.innerHTML.length === 7) {
+          contentContainer.innerHTML = `
+            <div class="content-div" style="margin-top: 100px">
+              <h3 style="margin: 50px 50px 50px">구매 상품이 없습니다</h3>
+            </div>
+          `
+        };
 
         // 끝내기
         loader.remove();

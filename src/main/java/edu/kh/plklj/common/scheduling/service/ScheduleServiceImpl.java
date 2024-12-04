@@ -114,7 +114,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 			else {
 				message = String.format(
 						"화사 :: 愛 :: 화공\n\n%s 작가님의 작품 %s이 %s원에 낙찰 되셨습니다.",
-						smsDto.getAttistNickname(), smsDto.getPieceTitle(), smsDto.getEndPrice());
+						smsDto.getArtistNickname(), smsDto.getPieceTitle(), smsDto.getEndPrice());
 				phoneNumber = smsDto.getArtistPhone();
 			}
 			
