@@ -20,7 +20,7 @@ public interface MyPageService {
 	int updateNickname(Member member);
 	
 	// 비밀번호 변경
-	int updatePw(Map<String, String> map);
+	int updatePw(Map<String, Object> map);
 
 	// 전화번호 변경
 	int updatePhone(Member member);

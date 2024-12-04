@@ -41,8 +41,7 @@ main>h3{
   justify-content: center;
   align-items: flex-start;
 }
-#myPage-main>.myPage-sec .signUp-count{
-color: red;
+#myPage-main>.myPage-sec .myPage-count{
 display: flex;
 flex-direction: row;
 justify-content: center;
@@ -71,8 +70,7 @@ margin: 0 10px 0;
   width: 90px;
   border-radius: 3px;
 }
-#myPage-main>.myPage-sec label>#signUp-count{
-  color: red;
+#myPage-main>.myPage-sec label>#myPage-count{
   display: flex;
   flex-direction: row;
   justify-content: center;

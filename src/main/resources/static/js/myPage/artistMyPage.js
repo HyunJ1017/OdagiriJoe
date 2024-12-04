@@ -302,7 +302,9 @@ const submitPw = () => {
   })
   .then(result => {
     if(result > 0){
-      nameSec.innerHTML = pwSecBackUp;
+      pwSec.innerHTML = pwSecBackUp;
+      pwSec.classList.remove("active"); // 'active' 제거
+      alertM("비밀번호가 변경되었습니다.");
     } else {
       alert("현재 비밀번호가 일치하지 않습니다.");
       return;
@@ -323,15 +325,15 @@ let keyFl = false;
 phoneSec.addEventListener("click", () => {
   if(phoneSec.classList.contains("active")) return;
   phoneSec.classList.add("active");
-  phoneSecBackUp = phoneSec.innerHTML;
+  phoneSecBackUp = phoneSec.innerText;
   phoneSec.innerHTML = "";
 
   const label = document.createElement("label");
   const input = document.createElement("input");
   input.type = "text";
   input.placeholder = "새 전화번호를 입력 해 주세요";
-  input.id = "memberName";
-  label.htmlFor = "memberName";
+  input.id = "memberPhone";
+  label.htmlFor = "memberPhone";
   const div = document.createElement("div");
   div.classList.add("member-hov");
   div.innerText = "인증하기";
@@ -343,7 +345,7 @@ phoneSec.addEventListener("click", () => {
     phoneSec.innerHTML = ""; // 비우기
     
     setTimeout(() => {
-      phoneSec.innerHTML = pwSecBackUp; 
+      phoneSec.innerHTML = phoneSecBackUp; 
       phoneSec.classList.remove("active"); // 'active' 제거
      }, 0);
    });
@@ -356,10 +358,12 @@ phoneSec.addEventListener("click", () => {
   input2.id = "memberPhoneCheck";
   label2.htmlFor = "memberPhoneCheck";
   const div3 = document.createElement("div");
-  div3.classList.add("member-hov");
-  div3.innerText = "변경하기";
-  div3.addEventListener("click", () => {keyCheck()});
-  label2.append(input2, div3);
+  div3.id = "myPage-count";
+  const div4 = document.createElement("div");
+  div4.classList.add("member-hov");
+  div4.innerText = "변경하기";
+  div4.addEventListener("click", () => {keyCheck()});
+  label2.append(input2, div3, div4);
 
   phoneSec.append(label, label2);
   input.focus();
@@ -375,7 +379,15 @@ let authTimer;            // 타이머 역할의 setInterval을 저장할 변수
 //                           타이머를 멈추는 clearInterval 수행을 위해 필요
 // 카운트 스타트
 const startCount = () => {
-  const signUpCounter = document.querySelector("#signUp-count");
+  const signUpCounter = document.querySelector("#myPage-count");
+  // 기존 시간함수 종료
+  if(authTimer !== null){
+    clearInterval(authTimer);
+    min = initMin;
+    sec = initSec;
+    signUpCounter.innerHTML = '';
+  }
+  
 
   signUpCounter.innerText = initTime; // 05:00 문자열 출력
   signUpCounter.classList.remove("confirm-red");
@@ -503,6 +515,7 @@ const submitPhone = () => {
     
     setTimeout(() => {
       phoneSec.innerHTML = lastCheckedPhone; 
+      alertM(`전화번호가 ${lastCheckedPhone}로 변경되었습니다.`);
       phoneSec.classList.remove("active"); // 'active' 제거
      }, 0);
     } else {

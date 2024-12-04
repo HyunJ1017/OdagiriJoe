@@ -155,48 +155,52 @@ const findIdEventAdd = () => {
   const inputPh = document.querySelector("#findId-inputPh");
   const phoneCheckBtn = document.querySelector("#findId-phCheck");
   const signUpCounter = document.querySelector("#findId-count");
+  const keyCheck = document.querySelector("#findId-keyCheck");
   keyFl = false;
   let lastCheckPhone = '';
-
+  
+  console.log("아이디찾기이벤트실행");
+  
   phoneCheckBtn?.addEventListener("click", ()=>{
-
+    
     const inputPhoneV = inputPh.value.trim();
-
+    
     if(inputPhoneV.length === 0){
       alertM("전화번호를 입력해 주세요");
       return;
     }
-
+    
     const regEx = /^[0-9\s-]+$/;
     if (!regEx.test(inputPhoneV)) {
       alertM("올바른 형태의 전화번호를 입력해 주세요.");
       return;
     }
-
+    
     if (inputPhoneV.replace(/[^\d]/g, "").length !==11 && inputPhoneV.replace(/[^\d]/g, "").length !==10) {
       alertM("10 ~ 11 자리의 번호를 입력해 주세요.");
       return;
     }
-
+    
     lastCheckPhone = inputPh.value.replace(/[^\d]/g, "");
     sendSms(lastCheckPhone, signUpCounter);
-
+    
   });
-
-
-  // 인증확인버튼
-  const keyCheck = document.querySelector("#findId-keyCheck");
-  const inputPhC = document.querySelector("#findId-inputPhC");
-  keyCheck.addEventListener("click", () => {
+  
+  
+  keyCheck.addEventListener("click", e => {
+    // 부모요소 이벤트 막기
+    e.stopPropagation();
     if(keyFl === false) return;
-
+    
     if(signUpCounter.classList.contains("confirm-red")){
       alertM("입력시간이 만료되었습니다.");
       keyFl = false;
       return;
     }
 
-    fetch("/sms/authKeyCheck?authKey=" + inputPhC.value.trim() + "&phoneNumber=" + lastCheckPhone, "")
+    const inputPhC = document.querySelector("#findId-inputPhC");
+
+    fetch("/sms/authKeyCheck?authKey=" + inputPhC.value.trim() + "&phoneNumber=" + lastCheckPhone)
     .then(response => {
       if (response.ok) return response.text();
       throw new Error("AJAX 통신 실패");
@@ -522,6 +526,12 @@ let authTimer;            // 타이머 역할의 setInterval을 저장할 변수
 //                           타이머를 멈추는 clearInterval 수행을 위해 필요
 // 카운트 스타트
 const startCount = (CounterDom) => {
+  if(authTimer !== null){
+    clearInterval(authTimer);
+    min = initMin;
+    sec = initSec;
+    CounterDom.innerHTML = '';
+  }
 
   CounterDom.innerText = initTime;
   CounterDom.classList.remove("confirm-red");
@@ -1072,6 +1082,7 @@ const signUpEventAdd = () => {
       if(result < 1){
         alertM("회원가입 실패");
       } else {
+        alertM(`${inputName.value}님 환영합니다.`);
         logIn(signUpObj);
       }
     })

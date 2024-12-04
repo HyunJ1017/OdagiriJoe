@@ -179,3 +179,9 @@ body{
   transform: rotate(90deg);
   transform-origin: left top; /* 기준점을 설정할 수 있음 */
 }
+
+.content-detail{
+  white-space: pre-wrap; /* 공백과 줄바꿈 유지, 자동 줄바꿈 허용 */
+  word-wrap: break-word; /* 단어가 너무 길 경우 강제 줄바꿈 */
+  overflow-wrap: break-word; /* 최신 브라우저에서의 대체 속성 */
+}

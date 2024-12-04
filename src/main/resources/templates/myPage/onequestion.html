@@ -42,7 +42,7 @@
             </div>
             <div class="detail display-none">
               <div th:text="|문의하신 날자 : *{questionDate}|">2024-11-14</div>
-              <div th:text="*{questionContent}">문의내용 상세보기</div>
+              <div th:text="*{questionContent}" class="content-detail">문의내용 상세보기</div>
             </div>
             <div class="detail display-none">
               <div th:if= "*{questionAnsFl == 'N'}">문의중 입니다</div>
