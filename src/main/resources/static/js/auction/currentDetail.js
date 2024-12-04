@@ -245,6 +245,8 @@ confirmBidBtn.addEventListener('click', function () {
     socket.send(JSON.stringify(bidData));
     const modal = document.getElementById('modal');
     modal.style.display = 'none';
+
+    
   } else {
     console.error("WebSocket is not open. Current state:", socket.readyState);
     alert("WebSocket 연결이 완료되지 않았습니다. 다시 시도하세요.");

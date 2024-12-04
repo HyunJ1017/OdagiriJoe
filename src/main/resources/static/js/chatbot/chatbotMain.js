@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const chatMessages = document.getElementById('chat-messages');
   const keywordButtons = document.querySelectorAll('.keyword-button'); 
 
+ 
   // 웰컴 메시지 요청 여부를 확인하는 플래그
   let isWelcomeMessageSent = false;
 
