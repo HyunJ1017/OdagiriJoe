@@ -1,3 +1,6 @@
+let currentPage = 1; // 현재 페이지
+let isFetching = false; // 데이터 로딩 상태
+let hasMore = true; // 추가 데이터 여부
 
 // "자세히 보기" 버튼 클릭 이벤트 리스너
 document.querySelector(".artwork-list").addEventListener("click", (event) => {
@@ -36,30 +39,61 @@ function determineDetailPage(pieceNo, pieceStatus) {
 
 }
 
-
+// 작품 목록 비동기 로드 함수
 function loadArtistWorks(memberNo, sort = "recent", order = "desc") {
+
+  if (isFetching || !hasMore) return; // 이미 로딩 중이거나 데이터가 더 없으면 종료
+  isFetching = true; // 로딩 상태 설정
+
   console.log("memberNo:", memberNo); // 추가: memberNo 값 확인
   console.log("sort:", sort, "order:", order); // 추가: 정렬 필드와 방향 확인
 
-  const url = `/artist/works?memberNo=${memberNo}&sort=${sort}&order=${order}`;
+  const url = `/artist/works?memberNo=${memberNo}&cp=${currentPage}&sort=${sort}&order=${order}`;
   fetch(url)
     .then(response => {
       if (response.ok) return response.json();
       throw new Error("AJAX 통신 실패");
     })
     .then(data => {
-      renderArtistWorks(data, workSortState); // 데이터를 렌더링
+      setTimeout(() => {
+
+        document.querySelector("#loader").style.display = "none";
+  
+        // 다 불러옴
+        if(data.works.length === 0) {
+          hasMore = false;
+          return;
+        }
+  
+        isFetching = false; // 로딩끝
+  
+        renderArtistWorks(data.works); // 작품 목록 렌더링
+        currentPage = data.currentPage + 1; // 다음 페이지
+        hasMore = data.hasMore; // 추가 데이터 여부
+        isLoading = false; // 로딩 상태 해제
+        //renderArtistWorks(data, workSortState); // 데이터를 렌더링
+
+      }, 1000);
     })
-    .catch(err => console.error(err));
+    .catch(err => {
+      console.error("Error fetching artist works:", err);
+      isLoading = false;
+    });
+    
 }
 
 let status = "";
 
+
+
 // 작품 목록 렌더링 함수
 function renderArtistWorks(works) {
+
+  
+
   const container = document.querySelector(".artwork-list");
   console.log(works);
-  container.innerHTML = works.map(work => `
+  container.innerHTML += works.map(work => `
     <div class="artwork-item">
             <div class="artwork-info">
                 <h4>${work.pieceTitle}</h4>
@@ -75,14 +109,27 @@ function renderArtistWorks(works) {
 
 
 
-// 페이지 로드 시 작품 목록 로드
-document.addEventListener("DOMContentLoaded", () => {
+// // 페이지 로드 시 작품 목록 로드
+// document.addEventListener("DOMContentLoaded", () => {
 
-  const memberNo = new URLSearchParams(window.location.search).get("memberNo");
-  if (memberNo) {
-    loadArtistWorks(memberNo, workSortState.field, workSortState.direction); // 작품 목록 로드
-  }
-});
+//   const memberNo = new URLSearchParams(window.location.search).get("memberNo");
+//   if (memberNo) {
+//     loadArtistWorks(memberNo, workSortState.field, workSortState.direction); // 작품 목록 로드
+//   }
+// });
+
+// // 무한 스크롤 이벤트 리스너
+// window.addEventListener("scroll", () => {
+//   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+
+//   // 스크롤이 끝에 도달하면 데이터 로드
+//   if (scrollTop + clientHeight >= scrollHeight - 5) {
+//     const memberNo = new URLSearchParams(window.location.search).get("memberNo");
+//     loadArtistWorks(memberNo);
+//   }
+// });
+
+
 
 // 정렬상태 초기화(전역변수)
 let workSortState = { field: "recent", direction: "desc" };
@@ -178,3 +225,17 @@ follow.addEventListener("click", () => {
     .catch(err => console.error(err));
 
 });
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  let intersectionObserver = new IntersectionObserver(function (entries) {
+    if (entries[0].intersectionRatio <= 0) return; // 요소가 사라질 때
+    if(hasMore) document.querySelector("#loader").style.display = "block";
+    loadArtistWorks(memberNo, workSortState.field, workSortState.direction);
+  });
+  // 주시 시작
+  intersectionObserver.observe(document.querySelector(".artwork-list-footer"));
+})
+
+

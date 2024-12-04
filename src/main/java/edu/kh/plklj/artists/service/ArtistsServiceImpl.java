@@ -1,5 +1,6 @@
 package edu.kh.plklj.artists.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import edu.kh.plklj.artists.dto.Artist;
 import edu.kh.plklj.artists.mapper.ArtistsMapper;
 import edu.kh.plklj.common.util.Pagination;
+import edu.kh.plklj.piece.dto.Piece;
 import io.lettuce.core.Limit;
 import lombok.RequiredArgsConstructor;
 
@@ -52,8 +54,33 @@ public class ArtistsServiceImpl implements ArtistsService{
 	}
 	
 	@Override
-	public List<Artist> getArtistWorks(int memberNo, String sort, String order) {
-		return mapper.getArtistWorks(memberNo, sort, order);
+	public List<Map<String, Object>> getArtistWorks(int memberNo, String sort, String order, int cp) {
+    int limit = 10; // 한 페이지에 보여줄 개수
+    int offset = (cp - 1) * limit; // 현재 페이지에 대한 offset 계산
+
+    // 작품 목록 조회
+    List<Artist> works = mapper.getArtistWorks(memberNo, sort, order, new RowBounds(offset, limit));
+
+    // 데이터 가공
+    List<Map<String, Object>> workList = new ArrayList<>();
+    for (Artist work : works) {
+        Map<String, Object> workMap = new HashMap<>();
+        workMap.put("pieceNo", work.getPieceNo());
+        workMap.put("pieceTitle", work.getPieceTitle());
+        workMap.put("sizeX", work.getSizeX());
+        workMap.put("sizeY", work.getSizeY());
+        workMap.put("pieceRename", work.getPieceRename());
+        workMap.put("sellPrice", work.getSellPrice());
+        workMap.put("pieceStatus", work.getPieceStatus());
+        workList.add(workMap);
+    }
+
+    return workList;
+}
+	
+	@Override
+	public int getArtistWorkCount(int memberNo) {
+		return mapper.getArtistWorkCount(memberNo);
 	}
 	
 	
