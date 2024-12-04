@@ -173,8 +173,16 @@ document.addEventListener("DOMContentLoaded", function () {
   slideIndex = 0; // 슬라이드 인덱스 초기화
   updateProgressBar(0); // 진행 바 초기화
   slideTimer = setTimeout(showSlides, 6000); // 6초 후 첫 슬라이드 호출
-
+  
   auctionsSlideIndex = 0; // 슬라이드 인덱스 초기화
   updateAuctionsProgressBar(0); // 진행 바 초기화
   auctionSlideTimer = setTimeout(auctionShowSlides, 6000); // 6초 후 첫 슬라이드 호출
 });
+
+// ---------------------------------------------------------------------------------------------------------
+function hideLoader(imgElement) {
+  const loader = imgElement.nextElementSibling; // loader div
+  loader.style.display = 'none'; // 로딩 이미지 숨기기
+  imgElement.style.display = 'block'; // 실제 이미지 보이기
+}
+
