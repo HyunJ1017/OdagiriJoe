@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const checkbox = row.querySelector(".filter-checkbox");
         if (checkbox && checkbox.checked) {
           const deliveryNo = checkbox.getAttribute("data-delivery-no"); // 송장 번호
-          const sortSelect = row.querySelector(".sort-select");
+          const sortSelect = row.querySelector(".sort");
           const deliveryIngDateInput = row.querySelector(".deliveryIngDate");
           const deliveryEndDateInput = row.querySelector(".deliveryEndDate");
           
@@ -385,19 +385,19 @@ const displayDeliveryContents = (page) => {
 
 // ---------------------------------------------------------------------------------------------------------------------
 /* 정렬 기준 변경 이벤트 */
-function onSortChange(event) {
-  const selectedValue = event.target.value; // 선택된 정렬 기준 (0, 1, 2, 3, 4)
+function onChange(event) {
+  const selectedValue = event.target.value; // 선택된 필터 값 (0, 1, 2, 3, 4)
   const tbody = document.querySelector("#delivery-tbody"); // 정렬 대상 tbody
   const rows = Array.from(tbody.querySelectorAll("tr")); // tbody 안의 모든 행 가져오기
 
-  // 상태별 숫자 매핑
-  const statusOrder = {
-    "전체 조회": "4",
-    "방문수령": "0",
-    "배송 준비중": "1",
-    "배송중": "2",
-    "배송 완료": "3",
-  };
+    // 상태별 숫자 매핑
+    const statusOrder = {
+      "전체 조회": "4",
+      "방문수령": "0",
+      "배송 준비중": "1",
+      "배송중": "2",
+      "배송 완료": "3",
+    };
 
   // "전체 조회"일 경우 모든 행을 표시
   if (selectedValue === "4") {
@@ -409,19 +409,17 @@ function onSortChange(event) {
 
   // 각 행을 확인하여 조건에 맞는 행만 표시
   rows.forEach((row) => {
-    const selectElement = row.querySelector(".sort-select"); // 현재 행의 select 요소
-    const rowStatus = selectElement.value; // 해당 행의 배송 상태 값
+    const rowStatus = row.querySelector(".sort-select")?.value; // 현재 행의 배송 상태 값
 
     if (rowStatus === selectedValue) {
-      // 선택된 값과 현재 행의 상태가 일치하면 표시
-      row.style.display = ""; // 기본 표시
+      row.style.display = ""; // 조건 만족 시 표시
     } else {
-      // 일치하지 않으면 숨김
-      row.style.display = "none"; // 숨김 처리
+      row.style.display = "none"; // 조건 미만족 시 숨김
     }
   });
 }
 
-
-
-
+function onSortChange(event) {
+  const rowId = event.target.getAttribute("data-key"); // 해당 행의 ID (deliveryNo)
+  const selectedValue = event.target.value; // 행에서 선택된 값
+}
