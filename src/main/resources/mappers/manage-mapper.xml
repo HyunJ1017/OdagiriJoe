@@ -129,10 +129,7 @@
 	
 	</update>
 	
-	
 
-	
-	
 	<!-- 작가 정지  -->
 	<update id="suspendAritist">
 	UPDATE "MEMBER"
@@ -226,8 +223,6 @@
 	</update>
 	
 	<!-- 승인 요청 거절  -->
-	
-
     <!-- ARTIST 테이블에서 데이터 삭제 -->
     <delete id="getrejectArtist">
     DELETE FROM ARTIST
