@@ -47,6 +47,7 @@
   overflow: hidden;
   border: 1px solid #ccc;
   animation: fadeIn 0.3s ease; /* 부드럽게 나타나는 효과 */
+  z-index: 9999; /* 매우 높은 값 */
 }
 
 @keyframes fadeIn {
