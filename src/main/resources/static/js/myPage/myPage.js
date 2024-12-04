@@ -4,6 +4,9 @@ let nameSecBackUp;
 
 // 이름칸 클릭시
 nameSec.addEventListener("click", () => {
+  nameSecEvent();
+});
+const nameSecEvent = () => {
   if(nameSec.classList.contains("active")) return;
   nameSecBackUp = nameSec.innerHTML;
   const name = nameSec.innerHTML;
@@ -30,7 +33,7 @@ nameSec.addEventListener("click", () => {
   nameSec.append(label);
   input.focus();
   nameSec.classList.add("active");
-})
+} // nameSecEvent end
 
 const nameCancle = () => {
   nameSec.innerHTML = ""; // 비우기
@@ -38,8 +41,9 @@ const nameCancle = () => {
   setTimeout(() => {
     nameSec.innerHTML = nameSecBackUp; // 백업된 HTML 복구
     nameSec.classList.remove("active"); // 'active' 제거
+    nameSecEvent();
   }, 0);
-}
+};
 
 // 이름 변경 요청
 const submitId = () => {
@@ -292,6 +296,8 @@ const submitPw = () => {
   .then(result => {
     if(result > 0){
       pwSec.innerHTML = pwSecBackUp;
+      pwSec.classList.remove("active"); // 'active' 제거
+      alertM("비밀번호가 변경되었습니다.");
     } else {
       alertM("현재 비밀번호가 일치하지 않습니다.");
       return;
@@ -331,7 +337,7 @@ phoneSec.addEventListener("click", () => {
     phoneSec.innerHTML = ""; // 비우기
     
     setTimeout(() => {
-      phoneSec.innerHTML = pwSecBackUp; 
+      phoneSec.innerHTML = phoneSecBackUp; 
       phoneSec.classList.remove("active"); // 'active' 제거
      }, 0);
     });
@@ -366,6 +372,13 @@ let authTimer;            // 타이머 역할의 setInterval을 저장할 변수
 // 카운트 스타트
 const startCount = () => {
   const myPageCounter = document.querySelector("#myPage-count");
+  // 기존 시간함수 종료
+  if(authTimer !== null){
+    clearInterval(authTimer);
+    min = initMin;
+    sec = initSec;
+    myPageCounter.innerHTML = '';
+  }
 
   myPageCounter.innerText = initTime; // 05:00 문자열 출력
   myPageCounter.classList.remove("confirm-red");
@@ -491,7 +504,8 @@ const submitPhone = () => {
   .then(result => {
     if(result > 0){
       phoneSec.innerHTML = lastCheckedPhone;
-      alertM(`전화번호가 ${lastCheckedPhone}로 변경된습니다.`);
+      alertM(`전화번호가 ${lastCheckedPhone}로 변경되었습니다.`);
+      phoneSec.classList.remove("active"); // 'active' 제거
     } else {
       alertM("다시 시도해 주새요");
       return;

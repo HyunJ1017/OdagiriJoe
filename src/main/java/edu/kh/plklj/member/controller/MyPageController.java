@@ -260,12 +260,12 @@ public class MyPageController {
 	 */
 	@PostMapping("updatePw")
 	@ResponseBody
-	public int updateName(@RequestBody Map<String, String> map) {
+	public int updateName(@RequestBody Map<String, Object> map) {
 		return service.updatePw(map);
 	}
 	
 	/** 전화번호 수정하기
-	 * @param map : 현재 비밀번호와, 재입력할 비밀번호
+	 * @param map : 현재 전화번호, 재입력할 전화번호
 	 * @return 1,0
 	 */
 	@PostMapping("updatePhone")
@@ -280,10 +280,10 @@ public class MyPageController {
 		
 		if(result != 0) {
 			if(memberLogin != null) {
-				memberLogin.setMemberName(member.getMemberName());
+				memberLogin.setMemberPhone(member.getMemberPhone());
 				model.addAttribute("memberLogin", memberLogin);
 			} else if (artistLogin != null) {
-				artistLogin.setMemberName(member.getMemberName());
+				artistLogin.setMemberPhone(member.getMemberPhone());
 				model.addAttribute("artistLogin", artistLogin);
 			}
 		}

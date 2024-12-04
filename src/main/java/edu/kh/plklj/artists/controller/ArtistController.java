@@ -81,9 +81,12 @@ public class ArtistController {
         : (loginArtist != null) ? loginArtist.getMemberNo() 
         : 0;
 
+		
 		Artist artist = service.getArtistDetail(artistNo, memberNo);
+		System.out.println(artist);
 		model.addAttribute("artist", artist);
 		return "artist/artistDetail";
+	
 	}
 	
 	/** 작가 상세조회 시 작품 목록 로드 비동기 조회
@@ -100,6 +103,7 @@ public class ArtistController {
 		
 		
 		List<Map<String, Object>> works = service.getArtistWorks(memberNo, sort, order, cp);
+		log.info("works : {}", works);
     int totalWorkCount = service.getArtistWorkCount(memberNo);
 
     Map<String, Object> response = new HashMap<>();

@@ -62,11 +62,11 @@ public class MyPageServiceImpl implements MyPageService {
 
 	// 비밀번호 변경
 	@Override
-	public int updatePw(Map<String, String> map) {
-		Member getMember =  mapper.getMember(map.get("memberNo"));
+	public int updatePw(Map<String, Object> map) {
+		Member getMember =  mapper.getMember(map.get("memberNo").toString());
 		
-		if( encoder.matches( map.get("memberPw"), getMember.getMemberPw()) ) {
-			getMember.setMemberPw( encoder.encode( map.get("inputPw") ) );
+		if( encoder.matches( map.get("memberPw").toString(), getMember.getMemberPw()) ) {
+			getMember.setMemberPw( encoder.encode( map.get("inputPw").toString() ) );
 			return loginMapper.changePw(getMember);
 		}
 		

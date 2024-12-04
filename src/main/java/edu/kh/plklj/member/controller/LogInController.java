@@ -67,22 +67,6 @@ public class LogInController {
 		return "member-sign/signMain";
 	}
 	
-	/** 아이디찾기 페이지로 이동
-	 * @return
-	 */
-	@GetMapping("findingId")
-	public String findIdPage() {
-		return "member-sign/findId";
-	}
-	
-	/** 비밀번호찾기 페이지로 이동
-	 * @return
-	 */
-	@GetMapping("findingPasswords")
-	public String findPwPage() {
-		return "member-sign/findPw";
-	}
-	
 	/** 로그인 확인
 	 * @return
 	 */
