@@ -12,7 +12,7 @@
 		WHERE M.MEMBER_PENALTY = 1
 		AND A.ARTIST_REG = 'Y'
 		AND M.MEMBER_DEL_FL = 'N'
-		
+	ORDER BY M.MEMBER_NO DESC
 	</select>
 
 	<select id="getArtistList" resultType="map">
@@ -44,11 +44,11 @@
 
 	<!-- 회원 목록 -->
 	<select id="getMemberListCount" resultType="_int">
-		SELECT COUNT(*)
-		FROM MEMBER
-		WHERE MEMBER_DEL_FL = 'N'
-		AND MEMBER_PENALTY = 1
-
+	SELECT COUNT(*)
+	FROM MEMBER
+	WHERE MEMBER_DEL_FL = 'N'
+	AND MEMBER_PENALTY = 1
+	ORDER BY MEMBER_NO DESC
 	</select>
 	<select id="getMemberList" resultType="map">
 		SELECT

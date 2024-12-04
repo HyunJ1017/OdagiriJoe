@@ -17,7 +17,7 @@
   <section>
     <!-- 콘텐츠를 가로로 정렬할 컨테이너 -->
     <section class="tab-buttons">
-      <h2 class="request-section dash">대시보드</h2>
+      <h2 class="request-section">대시보드</h2>
       <button class="tab-btn" id="visitor-btn" data-target="visitor">방문자 현황</button>
       <button class="tab-btn" id="trade-btn" data-target="trade">거래 현황</button>
       <button class="tab-btn" id="artwork-btn" data-target="artwork">작품 현황</button>
@@ -88,16 +88,19 @@
           </div>
         </div>
       </section>
+      <div class="custom-line"></div>
       
-
-    <!-- 작가 및 회원 관리 섹션 -->
+      
+      <!-- 작가 및 회원 관리 섹션 -->
     <div id="memberManage"></div><!-- 사이드바스크롤 -->
+    <section class="memberManage-container">
     <h2 class="request-section">작가 및 회원 관리</h2>
-    <div class="custom-line"></div>
     <div class="button-group">
       <button id="show-artist" class="toggle-btn">작가 보기</button>
       <button id="show-member" class="toggle-btn">회원 보기</button>
     </div>
+  </section>
+  <div class="custom-line"></div>
     <section class="writer-row">
 
       <!-- 왼쪽 섹션: 작가 리스트 -->
@@ -110,8 +113,8 @@
             <p>판매 금액: ₩980,000,000</p>
           </div>
           <div class="artist-actions">
-            <button class="btn artist-suspend-btn">정지</button>
-            <button class="btn artist-withdraw-btn">탈퇴</button>
+            <button class="artist-suspend-btn">정지</button>
+            <button class="artist-withdraw-btn">탈퇴</button>
           </div>
         </div>
       </div>
@@ -126,8 +129,8 @@
             <h3>박현준 | 회원</h3>
             <p>경매 금액: ₩1,890,000,000</p>
             <div class="summary-actions">
-              <button class="btn member-suspend-btn">정지</button>
-              <button class="btn member-withdraw-btn">탈퇴</button>
+              <button class="member-suspend-btn">정지</button>
+              <button class="member-withdraw-btn">탈퇴</button>
             </div>
           </div>
         </div>
@@ -175,40 +178,27 @@
         </div>
         <!-- 페이지네이션 -->
     </section>
+
     <div class="pagination-box" id="paginationBoxRequest">
       <div class="custom-line"></div>
     </div>
-
     <!--공지사항 -->
     <div id="noticeN"></div>
     <div class="custom-line"></div>
-    <h2 id="noticeNN" class="request-section">공지사항</h2>
+    <div class="notice-header">
+      <h2 id="noticeNN" class="request-section">공지사항</h2>
+      <button class="add-button" onclick="window.location.href='/manage/write'">작성하기</button>
+    </div>
     <div class="custom-line"></div>
     <section class="notice-section" id="noticeGrid">
-      <div class="notice-header">
-        <button class="add-button" onclick="window.location.href='/manage/write'">작성하기</button>
-      </div>
       <ul class="-noticelist">
         <li class="notice-item">
-          <!-- <div class="notice-row">
-              <span class="icon">&#9654;</span>
-              <span class="notice-question">공지사항</span>
-            </div>
-            <div class="notice-answer" style="display: none;">
-              공지사항입니다
-            </div>
-
-            <div class="notice-buttons" style="display: none;">
-              <button class="revise-button" onclick="window.location.href='/manage/revise'">수정하기</button>
-              <button class="erase-button">삭제하기</button>
-            </div> -->
         </li>
         </div>
       </ul>
     </section>
     <div class="pagination-box" id="paginationBoxNotice"></div>
     <div class="custom-line"></div>
-
 
 
     <!-- 작가 환전 -->
@@ -263,16 +253,16 @@
     <!-- 1 : 1 문의 -->
     <div id="onequestion"></div>
     <div class="custom-line"></div>
-    <h2 class="request-section">1 : 1 문의</h2>
-    <div class="custom-line"></div>
-    <!-- 드롭다운 -->
     <div class="filter-container">
+    <h2 class="request-section">1 : 1 문의</h2>
       <select id="questionFilter" class="question-filter">
         <option value="all">전체보기</option>
         <option value="1">일반문의</option>
         <option value="2">배송 및 운탁문의</option>
       </select>
     </div>
+    <div class="custom-line"></div>
+    <!-- 드롭다운 -->
     <section class="inquiry-section" id="questionGrid">
       <ul class="inquiry-list">
         <li class="inquiry-item">
