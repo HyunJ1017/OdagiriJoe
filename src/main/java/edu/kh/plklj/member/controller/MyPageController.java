@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.plklj.main.dto.BankCode;
 import edu.kh.plklj.main.dto.Member;
+import edu.kh.plklj.member.dto.FollowAndwish;
 import edu.kh.plklj.member.service.MyPageService;
 import edu.kh.plklj.notice.dto.Notice;
 import edu.kh.plklj.piece.dto.Piece;
@@ -41,7 +42,8 @@ public class MyPageController {
 	@GetMapping("")
 	public String myPage(
 			@SessionAttribute(name = "memberLogin", required = false) Member memberLogin,
-			@SessionAttribute(name = "artistLogin", required = false) Member artistLogin
+			@SessionAttribute(name = "artistLogin", required = false) Member artistLogin,
+			RedirectAttributes ra
 			) {
 		
 		if(memberLogin != null) {
@@ -49,6 +51,7 @@ public class MyPageController {
 		} else if(artistLogin != null) {
 			return "myPage/artistMyPage";
 		} else {
+			ra.addFlashAttribute("message", "세션이 만료되었습니다. 다시 로그인해 주세요.");
 			return "redirect:/";
 		}
 	}
@@ -68,6 +71,7 @@ public class MyPageController {
 	public String progressiveAuction(
 			@SessionAttribute(name = "memberLogin", required = false) Member memberLogin,
 			@SessionAttribute(name = "artistLogin", required = false) Member artistLogin,
+			RedirectAttributes ra,
 			Model model) {
 		
 		int memberNo = 0;
@@ -76,6 +80,7 @@ public class MyPageController {
 		} else if (artistLogin != null){
 			memberNo = artistLogin.getMemberNo();
 		} else {
+			ra.addFlashAttribute("message", "세션이 만료되었습니다. 다시 로그인해 주세요.");
 			return "redirect:/main";
 		}
 		
@@ -95,12 +100,14 @@ public class MyPageController {
 	@GetMapping("artistAuction")
 	public String artistAuction(
 			@SessionAttribute("artistLogin") Member artistLogin,
+			RedirectAttributes ra,
 			Model model) {
 		
 		int memberNo = 0;
 		if(artistLogin != null){
 			memberNo = artistLogin.getMemberNo();
 		} else {
+			ra.addFlashAttribute("message", "세션이 만료되었습니다. 다시 로그인해 주세요.");
 			return "redirect:/main";
 		}
 		
@@ -124,6 +131,7 @@ public class MyPageController {
 	public String followAndWish(
 			@SessionAttribute(name = "memberLogin", required = false) Member memberLogin,
 			@SessionAttribute(name = "artistLogin", required = false) Member artistLogin,
+			RedirectAttributes ra,
 			Model model) {
 		
 		int memberNo = 0;
@@ -132,6 +140,7 @@ public class MyPageController {
 		} else if (artistLogin != null){
 			memberNo = artistLogin.getMemberNo();
 		} else {
+			ra.addFlashAttribute("message", "세션이 만료되었습니다. 다시 로그인해 주세요.");
 			return "redirect:/main";
 		}
 		
@@ -151,9 +160,11 @@ public class MyPageController {
 	 */
 	@GetMapping("salesConfirmation")
 	public String salesConfirmation(
-			@SessionAttribute(name = "artistLogin", required = false) Member artistLogin) {
+			@SessionAttribute(name = "artistLogin", required = false) Member artistLogin,
+			RedirectAttributes ra) {
 		
 		if(artistLogin == null) {
+			ra.addFlashAttribute("message", "세션이 만료되었습니다. 다시 로그인해 주세요.");
 			return "redirect:/main";
 		}
 		
@@ -173,14 +184,21 @@ public class MyPageController {
 		if(memberLogin != null) {
 			memberNo = memberLogin.getMemberNo();
 		} else {
+			ra.addFlashAttribute("message", "세션이 만료되었습니다. 다시 로그인해 주세요.");
 			return "redirect:/main";
 		}
 		
 		Member getArtistInfo = service.getArtistInfo(memberNo);
 		log.info("getArtistInfo : {}", getArtistInfo);
 		if(getArtistInfo != null) {
-			ra.addFlashAttribute("message", "이전 신청내역이 아직 처리중입니다.");
-			return "redirect:/member/myPage";
+			if(getArtistInfo.getArtistReg().equals("N") || getArtistInfo.getArtistReg().equals("D")) {
+				model.addAttribute("message", "이전 신청내역이 아직 처리중입니다.");
+				model.addAttribute("artist", getArtistInfo);
+				log.info("artist 모델세팅함 : {}", getArtistInfo);
+			} else {
+				ra.addFlashAttribute("message", "신청내역이 승인되셨습니다. 다시 로그인 해 주세요");
+				return "redirect:/member/login/logout";
+			}
 		}
 		
 		return "myPage/artistRegistration";
@@ -242,12 +260,12 @@ public class MyPageController {
 	 */
 	@PostMapping("updatePw")
 	@ResponseBody
-	public int updateName(@RequestBody Map<String, String> map) {
+	public int updateName(@RequestBody Map<String, Object> map) {
 		return service.updatePw(map);
 	}
 	
 	/** 전화번호 수정하기
-	 * @param map : 현재 비밀번호와, 재입력할 비밀번호
+	 * @param map : 현재 전화번호, 재입력할 전화번호
 	 * @return 1,0
 	 */
 	@PostMapping("updatePhone")
@@ -262,10 +280,10 @@ public class MyPageController {
 		
 		if(result != 0) {
 			if(memberLogin != null) {
-				memberLogin.setMemberName(member.getMemberName());
+				memberLogin.setMemberPhone(member.getMemberPhone());
 				model.addAttribute("memberLogin", memberLogin);
 			} else if (artistLogin != null) {
-				artistLogin.setMemberName(member.getMemberName());
+				artistLogin.setMemberPhone(member.getMemberPhone());
 				model.addAttribute("artistLogin", artistLogin);
 			}
 		}
@@ -302,13 +320,39 @@ public class MyPageController {
 	public String insertArtist(
 			@ModelAttribute Member artist,
 			@RequestParam("workDetail") List<String> workDetails,
-			@RequestParam("inputArtistPortfolio") MultipartFile inputArtistPortfolio
+			@RequestParam("inputArtistPortfolio") MultipartFile inputArtistPortfolio,
+			RedirectAttributes ra
 			) {
 		
 		int result = service.insertArtist(artist, inputArtistPortfolio, workDetails);
 		if(result > 0) {
+			ra.addFlashAttribute("message", "작가신청이 완료되었습니다.");
 			return "redirect:/";
 		} else {
+			ra.addFlashAttribute("message", "작가신청 중 오류가 발생하였습니다.");
+			return "redirect:/member/myPage/artistRegistration";
+		}
+	}
+	
+	/** 작가 신청정보수정
+	 * @param artist : 작가정보
+	 * @param inputArtistPortfolio : 입력받은 포트폴리오 파일
+	 * @return
+	 */
+	@PostMapping("updateArtist")
+	public String updateArtist(
+			@ModelAttribute Member artist,
+			@RequestParam("workDetail") List<String> workDetails,
+			@RequestParam("inputArtistPortfolio") MultipartFile inputArtistPortfolio,
+			RedirectAttributes ra
+			) {
+		
+		int result = service.updateArtist(artist, inputArtistPortfolio, workDetails);
+		if(result > 0) {
+			ra.addFlashAttribute("message", "신청정보 수정이 완료되었습니다.");
+			return "redirect:/";
+		} else {
+			ra.addFlashAttribute("message", "신청자료 수정 중 오류가 발생하였습니다.");
 			return "redirect:/member/myPage/artistRegistration";
 		}
 	}
@@ -322,6 +366,7 @@ public class MyPageController {
 			@SessionAttribute(name = "memberLogin", required = false) Member memberLogin,
 			@SessionAttribute(name = "artistLogin", required = false) Member artistLogin,
 			@RequestParam(name="cp", required = false, defaultValue = "1") int currentPage,
+			RedirectAttributes ra,
 			Model model) {
 		
 		int memberNo = 0;
@@ -330,6 +375,7 @@ public class MyPageController {
 		} else if (artistLogin != null){
 			memberNo = artistLogin.getMemberNo();
 		} else {
+			ra.addFlashAttribute("message", "세션이 만료되었습니다. 다시 로그인해 주세요.");
 			return "redirect:/main";
 		}
 		
@@ -372,8 +418,8 @@ public class MyPageController {
 	@PostMapping("paginationCall")
 	@ResponseBody
 	public Map<String, Object> paginationCall(
-			@RequestBody Map<String, String> map){
-		return service.paginationCall(map);
+			@RequestBody FollowAndwish req){
+		return service.paginationCall(req);
 	}
 	
 	
@@ -435,13 +481,10 @@ public class MyPageController {
 	@PostMapping("getSalesConfirmation")
 	@ResponseBody
 	public Map<String, Object> getSalesConfirmation(
-			@RequestBody Map<String, String> map) {
-		
-		int memberNo = Integer.parseInt( map.get("memberNo") );
-		String selectedMonth = map.get("selectedMonth");
+			@RequestBody Map<String, Object> map) {
 		
 		// 월별 작가 판매작품 및 총액
-		Map<String, Object> resultMap = service.getSalesConfirmation(memberNo, selectedMonth);
+		Map<String, Object> resultMap = service.getSalesConfirmation(map);
 		
 		return resultMap;
 	}

@@ -3,6 +3,7 @@ const findIdMain = document.querySelector("#member-findId");
 const findPwMain = document.querySelector("#member-findPw");
 const signUpMain = document.querySelector("#member-signUp");
 let currentPage = 0;
+let keyFl = false;
 
 // 초기화용 저장객체
 const backupHTML = [
@@ -52,13 +53,9 @@ for(let i=0; i<signMainBtns.length; i++) {
     links[i].style.visibility = "";
     links[i].style.position = "";
     links[i].style.display = "none";
-    console.log("불러온 페이지 : " + i);
 
     // 최대 높이 선택
     const maxHeight = Math.max(currentHeight, targetHeight);
-    console.log(maxHeight);
-    console.log(currentHeight);
-    console.log(targetHeight);
 
     // 부모 컨테이너 높이를 부드럽게 변경
     container.style.transition = "height 0.3s ease";
@@ -73,7 +70,7 @@ for(let i=0; i<signMainBtns.length; i++) {
         links[i].style.transform = "translateX(0)";
       }, 10);
     }, 300);
-
+    
     // 슬라이드 종료 후 높이 축소 (더 작은 경우)
     setTimeout(() => {
       if (targetHeight < maxHeight) {
@@ -97,7 +94,7 @@ const allDisplayNone = (i) => {
     links[num1].style.display = "none";
     links[num1].innerHTML = backupHTML[num1];
     // 이벤트 재지정
-    switch(num1) {
+    switch(i) {
       case 0:
         logInEventAdd();
         break;
@@ -158,48 +155,52 @@ const findIdEventAdd = () => {
   const inputPh = document.querySelector("#findId-inputPh");
   const phoneCheckBtn = document.querySelector("#findId-phCheck");
   const signUpCounter = document.querySelector("#findId-count");
-  let keyFl = false;
+  const keyCheck = document.querySelector("#findId-keyCheck");
+  keyFl = false;
   let lastCheckPhone = '';
-
+  
+  console.log("아이디찾기이벤트실행");
+  
   phoneCheckBtn?.addEventListener("click", ()=>{
-
+    
     const inputPhoneV = inputPh.value.trim();
-
+    
     if(inputPhoneV.length === 0){
       alertM("전화번호를 입력해 주세요");
       return;
     }
-
+    
     const regEx = /^[0-9\s-]+$/;
     if (!regEx.test(inputPhoneV)) {
       alertM("올바른 형태의 전화번호를 입력해 주세요.");
       return;
     }
-
+    
     if (inputPhoneV.replace(/[^\d]/g, "").length !==11 && inputPhoneV.replace(/[^\d]/g, "").length !==10) {
       alertM("10 ~ 11 자리의 번호를 입력해 주세요.");
       return;
     }
-
+    
     lastCheckPhone = inputPh.value.replace(/[^\d]/g, "");
-    sendSms(lastCheckPhone, signUpCounter, keyFl);
-
+    sendSms(lastCheckPhone, signUpCounter);
+    
   });
-
-
-  // 인증확인버튼
-  const keyCheck = document.querySelector("#findId-keyCheck");
-  const inputPhC = document.querySelector("#findId-inputPhC");
-  keyCheck.addEventListener("click", () => {
+  
+  
+  keyCheck.addEventListener("click", e => {
+    // 부모요소 이벤트 막기
+    e.stopPropagation();
     if(keyFl === false) return;
-
+    
     if(signUpCounter.classList.contains("confirm-red")){
       alertM("입력시간이 만료되었습니다.");
       keyFl = false;
       return;
     }
 
-    fetch("/sms/authKeyCheck?authKey=" + inputPhC.value.trim() + "&phoneNumber=" + lastCheckPhone, "")
+    const inputPhC = document.querySelector("#findId-inputPhC");
+
+    fetch("/sms/authKeyCheck?authKey=" + inputPhC.value.trim() + "&phoneNumber=" + lastCheckPhone)
     .then(response => {
       if (response.ok) return response.text();
       throw new Error("AJAX 통신 실패");
@@ -250,12 +251,14 @@ const findPwEventAdd = () => {
   const inputPh = document.querySelector("#findPw-inputPh");
   const phoneCheckBtn = document.querySelector("#findPw-phCheck");
   const signUpCounter = document.querySelector("#findPw-count");
-  let keyFl = false;
+  keyFl = false;
   let pwCheck = false;
   let lastCheckId = '';
   let lastCheckPhone = '';
 
-  phoneCheckBtn?.addEventListener("click", ()=>{
+  phoneCheckBtn?.addEventListener("click", (e)=>{
+    // 부모요소 이벤트 막기
+    e.stopPropagation();
 
     const inputPhoneV = inputPh.value.trim();
 
@@ -292,7 +295,7 @@ const findPwEventAdd = () => {
       if(result == 0){
         alertM("전화번호와 일치하는 ID가 없습니다.");
       } else {
-        sendSms(lastCheckPhone, signUpCounter, keyFl);
+        sendSms(lastCheckPhone, signUpCounter);
       }
     })
     .catch(err => console.error(err));
@@ -340,8 +343,9 @@ const findPwEventAdd = () => {
 
   // 비밀번호 변경창 열기
   const openPwReinput = () => {
-    document.querySelector("#find-inputPwBox").classList.remove("sign-displayNone");
-    document.querySelector("#find-inputPwCBox").classList.remove("sign-displayNone");
+    document.querySelector("#findPw-inputPwBox").classList.remove("sign-displayNone");
+    document.querySelector("#findPw-inputPwCBox").classList.remove("sign-displayNone");
+    document.querySelector("#signMain").style.height = document.querySelector("#member-findPw").scrollHeight + 'px';
     /* 비밀번호 체크 */
     const inputPw = document.querySelector("#findPw-inputPw");
     const inputPwC = document.querySelector("#findPw-inputPwC");
@@ -351,10 +355,10 @@ const findPwEventAdd = () => {
       focusPassword(pwMessage);
     });
     // Password Input 확인
-    inputPw?.addEventListener("change", ()=>{
+    inputPw?.addEventListener("input", ()=>{
       pwInputCheck(inputPw, inputPwC);
     });
-    inputPwC?.addEventListener("change", ()=>{
+    inputPwC?.addEventListener("input", ()=>{
       pwInputCheck(inputPw, inputPwC);
     });
     inputPwC?.addEventListener("focus", () => {
@@ -454,7 +458,7 @@ const findPwEventAdd = () => {
   const submitPwChange = document.querySelector("#findPw-submitPwChange");
   submitPwChange?.addEventListener("click", () => {
 
-    const inputPw = document.querySelector("#inputPw");
+    const inputPw = document.querySelector("#findPw-inputPw");
 
     if(lastCheckId.length === 0){
       alertM("아이디를 입력해 주세요");
@@ -495,7 +499,7 @@ const findPwEventAdd = () => {
 } // findPwEventAdd end
 
 
-const sendSms = (phoneNumber, CounterDom, keyFl) => {
+const sendSms = (phoneNumber, CounterDom) => {
   fetch("/sms/sendSms?phoneNumber=" + phoneNumber + "&typeCode=1")
   .then(response => {
     if (response.ok) return response.text();
@@ -522,6 +526,12 @@ let authTimer;            // 타이머 역할의 setInterval을 저장할 변수
 //                           타이머를 멈추는 clearInterval 수행을 위해 필요
 // 카운트 스타트
 const startCount = (CounterDom) => {
+  if(authTimer !== null){
+    clearInterval(authTimer);
+    min = initMin;
+    sec = initSec;
+    CounterDom.innerHTML = '';
+  }
 
   CounterDom.innerText = initTime;
   CounterDom.classList.remove("confirm-red");
@@ -576,7 +586,7 @@ const signUpEventAdd = () => {
   });
 
   // Name Input 확인
-  inputName?.addEventListener("change", ()=>{
+  inputName?.addEventListener("input", ()=>{
 
     // 메세지창
     const inputMessage = document.querySelector("#signUp-inputMessage");
@@ -634,7 +644,7 @@ const signUpEventAdd = () => {
   });
 
   // ID Input태그 색상변환
-  inputId.addEventListener("change", ()=>{
+  inputId.addEventListener("input", ()=>{
 
     // 메세지창
     const inputMessage = document.querySelector("#signUp-inputMessage");
@@ -740,7 +750,7 @@ const signUpEventAdd = () => {
   });
 
   // Email Input 확인
-  inputEmail?.addEventListener("change", ()=>{
+  inputEmail?.addEventListener("input", ()=>{
 
     signConfirm.emailCheck = false;
     const inputEmailV = inputEmail.value.trim();
@@ -868,7 +878,7 @@ const signUpEventAdd = () => {
   });
 
   // 비밀번호확인 Input 확인
-  inputPwC?.addEventListener("change", ()=>{
+  inputPwC?.addEventListener("input", ()=>{
 
     // 메세지창
     const pwCheck1 = document.querySelector("#pwCheck1");
@@ -903,7 +913,7 @@ const signUpEventAdd = () => {
   const phoneCheckBtn = document.querySelector("#signUp-phCheck");
   const phMessage = document.querySelector("#signUp-phMessage");
   const signUpCounter = document.querySelector("#signUp-count");
-  let keyFl = false;
+  keyFl = false;
 
   // 전화번호입력창이 선택되었을때
   inputPh?.addEventListener("focus", () => {
@@ -921,15 +931,18 @@ const signUpEventAdd = () => {
     phMessage.appendChild(span);
   });
 
-  inputPh?.addEventListener("change", ()=>{
+  inputPh?.addEventListener("input", ()=>{
 
     const inputMessage = document.querySelector("#signUp-inputMessage");
 
+    keyFl = false;
     signConfirm.phonCheck = false;
     const inputPhoneV = inputPh.value.trim();
 
     if(inputPhoneV.length === 0){
-      inputPh.classList.add("confirm-red");
+      inputMessage.classList.add("confirm-red");
+      inputMessage.classList.remove("confirm-green");
+      inputMessage.innerText = "전화번호를 입력해 주세요";
       return;
     }
 
@@ -951,12 +964,12 @@ const signUpEventAdd = () => {
       inputMessage.classList.add("confirm-green");
       inputMessage.innerText = "전화번호를 입력해 주세요";
     }
-  });
+  }); // 전화번호 인풋시
 
   phoneCheckBtn?.addEventListener("click", ()=>{
 
     signConfirm.phonCheck = false;
-    const inputPhoneV = inputPh.value.trim();
+    let inputPhoneV = inputPh.value.trim();
 
     if(inputPhoneV.length === 0){
       alertM("전화번호를 입력해 주세요");
@@ -970,21 +983,25 @@ const signUpEventAdd = () => {
     }
 
     inputPhoneV = inputPhoneV.replace(/[^\d]/g, "");
-    if (inputPhoneV.replace(/[^\d]/g, "").length !==11 && inputPhoneV.replace(/[^\d]/g, "").length !==10) {
+    if (inputPhoneV.length !==11 && inputPhoneV.length !==10) {
       alertM("10 ~ 11 자리의 번호를 입력해 주세요.");
       return;
     }
+    
+    sendSms(inputPhoneV, signUpCounter);
 
-    sendSms(inputPhoneV, signUpCounter, keyFl);
-
-  });
+  }); // 전화번호인증버튼 이벤트
 
 
   // 인증확인버튼
   const keyCheck = document.querySelector("#signUp-keyCheck");
   const inputPhC = document.querySelector("#signUp-inputPhC");
   keyCheck.addEventListener("click", () => {
-    if(keyFl === false) return;
+    
+    if(keyFl === false) {
+      alertM("전화번호 인증이 필요 합니다.\n인증후 번화번호 입력을 다시하셨다면 다시한번 인증해주셔야 합니다.");
+      return;
+    }
 
     if(signUpCounter.classList.contains("confirm-red")){
       alertM("입력시간이 만료되었습니다.");
@@ -998,7 +1015,7 @@ const signUpEventAdd = () => {
       throw new Error("AJAX 통신 실패");
     })
     .then(result => {
-      console.log(result);
+      
       if(result == 1){
         clearInterval(authTimer);
         alertM("전화번호 인증이 완료되었습니다.");
@@ -1016,8 +1033,7 @@ const signUpEventAdd = () => {
       }
     })
     .catch(err => console.error(err));
-
-  })
+  }); // keyCheck end
 
 
   /* 가입하기버튼 클릭시 */
@@ -1040,10 +1056,10 @@ const signUpEventAdd = () => {
       alertM("비밀번호가 잘못 입력되었습니다.");
       return;
     }
-    // if(!signConfirm.phonCheck) {
-    //   alertM("전화번호 인증을 해 주십시오");
-    //   return;
-    // }
+    if(!signConfirm.phonCheck) {
+      alertM("전화번호 인증을 해 주십시오");
+      return;
+    }
 
     const signUpObj = {
       "memberName" : inputName.value,
@@ -1052,8 +1068,6 @@ const signUpEventAdd = () => {
       "inputPw" : inputPw.value,
       "memberPhone" : inputPh.value
     }
-
-    console.log(signUpObj);
 
     fetch("/member/signUp", {
       method: "POST",
@@ -1068,12 +1082,13 @@ const signUpEventAdd = () => {
       if(result < 1){
         alertM("회원가입 실패");
       } else {
+        alertM(`${inputName.value}님 환영합니다.`);
         logIn(signUpObj);
       }
     })
     .catch(err => console.error(err));
     
-  });
+  }); // signUpBtn end
 
   const logIn = (obj) => {
     const form = document.createElement("form");

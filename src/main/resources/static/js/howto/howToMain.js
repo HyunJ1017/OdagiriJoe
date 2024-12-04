@@ -38,7 +38,7 @@ const inquireBtn = document.querySelector(".inquireBtn");
 
     e.preventDefault();
 
-    if (!isLoggedIn) {
+    if (!loginCheck) {
       alert("로그인이 필요합니다. 로그인 후 이용해 주세요.");
       location.href = "/member/login";
       return;

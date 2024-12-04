@@ -1,93 +1,86 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Gallery</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Gallery</title>
 
-    <link rel="stylesheet" href="/css/online/onlineList.css">
+  <link rel="stylesheet" href="/css/online/onlineList.css">
 
-    <th:block th:replace="~{/common/common.html :: cssLinks}"></th:block>
-  </head>
+  <th:block th:replace="~{/common/common.html :: cssLinks}"></th:block>
+</head>
   
-  <body>
-    <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
-    <main id="onlinePage-main">
-  
-      <section class="online-gallery-list">
-          <div class="online-header">
-              <h2 class="header-title">Online Gallery</h2>
-              
-                <h3 id="onlineSales">구매 작품</h3>
-                <div class="online-dropdown">
-                  <button id="salesSortBtn">정렬방식</button>
-                  <div class="online-dropdown-content" id="salesDropdownContent">
-                      <a id="salesSortByName">이름순 </a>
-                      <a id="salesSortByPrice">가격순</a>
-                      <!-- 필요한 정렬 방식을 여기 추가할 수 있습니다 -->
-                  </div>
-              
-                 </div>
-          </div>
+<body>
+  <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
+  <main id="onlinePage-main" class="online-gallery-list">
 
-  
-       <div class="online-list" id="salesListContainer">
-            <!-- 판매 작품 목록이 렌더링될 영역 -->
-        </div>
-
-        <div id="salesPaginationBox" class="pagination-box">
-      
-        </div>
-
-          <hr>
-
-          <div class="online-header">
-            
-              <h3 id="onlineCompleted">완료 작품</h3>
-              <div class="online-dropdown">
-                <button id="completedSortBtn">정렬방식</button>
-                <div class="online-dropdown-content" id="completedDropdownContent">
-                    <a href="#" id="completedSortByName">이름순</a>
-                    <a href="#" id="completedSortByPrice">가격순</a>
-                    <!-- 필요한 정렬 방식을 여기 추가할 수 있습니다 -->
-                </div>
-              
-        </div>
-
-     
+    <div class="online-header">
+        <h2 class="header-title">Online Gallery</h2>
+        
+          <h3 id="onlineSales">구매 작품</h3>
+          <div class="online-dropdown">
+            <button id="salesSortBtn">정렬방식</button>
+            <div class="online-dropdown-content" id="salesDropdownContent">
+                <a id="salesSortByName">이름순 </a>
+                <a id="salesSortByPrice">가격순</a>
+                <!-- 필요한 정렬 방식을 여기 추가할 수 있습니다 -->
+            </div>
+        
+            </div>
+    </div>
 
 
-      <div class="online-list1" id="completedListContainer">
-          <!-- 완료 작품 목록이 렌더링될 영역 -->
-      </div>
-      <div id="completedPaginationBox" class="pagination-box">
-        <!-- <a href="#" class="page-btn"><<</a>
-              <a href="#" class="page-btn"><</a>
-              <a href="#" class="page-btn">1</a>
-              <a href="#" class="page-btn">2</a>
-              <a href="#" class="page-btn">3</a>
-              <a href="#" class="page-btn">4</a>
-              <a href="#" class="page-btn">5</a>
-              <a href="#" class="page-btn">6</a>
-              <a href="#" class="page-btn">7</a>
-              <a href="#" class="page-btn">8</a>
-              <a href="#" class="page-btn">9</a>
-              <a href="#" class="page-btn">10</a>
-              <a href="#" class="page-btn">>></a>
-              <a href="#" class="page-btn">></a> -->
-
-      </div>
-  
+    <div class="online-list" id="salesListContainer">
+        <!-- 판매 작품 목록이 렌더링될 영역 -->
+    </div>
+    <div id="onlineCom"></div>
+    <div id="salesPaginationBox" class="pagination-box"></div>
+    <div class="custom-line"></div>
+      <div class="online-header">
+          <h3 id=onlineCompleted>완료 작품</h3>
+          <div class="online-dropdown">
+            <button id="completedSortBtn">정렬방식</button>
+            <div class="online-dropdown-content" id="completedDropdownContent">
+                <a href="#" id="completedSortByName">이름순</a>
+                <a href="#" id="completedSortByPrice">가격순</a>
+                <!-- 필요한 정렬 방식을 여기 추가할 수 있습니다 -->
+            </div>
           
-  
-   </section>
-  
-    </main>
-
-    <th:block th:replace= "~{/common/footer.html}"></th:block>
+    </div>
 
     
 
-    <script src="/js/online/onlineList.js"></script>
+
+    <div class="online-list1" id="completedListContainer">
+        <!-- 완료 작품 목록이 렌더링될 영역 -->
+    </div>
+    <div id="completedPaginationBox" class="pagination-box">
+      <!-- <a href="#" class="page-btn"><<</a>
+            <a href="#" class="page-btn"><</a>
+            <a href="#" class="page-btn">1</a>
+            <a href="#" class="page-btn">2</a>
+            <a href="#" class="page-btn">3</a>
+            <a href="#" class="page-btn">4</a>
+            <a href="#" class="page-btn">5</a>
+            <a href="#" class="page-btn">6</a>
+            <a href="#" class="page-btn">7</a>
+            <a href="#" class="page-btn">8</a>
+            <a href="#" class="page-btn">9</a>
+            <a href="#" class="page-btn">10</a>
+            <a href="#" class="page-btn">>></a>
+            <a href="#" class="page-btn">></a> -->
+
+    </div>
+
+  
+
+
+  </main>
+
+  <th:block th:replace= "~{/common/footer.html}"></th:block>
+
+  
+
+  <script src="/js/online/onlineList.js"></script>
 </body>
 </html>

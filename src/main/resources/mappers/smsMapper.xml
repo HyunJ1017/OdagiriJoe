@@ -5,7 +5,17 @@
 	<select id="getIdList" resultType="string">
 		SELECT MEMBER_ID
 		FROM "MEMBER"
-		WHERE MEMBER_PHONE = #{phoneNumber}
+		WHERE
+			MEMBER_PHONE = #{phoneNumber}
+		AND MEMBER_DEL_FL = 'N'
+	</select>
+	
+	<select id="getSmsMember">
+		SELECT
+			MEMBER_PHONE,
+			MEMBER_NAME
+		FROM "MEMBER"
+		WHERE MEMBER_NO = #{memberNo}
 	</select>
 	
 </mapper>

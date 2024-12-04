@@ -26,31 +26,20 @@ public class DeliveryServiceImpl implements DeliveryService{
 
 	/* 배송 상태 조회 */
 	@Override
-	public List<Manage> deliveryList(int manageNo) {
-		return mapper.deliveryList(manageNo);
-	}
-	
-	@Override
-	public boolean updateDelivery(List<Manage> delivery) {
-	    
-	    int result = 0;
-			for(Manage manage : delivery) {
-				
-				if(manage.getDeliveryIngDate() != null && !manage.getDeliveryIngDate().equals("NaN-NaN-NaN")) result =  mapper.deliveryIngDateUpdate(manage);
-				if(manage.getDeliveryEndDate() != null && !manage.getDeliveryEndDate().equals("NaN-NaN-NaN")) result += mapper.deliveryEndDateUpdate(manage);
-				result += mapper.deliveryStatusUpdate(manage);
-				
-				if(result == 0) return false; // 실패 시
-			}
-	    
-	    return true;
-	}
-
-
-	@Override
 	public List<Manage> deliveryList() {
 		return mapper.deliveryList();
 	}
-
-
+	
+	/* 배송 상태 변경 */
+	@Override
+	public boolean updateDelivery(List<Manage> delivery) {
+	    int result = 0;
+			for(Manage manage : delivery) {
+				if(manage.getDeliveryIngDate() != null && !manage.getDeliveryIngDate().equals("NaN-NaN-NaN")) result =  mapper.deliveryIngDateUpdate(manage);
+				if(manage.getDeliveryEndDate() != null && !manage.getDeliveryEndDate().equals("NaN-NaN-NaN")) result += mapper.deliveryEndDateUpdate(manage);
+				result += mapper.deliveryStatusUpdate(manage);
+				if(result == 0) return false; // 실패 시
+			}
+	    return true;
+	}
 }

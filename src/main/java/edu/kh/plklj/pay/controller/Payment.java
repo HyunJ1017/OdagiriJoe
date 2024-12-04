@@ -71,6 +71,7 @@ public class Payment {
 	@GetMapping("pleseKey")
 	@ResponseBody
 	public Map<String, String> pleseKey() {
+		log.info("[실행]PayTest.pleseKey()");
 		Map<String, String> map = new HashMap<>();
 		map.put("chennelKey", chennelKey);
 		map.put("chennelId", chennelId);

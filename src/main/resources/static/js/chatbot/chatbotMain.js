@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
   const chatbotContainer = document.getElementById('chatbot-container');
   const chatbotIcon = document.getElementById('chatbot-icon');
@@ -5,11 +6,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const sendButton = document.getElementById('send-button');
   const chatInput = document.getElementById('chat-input');
   const chatMessages = document.getElementById('chat-messages');
+  const keywordButtons = document.querySelectorAll('.keyword-button'); 
 
  
+  // 웰컴 메시지 요청 여부를 확인하는 플래그
+  let isWelcomeMessageSent = false;
+
   // 챗봇 아이콘 클릭 시 창 열기/닫기 토글
   chatbotIcon.addEventListener('click', () => {
+    // 토글 함수 : 클래스가 있으면 제거 없으면 추가
     chatbotContainer.classList.toggle('hidden');
+
+    // 챗봇 창이 열릴 때 웰컴 메시지 요청
+    // 히든 클래스가 없고 웰컴메시지 true이면 웰컴메시지 요청
+    if (!chatbotContainer.classList.contains('hidden') && !isWelcomeMessageSent) {
+      requestWelcomeMessage();
+      isWelcomeMessageSent = true; // 웰컴 메시지 요청 완료 상태로 설정
+    }
+
   });
 
   // x 버튼 클릭 시 창 닫기
@@ -18,18 +32,24 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // 메시지 전송 버튼 클릭 시
-  sendButton.addEventListener('click', sendMessage);
+  sendButton.addEventListener('click', () => sendMessage(chatInput.value.trim()));
 
   // Enter 키로 메시지 전송
   chatInput.addEventListener('keypress', (event) => {
     if (event.key === 'Enter') {
-      sendMessage();
+      sendMessage(chatInput.value.trim());
     }
   });
 
-  function sendMessage() {
-    // input 공백 제거
-    const message = chatInput.value.trim();
+ // 키워드 버튼 클릭 이벤트
+ keywordButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    const keyword = button.textContent.trim(); // 버튼 텍스트 가져오기
+    sendMessage(keyword); // 버튼 텍스트 전송
+  });
+});
+
+  function sendMessage(message) {
 
     if (message) {
       addMessage(message, 'user'); // 사용자 메시지 추가
@@ -44,10 +64,12 @@ document.addEventListener('DOMContentLoaded', () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message }),
+        body: JSON.stringify({ message }), // 사용자 메시지 전송
       })
         .then((response) => response.json())
         .then((data) => {
+
+          console.log(data);
 
           const botResponse = data.response || '챗봇 응답 오류';
 
@@ -63,6 +85,39 @@ document.addEventListener('DOMContentLoaded', () => {
           addMessage('챗봇과 연결할 수 없습니다. 잠시 후 다시 시도해 주세요.', 'bot');
         });
     }
+  }
+
+  function requestWelcomeMessage() {
+
+    // 웰컴 메시지 요청
+    const loadingIndicator = addLoading(); // 로딩 표시 추가
+
+    fetch('/chatbot/send', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ message: '' }), // 빈 메시지로 웰컴 요청
+    })
+      .then((response) => response.json())
+
+      // map 타입으로 결과 받기
+      .then((data) => {
+        
+        // json 타입으로 결과 받기
+        const botResponse = data.response || '챗봇 응답 오류';
+
+        // 로딩 표시 제거 후 챗봇 응답 추가
+        removeLoading(loadingIndicator);
+        addMessage(botResponse, 'bot');
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+
+        // 로딩 표시 제거 후 오류 메시지 추가
+        removeLoading(loadingIndicator);
+        addMessage('챗봇과 연결할 수 없습니다. 잠시 후 다시 시도해 주세요.', 'bot');
+      });
   }
 
   function addMessage(message, sender) {
@@ -83,16 +138,11 @@ document.addEventListener('DOMContentLoaded', () => {
     text.className = 'message-text';
     text.textContent = message;
 
-    // 사용자와 챗봇 메시지의 정렬 및 추가
-    if (sender === 'user') {
-      messageDiv.appendChild(text); // 사용자 메시지에는 텍스트만
-    } else {
-      messageDiv.appendChild(text); // 챗봇 메시지에 텍스트 추가
-    }
-
+    // 메시지 추가
+    messageDiv.appendChild(text);
     chatMessages.appendChild(messageDiv);
 
-    // DOM 업데이트 수행 후 자동 스크롤
+    // DOM 수행 후 스크롤 위치 조정
     setTimeout(() => {
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }, 0);
@@ -100,7 +150,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function addLoading() {
 
+    // 태그 생성
     const loadingDiv = document.createElement('div');
+    // 클래스 추가
     loadingDiv.className = 'chat-message bot loading';
 
     const loadingIcon = document.createElement('div');
@@ -110,17 +162,16 @@ document.addEventListener('DOMContentLoaded', () => {
     loadingDiv.appendChild(loadingIcon);
     chatMessages.appendChild(loadingDiv);
 
-    // 스크롤 위치 최신메시지가 보이도록 자동 조정
+    // 스크롤 위치 마지막 대화 위치로 자동으로 이동
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
     return loadingDiv;
   }
 
   function removeLoading(loadingElement) {
-    // 'loadingElement'가 존재하고, 그것이 DOM 트리에 붙어 있을 경우 실행
-    // loadingElement가 parentNode 부무요소를 가지고 있는지 확인
     if (loadingElement && loadingElement.parentNode) {
       loadingElement.parentNode.removeChild(loadingElement);
     }
   }
+  
 });

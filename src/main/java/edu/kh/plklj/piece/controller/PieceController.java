@@ -157,7 +157,8 @@ public class PieceController {
 	 */
 	@PostMapping("upload")
 	public String pieceInsert(
-			@ModelAttribute Piece piece) {
+			@ModelAttribute Piece piece,
+			Model model) {
 
 		// 이전 임시저장작품이 있으면 지우기
 		int result = service.searchTempiece(piece);
@@ -165,8 +166,13 @@ public class PieceController {
 		result = service.pieceInsert(piece);
 		
 		if(result > 0) {
-			return "redirect:/main";
+			model.addAttribute("message", "작품 등록에 성공하였습니다.");
+			if(piece.getPieceType() > 1)
+				return "redirect:/auction/auctionDetail?pieceNo=" + piece.getPieceNo();
+			else
+				return "redirect:/auction/onlineDetail?pieceNo=" + piece.getPieceNo();
 		} else {
+			model.addAttribute("message", "작품 등록에 실패하였습니다. 다시 시도해 주십시오.");
 			return "redirect:/piece/upload";
 		}
 	}

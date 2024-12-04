@@ -1,5 +1,5 @@
 .myPage-main *{
-  color: black;
+  color: #414141;
 }
 #myPage-main{
   display: flex;
@@ -27,7 +27,7 @@ main>h3{
 #myPage-main>.myPage-sec>.common-box{
   width: 100%;
   min-height: 50px;
-  border: 2px solid black;
+  border: 1px solid #5e7c71;
   border-radius: 3px;
   padding: 5px;
   display: flex;
@@ -41,8 +41,7 @@ main>h3{
   justify-content: center;
   align-items: flex-start;
 }
-#myPage-main>.myPage-sec .signUp-count{
-color: red;
+#myPage-main>.myPage-sec .myPage-count{
 display: flex;
 flex-direction: row;
 justify-content: center;
@@ -55,7 +54,7 @@ margin: 0 10px 0;
 .myPage-main>.myPage-sec label{
   width: 97%;
   min-height: 30px;
-  border: 2px solid rgb(130, 130, 130);
+  border: 1px solid #5e7c71;
   border-radius: 3px;
   display: flex;
   flex-direction: row;
@@ -71,8 +70,7 @@ margin: 0 10px 0;
   width: 90px;
   border-radius: 3px;
 }
-#myPage-main>.myPage-sec label>#signUp-count{
-  color: red;
+#myPage-main>.myPage-sec label>#myPage-count{
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -83,14 +81,14 @@ margin: 0 10px 0;
   width: 380px;
   height: 45px;
   align-self: center;
-  border: 2px solid rgb(130, 130, 130);
+  border: 1px solid #5e7c71;
   border-radius: 3px;
   margin: 10px;
 }
 #myPage-main>section>.member-hov{
   width: 380px;
   height: 45px;
-  border-radius: 8px;
+  border-radius: 3px;
   margin: 15px;
 }
 .member-hov{
@@ -101,14 +99,15 @@ margin: 0 10px 0;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: #5e7c71;
-  color: white;
+  background: white;
+  border: 1px solid #5e7c71;
+  color: #5e7c71;
 }
 .member-hov:hover{
   cursor: pointer;
-  background: white;
-  border: 2px solid #5e7c71;
-  color: #5e7c71;
+  border: 1px solid #5e7c71;
+  background-color: #5e7c71;
+  color: white;
 }
 .confirm-red{color: red;}
 
@@ -120,7 +119,7 @@ margin: 0 10px 0;
   padding: 20px;
   min-width: 820px;
   min-height: 440px;
-  border: 1px solid #80808030;
+  border: 1px solid #5e7c71;
 }
 .loader {/* 이미지 로딩전까지 보여줄 로딩이미지 */
   position: absolute;

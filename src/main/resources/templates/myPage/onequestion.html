@@ -34,7 +34,7 @@
       <ul class="inquiry-list">
 
         <!-- 문의목록 -->
-        <th:block th:each= "question : ${questionList}" th:object="${question}">
+        <th:block th:if= "${questionList}" th:each= "question : ${questionList}" th:object="${question}">
           <li class="inquiry-item">
             <div>
               <span class="icon">&#9654;</span>
@@ -42,7 +42,7 @@
             </div>
             <div class="detail display-none">
               <div th:text="|문의하신 날자 : *{questionDate}|">2024-11-14</div>
-              <div th:text="*{questionContent}">문의내용 상세보기</div>
+              <div th:text="*{questionContent}" class="content-detail">문의내용 상세보기</div>
             </div>
             <div class="detail display-none">
               <div th:if= "*{questionAnsFl == 'N'}">문의중 입니다</div>
@@ -52,47 +52,38 @@
               </section>
             </div>
           </li>
-      </th:block>
+        </th:block>
+        <th:block th:if= "${#lists.isEmpty(questionList)}">
+          <li>현재 문의하신 내용이 없습니다.</li>
+        </th:block>
 
       </ul>
     </section>
 
     <section th:if= "${pagination}" class="pagination-area">
 
-      <ul class="pagination" th:object="${pagination}">
+      <ul class="pagination" th:object="${pagination}" th:if= "*{endPage>0}">
 
-        <!-- 페이지 변경 foward -->
-        <!-- 이제 10페이지 넘어가면 페이지 넘기는 버튼이 나올예정 -->
-        <th:block th:if= "*{maxPage > pageSize}">
-          <!-- 첫 페이지로 이동 -->
-          <li><a href="#">&lt;&lt;</a></li>
+        <li><a href="#">&lt;&lt;</a></li>
+        <li><a href="#">&lt;</a></li>
 
-          <!-- 이전 목록 마지막 번호로 이동 -->
-          <li><a href="#">&lt;</a></li>
-        </th:block>
+          <!-- 특정 페이지로 이동 -->
+          <th:block th:each= "i:*{#numbers.sequence(startPage, endPage)}">
+  
+            <!-- 현재 보고있는 페이지 -->
+            <li th:if= "${i} == *{currentPage}">
+              <a class="current" th:text="${i}">현재페이지</a>
+            </li>
+  
+            <!-- 보고있지 않은 페이지 -->
+            <li th:unless= "${i} == *{currentPage}">
+              <a href="#" th:text="${i}">이동할 수 있는 페이지</a>
+            </li>
+  
+          </th:block>
 
-        <!-- 특정 페이지로 이동 -->
-        <th:block th:each= "i:*{#numbers.sequence(startPage, endPage)}">
-
-          <!-- 현재 보고있는 페이지 -->
-          <li th:if= "${i} == *{currentPage}">
-            <a class="current" th:text="${i}">현재페이지</a>
-          </li>
-
-          <!-- 보고있지 않은 페이지 -->
-          <li th:unless= "${i} == *{currentPage}">
-            <a href="#" th:text="${i}">이동할 수 있는 페이지</a>
-          </li>
-
-        </th:block>
-
-        <th:block  th:if= "*{maxPage > pageSize}">
-          <!-- 다음 목록 시작 번호로 이동 -->
-          <li><a href="#">&gt;</a></li>
-
-          <!-- 끝 페이지로 이동 -->
-          <li><a href="#">&gt;&gt;</a></li>
-        </th:block>
+        <li><a href="#">&gt;</a></li>
+        <li><a href="#">&gt;&gt;</a></li>
       </ul>
     </section>
     

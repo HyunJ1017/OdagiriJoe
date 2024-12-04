@@ -20,6 +20,7 @@ import com.google.cloud.storage.Bucket;
 import edu.kh.plklj.common.util.Pagination;
 import edu.kh.plklj.main.dto.BankCode;
 import edu.kh.plklj.main.dto.Member;
+import edu.kh.plklj.member.dto.FollowAndwish;
 import edu.kh.plklj.member.dto.SellInfo;
 import edu.kh.plklj.member.mapper.LogInMapper;
 import edu.kh.plklj.member.mapper.MyPageMapper;
@@ -61,11 +62,11 @@ public class MyPageServiceImpl implements MyPageService {
 
 	// 비밀번호 변경
 	@Override
-	public int updatePw(Map<String, String> map) {
-		Member getMember =  mapper.getMember(map.get("memberNo"));
+	public int updatePw(Map<String, Object> map) {
+		Member getMember =  mapper.getMember(map.get("memberNo").toString());
 		
-		if( encoder.matches( map.get("memberPw"), getMember.getMemberPw()) ) {
-			getMember.setMemberPw( encoder.encode( map.get("inputPw") ) );
+		if( encoder.matches( map.get("memberPw").toString(), getMember.getMemberPw()) ) {
+			getMember.setMemberPw( encoder.encode( map.get("inputPw").toString() ) );
 			return loginMapper.changePw(getMember);
 		}
 		
@@ -122,6 +123,69 @@ public class MyPageServiceImpl implements MyPageService {
 	    int result = mapper.insertArtist(artist);
 	    
 	    if(workDetails.isEmpty() == false && workDetails.get(0).length() > 0) {
+	    	workDetails = workDetails.stream()
+	    		    .filter(detail -> detail != null && !detail.trim().isEmpty())
+	    		    .collect(Collectors.toList());
+	    	for(String workDetail : workDetails) {
+	    		result += mapper.insertWork(artist.getMemberNo(), workDetail);
+	    	}
+	    }
+	    
+	    return result;
+	}
+	
+	// 이전 신청내역 불러오기
+	@Override
+	public Member getArtistInfo(int memberNo) {
+		return mapper.getArtistInfo(memberNo);
+	}
+
+	// 작가 정보 수정
+	@Override
+	public int updateArtist(Member artist, MultipartFile inputArtistPortfolio, List<String> workDetails) {
+		
+		Member preArtistInfo = mapper.getArtistInfo(artist.getMemberNo());
+		
+		if(artist.getArtistProfile() == null) {
+			artist.setArtistProfile(preArtistInfo.getArtistProfile());
+		}
+		
+		if(inputArtistPortfolio.isEmpty() == false) {
+			log.info("inputArtistPortfolio : {}", inputArtistPortfolio);
+			String originalFileName = inputArtistPortfolio.getOriginalFilename();
+			int index = originalFileName.lastIndexOf(".");
+			String ext = originalFileName.substring(index);
+			
+			/*포트폴리오 저장 및 파일명 저장*/
+			String blob = "portfolio/" + "portpolio" + artist.getMemberNo() + ext;
+		    try {
+		        // 기존 파일 삭제
+		        Blob existingBlob = bucket.get(blob);
+		        if (existingBlob != null) {
+		            existingBlob.delete();
+		        }
+	
+		        // InputStream으로 파일 업로드
+		        try (InputStream inputStream = inputArtistPortfolio.getInputStream()) {
+		            bucket.create(blob, inputStream, inputArtistPortfolio.getContentType());
+		        }
+	
+		    } catch (Exception e) {
+		        log.error("profile upload failed", e);
+		        throw new RuntimeException("ErrorCode.IMAGE_UPLOAD_FAILED");
+		    }
+			
+		    // https://firebasestorage.googleapis.com/v0/b/ 프로젝트ID .firebasestorage.app/o/ 파일경로 / 파일명$.확장자 ?alt=media
+		    artist.setArtistPortfolio( portfolioPrePath + "portpolio" + artist.getMemberNo() + ext + appPath);
+		} else {
+			log.info("preArtistInfo.getArtistPortfolio() : {}", preArtistInfo.getArtistPortfolio());
+			artist.setArtistPortfolio(preArtistInfo.getArtistPortfolio());
+		}
+	    
+	    int result = mapper.updateArtist(artist);
+	    
+	    if(workDetails.isEmpty() == false && workDetails.get(0).length() > 0) {
+	    	result += mapper.deleteWork(artist.getMemberNo());
 	    	workDetails = workDetails.stream()
 	    		    .filter(detail -> detail != null && !detail.trim().isEmpty())
 	    		    .collect(Collectors.toList());
@@ -220,11 +284,11 @@ public class MyPageServiceImpl implements MyPageService {
 	 * @return { "listType" : listType, "getList" : getList, "getPagination" : getPagination }
 	 */
 	@Override
-	public Map<String, Object> paginationCall(Map<String, String> map) {
+	public Map<String, Object> paginationCall(FollowAndwish req) {
 		
-		String listType = map.get("listType");
-		int memberNo = Integer.parseInt( map.get("memberNo") );
-		int cp = Integer.parseInt( map.get("cp") );
+		String listType = req.getListType();
+		int memberNo = req.getMemberNo();
+		int cp = req.getCp();
 		
 		Map<String, Object> resultMap = new HashMap<>();
 		
@@ -309,17 +373,14 @@ public class MyPageServiceImpl implements MyPageService {
 		return mapper.setArtistProfile(artist);
 	}
 	
-	// 이전 신청내역 불러오기
-	@Override
-	public Member getArtistInfo(int memberNo) {
-		return mapper.getArtistInfo(memberNo);
-	}
-	
 	// 작가 월별 판매작품목록 및 총 판매량
 	@Override
-	public Map<String, Object> getSalesConfirmation(int memberNo, String selectedMonth) {
+	public Map<String, Object> getSalesConfirmation(Map<String, Object> map) {
 		
 		Map<String, Object> resultMap = new HashMap<>();
+		
+		int memberNo = Integer.parseInt(map.get("memberNo").toString());
+		String selectedMonth = map.get("selectedMonth").toString();
 		
 		// 작가 월별 판매작품목록 작품이름,낙찰가,입금상태, 작품타입
 		List<SellInfo> sellList = mapper.getSellList(memberNo, selectedMonth);
@@ -357,4 +418,5 @@ public class MyPageServiceImpl implements MyPageService {
 	public int deleteMember(int memberNo) {
 		return mapper.deleteMember(memberNo);
 	}
+
 }

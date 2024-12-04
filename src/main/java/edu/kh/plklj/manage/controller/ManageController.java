@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.kh.plklj.main.dto.Member;
 import edu.kh.plklj.manage.dto.Manage;
 import edu.kh.plklj.manage.service.ManageService;
 import edu.kh.plklj.notice.dto.Notice;
@@ -30,7 +32,13 @@ public class ManageController {
 	private final ManageService service;
 
 	@GetMapping("")
-	public String managePage() {
+	public String managePage(
+			@SessionAttribute(name = "manageLogin", required = false) Member manageLogin) {
+		
+		if(manageLogin == null) {
+			return "redirect:/";
+		}
+		
 		return "manage/manage";
 	}
 
@@ -120,6 +128,7 @@ public class ManageController {
 	@DeleteMapping("/delete/{pieceNo}")
 	@ResponseBody
 	public void deletePieceList(@PathVariable("pieceNo") int pieceNo) {
+		
 		service.deletePieceList(pieceNo);
 	}
 

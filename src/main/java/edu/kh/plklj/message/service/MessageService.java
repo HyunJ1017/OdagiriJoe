@@ -1,5 +1,8 @@
 package edu.kh.plklj.message.service;
 
 public interface MessageService {
-	String sendSMS(String toPhoneNumber, String messageText);
+
+	int sendSMS(int memberNo);
+
+	
 }

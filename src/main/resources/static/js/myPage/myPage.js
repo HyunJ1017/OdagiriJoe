@@ -4,6 +4,9 @@ let nameSecBackUp;
 
 // 이름칸 클릭시
 nameSec.addEventListener("click", () => {
+  nameSecEvent();
+});
+const nameSecEvent = () => {
   if(nameSec.classList.contains("active")) return;
   nameSecBackUp = nameSec.innerHTML;
   const name = nameSec.innerHTML;
@@ -30,7 +33,7 @@ nameSec.addEventListener("click", () => {
   nameSec.append(label);
   input.focus();
   nameSec.classList.add("active");
-})
+} // nameSecEvent end
 
 const nameCancle = () => {
   nameSec.innerHTML = ""; // 비우기
@@ -38,8 +41,9 @@ const nameCancle = () => {
   setTimeout(() => {
     nameSec.innerHTML = nameSecBackUp; // 백업된 HTML 복구
     nameSec.classList.remove("active"); // 'active' 제거
+    nameSecEvent();
   }, 0);
-}
+};
 
 // 이름 변경 요청
 const submitId = () => {
@@ -47,16 +51,16 @@ const submitId = () => {
   const inputName = document.querySelector("#memberName").value.trim();
 
   if(inputName.length < 2){
-    alert("이름을 입력해 주세요");
+    alertM("이름을 입력해 주세요");
     return;
   }
   const regEx = /^[가-힣]+$/;
   if (regEx.test(inputName) === false) {
-    alert("한글로 된 이름만 입력해 주세요");
+    alertM("한글로 된 이름만 입력해 주세요");
     return;
   }
   if(inputName.length > 6){
-    alert("6자 까지만 입력해 주세요.");
+    alertM("6자 까지만 입력해 주세요.");
     return;
   }
 
@@ -79,7 +83,7 @@ const submitId = () => {
       nameSecBackUp = inputName;
       nameCancle();
     } else {
-      alert("다시 시도해 주새요");
+      alertM("다시 시도해 주새요");
       return;
     }
   })
@@ -267,7 +271,7 @@ pwSec.addEventListener("click", () => {
 const submitPw = () => {
 
   if(!pwCheck) {
-    alert("새 비밀번호의 형식이 올바르지 않습니다.")
+    alertM("새 비밀번호를 다시 확인해주세요.")
     return;
   }
 
@@ -275,7 +279,7 @@ const submitPw = () => {
   const inputPw = document.querySelector("#inputPw").value.trim();
 
   const submitPwObj = {
-    "memberNo" : memberNo,
+    "memberNo" : memberNo + '',
     "memberPw" : memberPw,
     "inputPw" : inputPw
   }
@@ -291,9 +295,11 @@ const submitPw = () => {
   })
   .then(result => {
     if(result > 0){
-      nameSec.innerHTML = pwSecBackUp;
+      pwSec.innerHTML = pwSecBackUp;
+      pwSec.classList.remove("active"); // 'active' 제거
+      alertM("비밀번호가 변경되었습니다.");
     } else {
-      alert("현재 비밀번호가 일치하지 않습니다.");
+      alertM("현재 비밀번호가 일치하지 않습니다.");
       return;
     }
   })
@@ -318,8 +324,8 @@ phoneSec.addEventListener("click", () => {
   const input = document.createElement("input");
   input.type = "text";
   input.placeholder = "새 전화번호를 입력 해 주세요";
-  input.id = "memberName";
-  label.htmlFor = "memberName";
+  input.id = "memberPhone";
+  label.htmlFor = "memberPhone";
   const div = document.createElement("div");
   div.classList.add("member-hov");
   div.innerText = "인증하기";
@@ -331,7 +337,7 @@ phoneSec.addEventListener("click", () => {
     phoneSec.innerHTML = ""; // 비우기
     
     setTimeout(() => {
-      phoneSec.innerHTML = pwSecBackUp; 
+      phoneSec.innerHTML = phoneSecBackUp; 
       phoneSec.classList.remove("active"); // 'active' 제거
      }, 0);
     });
@@ -344,10 +350,12 @@ phoneSec.addEventListener("click", () => {
   input2.id = "memberPhoneCheck";
   label2.htmlFor = "memberPhoneCheck";
   const div3 = document.createElement("div");
-  div3.classList.add("member-hov");
-  div3.innerText = "변경하기";
-  div3.addEventListener("click", () => {keyCheck()});
-  label2.append(input2, div3);
+  div3.id = "myPage-count";
+  const div4 = document.createElement("div");
+  div4.classList.add("member-hov");
+  div4.innerText = "변경하기";
+  div4.addEventListener("click", () => {keyCheck()});
+  label2.append(input2, div3, div4);
 
   phoneSec.append(label, label2);
   input.focus();
@@ -363,21 +371,28 @@ let authTimer;            // 타이머 역할의 setInterval을 저장할 변수
 //                           타이머를 멈추는 clearInterval 수행을 위해 필요
 // 카운트 스타트
 const startCount = () => {
-  const signUpCounter = document.querySelector("#signUp-count");
+  const myPageCounter = document.querySelector("#myPage-count");
+  // 기존 시간함수 종료
+  if(authTimer !== null){
+    clearInterval(authTimer);
+    min = initMin;
+    sec = initSec;
+    myPageCounter.innerHTML = '';
+  }
 
-  signUpCounter.innerText = initTime; // 05:00 문자열 출력
-  signUpCounter.classList.remove("confirm-red");
+  myPageCounter.innerText = initTime; // 05:00 문자열 출력
+  myPageCounter.classList.remove("confirm-red");
 
   // 1초가 지날 때 마다 함수 내부 내용이 실행되는 setInterval 작성
   // authTimer = setInterval(() => {}, 1000);
   authTimer = setInterval(() => {
 
-    signUpCounter.innerText = `${addZero(min)}:${addZero(sec)}`;
+    myPageCounter.innerText = `${addZero(min)}:${addZero(sec)}`;
     
     // 00분 0초 정지
     if( min === 0 && sec === 0) {
       clearInterval(authTimer); // 1초마다 동작하는 secInterval 멈춤
-      signUpCounter.classList.add("confirm-red");  // 빨간글씨
+      myPageCounter.classList.add("confirm-red");  // 빨간글씨
     }
 
     if( sec === 0 ){    // 출력된 초가 0인 경우(1분지남)
@@ -400,19 +415,19 @@ const requestAuthNo = () => {
   lastCheckedPhone = document.querySelector("#memberPhone").value.trim();
 
   if(lastCheckedPhone.length === 0){
-    alert("전화번호를 입력해 주세요");
+    alertM("전화번호를 입력해 주세요");
     return;
   }
 
   const regEx = /^[0-9]+$/;
   if (regEx.test(lastCheckedPhone) === false) {
-    alert("숫자만 입력 해 주세요");
+    alertM("숫자만 입력 해 주세요");
     return;
   }
 
   const regEx2 = /^[0-9]{10,11}$/;
   if (regEx2.test(lastCheckedPhone) === false) {
-    alert('올바른 형태의 전화번호를 입력해 주세요.\n"010"을 포함한 10~11자리의 숫자만 입력 가능합니다.');
+    alertM('올바른 형태의 전화번호를 입력해 주세요.\n"010"을 포함한 10~11자리의 숫자만 입력 가능합니다.');
     return;
   }
 
@@ -424,10 +439,10 @@ const requestAuthNo = () => {
   .then(result => {
     if(result > 0){
       keyFl = true;
-      alert("인증번호가 발송되었습니다.");
+      alertM("인증번호가 발송되었습니다.");
       startCount();
     } else {
-      alert("인증번호 발송에 실패하였습니다.\n전화번호를 다시 확인하시거나 관리자에게 문의하십시오");
+      alertM("인증번호 발송에 실패하였습니다.\n전화번호를 다시 확인하시거나 관리자에게 문의하십시오");
     }
   })
   .catch(err => console.error(err));
@@ -436,28 +451,29 @@ const requestAuthNo = () => {
 
 // 인증키 체크
 const keyCheck = () => {
+  const myPageCounter = document.querySelector("#myPage-count");
+  const inputPhC = document.querySelector("#memberPhoneCheck");
 
   if(keyFl === false) return;
 
-  if(signUpCounter.classList.contains("confirm-red")){
-    alert("입력시간이 만료되었습니다.");
+  if(myPageCounter.classList.contains("confirm-red")){
+    alertM("입력시간이 만료되었습니다.");
   }
 
-  fetch("/sms/authKeyCheck?authKey=" + inputPhC.value.trim() + "&phoneNumber=" + inputPh.value.trim() )
+  fetch("/sms/authKeyCheck?authKey=" + inputPhC.value.trim() + "&phoneNumber=" + lastCheckedPhone )
   .then(response => {
     if (response.ok) return response.text();
     throw new Error("AJAX 통신 실패");
   })
   .then(result => {
-    console.log(result);
     if(result == 1){
       submitPhone();
       return;
     } else if (result == 2) {
-      alert("인증번호가 잘못 입력되었습니다.\n다시 확인해 주세요");
+      alertM("인증번호가 잘못 입력되었습니다.\n다시 확인해 주세요");
       return;
     } else {
-      alert("입력시간이 만료되었습니다.");
+      alertM("입력시간이 만료되었습니다.");
       keyFl = false;
       return;
     }
@@ -488,8 +504,10 @@ const submitPhone = () => {
   .then(result => {
     if(result > 0){
       phoneSec.innerHTML = lastCheckedPhone;
+      alertM(`전화번호가 ${lastCheckedPhone}로 변경되었습니다.`);
+      phoneSec.classList.remove("active"); // 'active' 제거
     } else {
-      alert("다시 시도해 주새요");
+      alertM("다시 시도해 주새요");
       return;
     }
   })
@@ -504,11 +522,11 @@ myPageUpdateBtn.addEventListener("click", () => {
   let str = '';
   str += '개인정보를 수정할 수 있습니다.';
   str += '\n수정을 원하시는 항목을 클릭하면 수정창이 나타납니다.';
-  str += '\n[수정 가능목록]';
+  str += '\n- 수정 가능목록 -';
   str += '\n[이름]';
   str += '\n[비밀번호]';
   str += '\n[전화번호]';
-  alert(str);
+  alertM(str);
 })
 
 const myPageDelete = document.querySelector("#myPage-delete");

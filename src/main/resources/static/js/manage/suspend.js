@@ -36,8 +36,6 @@ function suspend(memberNo) {
   if (event.target.classList.contains("member-withdraw-btn")) {
     const memberNo = event.target.closest(".member-summary").getAttribute("data-member-no");
     withdraw(memberNo); // 정지 함수 호출
-  }else{
-    console.log("회원을 찾을 수 없습니다");
   }
 });
  function withdraw(memberNo) {

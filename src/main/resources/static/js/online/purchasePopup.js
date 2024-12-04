@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function () {
   const deliveryOption = document.getElementById('deliveryOption');
   const pickupOption = document.getElementById('pickupOption');
@@ -76,7 +77,7 @@ paymentBtn.addEventListener("click", () => {
     return;
   }
   payPhone = onlyNumbers;
-  payName = loginName;
+  payName = loginName; 
   pieceTitle = document.querySelector("#pieceTitle").value;
   payAmount = document.querySelector("#payAmount").value;
   const urlParams = new URLSearchParams(window.location.search);
@@ -115,7 +116,7 @@ const callPayment = (result) => {
     {
       channelKey: channelKey,
       pay_method: "card",
-      merchant_uid: `payment-${crypto.randomUUID()}`, // 주문 고유 번호
+      merchant_uid: `payment-${crypto.randomUUID ? crypto.randomUUID() : Date.now()}`, // 주문 고유 번호
       name: pieceTitle,
       amount: 100,
       buyer_name: payName,
@@ -154,7 +155,7 @@ const notified = async (response) => {
     memberNo: memberNo,
     pieceNo: pieceNo,
     payAmount: payAmount,
-    payName: payName,
+    payName: loginName,
     payPhone: payPhone,
     deliveryType: deliveryType,
     deliveryAddress: deliveryAddress

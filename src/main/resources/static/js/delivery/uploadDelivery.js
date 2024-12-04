@@ -1,21 +1,13 @@
-// 배송 상태 수정
-function updateDeliveryTable(deliveryList) {
-  const deliveryTbody = document.getElementById('delivery-tbody');
-  deliveryTbody.innerHTML = ''; // 현재 테이블 내용을 비우기
-  
-  let isFirstRow = true;
-  deliveryList.forEach((deliveryItem, index) => {
-    if (index !== 0) { // 첫 행이 아닌 경우에만 구분선 추가
-      const separator = document.createElement("tr");
-      separator.className = "separator-row";
-      const separatorTd = document.createElement("td");
-      separatorTd.colSpan = 9; // 테이블의 모든 열을 차지하도록 설정
-      separatorTd.style.borderTop = "1px solid #ccc";
-      separatorTd.style.padding = "10px 0";
-      separator.appendChild(separatorTd);
-      deliveryTbody.appendChild(separator);
-    }
-  });
+let deliveryTrList = [];
+let listCount = 0;
+let delivertyPg = {
+  currentPage : 1,
+  maxPage : 0,
+  startPage : 0,
+  endPage : 0,
+  prevPage : 0,
+  nextPage : 0,
+  totalPageCount : 0
 }
 
 // 배송 상태 드롭다운 변경을 처리하는 함수
@@ -29,27 +21,6 @@ function updateAllCheckboxes(isChecked) {
   checkboxes.forEach(checkbox => {
     checkbox.checked = isChecked; // 전체 체크박스 상태에 따라 개별 체크박스 상태 변경
   });
-}
-
-// ----------------------------------------------------------------------
-// 선택된 배송 데이터를 서버에 저장하는 함수
-async function saveDeliveryData(data) {
-  try {
-    const response = await fetch('/delivery/update', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    });
-    
-    if (!response.ok) {
-      throw new Error('배송 데이터 저장 실패');
-    }
-    alert('선택된 항목이 성공적으로 저장되었습니다!');
-  } catch (error) {
-    console.error('배송 데이터 저장 중 오류 발생:', error);
-  }
 }
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -128,7 +99,6 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         }
       });
-      
       if (deliveryList.length === 0) {
         alert("저장할 데이터를 선택해주세요.");
         return;
@@ -210,12 +180,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function fetchDeliveryList(startDate = null, returnDate = null) {
     const url = `/delivery/uploadDelivery`;
 
-    fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "text/html"
-      }
-    })
+    fetch(url)
       .then(response => {
         if (!response.ok) {
           throw new Error(`네트워크 응답에 문제가 있습니다. 상태 코드: ${response.status}`);
@@ -242,7 +207,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // 날짜 필터링 및 데이터 추가
-        const fragment = document.createDocumentFragment();
+        deliveryTrList = [];
         let visibleRowCount = 0;
 
         newRows.forEach(row => {
@@ -260,19 +225,37 @@ document.addEventListener("DOMContentLoaded", function () {
               (!startDate || deliveryDate >= new Date(startDate)) &&
               (!returnDate || deliveryDate <= new Date(returnDate))
             ) {
-              fragment.appendChild(row.cloneNode(true));
+              deliveryTrList.push(row);
               visibleRowCount++;
             }
           }
         });
+        
+        // 페이지네이션용 리스트카운트 초기화
+        listCount = visibleRowCount;
 
-        tbody.appendChild(fragment);
+        // 첫 페이지 랜더링 전 숫자확인
+        let randerCount = 0;
+        if(visibleRowCount > 10) {
+          randerCount = 10;
+        } else {
+          randerCount = visibleRowCount;
+        }
+        // 첫 페이지 랜더링
+        for(let i = 0; i < randerCount; i++) {
+          tbody.appendChild(deliveryTrList[i]);
+        }
 
+        // 없을경우 메세지 출력
         if (visibleRowCount === 0) {
           displayNoResultsMessage();
         } else {
           hideNoResultsMessage();
         }
+
+        // 페이지네이션 설정 후 랜더링까지
+        delivertyPaginationSetting();
+        
       })
       .catch(error => {
         console.error("데이터 조회 중 오류 발생: ", error);
@@ -304,4 +287,138 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-  // -------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------
+/* 페이지 네이션 */
+function makePagination(paginationContainerId) {
+  const paginationContainer = document.getElementById(paginationContainerId);
+  if (!paginationContainer) {
+    console.error("페이지네이션 컨테이너를 찾을 수 없습니다:", paginationContainerId);
+    return;
+  }
+  paginationContainer.innerHTML = ""; // 기존 버튼 초기화
+  const createPageButton = (page, text, isActive = false, isDisabled = false) => {
+    const btn = document.createElement("a");
+    btn.href = "#";
+    btn.textContent = text;
+    btn.classList.add("page-btn");
+    if (isActive) btn.classList.add("active");
+    if (isDisabled) btn.classList.add("disabled");
+    if (!isDisabled) {
+      btn.addEventListener("click", (event) => {
+        event.preventDefault();
+        displayDeliveryContents(page);
+      });
+    }
+    return btn;
+  };
+
+  // << 버튼 (첫 페이지로 이동)
+  paginationContainer.appendChild(createPageButton(1, "<<", false, delivertyPg.currentPage === 1));
+
+  // < 버튼 (이전 페이지로 이동)
+  paginationContainer.appendChild(createPageButton(delivertyPg.prevPage, "<", false, delivertyPg.currentPage === 1));
+
+  // 페이지 번호 버튼
+  for (let i = delivertyPg.startPage; i <= delivertyPg.endPage; i++) {
+    paginationContainer.appendChild(createPageButton(i, i, i === delivertyPg.currentPage));
+  }
+
+  // > 버튼 (다음 페이지로 이동)
+  paginationContainer.appendChild(createPageButton(delivertyPg.nextPage, ">", false, delivertyPg.currentPage === delivertyPg.totalPageCount));
+
+  // >> 버튼 (마지막 페이지로 이동)
+  paginationContainer.appendChild(createPageButton(delivertyPg.totalPageCount, ">>", false, delivertyPg.currentPage === delivertyPg.totalPageCount));
+}
+
+const delivertyPaginationSetting = () => {
+  const pageSize = 10;
+  const limit = 10;
+  delivertyPg.maxPage = Math.ceil( listCount / limit );
+  // startPage : 페이지 번호 목록의 시작 번호
+  // 페이지 번호 목록이 10개(pageSize) 씩 보여질 경우
+  delivertyPg.startPage = Math.floor((delivertyPg.currentPage - 1) / pageSize) * pageSize + 1;
+  
+  // endPage : 페이지 번호 목록의 끝 번호
+  delivertyPg.endPage = pageSize - 1 + delivertyPg.startPage;
+  
+  // 페이지 끝 번호가 최대 페이지 수를 초과한 경우
+  if(delivertyPg.endPage > delivertyPg.maxPage)	delivertyPg.endPage = delivertyPg.maxPage;
+  
+  // 더 이상 뒤로갈 페이지가 없을 경우
+  if(delivertyPg.currentPage < pageSize) {
+    delivertyPg.prevPage = 1; 
+  } else {
+    delivertyPg.prevPage = delivertyPg.startPage - 1;
+  }
+  
+  // 더 이상 넘어갈 페이지가 없을 경우
+  if(delivertyPg.endPage == delivertyPg.maxPage) {
+    delivertyPg.nextPage = delivertyPg.maxPage;
+  } else {
+    delivertyPg.nextPage = endPage + 1;
+  }
+  makePagination("paginationDelivery"); // 페이지네이션 랜더링
+};
+
+const displayDeliveryContents = (page) => {
+  // 현제페이지 수정
+  delivertyPg.currentPage = page;
+
+  // 현제페이지 변경되었으니가 다시 렌더링
+  delivertyPaginationSetting();
+
+  // 바뀐 페이지만큼 다시 표 출력
+  let i = 0;
+  // 1페이지 0 ~ 9
+  // 2페이지 10~ 19
+  // 3페이지 20~ 29
+  // 11페이지 100 ~ 110
+  i = (page-1)*10;
+  const tbody = document.getElementById("delivery-tbody");
+  tbody.innerHTML = "";
+  const j = i + 10;
+  for(i; i < j; i++) {
+    tbody.appendChild(deliveryTrList[i]);
+  }
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+/* 정렬 기준 변경 이벤트 */
+function onChange(event) {
+  const selectedValue = event.target.value; // 선택된 필터 값 (0, 1, 2, 3, 4)
+  const tbody = document.querySelector("#delivery-tbody"); // 정렬 대상 tbody
+  const rows = Array.from(tbody.querySelectorAll("tr")); // tbody 안의 모든 행 가져오기
+
+    // 상태별 숫자 매핑
+    const statusOrder = {
+      "전체 조회": "4",
+      "방문수령": "0",
+      "배송 준비중": "1",
+      "배송중": "2",
+      "배송 완료": "3",
+    };
+
+  // "전체 조회"일 경우 모든 행을 표시
+  if (selectedValue === "4") {
+    rows.forEach((row) => {
+      row.style.display = ""; // 기본 표시
+    });
+    return; // 함수 종료
+  }
+
+  // 각 행을 확인하여 조건에 맞는 행만 표시
+  rows.forEach((row) => {
+    const rowStatus = row.querySelector(".sort-select")?.value; // 현재 행의 배송 상태 값
+
+    if (rowStatus === selectedValue) {
+      row.style.display = ""; // 조건 만족 시 표시
+    } else {
+      row.style.display = "none"; // 조건 미만족 시 숨김
+    }
+  });
+}
+
+function onSortChange(event) {
+  const rowId = event.target.getAttribute("data-key"); // 해당 행의 ID (deliveryNo)
+  const selectedValue = event.target.value; // 행에서 선택된 값
+}

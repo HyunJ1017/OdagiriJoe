@@ -36,6 +36,7 @@ purchaseBtn.addEventListener("click", () => {
   
   if(!loginCheck) {
     alert("로그인 후 사용할 수 있습니다.");
+    location.href = "/member/login";
     return;
   } // 로그인 하지 않으면 구매하기 불가
 
@@ -64,7 +65,7 @@ purchaseBtn.addEventListener("click", () => {
           if (statusCode === 'error') {
             console.log('결제중 오류가 발생했습니다.');
           } else if (statusCode === 'success') {
-            window.location.href = '/member/myPage/purchaseDetails';
+            window.location.href = '/delivery/main';
           } else {
             console.log('창닫기');
           }
@@ -90,6 +91,7 @@ wishList.addEventListener("click", e => {
   // 로그인 여부
   if(!loginCheck) {
     alert("로그인 후 사용할 수 있습니다.");
+    location.href = "/member/login";
     return;
   }
 

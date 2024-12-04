@@ -47,12 +47,12 @@
 }
 
 .upload-btn {
-  background-color: #5e7c71;
-  color: #ffffff;
-  border: none;
+  background-color: #ffffff;
+  border: 1px solid #5e7c71;
+  color: #5e7c71;
   padding: 8px 16px;
   font-size: 1em;
-  border-radius: 5px;
+  border-radius: 3px;
   cursor: pointer;
   transition: background-color 0.3s;
   text-align: center;
@@ -60,6 +60,8 @@
 
 .upload-btn:hover {
   background-color: #5e7c71;
+  color: #ffffff;
+  border: 1px solid #5e7c71;
 }
 
 /* 폼 컨테이너 */
@@ -125,12 +127,12 @@
 
 .sale-btn,
 .auction-btn {
-  background-color: #5e7c71;
-  color: #ffffff;
-  border: none;
+  background-color: #ffffff;
+  border: 1px solid #5e7c71;
+  color: #5e7c71;
   padding: 10px 20px;
   font-size: 1em;
-  border-radius: 5px;
+  border-radius: 3px;
   cursor: pointer;
   transition: background-color 0.3s;
   width: 48%;
@@ -140,6 +142,8 @@
 .sale-btn:hover,
 .auction-btn:hover {
   background-color: #5e7c71;
+  color: #ffffff;
+  border: 1px solid #5e7c71;
 }
 
 /* 작품 기입, 임시저장 섹션 */
@@ -152,7 +156,7 @@
 #upload-header button {
   background-color: white;
   padding: 8px;
-  border-radius: 10px;
+  border-radius: 3px;
   color: #5e7c71;
   border: 1px solid #5e7c71;
   height: 30px;
@@ -231,4 +235,8 @@
 #startDate.invalid {
   border: 1px solid red;
   background-color: #ffe6e6; /* 연한 붉은색 배경 */
+}
+
+label{
+  color: #414141;
 }

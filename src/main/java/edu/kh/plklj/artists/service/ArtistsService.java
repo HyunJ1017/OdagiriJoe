@@ -17,12 +17,15 @@ public interface ArtistsService {
 	List<Artist> getAllArtists(int cp, int totalArtistCount, Pagination pagination);
 
 
-	List<Artist> getArtistWorks(int memberNo, String sort, String order);
+	List<Map<String, Object>> getArtistWorks(int memberNo, String sort, String order, int cp);
+
 
 	Map<String, Object> follow(int memberNo, int artistNo);
 
 
 	Artist getArtistDetail(int artistNo, int memberNo);
+
+	int getArtistWorkCount(int memberNo);
 
 
 	

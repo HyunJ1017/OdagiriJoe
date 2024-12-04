@@ -13,19 +13,19 @@
   <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
     <main id="artist-profile-container">
       
-        <section class="profile-section" th:object="${artist}">
+        <section class="profile-section" th:if="${artist != null}" th:object="${artist}">
             <img th:src="*{artistProfile}" class="profile-image">
             <div class="artist-info">
                 <div class="info-header">
                   <h2 th:text="*{artistNickname}">이동현</h2>
                   <button class="follow-button" id="follow-btn">FOLLOW
                     <i class="fa-star" id="follow" aria-hidden="true"
-                       th:classappend="*{followCheck == 1} ? 'fa-solid' : 'fa-regular'" ></i>
+                      th:classappend="*{followCheck == 1} ? 'fa-solid' : 'fa-regular'" ></i>
                   </button>
                 </div>
                 <h3>경력 사항</h3>
                 <hr>
-                <p class="exhibition-info" th:text="*{workDetail}">발 묻히기 2024~<br>뉴욕 여행 2주</p>
+                <p class="exhibition-info" th:each= "work:*{workDetails}" th:text="${work}">발 묻히기 2024~<br>뉴욕 여행 2주</p>
             </div>
         </section>
 
@@ -49,7 +49,13 @@
             <div class="artwork-list">
               
             </div>
+
+            <div class="artwork-list-footer" style="height: 20px;"></div>
           </section>
+
+          <div id="loader">
+            <i class="fa-solid fa-spinner fa-spin-pulse" style="color: #74C0FC;"></i>
+          </div>
 
     </main>
 

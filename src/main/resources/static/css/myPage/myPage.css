@@ -5,7 +5,7 @@
   width: 100%;
 }
 main>h3{
-  color: #5e7c71;
+  color: #414141;
 }
 #myPage-main>*{
   margin: 10px 0 10px;
@@ -14,7 +14,7 @@ main>h3{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
+  color: #414141;
   width: 820px;
 }
 #myPage-main>.myPage-sec>div:first-child{
@@ -24,7 +24,7 @@ main>h3{
 #myPage-main>.myPage-sec>.common-box{
   width: 100%;
   min-height: 50px;
-  border: 2px solid black;
+  border: 1px solid #5e7c71;
   border-radius: 3px;
   padding: 5px;
   display: flex;
@@ -38,21 +38,13 @@ main>h3{
   justify-content: center;
   align-items: flex-start;
 }
-#myPage-main>.myPage-sec .signUp-count{
-color: red;
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-margin: 0 10px 0;
-}
 #myPage-main>.myPage-sec>.canChangeBox>*{
   margin: 5px;
 }
 #myPage-main>.myPage-sec label{
   width: 97%;
   min-height: 30px;
-  border: 2px solid rgb(130, 130, 130);
+  border: 1px solid #5e7c71;
   border-radius: 3px;
   display: flex;
   flex-direction: row;
@@ -68,8 +60,7 @@ margin: 0 10px 0;
   width: 90px;
   border-radius: 3px;
 }
-#myPage-main>.myPage-sec label>#signUp-count{
-  color: red;
+#myPage-main>.myPage-sec label>#myPage-count{
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -85,7 +76,7 @@ margin: 0 10px 0;
 #myPage-main>section .member-hov{
   width: 380px;
   height: 45px;
-  border-radius: 8px;
+  border-radius: 3px;
   margin: 15px;
 }
 .member-hov{
@@ -96,14 +87,16 @@ margin: 0 10px 0;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: #5e7c71;
-  color: white;
+  background: white;
+  border: 1px solid #5e7c71;
+  color: #5e7c71;
+  background-color: #ffffff;
 }
 .member-hov:hover{
   cursor: pointer;
-  background: white;
-  border: 2px solid #5e7c71;
-  color: #5e7c71;
+  border: 1px solid #5e7c71;
+  background-color: #5e7c71;
+  color: white;
 }
 .confirm-red{color: red;}
 

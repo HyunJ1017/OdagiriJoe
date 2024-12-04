@@ -81,21 +81,38 @@ public class ArtistController {
         : (loginArtist != null) ? loginArtist.getMemberNo() 
         : 0;
 
+		
 		Artist artist = service.getArtistDetail(artistNo, memberNo);
+		System.out.println(artist);
 		model.addAttribute("artist", artist);
 		return "artist/artistDetail";
+	
 	}
 	
 	/** 작가 상세조회 시 작품 목록 로드 비동기 조회
 	 */
 	@GetMapping("works")
 	@ResponseBody
-	public List<Artist> getArtistWorks(
+	public Map<String, Object> getArtistWorks(
 			@RequestParam("memberNo") int memberNo,
 			@RequestParam(value = "sort", required = false, defaultValue = "recent") String sort,
-			@RequestParam(value = "order", required = false, defaultValue = "asc") String order
+			@RequestParam(value = "order", required = false, defaultValue = "asc") String order,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp
 			) {
-		return service.getArtistWorks(memberNo, sort, order);
+		
+		
+		
+		List<Map<String, Object>> works = service.getArtistWorks(memberNo, sort, order, cp);
+		log.info("works : {}", works);
+    int totalWorkCount = service.getArtistWorkCount(memberNo);
+
+    Map<String, Object> response = new HashMap<>();
+    response.put("works", works);
+    response.put("currentPage", cp);
+    response.put("totalCount", totalWorkCount);
+    response.put("hasMore", (cp * 10) < totalWorkCount); // 한 페이지당 10개로 가정
+
+    return response;
 	}
 	
 	/** 팔로우 체크 or 해제

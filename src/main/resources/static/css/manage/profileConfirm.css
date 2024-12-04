@@ -5,23 +5,18 @@
   padding: 0;
 }
 
-
-
-
 .main-content {
+  background-color: white;
   height: 100vh;
   display: flex;
   justify-content: center;
   padding: 200px 20px;
-
 }
 
 .profile-section {
   display: flex;
   max-width: 800px;
-
   padding-bottom: 20px;
-
 }
 
 .profile-image {
@@ -53,18 +48,15 @@
 
 .description {
   font-size: 16px;
-  color: #666;
+  color: #414141;
   margin-bottom: 20px;
 }
 
 .section-title {
   font-size: 18px;
-  font-weight: bold;
-  color: #333;
+  color: #414141;
   margin: 50px 0 10px;
   border-bottom: 0.5px solid #aec9bf;
-
-
 }
 
 .pdf-link {
@@ -76,9 +68,31 @@
 .pdf-link:hover {
   text-decoration: underline;
   width: 20px;
+  background-color: #5e7c71;
+  border: 1px solid #5e7c71;
+  color: #ffffff;
 }
 
 .profile-container{
   display: flex;
   flex-direction: row;
 }
+
+.exit-btn {
+  width: 140%;
+  margin-bottom: 20%;
+  background-color: #ffffff;
+  border: 1px solid #5e7c71;
+  color: #5e7c71;
+}
+
+button{
+cursor: pointer;
+background-color: #ffffff;
+border: 1px solid #5e7c71;
+color: #5e7c71;
+font-size: 14px;
+border-radius: 3px;
+padding: 0.5em 1em;
+}
+

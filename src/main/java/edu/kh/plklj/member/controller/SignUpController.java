@@ -11,18 +11,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.plklj.main.dto.Member;
 import edu.kh.plklj.member.service.SignUpService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /* 회원가입
  */
 
-@RequestMapping("member/signUp")
+@Slf4j
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("member/signUp")
 public class SignUpController {
 	
 	private final SignUpService service;
@@ -32,9 +35,15 @@ public class SignUpController {
 	 */
 	@GetMapping("")
 	public String signUpPage(
+			@SessionAttribute(name = "memberLogin", required = false) Member memberLogin,
+			@SessionAttribute(name = "artistLogin", required = false) Member artistLogin,
 			@RequestParam(value="message", required = false) String message,
 			RedirectAttributes ra,
 			Model model) {
+		
+		if(memberLogin != null || artistLogin != null) {
+			return "redirect:/main";
+		}
 		
 		// param에 있는 message를 숨기고 재요청
 		if(message != null) {

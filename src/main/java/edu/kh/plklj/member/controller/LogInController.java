@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -28,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("member/login")
 @RequiredArgsConstructor
-@SessionAttributes({"memberLogin", "artistLogin"})
+@SessionAttributes({"memberLogin", "artistLogin", "manageLogin"})
 public class LogInController {
 
 	private final LogInService service;
@@ -39,6 +40,8 @@ public class LogInController {
 	@GetMapping("")
 	public String logInPage(
 				@RequestParam(value="message", required = false) String message,
+				@SessionAttribute(name = "memberLogin", required = false) Member memberLogin,
+				@SessionAttribute(name = "artistLogin", required = false) Member artistLogin,
 				RedirectAttributes ra,
 				Model model,
 				// 개발자 도구에서 refer 확인
@@ -46,6 +49,10 @@ public class LogInController {
 				@RequestHeader("referer") String referer,
 				HttpSession session
 			) {
+		
+		if(memberLogin != null || artistLogin != null) {
+			return "redirect:/main";
+		}
 		
 		session.setAttribute("returnUrl", referer);
 		
@@ -58,22 +65,6 @@ public class LogInController {
 		String pageKey = "logIn";
 		model.addAttribute("pageKey", pageKey);
 		return "member-sign/signMain";
-	}
-	
-	/** 아이디찾기 페이지로 이동
-	 * @return
-	 */
-	@GetMapping("findingId")
-	public String findIdPage() {
-		return "member-sign/findId";
-	}
-	
-	/** 비밀번호찾기 페이지로 이동
-	 * @return
-	 */
-	@GetMapping("findingPasswords")
-	public String findPwPage() {
-		return "member-sign/findPw";
 	}
 	
 	/** 로그인 확인
@@ -96,7 +87,7 @@ public class LogInController {
 			ra.addFlashAttribute("message", "정지 해제까지 " + result.getMemberPenalty() + "일 남으셨습니다.");
 			return "redirect:/member/login";
 			
-		} else if ( result.getArtistReg() == null || result.getArtistReg().equals("N")) {
+		} else if ( result.getArtistReg() == null || result.getArtistReg().equals("N") || result.getArtistReg().equals("D")) {
 			model.addAttribute("memberLogin", result);
 			
 			// url이 있다면 저장된 세션 얻어오기
@@ -106,6 +97,9 @@ public class LogInController {
 			}
 			
 			return "redirect:/";
+		} else if (result.getArtistReg().equals("M")) {
+			model.addAttribute("manageLogin", result);
+			return "redirect:/manage";
 		} else {
 			model.addAttribute("artistLogin", result);
 			

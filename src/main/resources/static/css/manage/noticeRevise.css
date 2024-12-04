@@ -8,9 +8,24 @@
 main {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 250px 0px 250px 299px;
+  background-color: white;
+}
+.exit-btn {
+  width: 140%;
+  margin-bottom: 20%;
+  border: 1px solid #ffffff;
 }
 
+button{
+cursor: pointer;
+background-color: #ffffff;
+border: 1px solid #5e7c71;
+color: #414141;
+font-size: 14px;
+border-radius: 3px;
+padding: 0.5em 1em;
+}
 /* 컨테이너 섹션 스타일링 */
 .container {
   display: flex;
@@ -20,61 +35,65 @@ main {
 
 .title {
   font-size: 24px;
-  font-weight: bold;
   color: #5e7c71;
   margin-top: 100px;
-
 }
 
 .save-button {
   padding: 10px 20px;
-  background-color: #5e7c71;
-  color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 3px;
   cursor: pointer;
   font-size: 16px;
   margin-left: 1050px;
+  background-color: #ffffff;
+  color: #5e7c71;
+  border: 1px solid #5e7c71;
 
 }
 
 .save-button:hover {
-  background-color: #4A5F29;
-
+  background-color: #5e7c71;
+  color: #ffffff;
+  border: 1px solid #5e7c71;
 }
 
 .submit-button{
   padding: 10px 20px;
-  background-color: #5e7c71;
-  color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 3px;
   cursor: pointer;
   font-size: 16px;
-  margin-left: 500px;
+  margin-left: 350px;
   margin-top: 25px;
   width: 200px;
+  background-color: #ffffff;
+  color: #5e7c71;
+  border: 1px solid #5e7c71;
 }
 .submit-button:hover {
-  background-color: #4A5F29;
-
+  background-color: #5e7c71;
+  color: #ffffff;
+  border: 1px solid #5e7c71;
 }
 
 .write-button{
   padding: 10px 20px;
-  background-color: #5e7c71;
-  color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 3px;
   cursor: pointer;
   font-size: 16px;
-  margin-left: 500px;
+  margin-left: 350px;
   margin-top: 25px;
   width: 200px;
+  background-color: #ffffff;
+  color: #5e7c71;
+  border: 1px solid #5e7c71;
 }
 .write-button:hover {
-  background-color: #4A5F29;
-
+  background-color: #5e7c71;
+  color: #ffffff;
+  border: 1px solid #5e7c71;
 }
 
 
@@ -90,15 +109,15 @@ label {
   margin-bottom: 16px;
   margin-top: 16px;
   font-weight: 500;
-  color: #333;
-  font-size: 15px;
+  color: #414141;
+  font-size: 17px;
 }
 
 .input-title {
   width: 100%;
   padding: 12px;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 3px;
   font-size: 17px;
 }
 
@@ -107,7 +126,7 @@ label {
   height: 500px;
   padding: 12px;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 3px;
   resize: vertical;
   font-size: 16px;
   font-family: inherit;

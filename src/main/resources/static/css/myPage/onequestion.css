@@ -1,14 +1,19 @@
 *{
   box-sizing: border-box;
 }
+body{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 .myPage-main{
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 761px;
 }
 .myPage-main>h1{
-  color: #5e7c71;
+  color: #414141;
   margin: 30px 0 50px;
   user-select: none;
 }
@@ -23,6 +28,7 @@
 .detail>.inquiryInsert{
   width: 98%;
 }
+
 /* 1:1 문의 */
 .inquiry-section {
   max-width: 1000px;
@@ -111,14 +117,16 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: #5e7c71;
-  color: white;
+  background: white;
+  border: 1px solid #5e7c71;
+  color: #5e7c71;
+
 }
 .member-hov:hover{
   cursor: pointer;
-  background: white;
-  border: 2px solid #5e7c71;
-  color: #5e7c71;
+  background-color: #5e7c71;
+  color: white;
+  border: 1px solid #5e7c71;
 }
 .display-none{
   display: none !important;
@@ -170,4 +178,10 @@
   display: inline-block; /* 또는 block */
   transform: rotate(90deg);
   transform-origin: left top; /* 기준점을 설정할 수 있음 */
+}
+
+.content-detail{
+  white-space: pre-wrap; /* 공백과 줄바꿈 유지, 자동 줄바꿈 허용 */
+  word-wrap: break-word; /* 단어가 너무 길 경우 강제 줄바꿈 */
+  overflow-wrap: break-word; /* 최신 브라우저에서의 대체 속성 */
 }

@@ -328,9 +328,8 @@ h3 {
 /* 내용 컨테이너 */
 .auction-detail{
   flex: 1; /* 텍스트 부분이 남은 공간을 차지하도록 설정 */
-  padding: 10%;
   text-align: left;
-  padding: 2% 22% 2% 2%;
+  padding: 2% 16% 2% 8%;
   display: flex;
   flex-direction: column;
 }
@@ -349,7 +348,7 @@ h3 {
 
 /* 이미지 컨테이너 */
 .auction-img {
-  flex: 0 0 35%;
+  flex: 1 0 20%;
 }
 
 /* 이미지 크기 */

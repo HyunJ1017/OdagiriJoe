@@ -1,4 +1,4 @@
-package edu.kh.plklj.sms.dto;
+package edu.kh.plklj.member.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,11 +11,8 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class SmsDto {
+public class FollowAndwish {
 	private int memberNo;
-	private String memberPhone;
-	private String artistPhone;
-	private String artistNickname;
-	private String pieceTitle;
-	private String endPrice;
+	private String listType;
+	private int cp;
 }

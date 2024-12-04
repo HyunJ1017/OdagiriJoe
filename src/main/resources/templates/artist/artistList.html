@@ -2,68 +2,63 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artist</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artist</title>
 
-    <link rel="stylesheet" href="/css/artist/artistList.css">
+  <link rel="stylesheet" href="/css/artist/artistList.css">
 
-    <th:block th:replace="~{/common/common.html :: cssLinks}"></th:block>
-  </head>
+  <th:block th:replace="~{/common/common.html :: cssLinks}"></th:block>
+</head>
   
-  <body>
-    <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
-<main id="artistPage-main">
+<body>
+  <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
+  <main id="artistPage-main" class="container">
     
-        <div class="container">
-            <div class="artist-header">
-             <h1>Artists</h1>
-						</div>
-    
-             <!-- 신진 작가 -->
-             <section class="artist-category">
-                <div class="artist-category-title">
-                    <h2>신진 작가</h2>
-                </div>
-                <div id="newArtistsContainer" class="artist-grid">
-                    <!-- 신진 작가 목록이 렌더링될 영역 -->
-                </div>
-            </section>
-    
-            <hr>
-    
-            <!-- 인기 작가 -->
-            <section class="artist-category">
-                <h2>인기 작가</h2>
-                <div id="popularArtistsContainer" class="artist-grid">
-                    <!-- 인기 작가 목록이 렌더링될 영역 -->
-                </div>
-            </section>
-            <hr>
-    
-            <!-- 작가 목록 -->
-            <section class="artist-category">
-                <h2>작가 목록</h2>
-                <div id="allArtistsContainer" class="artist-grid">
-                    <!-- 모든 작가 목록이 렌더링될 영역 -->
-                </div>
-            </section>
-    
-            <hr>
-    
-            <!-- 페이지네이션 -->
-            <div id="paginationBox" class="pagination-box">
-                <!-- 페이지네이션 버튼들이 렌더링될 영역 -->
-            </div>
-        </div>
-    </main>
+    <div class="artist-header">
+      <h1>Artists</h1>
+    </div>
 
+      <!-- 신진 작가 -->
+    <section class="artist-category">
+      <div class="artist-category-title">
+          <h2>신진 작가</h2>
+      </div>
+      <div id="newArtistsContainer" class="artist-grid">
+          <!-- 신진 작가 목록이 렌더링될 영역 -->
+      </div>
+    </section>
 
+    <div class="custom-line"></div>
 
+    <!-- 인기 작가 -->
+    <section class="artist-category">
+      <h2 id="artists">인기 작가</h2>
+      <div id="popularArtistsContainer" class="artist-grid">
+          <!-- 인기 작가 목록이 렌더링될 영역 -->
+      </div>
+    </section>
+    <div class="custom-line"></div>
 
-    <th:block th:replace="~{/common/footer.html}"></th:block>
+    <!-- 작가 목록 -->
+    <section class="artist-category">
+      <h2 id="artistsList">작가 목록</h2>
+      <div id="allArtistsContainer" class="artist-grid">
+          <!-- 모든 작가 목록이 렌더링될 영역 -->
+      </div>
+    </section>
 
-    <script src="/js/artist/artistList.js"></script>
+    <div class="custom-line"></div>
+
+    <!-- 페이지네이션 -->
+    <div id="paginationBox" class="pagination-box">
+        <!-- 페이지네이션 버튼들이 렌더링될 영역 -->
+    </div>
+  </main>
+
+  <th:block th:replace="~{/common/footer.html}"></th:block>
+
+  <script src="/js/artist/artistList.js"></script>
 </body>
 
 </html>

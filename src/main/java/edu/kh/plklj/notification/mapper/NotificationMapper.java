@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.plklj.main.dto.Member;
@@ -49,7 +50,6 @@ public interface NotificationMapper {
    */
   List<Integer>  getAuctionNotification(int daysBefore);
   
-  
   /** 읽지 않은 알림 개수 조회
    * @param memberNo
    * @return
@@ -59,15 +59,10 @@ public interface NotificationMapper {
   /** 알림 읽음 처리
    * @param notiNo
    */
-  void updateNotification(int notiNo);
+  void updateNotification(@Param("notiNo") int notiNo, @Param("memberNo") int memberNo);
   
   /** 알림 삭제
    * @param notiNo
    */
-  void deleteNotification(int notiNo);
-
-	
-
-  
-  
+  void deleteNotification(@Param("notiNo") int notiNo, @Param("memberNo") int memberNo);
 }

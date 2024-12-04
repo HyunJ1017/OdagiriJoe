@@ -34,7 +34,7 @@
 .main-image img {
   width: 380px;
   height: auto;
-  margin-right: 40px;
+  /* margin-right: 40px; */
 }
 
 /* 우측 정보 패널 스타일 */
@@ -58,7 +58,7 @@
 }
 
 .wishlist-button button{
-  background-color: #e68a22;
+  background-color: #5e7c71;
   color: white;
   width: 60px;
   height: 33px;

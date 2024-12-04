@@ -203,3 +203,16 @@ hr {
   color: #ff0000; /* 빨간색으로 채움 */
 }
 
+.loader { /* 이미지 로딩전까지 보여줄 로딩이미지 */
+  position: absolute;
+  width: 180px;
+  height: 252px;
+  top: 10;
+  right: 10;
+  background: url('/images/loading.gif') center center no-repeat;
+  background-size: contain;
+}
+
+#loader{
+  font-size: 80px;
+}

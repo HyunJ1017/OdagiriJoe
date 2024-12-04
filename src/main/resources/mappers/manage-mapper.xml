@@ -12,7 +12,7 @@
 		WHERE M.MEMBER_PENALTY = 1
 		AND A.ARTIST_REG = 'Y'
 		AND M.MEMBER_DEL_FL = 'N'
-		
+	ORDER BY M.MEMBER_NO DESC
 	</select>
 
 	<select id="getArtistList" resultType="map">
@@ -44,11 +44,11 @@
 
 	<!-- 회원 목록 -->
 	<select id="getMemberListCount" resultType="_int">
-		SELECT COUNT(*)
-		FROM MEMBER
-		WHERE MEMBER_DEL_FL = 'N'
-		AND MEMBER_PENALTY = 1
-
+	SELECT COUNT(*)
+	FROM MEMBER
+	WHERE MEMBER_DEL_FL = 'N'
+	AND MEMBER_PENALTY = 1
+	ORDER BY MEMBER_NO DESC
 	</select>
 	<select id="getMemberList" resultType="map">
 		SELECT
@@ -89,7 +89,7 @@
 		REPORT R
 		JOIN
 		PIECE P ON R.PIECE_NO = P.PIECE_NO
-		LEFT JOIN ARTIST D ON R.MEMBER_NO = D.MEMBER_NO
+		LEFT JOIN ARTIST D ON P.MEMBER_NO = D.MEMBER_NO
 		WHERE
 		R.REPORT_DEL_FL ='N'
 		ORDER BY REPORT_DATE DESC
@@ -108,7 +108,6 @@
 		SELECT ARTIST_NICKNAME AS "artistNickname",
 			MEMBER_NO AS "memberNo",
 			ARTIST_PROFILE AS "artistProfile"
-			
 		FROM ARTIST
 		WHERE ARTIST_REG = 'N'
 	</select>
@@ -130,10 +129,7 @@
 	
 	</update>
 	
-	
 
-	
-	
 	<!-- 작가 정지  -->
 	<update id="suspendAritist">
 	UPDATE "MEMBER"
@@ -227,8 +223,6 @@
 	</update>
 	
 	<!-- 승인 요청 거절  -->
-	
-
     <!-- ARTIST 테이블에서 데이터 삭제 -->
     <delete id="getrejectArtist">
     DELETE FROM ARTIST

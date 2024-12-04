@@ -33,12 +33,13 @@ public interface NotificationService {
   /** 알림 삭제
    * @param notiNo
    */
-  void deleteNotification(int notiNo);
+  void deleteNotification(int notiNo, int memberNo);
 
   /** 알림 읽음 처리
    * @param notiNo
+   * @param memberNo
    */
-  void updateNotification(int notiNo);
+  void updateNotification(int notiNo, int memberNo);
 
   /** 경매 한시간 전, 하루 전 알림 목록 조회
    * @param daysBefore

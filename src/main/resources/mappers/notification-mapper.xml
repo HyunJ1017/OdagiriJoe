@@ -18,7 +18,7 @@
 	
 	<!-- 알림을 받아야 하는 회원번호 + 안읽은 알람 개수 조회 -->
 	<select id="selectReceiveMember" resultType="map">
-		SELECT RECEIVE_MEMBER_NO "receiveMemberNo", COUNT(*) "notiCount"
+		SELECT RECEIVE_MEMBER_NO "receiveMemberNo", COUNT(*) "notificationCount"
 		FROM NOTIFICATION
 		WHERE RECEIVE_MEMBER_NO IN 
 		<foreach collection="list" item="rNo" open="(" close=")" separator=", ">
@@ -42,11 +42,10 @@
 	
 	<!-- 현재 로그인한 회원의 알림 중 읽지 않은 알림 개수 조회 -->
 	<select id="readCheck" resultType="_int">
-		SELECT COUNT(*)
+		SELECT COUNT(*) AS "notificationCount"
 		FROM "NOTIFICATION"
 		WHERE RECEIVE_MEMBER_NO = #{memberNo}
 		AND READ_CHECK = 'N'
-		AND READ_CHECK = 'Y'
 	</select>
 	
 	<!-- 알림 읽음 여부 변경 -->
@@ -54,6 +53,7 @@
 		UPDATE "NOTIFICATION"
 		SET READ_CHECK = 'Y'
 		WHERE NOTI_NO = #{notiNo}
+		AND RECEIVE_MEMBER_NO = #{memberNo}
 	</update>
 	
 	<!-- 알림 삭제 -->
@@ -96,10 +96,5 @@
 		FROM PIECE_AUCTION
 		WHERE TRUNC(START_DATE) = TRUNC(CURRENT_DATE + #{daysBefore})
 	</select>
-    
-    
-    
-    
-	
 	
 </mapper>

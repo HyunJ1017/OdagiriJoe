@@ -1,17 +1,14 @@
 package edu.kh.plklj.howTo.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.kh.plklj.howTo.service.HowToService;
-import edu.kh.plklj.question.dto.Question;
 import lombok.RequiredArgsConstructor;
 
 @RequestMapping("howTo")
@@ -23,20 +20,20 @@ public class HowToController {
 			
 	@GetMapping("main")
 	public String main (
-				Model model
+//				Model model
 			) {
 		
-		// 공지사항 리스트 조회
-		List<Question> questionList = service.questionList();
-		
-		
-		// list가 null 이거나 isEmpty()는 리스트가 비어 있는지 검사
-		 if (questionList == null || questionList.isEmpty()) {
-       System.out.println("questionList is empty or null");
-		 }
-		
-		model.addAttribute("questionList", questionList);
-		
+//		// 공지사항 리스트 조회
+//		List<Question> questionList = service.questionList();
+//		
+//		
+//		// list가 null 이거나 isEmpty()는 리스트가 비어 있는지 검사
+//		 if (questionList == null || questionList.isEmpty()) {
+//       System.out.println("questionList is empty or null");
+//		 }
+//		
+//		model.addAttribute("questionList", questionList);
+//		
 
     return "howto/howToMain"; 
 	}

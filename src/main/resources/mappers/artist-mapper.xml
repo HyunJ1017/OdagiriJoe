@@ -64,10 +64,10 @@
 		FROM ARTIST
 	</select>
 	
-	<select id="getArtistDetail" resultType="Artist">
+	<select id="getArtistDetail" resultMap="artistResultMap">
 		SELECT
 			A.MEMBER_NO, A.ARTIST_PROFILE, A.ARTIST_NICKNAME,
-			W.WORK_DETAIL, A.ARTIST_NICKNAME,
+			  LISTAGG(W.WORK_DETAIL, ', ') WITHIN GROUP (ORDER BY W.WORK_DETAIL) AS WORK_DETAILS,
 			
 			(SELECT COUNT(*) FROM FOLLOW WHERE MEMBER_NO = A.MEMBER_NO) AS FOLLOW_COUNT,
 			
@@ -86,7 +86,12 @@
 			A.MEMBER_NO = #{artistNo}
 		AND 
 			M.MEMBER_DEL_FL = 'N'
+		GROUP BY 
+  			A.MEMBER_NO, A.ARTIST_PROFILE, A.ARTIST_NICKNAME
 	</select>
+	
+	
+	
 	
 	<select id="getArtistWorks" resultType="Artist">
 		SELECT
@@ -111,6 +116,15 @@
 			<if test="order == 'asc'">ASC</if>
 			<if test="order == 'desc'">DESC</if>
 	</select>
+	
+	<select id="getArtistWorkCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM
+			PIECE
+		WHERE MEMBER_NO = #{memberNo}
+		AND   PIECE_STATUS IN ('N', 'F', 'A', 'S')
+	</select>
+	
 	
 	<select id="checkFollow" resultType="_int">
 		SELECT COUNT(*)
@@ -138,6 +152,38 @@
 		FROM FOLLOW
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
+	
+	<resultMap type="Artist" id="artistResultMap">
+    <!-- Primary Key 설정 -->
+    <id property="memberNo" column="MEMBER_NO"/>
+    
+    <!-- 일반 필드 설정 -->
+    <result property="artistProfile" column="ARTIST_PROFILE"/>
+    <result property="artistNickname" column="ARTIST_NICKNAME"/>
+    <result property="followCount" column="FOLLOW_COUNT"/>
+    <result property="followCheck" column="FOLLOW_CHECK"/>
+    
+    <!-- 컬렉션 설정 -->
+    <collection 
+        property="workDetails"
+        ofType="string"
+        column="MEMBER_NO"
+        select="selectWorkList"
+    />
+</resultMap>
+
+<select id="selectWorkList" resultType="string">
+    SELECT
+        WORK_DETAIL
+    FROM
+        WORK
+    WHERE
+        MEMBER_NO = #{memberNo}
+</select>
+
+	
+	
+
 				
 
 
