@@ -10,18 +10,17 @@ body{
   width: 100%;
 }
 #member-logIn>*{
-  margin: 10px 0 10px;
+  margin: 2% 0 1%;
 }
 #member-logIn>.logIn-sec{
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 60px;
-
+  margin-top: 3%;
   width: 400px;
 }
 #member-logIn>.logIn-sec>*{
-  margin: 10px 0 10px;
+  margin: 2% 0 1%;
 }
 #member-logIn>.logIn-sec>label{
   height: 52px;
@@ -31,9 +30,10 @@ body{
 }
 #member-logIn>#logIn-btn{
   width: 400px;
-  border-radius: 8px;
+  border-radius: 3px;
   padding: 10px;
-  margin-bottom: 40px;
+  margin-bottom: 2%;
+  margin-top: 3%;
 }
 
 #signMain-bottom{
@@ -67,7 +67,7 @@ body{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
+  color: #414141;
   width: 820px;
 }
 .member-main>.signUp-sec>*{
@@ -85,7 +85,7 @@ margin: 0 10px 0;
 }
 .member-main>#signUp-btn{
   width: 400px;
-  border-radius: 8px;
+  border-radius: 3px;
   padding: 10px;
 }
 .member-main>section:last-child{
@@ -110,7 +110,7 @@ main>div>*:first-child{
 }
 main>div>label{
   width: 100%;
-  border: 2px solid black;
+  border: 1px solid #5e7c71;
   border-radius: 3px;
   padding: 5px;
   display: flex;
@@ -119,6 +119,7 @@ main>div>label{
 main>div>label>input{
   border: none;
   flex-grow: 1;
+  font-size: 16px;
 }
 main>div>label>input:focus {
   outline: none;
@@ -132,21 +133,22 @@ main>div>label>div:last-child{
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: #5e7c71;
-  color: white;
+  background: white;
+  color: #5e7c71;
+  border: 1px solid #5e7c71;
 }
 .member-hov:hover {
   cursor: pointer;
-  background: white;
-  border: 2px solid #5e7c71;
-  color: #5e7c71;
+  border: 1px solid #5e7c71;
+  background-color: #5e7c71;
+  color: white;
 }
 .member-btnA{
   width: 400px;
   height: 45px;
   padding: 10px;
   margin: 0 5px 0;
-  border-radius: 8px;
+  border-radius: 3px;
 }
 
 

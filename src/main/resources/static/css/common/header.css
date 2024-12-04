@@ -95,7 +95,6 @@ main {
   flex-wrap: wrap;
   position: absolute;
   width: 46%;
-  text-shadow: 1px 1px #c9c9c9;
 }
 
 .header-menu ul {
