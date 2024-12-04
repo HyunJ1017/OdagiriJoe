@@ -108,7 +108,6 @@
 		SELECT ARTIST_NICKNAME AS "artistNickname",
 			MEMBER_NO AS "memberNo",
 			ARTIST_PROFILE AS "artistProfile"
-			
 		FROM ARTIST
 		WHERE ARTIST_REG = 'N'
 	</select>
