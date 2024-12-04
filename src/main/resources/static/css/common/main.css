@@ -65,6 +65,16 @@ main{
   display: inline-block;
 }
 
+.loader { /* 이미지 로딩전까지 보여줄 로딩이미지 */
+  position: absolute;
+  background: url('/images/loading.gif') center center no-repeat;
+  background-size: contain;
+}
+
+img{ /* 로딩할 이미지 */
+  display: none; /* 처음에는 보이지 않게 */
+}
+
 /* 카테고리 이름 */
 .mainPriceText{
   font-size: 25px;

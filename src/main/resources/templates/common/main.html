@@ -26,7 +26,8 @@
                   <p th:text="|End Time: *{endDate}|" class="mainTimeText">끝난 일시</p>
                   <button type="button" class="seeBtn" th:onclick="|location.href='/auction/auctionDetail?pieceNo=*{pieceNo}'|">보러가기</button>
                 </div>
-                <img th:src="${artist.pieceRename}" alt="Main" class="main-image" th:data-id="*{memberNo}">
+                <img th:src="${artist.pieceRename}" alt="Main" class="main-image" th:data-id="*{memberNo}" onload="hideLoader(this)">
+                <div class="loader"></div>
               </article>
             </div>
           </div>
@@ -57,7 +58,8 @@
       <article class="gallery-item" th:each="artist, stat : ${onlineGallery}">
         <div class="gallery-image">
           <a th:href="@{piece/onlineDetail (pieceNo=*{pieceNo})}" th:object="${artist}">
-            <img th:src="*{pieceRename}" alt="Online Gallery" class="pieceRename" th:data-id="*{memberNo}">
+            <img th:src="*{pieceRename}" alt="Online Gallery" class="pieceRename" th:data-id="*{memberNo}" onload="hideLoader(this)">
+            <div class="loader"></div>
           </a>
           <div class="gallery-innerDetails" th:object="${piece}">
             <p th:text="|${artist.sizeX} x ${artist.sizeY}|">22 x 22</p>
@@ -95,7 +97,8 @@
                   <button class="view-button" role="link" aria-label="상세보기: ${pieceTitle}" th:onclick="|location.href='/auction/currentDetail?pieceNo=*{pieceNo}'|">상세보기</button>
                 </div>
                 <div class="auction-img">
-                <img th:src="*{pieceRename}" alt="작품: *{pieceTitle}" class="auction-image" th:data-id="*{memberNo}">
+                <img th:src="*{pieceRename}" alt="작품: *{pieceTitle}" class="auction-image" th:data-id="*{memberNo}" onload="hideLoader(this)">
+                <div class="loader"></div>
                 </div>
               </div>
             </article>
