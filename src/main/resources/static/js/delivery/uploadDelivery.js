@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const checkbox = row.querySelector(".filter-checkbox");
         if (checkbox && checkbox.checked) {
           const deliveryNo = checkbox.getAttribute("data-delivery-no"); // 송장 번호
-          const sortSelect = row.querySelector(".sort");
+          const sortSelect = row.querySelector(".sort-select");
           const deliveryIngDateInput = row.querySelector(".deliveryIngDate");
           const deliveryEndDateInput = row.querySelector(".deliveryEndDate");
           
@@ -99,7 +99,6 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         }
       });
-      
       if (deliveryList.length === 0) {
         alert("저장할 데이터를 선택해주세요.");
         return;
