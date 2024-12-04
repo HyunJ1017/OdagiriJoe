@@ -1,5 +1,7 @@
 package edu.kh.plklj.artists.dto;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,7 +33,6 @@ public class Artist {
 	private String memberName;
 	
 	// 경력 사항
-	private String workDetail;
 	
   //작품
 	private int pieceNo; // 작품 번호
@@ -51,5 +52,7 @@ public class Artist {
 	// 팔로우
 	private int followCount;
 	private int followCheck;
+	
+	private List<String> workDetails;
 	
 }
