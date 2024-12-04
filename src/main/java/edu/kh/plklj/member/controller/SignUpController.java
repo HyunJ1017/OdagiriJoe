@@ -16,13 +16,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import edu.kh.plklj.main.dto.Member;
 import edu.kh.plklj.member.service.SignUpService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /* 회원가입
  */
 
-@RequestMapping("member/signUp")
+@Slf4j
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("member/signUp")
 public class SignUpController {
 	
 	private final SignUpService service;

@@ -1,16 +1,13 @@
 /* artistList.css */
 
-#artistPage-main {
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-}
-
-.container {
-  width: 85%;
-  margin: 4% auto;
-  padding: 0 0%;
+  padding-top: 150px;
+  padding-left:7.5%;
+  padding-right:7.5%;
   color: #5c7a72;
 }
 

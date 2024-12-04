@@ -99,10 +99,8 @@
       <!-- 페이지네이션 -->
       <ul th:if="${!#lists.isEmpty(followList)}" class="pagination-box" id="paginationBox2" th:object="${followPagination}">
 
-        <!-- <th:block th:if= "*{maxPage > pageSize}"> -->
-          <li><a href="#" class="page-btn">&lt;&lt;</a></li>
-          <li><a href="#" class="page-btn">&lt;</a></li>
-        <!-- </th:block> -->
+        <li><a href="#" class="page-btn">&lt;&lt;</a></li>
+        <li><a href="#" class="page-btn">&lt;</a></li>
 
         <th:block th:each= "i:*{#numbers.sequence(startPage, endPage)}">
 
@@ -115,13 +113,12 @@
           <li th:unless= "${i} == *{currentPage}">
             <a href="#" class="page-btn" th:text="${i}">이동할 수 있는 페이지</a>
           </li>
-
+          
         </th:block>
 
-        <th:block  th:if= "*{maxPage > pageSize}">
-          <li><a href="#" class="page-btn">&gt;</a></li>
-          <li><a href="#" class="page-btn">&gt;&gt;</a></li>
-        </th:block>
+        <li><a href="#" class="page-btn">&gt;</a></li>
+        <li><a href="#" class="page-btn">&gt;&gt;</a></li>
+
       </ul>
 
       <th:block th:if="${#lists.isEmpty(followList)}">

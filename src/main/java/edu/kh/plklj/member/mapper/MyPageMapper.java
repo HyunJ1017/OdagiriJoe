@@ -18,7 +18,7 @@ public interface MyPageMapper {
 
 	int updateName(Member member);
 
-	Member getMember(String string);
+	Member getMember(String memberNo);
 
 	int updatePhone(Member member);
 

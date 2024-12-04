@@ -8,7 +8,7 @@ a {
 
 /* 메인 컨텐츠 영역 */
 #howTo {
-  padding-top: 16vh;
+  padding-top: 150px;
   width: 100%; /* 가로 100% */
   overflow-y: auto; /* 스크롤 추가 */
   display: flex;
@@ -22,22 +22,17 @@ a {
   width: 80%;
   height: 500px;
   /* border: 1px solid #333; */
-  border-bottom: 3px solid #333; 
+  border-bottom: 2px solid #aaaaaa; 
   margin: 60px 30px 30px 30px;
   position: relative;
 }
 
 
-#howTo > h1 {
-  position: absolute;
-  top: 16%;
-}
-
 .howTo-section2,
 .howTo-section4 {
   width: 80%;
   height: 500px;
-  border-bottom: 3px solid #333;
+  border-bottom: 2px solid #aaaaaa;
   margin: 30px;
 }
 
