@@ -343,28 +343,19 @@
 
             <!-- 입찰 금액 -->
             <td
-              th:text="${manage.pieceType == 1 ? manage.sellPrice + ' 원' : (manage.pieceType == 2 ? manage.endPrice + ' 원' : '')}">
-              입찰 금액</td>
+              th:text="${manage.pieceType == 1 ? manage.sellPrice + ' 원' : (manage.pieceType == 2 ? manage.endPrice + ' 원' : '')}">입찰 금액</td>
             <td th:text="${manage.deliveryAddress}">주소</td>
 
             <!-- 배송 예정 일자 -->
             <td>
-              <input type="date" class="calendarin deliveryIngDate"
-                th:if="${manage.deliveryAddress != null && manage.deliveryIngDate == null}"
-                th:data-key="${manage.deliveryNo}" />
-              <input type="text" class="calendarin deliveryIngDate"
-                th:if="${manage.deliveryAddress != null && manage.deliveryIngDate != null}"
-                th:value="${manage.deliveryIngDate}" th:data-key="${manage.deliveryNo}" disabled />
+              <input type="date" class="calendarin deliveryIngDate" th:if="${manage.deliveryAddress != null && manage.deliveryIngDate == null}" th:data-key="${manage.deliveryNo}" />
+              <input type="text" class="calendarin deliveryIngDate" th:if="${manage.deliveryAddress != null && manage.deliveryIngDate != null}" th:value="${manage.deliveryIngDate}" th:data-key="${manage.deliveryNo}" disabled />
             </td>
 
             <!-- 배송 완료 일자 -->
             <td>
-              <input type="date" class="calendarin deliveryEndDate deliveryCurDate"
-                th:if="${manage.deliveryAddress != null && manage.deliveryEndDate == null}"
-                th:data-key="${manage.deliveryNo}">
-              <input type="text" class="calendarin deliveryEndDate deliveryNoneDate"
-                th:if="${manage.deliveryAddress != null && manage.deliveryEndDate != null}"
-                th:value="${manage.deliveryEndDate}" th:data-key="${manage.deliveryNo}" disabled />
+              <input type="date" class="calendarin deliveryEndDate deliveryCurDate" th:if="${manage.deliveryAddress != null && manage.deliveryEndDate == null}" th:data-key="${manage.deliveryNo}">
+              <input type="text" class="calendarin deliveryEndDate deliveryNoneDate" th:if="${manage.deliveryAddress != null && manage.deliveryEndDate != null}" th:value="${manage.deliveryEndDate}" th:data-key="${manage.deliveryNo}" disabled />
             </td>
 
             <!-- 정렬 방식 -->
