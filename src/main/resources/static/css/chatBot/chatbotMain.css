@@ -67,11 +67,11 @@
   color: white;
   padding: 15px;
   font-size: 18px;
-  font-weight: bold;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  font-style: italic;
 }
 
 #chatbot-close {
@@ -226,4 +226,8 @@
 .keyword-button:hover {
   background-color: #7e9a8d;
   transform: scale(1.1);
+}
+
+*{
+  font-weight: 500;
 }
