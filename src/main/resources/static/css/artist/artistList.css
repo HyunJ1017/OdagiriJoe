@@ -24,7 +24,9 @@
   color: #5c7a72;
   visibility: visible;
 }
-
+.container > .artist-category{
+  width: 100%;
+}
 /* .artist-category {
   margin-bottom: 30px;
 } */
@@ -132,7 +134,6 @@ hr {
 }
 
 .artist-profile{
-  padding: 10px; 
   position: relative;
   min-width: 202px;
   min-height: 274px;
