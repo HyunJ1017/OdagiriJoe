@@ -309,6 +309,7 @@ button:hover {
   width: 45%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin: 0% 0% 4% 5%;
+  justify-content: space-between;
 }
 
 /* 내부 컨테이너 내용 */
@@ -320,9 +321,10 @@ button:hover {
 }
 
 .content-info {
-display: flex;
-flex-direction: column;
-margin: 0% 0% 0% 45%;
+  display: flex;
+  flex-direction: column;
+  margin: 0% 0% 0% 35%;
+  text-align: end;
 }
 
 .content-info h2 {
@@ -333,7 +335,9 @@ margin: 0% 0% 0% 45%;
 .content-info p {
   font-size: 14px;
   color: #414141;
-  padding: 10% 0% 10% 0%
+  padding: 10% 0% 10% 0%;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 
 .content-grid {
@@ -399,7 +403,6 @@ margin: 0% 0% 0% 45%;
 /* 공지사항 */
 .notice-section {
   max-width: 100vw;
-  max-height: 100vh;
   margin: 0% 10% 10% 10%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -595,7 +598,6 @@ margin: 0% 0% 0% 45%;
 /* 1:1 문의 메인 컨테이너*/
 .inquiry-section {
   max-width: 100vw;
-  max-height: 100vh;
   margin: 0% 10% 10% 10%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -746,6 +748,29 @@ margin: 0% 0% 0% 45%;
 #noticeGrid {
   display: block !important;
   visibility: visible !important;
-  }
+}
+
+#memberManage {
+  margin-bottom: 15%;
+}
+#contentsManage{
+  margin-bottom: 15%;
+}
+#approval {
+  margin-bottom: 15%;
+}
+#noticeN {
+  margin-bottom: 15%;
+}
+#back {
+  margin-bottom: 15%;
+}
+#onequestion {
+  margin-bottom: 15%;
+}
+#delivery {
+  margin-bottom: 15%;
+}
+
 
 
