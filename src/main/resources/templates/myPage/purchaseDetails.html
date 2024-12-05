@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>화사 :: 愛 :: 화공</title>
-    <th:block th:replace= "~{/common/common :: cssLinks}"></th:block>
+    <th:block th:replace= "~{common/common :: cssLinks}"></th:block>
     <link rel="stylesheet" href="/css/myPage/purchaseDetails.css">
   </head>
   <body>
-  <th:block th:replace= "~{/common/common :: headerLinks}"></th:block>
+  <th:block th:replace= "~{common/common :: headerLinks}"></th:block>
 
   <main id="myPage-main" class="myPage-main">
     <h1>구매작품목록</h1>
@@ -24,7 +24,7 @@
     
   </main>
 
-  <th:block th:replace= "~{/common/footer}"></th:block>
+  <th:block th:replace= "~{common/footer}"></th:block>
   <script src="/js/myPage/purchaseDetails.js"></script>
   <script th:inline="javascript">
     const memberNo = /*[[${session.artistLogin != null} ? ${session.artistLogin.memberNo} : ${session.memberLogin.memberNo}]]*/ "defaultMemberNo";
