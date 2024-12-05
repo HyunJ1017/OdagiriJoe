@@ -2,7 +2,6 @@
 function openPopup(reportNo, pieceNo) {
   const popup = document.getElementById("reportPopup");
   if (!popup) {
-    console.log("팝업 요소를 찾을 수 없음");
     return;
   }
 
@@ -31,7 +30,6 @@ function openPopup(reportNo, pieceNo) {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
       if (confirmButton) {
         confirmButton.dataset.id = reportNo;
       }
@@ -61,9 +59,7 @@ function closePopup() {
   const popup = document.getElementById("reportPopup");
   if (popup) {
     popup.classList.add("display-none"); // 팝업 숨기기
-  } else {
-    console.log("팝업 요소를 찾을 수 없음");
-  }
+  } 
 }
 
 // 상세보기 버튼 클릭 이벤트

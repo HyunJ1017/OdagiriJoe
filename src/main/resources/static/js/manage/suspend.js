@@ -10,8 +10,6 @@ document.addEventListener("click", (event) => {
 
 function suspend(memberNo) {
   if (!confirm("정말로 이 회원을 정지하시겠습니까?")) return;
-  console.log(memberNo);
-
   fetch(`/manage/suspend`, {
     method: "POST",
     headers: {
