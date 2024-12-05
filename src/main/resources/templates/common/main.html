@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>화사 :: 愛 :: 화공</title>
   <link rel="stylesheet" href="/css/common/main.css">
-  <link rel="stylesheet" href="/css/chatbot/chatbotMain.css">
   <th:block th:replace="~{common/common :: cssLinks}"></th:block>
 </head>
 
@@ -150,9 +149,11 @@
       <button class="auctions-next-btn" onclick="moveSlide(1)">&#10095;</button>
     </div>
   </section>
+  <th:block th:replace="~{common/footer}"></th:block>
+
+
   <script src="/js/common/main.js"></script>
   <script src="/js/chatbot/chatbotMain.js"></script>
-  <th:block th:replace="~{common/footer}"></th:block>
 </body>
 
 </html>
