@@ -31,6 +31,7 @@ public class ManageController {
 
 	private final ManageService service;
 
+	// 관리자가 아닌 사람 접근 막기
 	@GetMapping("")
 	public String managePage(
 			@SessionAttribute(name = "manageLogin", required = false) Member manageLogin) {
@@ -42,13 +43,14 @@ public class ManageController {
 		return "manage/manage";
 	}
 
-	// 콘텐츠 관리
+	// 비동기로 목록 불러오기
 	@GetMapping("getList")
 	@ResponseBody
 	public Map<String, Object> getReportContents(@RequestParam("code") String code,
-			@RequestParam(name = "cp", required = false, defaultValue = "1") int cp) {
+			@RequestParam(name = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam(name = "category", required = false, defaultValue = "0") int category) {
 
-		return service.getSearchList(code, cp);
+		return service.getSearchList(code, cp, category);
 	}
 
 	// 회원 정지
@@ -69,7 +71,7 @@ public class ManageController {
 	public String withdrawMember(@RequestBody int memberNo) {
 		int result = service.withdrawMember(memberNo);
 		if (result > 0) {
-				return "탈퇴 완료 되었습니다.";
+			return "탈퇴 완료 되었습니다.";
 		}
 
 		return "탈퇴 실패";
@@ -108,11 +110,7 @@ public class ManageController {
 
 	}
 
-	/**
-	 * 신고목록 제거
-	 * 
-	 * @param reportNo
-	 */
+	// 신고 목록 제거
 	@DeleteMapping("/report/{reportNo}")
 	@ResponseBody
 	public void deleteReportList(@PathVariable("reportNo") int reportNo) {
@@ -120,11 +118,7 @@ public class ManageController {
 		service.deleteReportList(reportNo);
 	}
 
-	/**
-	 * 게시글 삭제
-	 * 
-	 * @param pieceNo
-	 */
+	// 게시글 삭제
 	@DeleteMapping("/delete/{pieceNo}")
 	@ResponseBody
 	public void deletePieceList(@PathVariable("pieceNo") int pieceNo) {
@@ -171,6 +165,7 @@ public class ManageController {
 		return "manage/noticeRevise";
 	}
 
+	// 공지사항 수정하기
 	@PostMapping("/updateNotice")
 	public String updateNotice(@RequestParam("title") String title, @RequestParam("content") String content,
 			@RequestParam("noticeNo") int noticeNo) {
@@ -224,7 +219,6 @@ public class ManageController {
 	}
 
 	// 1대 1문의
-
 	@PostMapping("/answer/{questionNo}")
 	@ResponseBody
 	public String answerList(@PathVariable("questionNo") int questionNo, @RequestBody String questionAnswer) {
@@ -232,7 +226,8 @@ public class ManageController {
 		service.answerList(questionNo, questionAnswer);
 		return "답변 성공";
 	}
-
+	
+	// 1대 1문의 삭제
 	@PostMapping("/delete/{questionNo}")
 	@ResponseBody
 	public void deleteQuestionList(@PathVariable("questionNo") int questionNo) {

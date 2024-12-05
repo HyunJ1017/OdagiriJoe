@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     paginationBoxArtist.style.display = "flex";
     paginationBoxMember.style.display = "none";
     console.log("작가 보기 활성화");
-    getList(1, 1)
+    getList(1, 1, 0)
   });
 
   // "회원 보기" 버튼 클릭 이벤트
@@ -122,13 +122,13 @@ document.addEventListener('DOMContentLoaded', () => {
     paginationBoxArtist.style.display = "none";
     memberList.style.display = "flex";
     paginationBoxMember.style.display = "flex";
-    getList(2, 1)
+    getList(2, 1, 0)
   });
-  getList(1, 1); // 작가목록
-  getList(3, 1); // 콘텐츠관리
-  getList(4, 1) // 승인 요청 내역
-  getList(5, 1); // 공지사항
-  getList(6, 1); // 1대1문의
+  getList(1, 1, 0); // 작가목록
+  getList(3, 1, 0); // 콘텐츠관리
+  getList(4, 1, 0); // 승인 요청 내역
+  getList(5, 1, 0); // 공지사항
+  getList(6, 1, 0); // 1대1문의
 });
 
 // 작가 목록 표시 함수
@@ -200,7 +200,7 @@ function displayReportContents(contents) {
               <button class="view-button" data-id="${content.reportNo}" data-piece-no="${content.pieceNo}">상세보기</button>
           </div>    
       </div>`;
-    contentGrid.appendChild(contentCard);
+    contentGrid.appendChild(contentCard); 
   });
 }
 
@@ -313,14 +313,7 @@ function displayquestionContents(contents) {
 /* 1대 1문의 드롭다운 */
 function applyFilter(category) {
   const items = document.querySelectorAll('.inquiry-item');
-  items.forEach(item => {
-    const itemCategory = item.dataset.category;
-    if (category === 'all' || itemCategory === category) {
-      item.style.display = 'block'; // 필터 조건에 맞는 항목 표시
-    } else {
-      item.style.display = 'none'; // 조건에 맞지 않는 항목 숨김
-    }
-  });
+getList(6, 1, category);
 }
 
 // 드롭다운 이벤트 리스너
@@ -328,9 +321,10 @@ document.getElementById('questionFilter').addEventListener('change', function (e
   const selectedCategory = event.target.value;
   applyFilter(selectedCategory);
 });
+
+// 승인요청내역 정보상세보기
 const detailButtonsEventAdd = () => {
   
-  // 승인요청내역 정보상세보기
   const detailButtons = document.querySelectorAll(".detail-button");
   if (detailButtons) {
     detailButtons.forEach(detailButton => {
@@ -392,7 +386,7 @@ function approveArtist(memberNo) {
     })
     .then((data) => {
       alert(`승인 성공 : ${data}`);
-      getList(4, page4);
+      getList(4, page4, 0);
     })
     .catch(error => alert(`승인 실패: ${error.message}`));
 }
@@ -420,7 +414,7 @@ function rejectArtists(memberNo) {
 
       // 문자 전송 호출
       sendRejectionMessage(memberNo);
-      getList(4, page4); // 목록 새로고침
+      getList(4, page4, 0); // 목록 새로고침
     })
     .catch(error => alert(`거절 실패 : ${error.message}`));
 }
@@ -522,8 +516,9 @@ function displayContents(code, contents) {
 }
 
 // 리스트 가져오기 함수
-function getList(code, page) {
-  fetch(`/manage/getList?code=${code}&cp=${page}`)
+function getList(code, page, category) {
+  if(category === null) category = 0;
+  fetch(`/manage/getList?code=${code}&cp=${page}&category=${category}`)
     .then(response => {
       if (response.ok) return response.json();
       throw new Error("AJAX 통신 실패");
@@ -534,34 +529,34 @@ function getList(code, page) {
 
       // 데이터가 없고 이전 페이지가 있을 경우
       if (data.length === 0 && page > 1) {  
-        getList(code, page - 1); // 이전 페이지 요청
+        getList(code, page - 1, 0); // 이전 페이지 요청
         return;
       }
       // 데이터가 있을 경우 처리
       if (code === 1) {
         page1 = page;
         displayArtistList(result.resultList); // 아티스트 리스트 렌더링
-        setupPagination(result.pg, code, "paginationBoxArtist"); // 아티스트 페이지네이션 설정
+        setupPagination(result.pg, code, "paginationBoxArtist", 0); // 아티스트 페이지네이션 설정
       } else if (code === 2) {
         page2 = page;
         displayMemberList(result.resultList); // 회원 목록 리스트 렌더링
-        setupPagination(result.pg, code, "paginationBoxMember"); // 회원 목록 페이지네이션 설정
+        setupPagination(result.pg, code, "paginationBoxMember", 0); // 회원 목록 페이지네이션 설정
       } else if (code === 3) {
         page3 = page;
         displayReportContents(result.resultList); // 콘텐츠 리스트 렌더링
-        setupPagination(result.pg, code, "paginationBoxContent"); // 콘텐츠 페이지네이션 설정
+        setupPagination(result.pg, code, "paginationBoxContent", 0); // 콘텐츠 페이지네이션 설정
       } else if (code === 4) {
         page4 = page;
         displayRequestContents(result.resultList); // 승인요청내역 리스트 렌더링
-        setupPagination(result.pg, code, "paginationBoxRequest"); // 승인요청내역 페이지네이션 설정
+        setupPagination(result.pg, code, "paginationBoxRequest", 0); // 승인요청내역 페이지네이션 설정
       } else if (code === 5) {
         page5 = page;
         displayNoticeContents(result.resultList); // 공지사항 리스트 렌더링
-        setupPagination(result.pg, code, "paginationBoxNotice"); // 공지사항 페이지네이션 설정
+        setupPagination(result.pg, code, "paginationBoxNotice", 0); // 공지사항 페이지네이션 설정
       } else if (code === 6) {
         page6 = page;
         displayquestionContents(result.resultList); // 1대1문의 리스트 렌더링
-        setupPagination(result.pg, code, "paginationBoxQuestion"); // 1대1문의 페이지네이션 설정
+        setupPagination(result.pg, code, "paginationBoxQuestion", category); // 1대1문의 페이지네이션 설정
       } else {
         console.log("기타 코드값을 불러와 실행됨");
         console.error("알 수 없는 코드:", code);
@@ -571,7 +566,8 @@ function getList(code, page) {
 }
 
 // 페이지네이션 설정 함수
-function setupPagination(pg, code, paginationContainerId) {
+function setupPagination(pg, code, paginationContainerId, category) {
+  if(category === null) category = 0;
   const paginationContainer = document.getElementById(paginationContainerId);
   if (!paginationContainer) {
     console.error("페이지네이션 컨테이너를 찾을 수 없습니다:", paginationContainerId);
@@ -588,7 +584,7 @@ function setupPagination(pg, code, paginationContainerId) {
     if (!isDisabled) {
       btn.addEventListener("click", (event) => {
         event.preventDefault();
-        getList(code, page); // 해당 페이지 데이터 로드
+        getList(code, page, category); // 해당 페이지 데이터 로드
       });
     }
     return btn;

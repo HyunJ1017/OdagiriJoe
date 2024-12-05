@@ -4,23 +4,29 @@
 
 
 	<!--작가 목록 -->
+	<!--페이지네이션  -->
 	<select id="getArtistListCount" resultType="_int">
 		SELECT
-		COUNT(*)
-		FROM ARTIST A
+			COUNT(*)
+		FROM 
+			ARTIST A
 		JOIN MEMBER M ON A.MEMBER_NO = M.MEMBER_NO
-		WHERE M.MEMBER_PENALTY = 1
-		AND A.ARTIST_REG = 'Y'
-		AND M.MEMBER_DEL_FL = 'N'
+		WHERE 
+			M.MEMBER_PENALTY = 1
+		AND 
+			A.ARTIST_REG = 'Y'
+		AND 
+			M.MEMBER_DEL_FL = 'N'
 	ORDER BY M.MEMBER_NO DESC
 	</select>
 
+	<!-- 작가 목록 불러오기  -->
 	<select id="getArtistList" resultType="map">
-	SELECT
-    A.MEMBER_NO AS "memberNo",
-    A.ARTIST_PROFILE AS "artistProfile",
-    A.ARTIST_NICKNAME AS "artistNickname",
-    A.ARTIST_PROFILE AS "artistProfile",
+		SELECT
+   			A.MEMBER_NO AS "memberNo",
+    		A.ARTIST_PROFILE AS "artistProfile",
+   			A.ARTIST_NICKNAME AS "artistNickname",
+   			A.ARTIST_PROFILE AS "artistProfile",
     (
         SELECT SUM(END_PRICE)
         FROM PIECE P
@@ -34,32 +40,45 @@
         JOIN PAYMENT_RECORD PR ON (P2.PIECE_NO = PR.PIECE_NO)
         WHERE P2.MEMBER_NO = A.MEMBER_NO
     ) AS "sellPrice"
-	FROM ARTIST A
+	FROM 
+		ARTIST A
 	JOIN MEMBER M ON A.MEMBER_NO = M.MEMBER_NO
-	WHERE M.MEMBER_PENALTY = 1
-	AND A.ARTIST_REG = 'Y'
-	AND M.MEMBER_DEL_FL = 'N'
+	WHERE 
+		M.MEMBER_PENALTY = 1
+	AND 
+		A.ARTIST_REG = 'Y'
+	AND 
+		M.MEMBER_DEL_FL = 'N'
 
 	</select>
 
 	<!-- 회원 목록 -->
+	<!-- 페이지네이션 -->
 	<select id="getMemberListCount" resultType="_int">
-	SELECT COUNT(*)
-	FROM MEMBER
-	WHERE MEMBER_DEL_FL = 'N'
-	AND MEMBER_PENALTY = 1
-	ORDER BY MEMBER_NO DESC
+		SELECT 
+			COUNT(*)
+		FROM 
+			MEMBER
+		WHERE 
+			MEMBER_DEL_FL = 'N'
+		AND 
+			MEMBER_PENALTY = 1
+		ORDER BY 
+			MEMBER_NO DESC
 	</select>
+	<!-- 회원목록 불러오기-->
 	<select id="getMemberList" resultType="map">
 		SELECT
-		M.MEMBER_NO AS "memberNo",
-		M.MEMBER_NAME AS "memberName",
-		TO_CHAR(COALESCE(SUM(A.END_PRICE), 0), 'FM999,999,999,999,999,999') AS "endPrice"
-		FROM MEMBER M
-		LEFT JOIN AUCTION A
-		ON M.MEMBER_NO = A.MEMBER_NO
-		WHERE M.MEMBER_DEL_FL = 'N'
-		AND M.MEMBER_PENALTY = 1
+			M.MEMBER_NO AS "memberNo",
+			M.MEMBER_NAME AS "memberName",
+			TO_CHAR(COALESCE(SUM(A.END_PRICE), 0), 'FM999,999,999,999,999,999') AS "endPrice"
+		FROM
+			MEMBER M
+		LEFT JOIN AUCTION A ON M.MEMBER_NO = A.MEMBER_NO
+		WHERE 
+			M.MEMBER_DEL_FL = 'N'
+		AND 
+			M.MEMBER_PENALTY = 1
 		GROUP BY M.MEMBER_NO, M.MEMBER_NAME
 
 	</select>
@@ -67,135 +86,155 @@
 	<!--콘텐츠 관리 -->
 	<select id="getContentListCount" resultType="_int">
 		SELECT
-		COUNT(*)
+			COUNT(*)
 		FROM
-		REPORT R
+			REPORT 
 		WHERE
-		R.REPORT_DEL_FL ='N'
+			REPORT_DEL_FL ='N'
 	</select>
 
 
 	<select id="getContentList" resultType="map">
 		SELECT
-		R.REPORT_NO AS "reportNo",
-		R.MEMBER_NO AS "memberNo",
-		P.PIECE_TITLE AS "pieceName",
-		R.REPORT_DATE,
-		P.SIZE_X || ' x ' || P.SIZE_Y AS "pieceSize",
-		D.ARTIST_NICKNAME AS "artistNickname",
-		R.PIECE_NO AS "pieceNo",
-		P.PIECE_RENAME AS "pieceRename"
+			R.REPORT_NO AS "reportNo",
+			R.MEMBER_NO AS "memberNo",
+			P.PIECE_TITLE AS "pieceName",
+			R.REPORT_DATE,
+			P.SIZE_X || ' x ' || P.SIZE_Y AS "pieceSize",
+			D.ARTIST_NICKNAME AS "artistNickname",
+			R.PIECE_NO AS "pieceNo",
+			P.PIECE_RENAME AS "pieceRename"
 		FROM
-		REPORT R
-		JOIN
-		PIECE P ON R.PIECE_NO = P.PIECE_NO
+			REPORT R
+		JOIN PIECE P ON R.PIECE_NO = P.PIECE_NO
 		LEFT JOIN ARTIST D ON P.MEMBER_NO = D.MEMBER_NO
 		WHERE
-		R.REPORT_DEL_FL ='N'
+			R.REPORT_DEL_FL ='N'
 		ORDER BY REPORT_DATE DESC
 	</select>
 	
-	
-
 	<!--작가 승인 요청  -->
 	<select id="getRequestListCount" resultType="_int">
-		SELECT COUNT(*)
-		FROM ARTIST
+		SELECT 
+			COUNT(*)
+		FROM 
+			ARTIST
 		WHERE ARTIST_REG = 'N'
 	</select>
 
 	<select id="getRequestList" resultType="map">
-		SELECT ARTIST_NICKNAME AS "artistNickname",
+		SELECT 
+			ARTIST_NICKNAME AS "artistNickname",
 			MEMBER_NO AS "memberNo",
 			ARTIST_PROFILE AS "artistProfile"
-		FROM ARTIST
+		FROM
+			ARTIST
 		WHERE ARTIST_REG = 'N'
 	</select>
 
-
 	<!-- 회원 정지  -->
 	<update id="suspendMember">
-	UPDATE "MEMBER"
-	SET MEMBER_PENALTY = 31
-	WHERE MEMBER_PENALTY = 1
-	AND MEMBER_NO = #{memberNo}
+	UPDATE 
+		"MEMBER"
+	SET 
+		MEMBER_PENALTY = 31
+	WHERE 
+		MEMBER_PENALTY = 1
+	AND 
+		MEMBER_NO = #{memberNo}
 	</update>
 	
 	<!-- 회원 탈퇴  -->
 	<update id="withdrawMember">
-	UPDATE "MEMBER"
-	SET MEMBER_DEL_FL = 'Y'
-	WHERE MEMBER_NO = #{memberNo}
-	
+	UPDATE
+		"MEMBER"
+	SET 
+		MEMBER_DEL_FL = 'Y'
+	WHERE
+		 MEMBER_NO = #{memberNo}
 	</update>
-	
 
 	<!-- 작가 정지  -->
 	<update id="suspendAritist">
-	UPDATE "MEMBER"
-	SET MEMBER_PENALTY = 31	
-	WHERE MEMBER_NO = #{memberNo}
-	AND MEMBER_NO IN(
-  	SELECT M.MEMBER_NO
-  	FROM "MEMBER" M
-  	LEFT JOIN ARTIST A ON A.MEMBER_NO = M.MEMBER_NO
- 	WHERE A.ARTIST_REG = 'Y')
-	
+	UPDATE 
+		"MEMBER"
+	SET 
+		MEMBER_PENALTY = 31	
+	WHERE
+		MEMBER_NO = #{memberNo}
+	AND 
+		MEMBER_NO IN(
+	  	SELECT 
+	  		M.MEMBER_NO
+	  	FROM 
+	  		"MEMBER" M
+	  	LEFT JOIN ARTIST A ON A.MEMBER_NO = M.MEMBER_NO
+	 	WHERE 
+	 		A.ARTIST_REG = 'Y')
+		
 	</update>
 	
 	<!-- 작가 탈퇴 -->
-
 	<!-- MEMBER 상태를 탈퇴로 업데이트 -->
 	<update id="withdrawArtist2">
-    UPDATE MEMBER
-    SET MEMBER_DEL_FL = 'Y'
-    WHERE MEMBER_NO = #{memberNo}
+    UPDATE 
+    	MEMBER
+    SET 
+    	MEMBER_DEL_FL = 'Y'
+    WHERE 
+    	MEMBER_NO = #{memberNo}
     
 	</update>
 
 	<!-- ARTIST 상태를 비활성화로 업데이트 -->
 	<update id="withdrawArtist">
-    UPDATE ARTIST
-    SET ARTIST_REG = 'N'
-    WHERE MEMBER_NO = #{memberNo}
+    UPDATE 
+    	ARTIST
+    SET 
+    	ARTIST_REG = 'N'
+    WHERE 
+    	MEMBER_NO = #{memberNo}
 	</update>
-
-    
-	<!-- UPDATE "MEMBER"
-	SET MEMBER_DEL_FL = 'Y'
-	WHERE MEMBER_NO IN (
-  	SELECT M.MEMBER_NO
-  	FROM "MEMBER" M
-  	LEFT JOIN ARTIST A ON M.MEMBER_NO = A.MEMBER_NO
-  	WHERE A.MEMBER_NO = #{memberNo}
-  	AND A.ARTIST_REG = 'Y') -->
-
 	
 	<!--콘텐츠 관리 상세보기  -->
  	<select id="contentsDetailList">
-	SELECT REPORT_NO, REPORT_TYPE, REPORT_CONTENT
-	FROM REPORT
-	WHERE REPORT_NO = #{reportNo}
+	SELECT
+		REPORT_NO, REPORT_TYPE, REPORT_CONTENT
+	FROM
+	 	REPORT
+	WHERE 
+		REPORT_NO = #{reportNo}
 	</select>  
 	
 	<!--신고 목록 삭제  -->
 	<delete id="deleteReportList">
-	DELETE FROM REPORT
-	WHERE REPORT_NO=#{reportNo}
+	DELETE FROM 
+		REPORT
+	WHERE 
+		REPORT_NO=#{reportNo}
 	</delete>
 	
 	<!-- 게시글 삭제  -->
 	<delete id="deletePieceList">
-	DELETE FROM PIECE
-	WHERE PIECE_NO = #{pieceNo}
+	DELETE 
+		FROM PIECE
+	WHERE 
+		PIECE_NO = #{pieceNo}
 	</delete>
 	
 	<!-- 승인요청내역 프로필 불러오기  -->
 	<select id="getprofileList" resultMap="ProfileResultMap">
-	SELECT W.WORK_NO, W.MEMBER_NO, A.ARTIST_NICKNAME, A.ARTIST_PORTFOLIO, A.ARTIST_PROFILE
-	FROM "WORK" W
+	SELECT 
+		W.WORK_NO,
+		W.MEMBER_NO, 
+		A.ARTIST_NICKNAME, 
+		A.ARTIST_PORTFOLIO, 
+		A.ARTIST_PROFILE
+	FROM 
+		"WORK" W
 	LEFT JOIN ARTIST A ON A.MEMBER_NO=W.MEMBER_NO
-	WHERE W.MEMBER_NO = #{memberNo}
+	WHERE 
+		W.MEMBER_NO = #{memberNo}
 	</select>
 	
 	<resultMap type="Manage" id="ProfileResultMap">
@@ -205,138 +244,166 @@
 	</collection>
 	</resultMap>
 	
-	
+	<!-- 경력사항  -->
 	<select id="getworkDetail" resultType="string">
-	SELECT WORK_DETAIL
-	FROM WORK
-	WHERE MEMBER_NO = #{memberNo}
-	
+	SELECT 
+		WORK_DETAIL
+	FROM 
+		WORK
+	WHERE 
+		MEMBER_NO = #{memberNo}
 	</select>
 	
 	<!--승인 요청 승인 -->
 	<update id="getapproveArtist">
-	UPDATE ARTIST
-	SET ARTIST_REG='Y'
-	WHERE ARTIST_REG='N'
+	UPDATE 	
+		ARTIST
+	SET 
+		ARTIST_REG='Y'
+	WHERE 
+		ARTIST_REG='N'
 	AND
-	MEMBER_NO = #{memberNo} 
+		MEMBER_NO = #{memberNo} 
 	</update>
 	
 	<!-- 승인 요청 거절  -->
     <!-- ARTIST 테이블에서 데이터 삭제 -->
     <delete id="getrejectArtist">
-    DELETE FROM ARTIST
-    WHERE MEMBER_NO = #{memberNo}
+    DELETE FROM 
+    	ARTIST
+    WHERE 
+    	MEMBER_NO = #{memberNo}
     </delete>
 	<delete id="getrejectArtist2">  <!-- 먼저 실행 -->
- 	DELETE FROM WORK
-    WHERE MEMBER_NO = #{memberNo}
+ 	DELETE FROM 
+ 		WORK
+    WHERE 
+    	MEMBER_NO = #{memberNo}
 	</delete>
 	
 	<!--공지사항 목록 불러오기  -->
 	<select id="getNoticeListCount" resultType="_int">
-	SELECT COUNT(*)
-	FROM NOTICE
-	WHERE NOTICE_DEL_FL = 'N'
+	SELECT 
+		COUNT(*)
+	FROM 
+		NOTICE
+	WHERE 
+		NOTICE_DEL_FL = 'N'
 	</select>
 	
 	<select id="getNoticeList" resultType="map">
-	SELECT NOTICE_NO AS "noticeNo",
-	 	   NOTICE_TITLE AS "noticeTitle",
-	 	   NOTICE_CONTENT AS "noticeContent", 
-	  	   NOTICE_DATE AS "noticeDate", 
-	  	   NOTICE_DEL_FL AS "noticeDelFl"
-	FROM NOTICE
-	WHERE NOTICE_DEL_FL = 'N'
+	SELECT 
+		NOTICE_NO AS "noticeNo",
+		NOTICE_TITLE AS "noticeTitle",
+		NOTICE_CONTENT AS "noticeContent", 
+		NOTICE_DATE AS "noticeDate", 
+		NOTICE_DEL_FL AS "noticeDelFl"
+	FROM 
+		NOTICE
+	WHERE 
+		NOTICE_DEL_FL = 'N'
 	ORDER BY NOTICE_DATE DESC
 	</select>
 	
 	<!-- 공지사항 등록하기 -->
 	<insert id="addNoticeList" >
-	INSERT INTO NOTICE
-	VALUES(SEQ_NOTICE_NO.NEXTVAL, #{noticeTitle}, #{noticeContent}, DEFAULT, DEFAULT )
+	INSERT INTO 
+		NOTICE
+	VALUES (SEQ_NOTICE_NO.NEXTVAL, #{noticeTitle}, #{noticeContent}, DEFAULT, DEFAULT )
 	</insert>
 	
 	<!-- 공지사항 삭제하기 -->
 	<delete id="deleteNoticeList">
-	DELETE FROM NOTICE
-	WHERE NOTICE_NO = #{noticeNo}
+	DELETE FROM 
+		NOTICE
+	WHERE 
+		NOTICE_NO = #{noticeNo}
 	</delete>
 	
 	<!--공지사항 수정페이지 목록 불러오기  -->
 	<select id="getnoticeList" resultType="Notice">
-	SELECT  NOTICE_NO AS "noticeNo",
-	 	   NOTICE_TITLE AS "noticeTitle",
-	 	   NOTICE_CONTENT AS "noticeContent", 
-	  	   NOTICE_DATE AS "noticeDate", 
-	  	   NOTICE_DEL_FL AS "noticeDelFl"
-	FROM NOTICE
-	WHERE NOTICE_DEL_FL = 'N'
+	SELECT  
+		NOTICE_NO AS "noticeNo",
+		NOTICE_TITLE AS "noticeTitle",
+		NOTICE_CONTENT AS "noticeContent", 
+		NOTICE_DATE AS "noticeDate", 
+		NOTICE_DEL_FL AS "noticeDelFl"
+	FROM 
+		NOTICE
+	WHERE 
+		NOTICE_DEL_FL = 'N'
 	AND
-	NOTICE_NO = #{noticeNo}
+		NOTICE_NO = #{noticeNo}
 	ORDER BY NOTICE_DATE DESC
 	</select>
 	
 	<update id="updateNotice">
-	UPDATE NOTICE
-    SET NOTICE_TITLE = #{title},
+	UPDATE 
+		NOTICE
+    SET 
+    	NOTICE_TITLE = #{title},
         NOTICE_CONTENT = #{content}
-       
     WHERE NOTICE_NO = #{noticeNo}
 	</update>
 	
 	
 	<!-- 1대 1문의 -->
 	<select id="getQuestionListCount" resultType="_int">
-	SELECT COUNT(*)
-	FROM QUESTION
-	WHERE QUESTION_DEL_FL = 'N'
-	  AND
-		 QUESTION_ANS_FL = 'N'
+	SELECT 
+		COUNT(*)
+	FROM 
+		QUESTION
+	WHERE 
+		QUESTION_DEL_FL = 'N'
+	AND
+		QUESTION_ANS_FL = 'N'
+		
+ 	<choose>
+	<when test="category == 0">
+	</when>
+	<otherwise>
+	AND
+	QUESTION_CATEGORY_NO = #{category}
+	</otherwise>
+ 	</choose>
 	</select>
 	
 	<select id="getQuestionList" resultType="map">
 	SELECT 
-	QUESTION_NO AS "questionNo", 
-	MEMBER_NO AS "memberNo", 
-	QUESTION_CONTENT AS "questionContent", 
-	QUESTION_DEL_FL AS "questionDelFl", 
-	QUESTION_ANS_FL AS "questionAnsFl", 
-	QUESTION_ANSWER AS "questionAnswer",
-	QUESTION_CATEGORY_NO AS "questionCategoryNo"
-
-	FROM QUESTION 
-	
+		QUESTION_NO AS "questionNo", 
+		MEMBER_NO AS "memberNo", 
+		QUESTION_CONTENT AS "questionContent", 
+		QUESTION_DEL_FL AS "questionDelFl", 
+		QUESTION_ANS_FL AS "questionAnsFl", 
+		QUESTION_ANSWER AS "questionAnswer",
+		QUESTION_CATEGORY_NO AS "questionCategoryNo"
+	FROM 
+		QUESTION 	
 	WHERE
 	    QUESTION_DEL_FL = 'N'
 	AND
-		 QUESTION_ANS_FL = 'N'
+		QUESTION_ANS_FL = 'N'
+ 	 <choose> 
+	<when test="category == 0">
+	</when>
+	<otherwise>
+	AND
+	QUESTION_CATEGORY_NO = #{category}
+	</otherwise>
+ 	</choose>
 	ORDER BY QUESTION_DATE DESC
 	</select>
-<!-- 	
-	<select id="getQuestionList" resultType="map">
-	SELECT 
-	Q.QUESTION_NO AS "Q.questionNo", 
-	Q.MEMBER_NO AS "Q.memberNo", 
-	Q.QUESTION_CONTENT AS "questionContent", 
-	Q.QUESTION_DEL_FL AS "questionDelFl", 
-	Q.QUESTION_ANS_FL AS "questionAnsFl", 
-	Q.QUESTION_ANSWER AS "questionAnswer",
-	C.QUESTION_CATEGORY_NAME AS "questionCategoryName"
-	FROM QUESTION Q
-	LEFT JOIN QUESTION_CATEGORY C ON Q.QUESTION_CATEGORY_NO = C.QUESTION_CATEGORY_NO
-	WHERE
-	    QUESTION_DEL_FL = 'N'
-	   AND
-		 QUESTION_ANS_FL = 'N'
-	</select> -->
-	
+
 	<!-- 1대 1문의 삭제하기  -->
 	<update id="deleteQuestionList">
-	UPDATE QUESTION
-	SET QUESTION_DEL_FL = 'Y'
-	WHERE QUESTION_NO = #{questionNo}
-	AND QUESTION_DEL_FL = 'N'
+	UPDATE
+		QUESTION
+	SET 
+		QUESTION_DEL_FL = 'Y'
+	WHERE 
+		QUESTION_NO = #{questionNo}
+	AND 
+		QUESTION_DEL_FL = 'N'
 	</update>
 	
 	<!--1대 1문의 답변하기  -->
