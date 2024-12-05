@@ -20,7 +20,7 @@ a {
   width: 80%;
   height: 500px;
   /* border: 1px solid #333; */
-  border-bottom: 2px solid #aaaaaa; 
+  border-bottom: 1px solid #aaaaaa; 
   margin: 60px 30px 30px 30px;
   position: relative;
 }
@@ -30,26 +30,29 @@ a {
 .howTo-section4 {
   width: 80%;
   height: 500px;
-  border-bottom: 2px solid #aaaaaa;
+  border-bottom: 1px solid #aaaaaa;
   margin: 30px;
 }
 
 .inquireBtn {
   width: 100px;
   height: 40px;
-  background-color: #5e7c71;
-  border-radius: 10px;
-  color: #fff;
+  border-radius: 3px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
+  background-color: #ffffff;
+  color: #414141;
+  border: 1px solid #5e7c71;
 }
 
 
 .inquireBtn:hover {
   cursor: pointer;
-  background-color: #7e9a8d; /* 약간 더 밝은 톤 */
+  background-color: #5e7c71;
+  color: #ffffff;
+  border: 1px solid #ffffff;
 }
 
 .howTo-section1 > :first-child {
@@ -105,20 +108,24 @@ a {
 .detailBtn {
   width: 100px;
   height: 40px;
-  background-color: #fff;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 10px;
-  border-radius: 10px;
+  border-radius: 3px;
   padding: 0;
-  color:#333
+  background-color: #ffffff;
+  color: #414141;
+  border: 1px solid #414141;
 }
 
 
 .detailBtn:hover{
   cursor: pointer;
+  background-color: #5e7c71;
+  color: #ffffff;
+  border: 1px solid #ffffff;
 }
 
 

@@ -106,17 +106,19 @@
 
 
 .purchase-button {
-  background-color: #5e766d; /* 목록보기 버튼의 컬러 */
-  color: white;
+  background-color: #ffffff; /* 목록보기 버튼의 컬러 */
+  color: #414141;
   padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
+  border: 1px solid #5e7c71;
+  border-radius: 3px;
   cursor: pointer;
 }
 
 /* 호버 효과 */
 .purchase-button:hover {
-  background-color: #4b5e56;
+  background-color: #5e7c71;
+  color: #ffffff;
+  border: 1px solid #ffffff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
