@@ -16,11 +16,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.kh.plklj.bid.dto.BidRequest;
 import edu.kh.plklj.bid.dto.BidResponse;
 import edu.kh.plklj.bid.service.BidService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j
-@Component //  Spring Bean으로 등록하여 WebSocket 설정
+@Component 
+@RequiredArgsConstructor
+//  Spring Bean으로 등록하여 WebSocket 설정
 // TextWebSocketHandler: 텍스트 기반 메시지 처리
 public class StockWebSocketHandler extends TextWebSocketHandler {
 
@@ -28,19 +31,19 @@ public class StockWebSocketHandler extends TextWebSocketHandler {
     
     private final Map<String, WebSocketSession> sessionMap = new ConcurrentHashMap<>(); // 세션 관리
 
-    public StockWebSocketHandler(BidService service) {
-        this.service = service;
-    }
-
     // 클라이언트 메시지 처리
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
     	
     	try {
-    		
+    		 
+    		// readValue(message.getPayload(), BidRequest.class) JSON 데이터를 BidRequest 클래스의 객체로 변환.
+    		// JSON 데이터를 Java 객체로 변환
         BidRequest bidRequest = new ObjectMapper().readValue(message.getPayload(), BidRequest.class);
+        
         log.info("Received Bid Data: {}", bidRequest);
 
+        // 입찰 저장
         BidResponse response = service.processBid(bidRequest);
 
         // 성공 시 클라이언트들에게 응답 전송
@@ -60,7 +63,7 @@ public class StockWebSocketHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         log.info("WebSocket Connected: Session ID = {}", session.getId());
-        sessionMap.put(session.getId(), session);
+        sessionMap.put(session.getId(), session); // 연결된 클라이언트의 세션 정보를 sessionMap에 저장
     }
 
     // 웹소켓 연결 해제

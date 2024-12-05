@@ -34,7 +34,6 @@
 
 
 
-
 .upcoming-text {
   display: flex;
   flex-direction: column;
@@ -76,6 +75,14 @@
  margin-left: 15px;
 }
 
+
+.upcoming-text > .upcoming-text-title {
+  text-align: left;
+  font-size: 21px;
+  font-weight: 600;
+  word-break: break-word; /* 단어가 길어도 줄바꿈 */
+}
+
 .upcoming-imgbox > img {
   width: 200px;
   height: 250px;
@@ -83,7 +90,7 @@
   display: none;
 }
 
-.dotted-line {
+.dotted-line2 {
   width: 90%;
   margin-top: 30px;
   border: none; /* 기본 선 제거 */

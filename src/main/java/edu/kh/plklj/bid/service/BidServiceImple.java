@@ -17,7 +17,9 @@ public class BidServiceImple implements BidService {
 
   @Override
   public Double getHighestBid(int pieceNo) {
+  	
       Double highestBid = bidMapper.getHighestBid(pieceNo);
+      
       return highestBid != null ? highestBid : 0.0;
   }
 
