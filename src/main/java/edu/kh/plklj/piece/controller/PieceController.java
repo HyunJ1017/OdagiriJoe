@@ -125,6 +125,13 @@ public class PieceController {
 		
 		Piece piece = service.getPieceDetail(map);
 		
+		
+		
+		if(piece == null) {
+			model.addAttribute("message", "존재하지 않는 작품입니다.");
+			return "redirect:/piece/gallery";
+		}
+		
 		// 가져온 작품 정보를 모델에 추가
 		model.addAttribute("piece", piece);
 		
