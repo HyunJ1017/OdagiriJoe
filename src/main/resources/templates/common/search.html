@@ -21,9 +21,9 @@
         <section class="search-container-main">
           <div class="search-header-main">
             <label th:if= "${session.pieceStatus == 'N' ? 'unchecked' : ''}"><input type="checkbox" class="filter-checkbox" data-category="ongoingAuction" checked> 진행 경매</label>
-            <label th:if="${session.pieceStatus == 'F' and session.pieceType == 2 ? 'unchecked' : ''}"><input type="checkbox" class="filter-checkbox" data-category="pastAuction" checked> 종료 경매</label>
+            <label th:if="${session.pieceStatus == 'F' or session.pieceStatus == 'D' and session.pieceType == 2 ? 'unchecked' : ''}"><input type="checkbox" class="filter-checkbox" data-category="pastAuction" checked> 종료 경매</label>
             <label th:if="${session.pieceStatus == 'S' ? 'unchecked' : ''}"><input type="checkbox" class="filter-checkbox" data-category="ongoingGallery" checked> 판매 작품</label>
-            <label th:if="${session.pieceStatus == 'F' and session.pieceType == 1 ? 'unchecked' : ''}"><input type="checkbox" class="filter-checkbox" data-category="paseGallery" checked> 종료 작품</label>
+            <label th:if="${session.pieceStatus == 'F' or session.pieceStatus == 'M' and  session.pieceType == 1 ? 'unchecked' : ''}"><input type="checkbox" class="filter-checkbox" data-category="paseGallery" checked> 종료 작품</label>
           </div>
           <div class="sort-dropdown">
             <select id="sort" class="sort-select" onChange="onSortChange(event)">

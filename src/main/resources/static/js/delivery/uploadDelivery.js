@@ -296,89 +296,101 @@ function makePagination(paginationContainerId) {
     return;
   }
   paginationContainer.innerHTML = ""; // 기존 버튼 초기화
-  const createPageButton = (page, text, isActive = false, isDisabled = false) => {
-    const btn = document.createElement("a");
-    btn.href = "#";
-    btn.textContent = text;
-    btn.classList.add("page-btn");
-    if (isActive) btn.classList.add("active");
-    if (isDisabled) btn.classList.add("disabled");
-    if (!isDisabled) {
-      btn.addEventListener("click", (event) => {
-        event.preventDefault();
-        displayDeliveryContents(page);
-      });
+  if (delivertyPg.maxPage > 1 && filteredDeliveryTrList.length > 0) { // 페이지가 하나 이상이고 조회된 데이터가 있을 때만 페이지 버튼 생성
+    const createPageButton = (page, text, isActive = false, isDisabled = false) => {
+      const btn = document.createElement("a");
+      btn.href = "#";
+      btn.textContent = text;
+      btn.classList.add("page-btn");
+      if (isActive) btn.classList.add("active");
+      if (isDisabled) btn.classList.add("disabled");
+      if (!isDisabled) {
+        btn.addEventListener("click", (event) => {
+          event.preventDefault();
+          displayDeliveryContents(page);
+        });
+      }
+      return btn;
+    };
+
+    // << 버튼 (첫 페이지로 이동)
+    if (delivertyPg.currentPage > 1) {
+      paginationContainer.appendChild(createPageButton(1, "<<", false, delivertyPg.currentPage === 1));
     }
-    return btn;
-  };
 
-  // << 버튼 (첫 페이지로 이동)
-  paginationContainer.appendChild(createPageButton(1, "<<", false, delivertyPg.currentPage === 1));
+    // < 버튼 (이전 페이지로 이동)
+    if (delivertyPg.currentPage > 1) {
+      paginationContainer.appendChild(createPageButton(delivertyPg.prevPage, "<", false, delivertyPg.currentPage === 1));
+    }
 
-  // < 버튼 (이전 페이지로 이동)
-  paginationContainer.appendChild(createPageButton(delivertyPg.prevPage, "<", false, delivertyPg.currentPage === 1));
+    // 페이지 번호 버튼
+    for (let i = delivertyPg.startPage; i <= delivertyPg.endPage; i++) {
+      paginationContainer.appendChild(createPageButton(i, i, i === delivertyPg.currentPage));
+    }
 
-  // 페이지 번호 버튼
-  for (let i = delivertyPg.startPage; i <= delivertyPg.endPage; i++) {
-    paginationContainer.appendChild(createPageButton(i, i, i === delivertyPg.currentPage));
+    // > 버튼 (다음 페이지로 이동)
+    if (delivertyPg.currentPage < delivertyPg.maxPage) {
+      paginationContainer.appendChild(createPageButton(delivertyPg.nextPage, ">", false, delivertyPg.currentPage === delivertyPg.totalPageCount));
+    }
+
+    // >> 버튼 (마지막 페이지로 이동)
+    if (delivertyPg.currentPage < delivertyPg.maxPage) {
+      paginationContainer.appendChild(createPageButton(delivertyPg.totalPageCount, ">>", false, delivertyPg.currentPage === delivertyPg.totalPageCount));
+    }
   }
-
-  // > 버튼 (다음 페이지로 이동)
-  paginationContainer.appendChild(createPageButton(delivertyPg.nextPage, ">", false, delivertyPg.currentPage === delivertyPg.totalPageCount));
-
-  // >> 버튼 (마지막 페이지로 이동)
-  paginationContainer.appendChild(createPageButton(delivertyPg.totalPageCount, ">>", false, delivertyPg.currentPage === delivertyPg.totalPageCount));
 }
 
 const delivertyPaginationSetting = () => {
   const pageSize = 10;
   const limit = 10;
-  delivertyPg.maxPage = Math.ceil( listCount / limit );
-  // startPage : 페이지 번호 목록의 시작 번호
-  // 페이지 번호 목록이 10개(pageSize) 씩 보여질 경우
-  delivertyPg.startPage = Math.floor((delivertyPg.currentPage - 1) / pageSize) * pageSize + 1;
+  delivertyPg.maxPage = Math.ceil(listCount / limit);
   
-  // endPage : 페이지 번호 목록의 끝 번호
-  delivertyPg.endPage = pageSize - 1 + delivertyPg.startPage;
-  
-  // 페이지 끝 번호가 최대 페이지 수를 초과한 경우
-  if(delivertyPg.endPage > delivertyPg.maxPage)	delivertyPg.endPage = delivertyPg.maxPage;
-  
-  // 더 이상 뒤로갈 페이지가 없을 경우
-  if(delivertyPg.currentPage < pageSize) {
-    delivertyPg.prevPage = 1; 
+  if (delivertyPg.maxPage === 1) {
+    delivertyPg.startPage = 1;
+    delivertyPg.endPage = 1;
+    delivertyPg.prevPage = 1;
+    delivertyPg.nextPage = 1;
   } else {
-    delivertyPg.prevPage = delivertyPg.startPage - 1;
-  }
+    // startPage : 페이지 번호 목록의 시작 번호
+    delivertyPg.startPage = Math.floor((delivertyPg.currentPage - 1) / pageSize) * pageSize + 1;
   
-  // 더 이상 넘어갈 페이지가 없을 경우
-  if(delivertyPg.endPage == delivertyPg.maxPage) {
-    delivertyPg.nextPage = delivertyPg.maxPage;
-  } else {
-    delivertyPg.nextPage = endPage + 1;
+    // endPage : 페이지 번호 목록의 끝 번호
+    delivertyPg.endPage = pageSize - 1 + delivertyPg.startPage;
+  
+    // 페이지 끝 번호가 최대 페이지 수를 초과한 경우
+    if (delivertyPg.endPage > delivertyPg.maxPage) delivertyPg.endPage = delivertyPg.maxPage;
+  
+    // 더 이상 뒤로갈 페이지가 없을 경우
+    if (delivertyPg.currentPage < pageSize) {
+      delivertyPg.prevPage = 1;
+    } else {
+      delivertyPg.prevPage = delivertyPg.startPage - 1;
+    }
+  
+    // 더 이상 넘어갈 페이지가 없을 경우
+    if (delivertyPg.endPage == delivertyPg.maxPage) {
+      delivertyPg.nextPage = delivertyPg.maxPage;
+    } else {
+      delivertyPg.nextPage = delivertyPg.endPage + 1;
+    }
   }
   makePagination("paginationDelivery"); // 페이지네이션 랜더링
 };
 
 const displayDeliveryContents = (page) => {
-  // 현제페이지 수정
+  // 현재 페이지 수정
   delivertyPg.currentPage = page;
 
-  // 현제페이지 변경되었으니가 다시 렌더링
+  // 현재 페이지 변경되었으니 다시 렌더링
   delivertyPaginationSetting();
 
   // 바뀐 페이지만큼 다시 표 출력
-  let i = 0;
-  // 1페이지 0 ~ 9
-  // 2페이지 10~ 19
-  // 3페이지 20~ 29
-  // 11페이지 100 ~ 110
-  i = (page-1)*10;
+  let i = (page - 1) * 10;
   const tbody = document.getElementById("delivery-tbody");
   tbody.innerHTML = "";
-  const j = i + 10;
-  for(i; i < j; i++) {
-    tbody.appendChild(deliveryTrList[i]);
+  const j = Math.min(i + 10, filteredDeliveryTrList.length); // 범위를 필터링된 데이터 길이로 제한
+  for (i; i < j; i++) {
+    tbody.appendChild(filteredDeliveryTrList[i]);
   }
 }
 
@@ -386,39 +398,64 @@ const displayDeliveryContents = (page) => {
 /* 정렬 기준 변경 이벤트 */
 function onChange(event) {
   const selectedValue = event.target.value; // 선택된 필터 값 (0, 1, 2, 3, 4)
-  const tbody = document.querySelector("#delivery-tbody"); // 정렬 대상 tbody
-  const rows = Array.from(tbody.querySelectorAll("tr")); // tbody 안의 모든 행 가져오기
-
-    // 상태별 숫자 매핑
-    const statusOrder = {
-      "전체 조회": "4",
-      "방문수령": "0",
-      "배송 준비중": "1",
-      "배송중": "2",
-      "배송 완료": "3",
-    };
-
-  // "전체 조회"일 경우 모든 행을 표시
-  if (selectedValue === "4") {
-    rows.forEach((row) => {
-      row.style.display = ""; // 기본 표시
-    });
-    return; // 함수 종료
-  }
-
-  // 각 행을 확인하여 조건에 맞는 행만 표시
-  rows.forEach((row) => {
-    const rowStatus = row.querySelector(".sort-select")?.value; // 현재 행의 배송 상태 값
-
-    if (rowStatus === selectedValue) {
-      row.style.display = ""; // 조건 만족 시 표시
+  let deliveryCount = 0;
+  
+  // deliveryTrList 필터링 (전체 데이터 기준으로 필터링합니다)
+  filteredDeliveryTrList = deliveryTrList.filter((row) => {
+    const rowStatus = row.querySelector(".sort-select")?.value;
+    if (selectedValue === "4") {
+      deliveryCount++;
+      return true; // 전체 조회
     } else {
-      row.style.display = "none"; // 조건 미만족 시 숨김
+      if (rowStatus === selectedValue) {
+        deliveryCount++;
+        return true;
+      }
+      return false;
     }
   });
+
+  // 현재 페이지 데이터를 다시 출력
+  listCount = deliveryCount;
+  displayDeliveryContents(1); // 첫 페이지부터 다시 출력
+  delivertyPaginationSetting();
 }
 
 function onSortChange(event) {
-  const rowId = event.target.getAttribute("data-key"); // 해당 행의 ID (deliveryNo)
-  const selectedValue = event.target.value; // 행에서 선택된 값
+  const selectedValue = event.target.value; // 정렬할 기준 값
+
+  // deliveryTrList 정렬 (전체 데이터를 정렬합니다)
+  deliveryTrList.sort((a, b) => {
+    const aValue = a.querySelector(".sort-select")?.value;
+    const bValue = b.querySelector(".sort-select")?.value;
+
+    if (aValue < bValue) return selectedValue === "asc" ? -1 : 1;
+    if (aValue > bValue) return selectedValue === "asc" ? 1 : -1;
+    return 0;
+  });
+
+  // 필터링된 데이터를 다시 생성 (정렬 후 필터링)
+  let deliveryCount = 0;
+  filteredDeliveryTrList = deliveryTrList.filter((row) => {
+    const rowStatus = row.querySelector(".sort-select")?.value;
+    const currentFilter = document.querySelector("#filter-select").value;
+    if (currentFilter === "4") {
+      deliveryCount++;
+      return true;
+    } else {
+      if (rowStatus === currentFilter) {
+        deliveryCount++;
+        return true;
+      }
+      return false;
+    }
+  });
+
+  // 현재 페이지 데이터를 다시 출력
+  listCount = deliveryCount;
+  displayDeliveryContents(1); // 첫 페이지부터 다시 출력
+  delivertyPaginationSetting();
 }
+
+// 필터링된 데이터를 저장할 배열
+let filteredDeliveryTrList = deliveryTrList.slice();
