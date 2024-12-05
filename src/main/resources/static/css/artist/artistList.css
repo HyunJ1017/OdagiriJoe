@@ -21,7 +21,7 @@
 
 .artist-header h1 {
   font-size: 2rem;
-  color: #5c7a72;
+  color: #414141;
   visibility: visible;
 }
 .container > .artist-category{
@@ -34,7 +34,7 @@
 
 .artist-category h2 {
   margin-right: auto;
-  color: #5c7a72;
+  color: #414141;
   font-size: 28px;
   margin-top: 10px;
 }
@@ -61,10 +61,7 @@
   margin-top: 5%;
 }
 
-.artist-card:hover {
-  transform: translateY(-5px);
-  /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); */
-}
+
 
 .artist-card img {
   width: 100%;
