@@ -25,6 +25,10 @@ a {
   position: relative;
 }
 
+#noticeTitle, #guide{
+  padding-top: 5%
+}
+
 
 .howTo-section2,
 .howTo-section4 {
