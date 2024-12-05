@@ -6,11 +6,11 @@
     <title>Artist Detail</title>
     <link rel="stylesheet" href="/css/artist/artistDetail.css">
 
-    <th:block th:replace="~{/common/common.html :: cssLinks}"></th:block>
+    <th:block th:replace="~{/common/common :: cssLinks}"></th:block>
 </head>
 
 <body>
-  <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
+  <th:block th:replace="~{/common/common :: headerLinks}"></th:block>
     <main id="artist-profile-container">
       
         <section class="profile-section" th:if="${artist != null}" th:object="${artist}">
@@ -59,7 +59,7 @@
 
     </main>
 
-    <th:block th:replace= "~{/common/footer.html}"></th:block>
+    <th:block th:replace= "~{/common/footer}"></th:block>
 
     <script th:inline="javascript">
       let loginCheck = /*[[${session.memberLogin != null || session.artistLogin != null}]]*/ false;
