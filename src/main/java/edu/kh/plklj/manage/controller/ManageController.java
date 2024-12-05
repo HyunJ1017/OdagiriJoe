@@ -160,8 +160,6 @@ public class ManageController {
 
 		model.addAttribute("notice", notice);
 
-		log.debug("notice : {}", notice);
-
 		return "manage/noticeRevise";
 	}
 

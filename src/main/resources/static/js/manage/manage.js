@@ -33,7 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
 document.querySelectorAll(".faq-item .question-row").forEach(row => {
   row.addEventListener("click", () => {
     const answer = row.nextElementSibling;
-    console.log(answer);
     const buttons = answer.nextElementSibling;
 
     // answer요소가 숨겨져 있거나 스타일이 지정되어 있지 않을 경우
@@ -112,7 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
     memberList.style.display = "none";
     paginationBoxArtist.style.display = "flex";
     paginationBoxMember.style.display = "none";
-    console.log("작가 보기 활성화");
     getList(1, 1, 0)
   });
 
@@ -135,7 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
 function displayArtistList(contents) {
   const artistList = document.getElementById('artist-list'); // 작가 목록을 표시할 컨테이너
   if (!artistList) {
-    console.error("artist-list 요소를 찾을 수 없습니다.");
     return;
   }
   artistList.innerHTML = ''; // 기존 콘텐츠 초기화
@@ -162,7 +159,6 @@ function displayArtistList(contents) {
 function displayMemberList(contents) {
   const memberList = document.getElementById('member-list'); // 회원 목록을 표시할 컨테이너
   if (!memberList) {
-    console.error("member-list 요소를 찾을 수 없습니다.");
     return;
   }
   memberList.innerHTML = '';
@@ -240,7 +236,6 @@ function displayNoticeContents(contents) {
 
   // <ul>-noticelist가 없으면 오류 출력 후 종료
   if (!noticeList) {
-    console.error("공지사항 리스트 컨테이너를 찾을 수 없습니다.");
     return;
   }
 
@@ -274,7 +269,6 @@ function displayquestionContents(contents) {
   const questionGrid = document.getElementById('questionGrid');
   const questionList = questionGrid.querySelector('ul.inquiry-list');
   if (!questionList) {
-    console.error(contents);
     return;
   }
   questionList.innerHTML = '';
@@ -337,8 +331,6 @@ const detailButtonsEventAdd = () => {
         location.href = `/manage/confirm/${memberNo}`;
       });
     })
-  } else {
-    console.error("detailButton 요소를 찾을 수 없습니다.");
   }
 }
 

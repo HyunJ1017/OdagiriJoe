@@ -110,8 +110,6 @@ public class ManageServiceImpl implements ManageService {
 
 		Map<String, Object> map = Map.of("resultList", resultList, "pg", pg);
 
-		System.out.println(resultList);
-
 		return map;
 	}
 
