@@ -84,9 +84,7 @@
 
 .product-info .price {
   font-size: 18px;
-  font-weight: bold;
   color: #414141;
-  
 }
 
 .purchase-button {
@@ -98,6 +96,11 @@
   cursor: pointer;
 }
 
+.purchase-button:hover {
+  background-color: #5e7c71;
+  color: white;
+  border: 1px solid #ffffff;
+}
 
 
 /* 작품 내용 섹션 스타일 */
@@ -161,6 +164,19 @@ button.disabled {
   background-color: #ccc; 
 }
 
+#online-reportBtn {
+  background-color: #ffffff;
+  color: #414141;
+  border: 1px solid #5e7c71;;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+#online-reportBtn:hover {
+  background-color: #5e7c71;
+  color: white;
+  border: #ffffff;
+}
 
 /* 이미지 로딩 부분 */
 .main-image{

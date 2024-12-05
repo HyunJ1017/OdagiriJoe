@@ -28,14 +28,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 15px;
+  border-radius: 3px;
   padding: 20px;
 }
 
 .infoMain > div > img {
   width: 100%;
   height: auto; /* 비율에 맞게 이미지 크기 조정 */
-  border-radius: 15px;
+  border-radius: 3px;
   margin-bottom: 20px;
 }
 
@@ -61,7 +61,7 @@
   margin: 20px auto;
   padding: 20px;
   background-color: #ffffff; /* 흰색 배경으로 텍스트 강조 */
-  border-radius: 10px;
+  border-radius: 3px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -87,7 +87,7 @@ hr {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  border-radius: 15px;
+  border-radius: 3px;
   padding: 40px;
 }
 
@@ -102,7 +102,7 @@ hr {
   width: 45%;
   min-height: 500px;
   border: 1px solid #e0e0e0; /* 연한 테두리 */
-  border-radius: 15px;
+  border-radius: 3px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -138,18 +138,21 @@ hr {
   width: 100px;
   height: 40px;
   margin-top: 20px;
-  background-color: #5e7c71;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #414141;
+  border: 1px solid #5e7c71;
   text-align: center;
   line-height: 40px;
-  border-radius: 10px;
+  border-radius: 3px;
   text-decoration: none;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .detailBtn:hover {
-  background-color: #4a6059;
+  background-color: #5e7c71;
+  color: #ffffff;
+  border: 1px solid #ffffff;
   transform: scale(1.05); /* 확대 효과 */
   cursor: pointer;
 }
@@ -159,7 +162,7 @@ hr {
   width: 100%;
   padding: 20px;
   background-color: #ffffff;
-  border-radius: 10px;
+  border-radius: 3px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
