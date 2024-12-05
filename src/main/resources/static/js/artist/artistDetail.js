@@ -87,32 +87,33 @@ function loadArtistWorks(memberNo, sort = "recent", order = "desc") {
 
 let status = "";
 
-function formatPrice(amount) {
-  return new Intl.NumberFormat("ko-KR", {
-    style: "currency",
-    currency: "KRW"
-  }).format(amount) + "(KRW)";
-}
+
 
 // 작품 목록 렌더링 함수
 function renderArtistWorks(works) {
-
-  
-
   const container = document.querySelector(".artwork-list");
+
   console.log(works);
-  container.innerHTML += works.map(work => `
-    <div class="artwork-item">
-            <div class="artwork-info">
-                <h4>${work.pieceTitle}</h4>
-                <p class="amount>낙찰가: ₩${work.sellPrice.LocaleString()}  <br> 크기: &nbsp &nbsp &nbsp ${work.sizeX} x ${work.sizeY}</p>
-                <button class="view-button"
-                        data-piece-no="${work.pieceNo}" 
-                        data-status="${work.pieceStatus}">자세히 보기</button>
-            </div>
-            <img src="${work.pieceRename}" class="artwork-image">
+
+  container.innerHTML += works.map(work => {
+    // 가격이 없는 경우 대체 문구 설정
+    const formattedPrice = work.sellPrice
+      ? `₩${new Intl.NumberFormat("ko-KR", { style: "decimal" }).format(work.sellPrice)}`
+      : "예정 경매 작품 입니다";
+
+    return `
+      <div class="artwork-item">
+        <div class="artwork-info">
+          <h4>${work.pieceTitle}</h4>
+          <p>가격: ${formattedPrice} <br> 크기: &nbsp;&nbsp;&nbsp; ${work.sizeX} x ${work.sizeY}</p>
+          <button class="view-button"
+                  data-piece-no="${work.pieceNo}" 
+                  data-status="${work.pieceStatus}">자세히 보기</button>
         </div>
-    `).join("");
+        <img src="${work.pieceRename}" class="artwork-image">
+      </div>
+    `;
+  }).join("");
 }
 
 
