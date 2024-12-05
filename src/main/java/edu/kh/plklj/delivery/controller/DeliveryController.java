@@ -45,7 +45,7 @@ public class DeliveryController {
 
 		List<Manage> selectDeliveryList = service.selectDeliveryList(memberNo);
 		model.addAttribute("selectDeliveryList", selectDeliveryList);
-		return "/delivery/main";
+		return "delivery/main";
 	}
 	
 	/* 관리자 배송 리스트 조회 */
