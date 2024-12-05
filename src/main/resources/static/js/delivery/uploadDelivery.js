@@ -1,7 +1,5 @@
-// 필터링된 데이터를 저장할 배열
-let filteredDeliveryTrList = deliveryTrList.slice();
-
 let deliveryTrList = [];
+let filteredDeliveryTrList;
 let listCount = 0;
 let delivertyPg = {
   currentPage : 1,
@@ -143,6 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const startDateInput = document.getElementById("start-date");
   const returnDateInput = document.getElementById("return-date");
   const selectButton = document.getElementById("select");
+  const resetButton = document.getElementById("reset");
 
   // 날짜 입력 요소 초기화
   startDateInput.setAttribute("max", today);
@@ -176,9 +175,20 @@ document.addEventListener("DOMContentLoaded", function () {
     console.error("조회 버튼을 찾을 수 없습니다. 버튼 ID가 정확한지 확인하세요.");
   }
 
+  if(resetButton) {
+    resetButton.addEventListener("click", () => {
+      startDateInput.value = "";
+      returnDateInput.value = "";
+      fetchDeliveryList();
+    })
+  } else {
+    console.error("초기화 버튼을 찾을 수 없습니다.");
+  }
+
   // 페이지 로드 시 전체 데이터 조회
   fetchDeliveryList();
 
+  // ---------------------------------------------------------------------------------------------------------------
   // 데이터 조회 함수
   function fetchDeliveryList(startDate = null, returnDate = null) {
     const url = `/delivery/uploadDelivery`;
@@ -255,6 +265,8 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
           hideNoResultsMessage();
         }
+
+        filteredDeliveryTrList = [...deliveryTrList];
 
         // 페이지네이션 설정 후 랜더링까지
         delivertyPaginationSetting();
@@ -346,6 +358,8 @@ function makePagination(paginationContainerId) {
 const delivertyPaginationSetting = () => {
   const pageSize = 10;
   const limit = 10;
+  const listCount = filteredDeliveryTrList.length;
+
   delivertyPg.maxPage = Math.ceil(listCount / limit);
   
   if (delivertyPg.maxPage === 1) {
@@ -398,7 +412,7 @@ const displayDeliveryContents = (page) => {
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
-/* 정렬 기준 변경 이벤트 *//* 정렬 기준 변경 이벤트 */
+/* 정렬 기준 변경 이벤트 */
 function onChange(event) {
   const selectedValue = event.target.value; // 선택된 필터 값 (0, 1, 2, 3, 4)
   let deliveryCount = 0;
@@ -412,7 +426,7 @@ function onChange(event) {
       return rowStatus === selectedValue;
     }
   });
-
+  
   // 현재 페이지 데이터를 다시 출력
   displayDeliveryContents(1); // 첫 페이지부터 다시 출력
   listCount = deliveryCount;
@@ -426,7 +440,6 @@ function onSortChange(event) {
   deliveryTrList.sort((a, b) => {
     const aValue = a.querySelector(".sort-select")?.value;
     const bValue = b.querySelector(".sort-select")?.value;
-
     if (aValue < bValue) return selectedValue === "asc" ? -1 : 1;
     if (aValue > bValue) return selectedValue === "asc" ? 1 : -1;
     return 0;
@@ -448,3 +461,4 @@ function onSortChange(event) {
   listCount = deliveryCount;
   delivertyPaginationSetting();
 }
+
