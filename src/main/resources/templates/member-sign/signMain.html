@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>화사 :: 愛 :: 화공</title>
-  <th:block th:replace= "~{/common/common :: cssLinks}"></th:block>
+  <th:block th:replace= "~{common/common :: cssLinks}"></th:block>
   <link rel="stylesheet" href="/css/member-sign/signUp.css">
 </head>
 <body>
-  <th:block th:replace= "~{/common/common :: headerLinks}"></th:block>
+  <th:block th:replace= "~{common/common :: headerLinks}"></th:block>
 
   <section id="signMain">
-    <th:block th:replace= "~{/member-sign/logIn}"></th:block>
-    <th:block th:replace= "~{/member-sign/signUp}"></th:block>
-    <th:block th:replace= "~{/member-sign/findId}"></th:block>
-    <th:block th:replace= "~{/member-sign/findPw}"></th:block>
+    <th:block th:replace= "~{member-sign/logIn}"></th:block>
+    <th:block th:replace= "~{member-sign/signUp}"></th:block>
+    <th:block th:replace= "~{member-sign/findId}"></th:block>
+    <th:block th:replace= "~{member-sign/findPw}"></th:block>
   </section>
 
 
@@ -25,7 +25,7 @@
     <div class="signMain-hr">|</div><div class="signMain-btn">회원가입</div>
   </div>
   
-  <th:block th:replace= "~{/common/footer}"></th:block>
+  <th:block th:replace= "~{common/footer}"></th:block>
   <script th:inline="javascript">
     const pageKey = /*[[${pageKey}]]*/ "requestPageKey";
   </script>

@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>화사 :: 愛 :: 화공</title>
-    <th:block th:replace= "~{/common/common :: cssLinks}"></th:block>
+    <th:block th:replace= "~{common/common :: cssLinks}"></th:block>
     <link rel="stylesheet" href="/css/myPage/progressiveAuction.css">
   </head>
   <body>
-  <th:block th:replace= "~{/common/common :: headerLinks}"></th:block>
+  <th:block th:replace= "~{common/common :: headerLinks}"></th:block>
 
   <main id="myPage-main" class="myPage-main">
     <h1>경매진행목록</h1>
@@ -70,7 +70,7 @@
 
   <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 
-  <th:block th:replace= "~{/common/footer}"></th:block>
+  <th:block th:replace= "~{common/footer}"></th:block>
   <script th:inline="javascript">
     const memberNo = /*[[${session.artistLogin != null} ? ${session.artistLogin.memberNo} : ${session.memberLogin.memberNo}]]*/ "defaultMemberNo";
   </script>

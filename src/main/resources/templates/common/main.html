@@ -7,11 +7,11 @@
   <title>화사 :: 愛 :: 화공</title>
   <link rel="stylesheet" href="/css/common/main.css">
   <link rel="stylesheet" href="/css/chatbot/chatbotMain.css">
-  <th:block th:replace="~{/common/common :: cssLinks}"></th:block>
+  <th:block th:replace="~{common/common :: cssLinks}"></th:block>
 </head>
 
 <body>
-  <th:block th:replace="~{/common/common :: headerLinks}"></th:block>
+  <th:block th:replace="~{common/common :: headerLinks}"></th:block>
   <main>
     <!-- 메인 슬라이드쇼 섹션 -->
     <section class="slider-container">
@@ -24,9 +24,11 @@
                   <p th:text="|*{pieceTitle}|" class="mainPriceText">카테고리 이름</p>
                   <p th:text="|Open Time: *{startDate}|" class="mainTimeText">시작 일시</p>
                   <p th:text="|End Time: *{endDate}|" class="mainTimeText">끝난 일시</p>
-                  <button type="button" class="seeBtn" th:onclick="|location.href='/auction/auctionDetail?pieceNo=*{pieceNo}'|">보러가기</button>
+                  <button type="button" class="seeBtn"
+                    th:onclick="|location.href='/auction/auctionDetail?pieceNo=*{pieceNo}'|">보러가기</button>
                 </div>
-                <img th:src="${artist.pieceRename}" alt="Main" class="main-image" th:data-id="*{memberNo}" onload="hideLoader(this)">
+                <img th:src="${artist.pieceRename}" alt="Main" class="main-image" th:data-id="*{memberNo}"
+                  onload="hideLoader(this)">
                 <div class="loader"></div>
               </article>
             </div>
@@ -34,17 +36,17 @@
         </div>
       </div>
     </section>
-      
-      <!-- 인디케이터 바 -->
-      <!-- 이전/다음 버튼 -->
-      <div class="indicator-container">
-        <button class="prev-btn" onclick="moveMainSlide(-1)">&#10094;</button>
-        <div class="progress-bar-container">
-          <div class="progress-bar"></div>
-        </div>
-        <button class="next-btn" onclick="moveMainSlide(1)">&#10095;</button>
+
+    <!-- 인디케이터 바 -->
+    <!-- 이전/다음 버튼 -->
+    <div class="indicator-container">
+      <button class="prev-btn" onclick="moveMainSlide(-1)">&#10094;</button>
+      <div class="progress-bar-container">
+        <div class="progress-bar"></div>
       </div>
-    </main>
+      <button class="next-btn" onclick="moveMainSlide(1)">&#10095;</button>
+    </div>
+  </main>
 
 
   <!-- 갤러리 섹션 -->
@@ -58,7 +60,8 @@
       <article class="gallery-item" th:each="artist, stat : ${onlineGallery}">
         <div class="gallery-image">
           <a th:href="@{piece/onlineDetail (pieceNo=*{pieceNo})}" th:object="${artist}">
-            <img th:src="*{pieceRename}" alt="Online Gallery" class="pieceRename" th:data-id="*{memberNo}" onload="hideLoader(this)">
+            <img th:src="*{pieceRename}" alt="Online Gallery" class="pieceRename" th:data-id="*{memberNo}"
+              onload="hideLoader(this)">
             <div class="loader"></div>
           </a>
           <div class="gallery-innerDetails" th:object="${piece}">
@@ -76,77 +79,80 @@
   </section>
 
   <!-- 경매 슬라이드 섹션 -->
-    <section class="art-container">
-      <div class="art-header">
-        <h3>Action</h3>
-        <button class="artBtn" onclick="location.href='/auction/main'">경매 더보기 + </button>
-      </div>
-      <div class="custom-line"></div> <!-- 제목과 버튼 아래 구분선 -->
-      <div class="auctions-slider-container">
-        <div class="auctions-slides">
-          <div class="auctions-slide">
-            <article class="auctions-container" th:each="artist, stat : ${auctions}" th:object="${artist}">
-              <div class="auction-item">
-                <div class="auction-detail">
-                  <p th:text="*{artistNickname}" class="priceText">작가명</p>
-                  <p th:text="|제목 : *{pieceTitle}|">제목</p>
-                  <p th:text="|작품 사이즈 : *{sizeX} x *{sizeY}|">22 x 22</p>
-                  <p th:if="*{startPrice != null}" th:text="|시작가 (KRW): *{startPrice}|">시작가(KRW)</p>
-                  <p th:if="*{startPrice == null}" th:text="|현재가 (KRW): *{hopePrice}|">현재가(KRW)</p>
-                  <hr class="dotted-line">
-                  <button class="view-button" role="link" aria-label="상세보기: ${pieceTitle}" th:onclick="|location.href='/auction/auctionDetail?pieceNo=*{pieceNo}'|">상세보기</button>
-                </div>
-                <div class="auction-img">
-                <img th:src="*{pieceRename}" alt="작품: *{pieceTitle}" class="auction-image" th:data-id="*{memberNo}" onload="hideLoader(this)">
-                <div class="loader"></div>
-                </div>
+  <section class="art-container">
+    <div class="art-header">
+      <h3>Action</h3>
+      <button class="artBtn" onclick="location.href='/auction/main'">경매 더보기 + </button>
+    </div>
+    <div class="custom-line"></div> <!-- 제목과 버튼 아래 구분선 -->
+    <div class="auctions-slider-container">
+      <div class="auctions-slides">
+        <div class="auctions-slide">
+          <article class="auctions-container" th:each="artist, stat : ${auctions}" th:object="${artist}">
+            <div class="auction-item">
+              <div class="auction-detail">
+                <p th:text="*{artistNickname}" class="priceText">작가명</p>
+                <p th:text="|제목 : *{pieceTitle}|">제목</p>
+                <p th:text="|작품 사이즈 : *{sizeX} x *{sizeY}|">22 x 22</p>
+                <p th:if="*{startPrice != null}" th:text="|시작가 (KRW): *{startPrice}|">시작가(KRW)</p>
+                <p th:if="*{startPrice == null}" th:text="|현재가 (KRW): *{hopePrice}|">현재가(KRW)</p>
+                <hr class="dotted-line">
+                <button class="view-button" role="link" aria-label="상세보기: ${pieceTitle}"
+                  th:onclick="|location.href='/auction/auctionDetail?pieceNo=*{pieceNo}'|">상세보기</button>
               </div>
-            </article>
-          </div>
-        </div>
-      </div>
-      <div class="custom-line"></div>
-
-      <!-- Chatbot 영역 -->
-      <div id="chatbot-icon">
-        <img src="/images/howto/chatbot2.png">
-      </div>
-
-      <!-- Chatbot -->
-      <div id="chatbot-container" class="hidden">
-          <div id="chatbot-header">
-              화사 :: 愛 :: 화공
-              <span id="chatbot-close">✖️</span>
-          </div>
-          <div id="chatbot-body">
-              <div id="chat-messages" class="chat-messages"></div>
-               <!-- Keyword Buttons -->
-              <div id="chatbot-keywords">
-                <button class="keyword-button">회원가입</button>
-                <button class="keyword-button">경매방법</button>
-                <button class="keyword-button">입찰방법</button>
-                <button class="keyword-button">날씨</button>
-                <button class="keyword-button">KH</button>
+              <div class="auction-img">
+                <img th:src="*{pieceRename}" alt="작품: *{pieceTitle}" class="auction-image" th:data-id="*{memberNo}"
+                  onload="hideLoader(this)">
+                <div class="loader"></div>
+              </div>
             </div>
-          </div>
-          <div id="chatbot-footer">
-              <input type="text" id="chat-input" placeholder="궁금한 사항을 입력해주세요.">
-              <button id="send-button">전송</button>
-          </div>
-      </div>
-      <!-- Chatbot 영역 -->
-      
-      <!-- 경매 슬라이더 인디케이터 바 -->
-      <div class="auctions-progress-container">
-        <button class="auctions-prev-btn" onclick="moveSlide(-1)">&#10094;</button>
-        <div class="auctions-progress-bar-container">
-          <div class="auctions-progress-bar"></div>
+          </article>
         </div>
-        <button class="auctions-next-btn" onclick="moveSlide(1)">&#10095;</button>
       </div>
+    </div>
+    <div class="custom-line"></div>
+
+    <!-- Chatbot 영역 -->
+    <div id="chatbot-icon">
+      <img src="/images/howto/chatbot2.png">
+    </div>
+
+    <!-- Chatbot -->
+    <div id="chatbot-container" class="hidden">
+      <div id="chatbot-header">
+        화사 :: 愛 :: 화공
+        <span id="chatbot-close">✖️</span>
+      </div>
+      <div id="chatbot-body">
+        <div id="chat-messages" class="chat-messages"></div>
+        <!-- Keyword Buttons -->
+        <div id="chatbot-keywords">
+          <button class="keyword-button">회원가입</button>
+          <button class="keyword-button">경매방법</button>
+          <button class="keyword-button">입찰방법</button>
+          <button class="keyword-button">날씨</button>
+          <button class="keyword-button">KH</button>
+        </div>
+      </div>
+      <div id="chatbot-footer">
+        <input type="text" id="chat-input" placeholder="궁금한 사항을 입력해주세요.">
+        <button id="send-button">전송</button>
+      </div>
+    </div>
+    <!-- Chatbot 영역 -->
+
+    <!-- 경매 슬라이더 인디케이터 바 -->
+    <div class="auctions-progress-container">
+      <button class="auctions-prev-btn" onclick="moveSlide(-1)">&#10094;</button>
+      <div class="auctions-progress-bar-container">
+        <div class="auctions-progress-bar"></div>
+      </div>
+      <button class="auctions-next-btn" onclick="moveSlide(1)">&#10095;</button>
+    </div>
   </section>
   <script src="/js/common/main.js"></script>
   <script src="/js/chatbot/chatbotMain.js"></script>
 </body>
-<th:block th:replace="~{/common/footer}"></th:block>
+<th:block th:replace="~{common/footer}"></th:block>
+
 </html>
