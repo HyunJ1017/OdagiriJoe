@@ -83,8 +83,8 @@ public interface ManageMapper {
 	int updateNotice(@Param("title") String title, @Param("content") String content, @Param("noticeNo") int noticeNo);
 	
 	// 1대 1문의 
-	int getQuestionListCount();
-	List<Map<String, Object>> getQuestionList(RowBounds questionBounds);
+	int getQuestionListCount(int category);
+	List<Map<String, Object>> getQuestionList(int category, RowBounds questionBounds);
 
 	// 1대 1문의 삭제하기
 	void deleteQuestionList(int questionNo);

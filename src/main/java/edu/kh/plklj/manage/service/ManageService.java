@@ -12,7 +12,7 @@ public interface ManageService {
 
 
 	// 콘텐츠 관리
-	Map<String, Object> getSearchList(String code, int cp);
+	Map<String, Object> getSearchList(String code, int cp, int category);
 
 	// 회원 정지
 	int suspendMember(int memberNo);

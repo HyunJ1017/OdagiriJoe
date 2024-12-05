@@ -103,7 +103,7 @@ document.getElementById("cancelReport").addEventListener("click", (event) => {
       alert("해당 게시글 삭제가 완료되었습니다.");
 
       // 목록 업데이트 (getList 함수 호출) 및 팝업 닫기
-      getList(3, page3); // 필요 시 getList 함수 구현 확인
+      getList(3, page3, 0); // 필요 시 getList 함수 구현 확인
       closePopup();
     })
     .catch((error) => {
@@ -141,7 +141,7 @@ document.getElementById("confirmReport").addEventListener("click", (event) => {
 
       // 성공 알림창 표시
       alert("신고 반려 처리가 완료되었습니다.");
-      getList(3,page3);
+      getList(3,page3, 0);
       closePopup();
     })
     .catch(error => {

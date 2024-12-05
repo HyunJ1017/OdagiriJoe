@@ -21,7 +21,7 @@ public class ManageServiceImpl implements ManageService {
 	private final ManageMapper mapper;
 
 	@Override
-	public Map<String, Object> getSearchList(String code, int cp) {
+	public Map<String, Object> getSearchList(String code, int cp, int category) {
 
 		int listCount = 0;
 		int limit = 0;
@@ -95,13 +95,13 @@ public class ManageServiceImpl implements ManageService {
 			break;
 
 		case "6":
-			listCount = mapper.getQuestionListCount();
+			listCount = mapper.getQuestionListCount(category);
 
 			limit = 7;
 			pg = new Pagination(cp, listCount, limit, 10);
 			offset = (cp - 1) * limit;
 			RowBounds questionBounds = new RowBounds(offset, limit);
-			resultList = mapper.getQuestionList(questionBounds);
+			resultList = mapper.getQuestionList(category, questionBounds);
 			break;
 
 		default:

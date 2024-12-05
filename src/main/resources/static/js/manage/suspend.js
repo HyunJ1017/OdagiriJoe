@@ -26,7 +26,7 @@ function suspend(memberNo) {
     })
     .then((data) => {
       alert(`회원 정지 성공: ${data}`);
-      getList(2, page2);
+      getList(2, page2, 0);
     })
     .catch((error) => alert(`정지 실패: ${error.message}`));
 }
@@ -55,7 +55,7 @@ function suspend(memberNo) {
     })
     .then((data) => {
        alert(`회원 탈퇴 성공: ${data}`);
-       getList(2, page2);
+       getList(2, page2, 0);
      })
     .catch((error) => alert(`탈퇴 실패: ${error.message}`));
   }
@@ -85,7 +85,7 @@ function suspend2(memberNo){
   })
   .then((data) => {
     alert(`작가 정지 성공: ${data}`);
-    getList(1, page1);
+    getList(1, page1, 0);
   })
   .catch(error => alert(`정지 실패: ${error.message}`));
 }
@@ -113,7 +113,7 @@ function withdraw2(memberNo){
   })
   .then((data) => {
     alert(`작가 탈퇴 성공 : ${data}`);
-    getList(1, page1);
+    getList(1, page1, 0);
   })
   .catch(error => alert(`탈퇴 실패: ${error.message}`));  
 
