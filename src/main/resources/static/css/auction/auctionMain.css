@@ -143,6 +143,10 @@
   font-size: 17px;
 }
 
+#endAuction, #ingAuction{
+  padding-top: 5%;
+}
+
 
 .detail-button2 {
   position: absolute;
