@@ -168,13 +168,13 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("시작 날짜와 종료 날짜를 모두 선택해주세요.");
         return;
       }
-
       fetchDeliveryList(startDate, returnDate);
     });
   } else {
     console.error("조회 버튼을 찾을 수 없습니다. 버튼 ID가 정확한지 확인하세요.");
   }
 
+  // 초기화 버튼 클릭 시 데이터 조회
   if(resetButton) {
     resetButton.addEventListener("click", () => {
       startDateInput.value = "";
