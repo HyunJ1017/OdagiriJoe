@@ -37,6 +37,12 @@ function renderAllLists(data) {
 function renderArtistList(artists = [], containerId) {
   const container = document.getElementById(containerId);
 
+  if (artists.length === 0) {
+    container.innerHTML = `
+    <p class="no-artists-message">작가가 존재하지 않습니다.</p>
+    `;
+  } else {
+
   container.innerHTML = artists.map(artist => `
     <article class="artist-card">
        <div class="artist-profile" data-id=${artist.memberNo}>
@@ -47,6 +53,7 @@ function renderArtistList(artists = [], containerId) {
       <div class="artist-name"> <p>${artist.artistNickname}</p></div>
     </article>
   `).join("");
+  }
 }
 
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Artist Detail</title>
     <link rel="stylesheet" href="/css/artist/artistDetail.css">
 
     <th:block th:replace="~{/common/common.html :: cssLinks}"></th:block>
@@ -62,7 +62,7 @@
     <th:block th:replace= "~{/common/footer.html}"></th:block>
 
     <script th:inline="javascript">
-      let loginCheck1 = /*[[${session.memberLogin != null || session.artistLogin != null}]]*/ false;
+      let loginCheck = /*[[${session.memberLogin != null || session.artistLogin != null}]]*/ false;
       let memberNo = /*[[${artist.memberNo}]]*/ null;
       let artistNo = /*[[${artist.artistNo}]]*/ null;
       

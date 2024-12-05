@@ -1,3 +1,6 @@
+// 정렬상태 초기화(전역변수)
+let workSortState = { field: "recent", direction: "desc" };
+
 let currentPage = 1; // 현재 페이지
 let isFetching = false; // 데이터 로딩 상태
 let hasMore = true; // 추가 데이터 여부
@@ -28,9 +31,9 @@ document.querySelector(".artwork-list").addEventListener("click", (event) => {
 
 function determineDetailPage(pieceNo, pieceStatus) {
   if (pieceStatus === 'A') {
-    return `/auction/upCommingDetail?pieceNo=${pieceNo}`;
+    return `/auction/auctionDetail?pieceNo=${pieceNo}`;
   } else if (pieceStatus === 'S') {
-    return `/auction/currentDetail?pieceNo=${pieceNo}`;
+    return `/auction/auctionDetail?pieceNo=${pieceNo}`;
   } else if (pieceStatus === 'N' || pieceStatus === 'F') {
     return `/piece/onlineDetail?pieceNo=${pieceNo}`;
   } else {
@@ -77,14 +80,19 @@ function loadArtistWorks(memberNo, sort = "recent", order = "desc") {
     })
     .catch(err => {
       console.error("Error fetching artist works:", err);
-      isLoading = false;
+      isFetching = false;
     });
     
 }
 
 let status = "";
 
-
+function formatPrice(amount) {
+  return new Intl.NumberFormat("ko-KR", {
+    style: "currency",
+    currency: "KRW"
+  }).format(amount) + "(KRW)";
+}
 
 // 작품 목록 렌더링 함수
 function renderArtistWorks(works) {
@@ -97,7 +105,7 @@ function renderArtistWorks(works) {
     <div class="artwork-item">
             <div class="artwork-info">
                 <h4>${work.pieceTitle}</h4>
-                <p>낙찰가: ₩${work.sellPrice}  <br> 크기: &nbsp &nbsp &nbsp ${work.sizeX} x ${work.sizeY}</p>
+                <p class="amount>낙찰가: ₩${work.sellPrice.LocaleString()}  <br> 크기: &nbsp &nbsp &nbsp ${work.sizeX} x ${work.sizeY}</p>
                 <button class="view-button"
                         data-piece-no="${work.pieceNo}" 
                         data-status="${work.pieceStatus}">자세히 보기</button>
@@ -131,8 +139,7 @@ function renderArtistWorks(works) {
 
 
 
-// 정렬상태 초기화(전역변수)
-let workSortState = { field: "recent", direction: "desc" };
+
 
 /* 드롭다운 영역 */
 document.addEventListener("DOMContentLoaded", () => {
@@ -165,6 +172,12 @@ document.addEventListener("DOMContentLoaded", () => {
       workSortState.direction = "asc";
     }
 
+     // 상태 초기화
+    currentPage = 1; // 페이지 초기화
+    hasMore = true; // 더 많은 데이터 로드 가능으로 초기화
+    const container = document.querySelector(".artwork-list");
+    container.innerHTML = ''; // 기존 목록 제거
+
     // memberNo를 다시 확인하고 전달
     const memberNo = new URLSearchParams(window.location.search).get("memberNo");
     console.log("workHandleSort 호출 시 memberNo:", memberNo); // 추가: memberNo 확인
@@ -187,8 +200,9 @@ follow.addEventListener("click", () => {
 
 
   // 로그인 여부
-  if (!loginCheck1) {
+  if (!loginCheck) {
     alert("로그인 후 사용할 수 있습니다.");
+    location.href = "/member/login";
     return;
   }
 
