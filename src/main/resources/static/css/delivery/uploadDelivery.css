@@ -36,8 +36,8 @@ button {
 .sort{
   text-align: center;
   border-radius: 2px;
-  width: 8%;
-  margin-right: -14%;
+  width: 12%;
+  margin-right: -5%;
   cursor: pointer;
   background: #ffffff00;
   color: #ffffff;
@@ -71,7 +71,7 @@ button {
 
 /* 버튼 컨테이너 */
 .dateType-container {
-  width: 90%;
+  width: 95%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -117,10 +117,10 @@ option {
 
 /* 달력 및 조회 버튼 컨테이너 */
 .calendar-container {
-  display: flex;
+  display: flex ;
   align-items: center;
   justify-content: flex-start;
-  width: 60%;
+  width: 70%;
   margin: 0% 0% 0% 4%;
 }
 

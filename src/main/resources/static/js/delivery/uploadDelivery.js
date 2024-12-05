@@ -1,3 +1,6 @@
+// 필터링된 데이터를 저장할 배열
+let filteredDeliveryTrList = deliveryTrList.slice();
+
 let deliveryTrList = [];
 let listCount = 0;
 let delivertyPg = {
@@ -296,7 +299,7 @@ function makePagination(paginationContainerId) {
     return;
   }
   paginationContainer.innerHTML = ""; // 기존 버튼 초기화
-  if (delivertyPg.maxPage > 1 && filteredDeliveryTrList.length > 0) { // 페이지가 하나 이상이고 조회된 데이터가 있을 때만 페이지 버튼 생성
+  if (delivertyPg.maxPage > 1) { // 페이지가 하나 이상일 때만 페이지 버튼 생성
     const createPageButton = (page, text, isActive = false, isDisabled = false) => {
       const btn = document.createElement("a");
       btn.href = "#";
@@ -395,7 +398,7 @@ const displayDeliveryContents = (page) => {
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
-/* 정렬 기준 변경 이벤트 */
+/* 정렬 기준 변경 이벤트 *//* 정렬 기준 변경 이벤트 */
 function onChange(event) {
   const selectedValue = event.target.value; // 선택된 필터 값 (0, 1, 2, 3, 4)
   let deliveryCount = 0;
@@ -403,21 +406,16 @@ function onChange(event) {
   // deliveryTrList 필터링 (전체 데이터 기준으로 필터링합니다)
   filteredDeliveryTrList = deliveryTrList.filter((row) => {
     const rowStatus = row.querySelector(".sort-select")?.value;
-    if (selectedValue === "4") {
+    if (selectedValue === "4") return true; // 전체 조회
+    else {
       deliveryCount++;
-      return true; // 전체 조회
-    } else {
-      if (rowStatus === selectedValue) {
-        deliveryCount++;
-        return true;
-      }
-      return false;
+      return rowStatus === selectedValue;
     }
   });
 
   // 현재 페이지 데이터를 다시 출력
-  listCount = deliveryCount;
   displayDeliveryContents(1); // 첫 페이지부터 다시 출력
+  listCount = deliveryCount;
   delivertyPaginationSetting();
 }
 
@@ -435,27 +433,18 @@ function onSortChange(event) {
   });
 
   // 필터링된 데이터를 다시 생성 (정렬 후 필터링)
-  let deliveryCount = 0;
   filteredDeliveryTrList = deliveryTrList.filter((row) => {
     const rowStatus = row.querySelector(".sort-select")?.value;
     const currentFilter = document.querySelector("#filter-select").value;
-    if (currentFilter === "4") {
+    if (currentFilter === "4") return true;
+    else {
       deliveryCount++;
-      return true;
-    } else {
-      if (rowStatus === currentFilter) {
-        deliveryCount++;
-        return true;
-      }
-      return false;
+      return rowStatus === currentFilter;
     }
   });
 
   // 현재 페이지 데이터를 다시 출력
-  listCount = deliveryCount;
   displayDeliveryContents(1); // 첫 페이지부터 다시 출력
+  listCount = deliveryCount;
   delivertyPaginationSetting();
 }
-
-// 필터링된 데이터를 저장할 배열
-let filteredDeliveryTrList = deliveryTrList.slice();

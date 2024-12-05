@@ -413,10 +413,6 @@ const pieceUpload = () => {
       document.querySelector("#upload-form").submit();
       return;
     }
-
-
-      
-
     document.querySelector("#upload-form").submit();
   }
 };
