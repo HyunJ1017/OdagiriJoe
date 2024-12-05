@@ -46,6 +46,7 @@ likePiece.addEventListener("click", e => {
 });
 
 
+let countdownTimer; // 전역 변수
 
 
 // 남은 시간을 업데이트하는 함수
@@ -54,6 +55,8 @@ function updateCountdown(remainingTime, onCountdownEnd) {
 
   // 남은 시간이 모두 0이 되었을 때 처리
   if (hours === 0 && minutes === 0 && seconds === 0) {
+      clearInterval(countdownTimer); // 타이머 정지
+      countdownTimer = null; // 타이머 변수 초기화
       onCountdownEnd(); // 카운트다운 종료 처리
       return;
   }
@@ -91,7 +94,7 @@ function initializeCountdown(hours, minutes, seconds) {
   const remainingTime = { hours, minutes, seconds };
 
   // 1초마다 카운트다운 업데이트
-  const countdownTimer = setInterval(() => {
+  countdownTimer = setInterval(() => {
       updateCountdown(remainingTime, handleCountdownEnd);
   }, 1000);
 
@@ -136,5 +139,7 @@ function hideLoader(imgElement) {
 
 document.addEventListener("DOMContentLoaded", () => {
     // 초기화 함수 호출
-    initializeCountdown(remainingHours, remainingMinutes, remainingSeconds);
+     initializeCountdown(remainingHours, remainingMinutes, remainingSeconds);
+    
+    // initializeCountdown(0, 0, 10);
 });

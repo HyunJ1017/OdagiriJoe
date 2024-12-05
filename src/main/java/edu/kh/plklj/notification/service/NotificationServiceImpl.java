@@ -55,6 +55,7 @@ public class NotificationServiceImpl implements NotificationService {
 	/* 위시리스트에 관한 알림 보내기 */
 	@Override
 	public int sendAuctionNotifications(int daysBefore, String message) {
+		
 		List<Integer> pieceNoList = mapper.getAuctionNotification(daysBefore);
 
 		// 작품 별 위시리스트 등록 회원 번호 조회

@@ -17,10 +17,12 @@ public class WebSocketConfig implements WebSocketConfigurer {
 	        this.stockWebSocketHandler = stockWebSocketHandler;
 	    }
 	    
+	    
+
 	    @Override
 	    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry){
 	        /*webSocketHandler 를 추가*/
-	        registry.addHandler(stockWebSocketHandler, "/bid").setAllowedOrigins("*").setAllowedOriginPatterns
+	        registry.addHandler(stockWebSocketHandler, "/bid").setAllowedOriginPatterns
 	    		(
 	    				"http://localhost/",
 	    				"http://127.0.0.1/",
@@ -28,6 +30,11 @@ public class WebSocketConfig implements WebSocketConfigurer {
 	    		)
 	    		; // endpoint 설정과 CORS 설정(*)
 	    }
+	    
+	    
+	    // setAllowedOrigins("*"): 모든 도메인에서 WebSocket 연결을 허용
+	    // setAllowedOriginPatterns : 특정 도메인만 허용
+	    // WebSocketHandlerRegistry : 엔드포인트에 등록할 객체
 }
 
 
