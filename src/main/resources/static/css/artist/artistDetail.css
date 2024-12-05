@@ -31,17 +31,20 @@
 }
 
 .follow-button {
-  background-color: #5e7c71;
-  color: white;
-  border: none;
+  background-color: #ffffff;
+  color: #414141;
+  border: 1px solid #5e7c71;
   padding: 8px 16px;
   /* margin: 10px 0; */
-  border-radius: 20px;
+  border-radius: 3px;
   cursor: pointer;
   font-size: 14px;
 }
 
 .follow-button:hover {
+  background-color: #5e7c71;
+  color: #ffffff;
+  border: 1px solid #ffffff;
   transform: scale(1.02);
 }
 
@@ -72,7 +75,7 @@
   color: white;
   border: none;
   padding: 6px 12px;
-  border-radius: 20px;
+  border-radius: 3px;
   cursor: pointer;
   font-size: 14px;
   margin-right: 30px;
@@ -90,7 +93,7 @@
   align-items: center;
   background-color: white;
   padding: 15px;
-  border-radius: 10px;
+  border-radius: 3px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
   /* gap: 100px; */
@@ -103,7 +106,7 @@
 .artwork-image {
   width: 100px;
   height: 150px;
-  border-radius: 8px;
+  border-radius: 3px;
   margin-right: 20px;
   object-fit: cover;
 }
@@ -125,13 +128,19 @@
 }
 
 .view-button {
-  background-color: #5e7c71;
-  color: white;
-  border: none;
+  background-color: #ffffff;
+  color: #414141;
+  border: 1px solid #5e7c71;
   padding: 6px 12px;
-  border-radius: 20px;
+  border-radius: 3px;
   cursor: pointer;
   font-size: 14px;
+}
+
+.view-button:hover{
+  background-color: #5e7c71;
+  color: #ffffff;
+  border: 1px solid #ffffff;
 }
 
 .info-header{

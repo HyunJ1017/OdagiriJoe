@@ -58,14 +58,14 @@
 }
 
 .wishlist-button button{
-  background-color: #5e7c71;
-  color: white;
   width: 60px;
   height: 33px;
-  border: none;
   border-radius: 3px;
   cursor: pointer;
   font-size: 12px;
+  background-color: #ffffff;
+  color: #414141;
+  border: 1px solid #5e7c71;
 }
 
 .product-info h2 {
@@ -90,8 +90,8 @@
 .purchase-button {
   background-color: #ffffff;
   color: #414141;
-  padding: 10px 20px;
   border: 1px solid #5e7c71;
+  padding: 10px 20px;
   border-radius: 3px;
   cursor: pointer;
 }
@@ -99,8 +99,9 @@
 .purchase-button:hover {
   background-color: #5e7c71;
   color: white;
-  border: #ffffff;
+  border: 1px solid #ffffff;
 }
+
 
 /* 작품 내용 섹션 스타일 */
 .product-description {
