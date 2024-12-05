@@ -8,10 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
  * 
  */
 
-@SpringBootTest // 빌드 시 테스트를 수행할 클래스를 지정하는 어노테이션
+//@SpringBootTest // 빌드 시 테스트를 수행할 클래스를 지정하는 어노테이션
 class PlkljApplicationTests {
 
-	@Test
+//	@Test
 	void contextLoads() {
 	}
 

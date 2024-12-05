@@ -7,11 +7,11 @@
   <title>관리자 페이지</title>
   <link rel="stylesheet" href="/css/manage/manage.css">
   <link rel="stylesheet" href="/css/delivery/uploadDelivery.css">
-  <th:block th:replace="~{/common/common.html :: cssLinks}"></th:block>
+  <th:block th:replace="~{/common/common :: cssLinks}"></th:block>
 </head>
 
 <body>
-  <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
+  <th:block th:replace="~{/common/common :: headerLinks}"></th:block>
   <main>
 
   <section>
@@ -375,7 +375,7 @@
     <div class="pagination-box" id="paginationDelivery"></div>
   </section>
 </main>
-  <th:block th:replace="~{/manage/reportPopup.html}"></th:block>
+  <th:block th:replace="~{/manage/reportPopup}"></th:block>
   <script src="/js/manage/manage.js"></script>
   <script src="/js/manage/suspend.js"></script>
   <script src="/js/manage/notice.js"></script>

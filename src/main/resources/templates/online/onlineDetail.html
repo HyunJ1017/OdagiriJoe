@@ -6,11 +6,11 @@
   <title>작품 상세 조회</title>
   <link rel="stylesheet" href="/css/online/onlineDetail.css">
 
-  <th:block th:replace="~{/common/common.html :: cssLinks}"></th:block>
+  <th:block th:replace="~{/common/common :: cssLinks}"></th:block>
 </head>
 
 <body>
-  <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
+  <th:block th:replace="~{/common/common :: headerLinks}"></th:block>
   
   <main class="onlinePurchase-main">
 
@@ -73,7 +73,7 @@
 
   </main>
 
-  <th:block th:replace="~{/common/footer.html}"></th:block>
+  <th:block th:replace="~{/common/footer}"></th:block>
 
   <script th:inline="javascript">
     let loginCheck = /*[[${session.memberLogin != null || session.artistLogin != null}]]*/ false;

@@ -6,11 +6,11 @@
   <title>Current Auction Detail</title>
   <link rel="stylesheet" href="/css/auction/currentDetail.css">
 
-  <th:block th:replace="~{/common/common.html :: cssLinks}"></th:block>
+  <th:block th:replace="~{/common/common :: cssLinks}"></th:block>
 </head>
 
 <body>
-  <th:block th:replace="~{/common/common.html :: headerLinks}"></th:block>
+  <th:block th:replace="~{/common/common :: headerLinks}"></th:block>
   
   <main class="auctionDetail-main">
 
@@ -108,7 +108,7 @@
   <div id="pieceContainer" th:data-pieceNo="${currentDetail.pieceNo}"></div>
 
 
-  <th:block th:replace= "~{/common/footer.html}"></th:block>
+  <th:block th:replace= "~{/common/footer}"></th:block>
 
   <script th:inline="javascript">
     const loginCheck = /*[[${session.memberLogin != null || session.artistLogin != null}]]*/ false;
