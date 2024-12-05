@@ -40,8 +40,8 @@ public class AuctionController {
 			
 			model.addAttribute("upCommingList", list.get("upCommingList"));
 			model.addAttribute("currentList", list.get("currentList"));
-				
-			log.debug("currentList123 : {}", list.get("currentList"));
+			
+			System.out.println(list.get("upCommingList"));
 			
 			return "auction/auctionMain";
 		}
@@ -60,7 +60,6 @@ public class AuctionController {
 
 		    // 작품 상세 정보 조회
 		    Map<String, Object> pieceDetail = service.upComiingDetail(pieceNo, loginNo);
-		    System.out.println(pieceDetail);
 
 		    // 작품 상태 확인
 		    String pieceStatus = (String) pieceDetail.get("pieceStatus"); 
@@ -199,8 +198,6 @@ public class AuctionController {
 		
 		
 		
-		
-		
 		/* 종료 경매 */
 		@GetMapping("completedList")
 		@ResponseBody
@@ -209,8 +206,6 @@ public class AuctionController {
 				) {
 			
 	    Map<String, Object> map = service.completedList(cp);
-	    
-	    System.out.println(map.get("completedList"));
 	    
 	    return map;
 		}

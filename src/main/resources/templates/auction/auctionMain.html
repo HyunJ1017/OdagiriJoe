@@ -30,7 +30,7 @@
           </div>
 
           <div class="upcoming-text">
-            <h1 th:text="${piece.pieceTitle ?: '제목 없음'}"></h1>
+            <h3 class="upcoming-text-title" th:text="${piece.pieceTitle ?: '제목 없음'}"></h3>
         
             <div style="margin-top: 35px;">프리뷰</div>
             <div th:text="${piece.previewPeriod}" style="margin-top: 8px;"></div>
@@ -38,7 +38,7 @@
             <div style="margin-top: 25px;">경매일</div>
             <div th:text="${piece.auctionDateDisplay + ' 10:00'}" style="margin-top: 8px;"></div>
         
-            <hr class="dotted-line">
+            <hr class="dotted-line2">
             <button class="detail-button" id="upCommingBtn" th:attr="data-id=${piece.pieceNo}">상세보기</button>
           </div>
         </div>
@@ -61,7 +61,7 @@
       <div th:each="auction : ${currentList}" class="ongoing-section1">
         <div class="ongoing-text">
             <!-- 작품 제목 -->
-            <h1 th:text="${auction.pieceTitle ?: '제목 없음'}"></h1>
+            <h1 style="font-weight: 600;" th:text="${auction.pieceTitle ?: '제목 없음'}"></h1>
 
             <!-- 프리뷰 (등록 날짜로 대체) -->
             <div style="margin-top: 60px;">프리뷰</div>
