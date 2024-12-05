@@ -20,10 +20,12 @@ import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j
-@Component
+@Component //  Spring Bean으로 등록하여 WebSocket 설정
+// TextWebSocketHandler: 텍스트 기반 메시지 처리
 public class StockWebSocketHandler extends TextWebSocketHandler {
 
     private final BidService service; // BidService 주입
+    
     private final Map<String, WebSocketSession> sessionMap = new ConcurrentHashMap<>(); // 세션 관리
 
     public StockWebSocketHandler(BidService service) {
@@ -35,6 +37,7 @@ public class StockWebSocketHandler extends TextWebSocketHandler {
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
     	
     	try {
+    		
         BidRequest bidRequest = new ObjectMapper().readValue(message.getPayload(), BidRequest.class);
         log.info("Received Bid Data: {}", bidRequest);
 

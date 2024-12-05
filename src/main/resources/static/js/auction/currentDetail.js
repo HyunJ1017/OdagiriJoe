@@ -110,6 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // 10은 정수 변환
   const pieceNo = parseInt(document.getElementById('pieceContainer').getAttribute('data-pieceNo'), 10);
 
+  // 입찰 데이터 가져오기
   fetch(`/api/bid/current?pieceNo=${pieceNo}`)
     .then((response) => {
       if (!response.ok) throw new Error("Failed to fetch current bid data.");
@@ -139,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// WebSocket 연결
+// 엔드포인트 지정 WebSocket 연결 
 // const socket = new WebSocket("ws://192.168.10.28/bid");
 const socket = new WebSocket("/bid");
 
@@ -156,13 +157,14 @@ bidAmountInput.addEventListener('input', function (e) {
 
 // WebSocket 메시지 수신 및 업데이트
 socket.onmessage = function (event) {
+
   console.log("WebSocket message received:", event.data);
   const response = JSON.parse(event.data);
 
   // 에러 메시지 처리
   if (response.error) {
     console.error("Error from WebSocket:", response.error);
-    alert(`입찰 처리 중 문제가 발생했습니다: ${response.error}`);
+    alert("입찰 처리 중 문제가 발생했습니다. 다시 시도 해주세요.");
     return; // 에러일 경우 로직 중단
   }
 
@@ -191,7 +193,7 @@ socket.onmessage = function (event) {
       currentBidAmountSpan.innerText = `${response.currentBidPrice.toLocaleString()} (KRW)`;
     }
 
-    if (bidAmountInput) {
+    if (bidAmountInput && document.getElementById('modal').style.display !== 'block') {
       bidAmountInput.value = ''; // 값 초기화
     }
 
@@ -207,6 +209,7 @@ confirmBidBtn.addEventListener('click', function () {
   const rawValue = bidAmountInput.value.replace(/,/g, ''); // 쉼표 제거
   const bidAmount = parseFloat(rawValue); // 숫자로 변환
 
+  console.log("bidAmountInput.value : ", bidAmountInput.value);
   console.log("Bid Amount Entered:", bidAmount);
   console.log("Current Highest Bid:", currentHighestBid);
 
@@ -229,8 +232,8 @@ confirmBidBtn.addEventListener('click', function () {
     alert(`입찰 금액은 시작가 (${startPrice.toLocaleString()} KRW)보다 높아야 합니다.`);
     return; // 시작가보다 낮을 경우 로직 중단
   }
+  
 
-  alert("입찰이 완료 되었습니다.");
 
   const pieceNo = parseInt(document.getElementById('pieceContainer').getAttribute('data-pieceNo'), 10);
 
@@ -243,6 +246,7 @@ confirmBidBtn.addEventListener('click', function () {
   // WebSocket으로 입찰 데이터 전송
   if (socket.readyState === WebSocket.OPEN) {
     socket.send(JSON.stringify(bidData));
+    console.log(bidData);
     const modal = document.getElementById('modal');
     modal.style.display = 'none';
   } else {
