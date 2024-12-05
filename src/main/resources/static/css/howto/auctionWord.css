@@ -14,21 +14,24 @@
 .tab-button {
   width: 120px;
   height: 50px;
-  background-color: #5e7c71;
+  background-color: #ffffff;
+  color: #414141;
+  border: 1px solid #5e7c71;
   list-style: none; /* 리스트 스타일을 없앰 */
   padding: 0; /* 기본 패딩 제거 */
   margin: 0; /* 기본 마진 제거 */
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  border-radius: 3px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease; /* 애니메이션 효과 추가 */
 }
 
 .tab-button:hover {
-  background-color: #4a6059; /* 버튼 배경 색상 변경 */
-  color: #e0f2f1; /* 텍스트 색상 변경 */
+  background-color: #5e7c71;
+  color: #ffffff;
+  border: 1px solid #ffffff;
   transform: scale(1.1); /* 버튼을 1.1배 확대 */
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
 }
