@@ -12,6 +12,7 @@ body{
 .myPage-main>h1{
   margin-top: 5%;
   color: #414141;
+  margin-bottom: 50px;
 }
 .myPage-main>#content-section{
   display: flex;

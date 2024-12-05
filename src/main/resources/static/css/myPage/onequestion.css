@@ -14,7 +14,8 @@ body{
 }
 .myPage-main>h1{
   color: #414141;
-  margin: 30px 0 50px;
+  margin-top: 5%;
+  margin-bottom: 50px;
   user-select: none;
 }
 .inquiryInsert{

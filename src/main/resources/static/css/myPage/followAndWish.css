@@ -13,7 +13,7 @@ body{
   align-items: center;
 }
 .myPage-main>h1{
-  margin-top: 50px;
+  margin-top: 5%;
   user-select: none;
   color: #414141;
   margin-bottom: 50px;
@@ -44,8 +44,9 @@ body{
   border-bottom: 1px solid #80808036;
   border-radius: 10px;
   display: flex;
-  flex-direction:
+  flex-direction: row;
 }
+
 p {
   color: #414141;
 }

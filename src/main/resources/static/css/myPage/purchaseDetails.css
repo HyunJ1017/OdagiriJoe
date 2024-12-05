@@ -10,8 +10,9 @@ body{
   align-items: center;
 }
 .myPage-main>h1{
-  margin-top: 5%;
   color: #414141;
+  margin-top: 5%;
+  margin-bottom: 50px;
 }
 .myPage-main>#content-section{
   margin: 2% 0% 5% 0%;

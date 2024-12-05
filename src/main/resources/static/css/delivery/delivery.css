@@ -5,8 +5,11 @@ body {
   flex-direction: column;
 }
 
-main{
+.delivery-main {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* 공통 버튼 스타일 */
@@ -52,16 +55,16 @@ button {
 }
 
 /* 헤더 컨테이너 */
-.session-container > h3 {
+.main-container>h1{
   color: #414141;
-  font-size: 22px;
-  margin-bottom: 0.5em;
-  margin-top: 40%;
+  margin-top: 5%;
+  margin-bottom: 50px;
+  user-select: none;
 }
 
 /* 구분선 */
 .custom-line {
-  border-bottom: 1px solid #5e7c71;
+  border-bottom: 1px solid #acacac;
   width: 90%;
   margin-bottom: 1%;
 }
