@@ -116,11 +116,3 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ----------------------------------------------------------------------------------------------------------------
-const manageItems = document.querySelectorAll('.manage-item');
-
-manageItems.forEach(item => { // 관리 아이콘 클릭 이벤트
-  item.addEventListener('click', () => {
-
-  })
-
-})
