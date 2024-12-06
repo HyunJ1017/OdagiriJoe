@@ -13,7 +13,6 @@ a {
   align-items: center;
   justify-content: center;
   overflow-x: hidden;
-  color:#414141;
 }
 
 .howTo-section1 {
@@ -73,8 +72,8 @@ a {
   justify-content: center; /* 가로 중앙 정렬 */
   align-items: center; /* 세로 중앙 정렬 */
   margin: 30px 0 30px 0;
-  font-weight: bold;
   text-align: center;
+  color: #5e7c71;
 }
 
 
@@ -148,7 +147,7 @@ a {
   justify-content: center; /* 가로 중앙 정렬 */
   align-items: center; /* 세로 중앙 정렬 */
   margin: 30px 0 30px 0;
-  font-weight: bold;
+  color: #5e7c71;
   text-align: center;
 }
 
@@ -219,7 +218,7 @@ a {
   justify-content: center; /* 가로 중앙 정렬 */
   align-items: center; /* 세로 중앙 정렬 */
   margin: 30px 0 30px 0;
-  font-weight: bold;
+  color: #5e7c71;
   text-align: center;
 }
 
@@ -257,7 +256,6 @@ a {
 
 .faq-question {
   color: #5e7c71;
-  font-weight: bold;
   text-decoration: none;
   flex: 1;
   color:#5e7c71;
