@@ -150,7 +150,6 @@
 		FROM "FOLLOW"
 		WHERE
 			MEMBER_NO = #{memberNo}
-		AND ART.ARTIST_REG = 'Y'
 	</select>
 	
 	<!-- 전체 위시리스트 수 조회 -->
@@ -177,7 +176,6 @@
 		LEFT JOIN "ARTIST" ART ON (F.ARTIST_NO = ART.MEMBER_NO)
 		WHERE
 			F.MEMBER_NO = #{memberNo}
-		AND ART.ARTIST_REG = 'Y'
 	</select>
 	
 	<!-- 위시 목록 조회 -->
