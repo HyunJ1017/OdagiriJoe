@@ -47,31 +47,23 @@
 
 	<!-- 배송 예정 날짜 -->
 	<update id="deliveryIngDateUpdate">
-		UPDATE
-		"DELIVERY"
-		SET 
-		DELIVERY_ING_DATE = #{deliveryIngDate}
-		WHERE
-		DELIVERY_NO = #{deliveryNo}
+		UPDATE "DELIVERY"
+		SET DELIVERY_ING_DATE = #{deliveryIngDate}
+		WHERE DELIVERY_NO = #{deliveryNo}
 	</update>
 
 	<!-- 배송 완료 날짜 -->
 	<update id="deliveryEndDateUpdate">
-		UPDATE
-		"DELIVERY"
+		UPDATE "DELIVERY"
 		SET DELIVERY_END_DATE = #{deliveryEndDate}
-		WHERE
-		DELIVERY_NO = #{deliveryNo}
+		WHERE DELIVERY_NO = #{deliveryNo}
 	</update>
 
 	<!-- 배송 상태 변경 -->
 	<update id="deliveryStatusUpdate">
-		UPDATE
-		"DELIVERY"
-		SET 
-		DELIVERY_STATUS = #{deliveryStatus}
-		WHERE
-		DELIVERY_NO = #{deliveryNo}
+		UPDATE "DELIVERY"
+		SET  DELIVERY_STATUS = #{deliveryStatus}
+		WHERE DELIVERY_NO = #{deliveryNo}
 	</update>
 	
 </mapper>
