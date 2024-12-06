@@ -19,7 +19,6 @@ function onSortChange(event) {
   });
 }
 
-
 // ---------------------------------------------------------------------------------------------------------------
 /* 날짜 기준 변경 이벤트 */
 // 오늘 날짜 설정
@@ -69,12 +68,23 @@ document.getElementById("select").addEventListener("click", () => {
   // 날짜 입력 필드 값 가져오기
   const startDate = startDateInput.value;
   const returnDate = returnDateInput.value;
-
+  const resetButton = document.getElementById("reset");
+  
   // 입력값 검증
   if (!startDate || !returnDate) {
     alert("시작 날짜와 종료 날짜를 모두 선택해주세요.");
     return;
   }
+    // 초기화 버튼 클릭 시 데이터 조회
+    if(resetButton) {
+      resetButton.addEventListener("click", () => {
+        startDateInput.value = "";
+        returnDateInput.value = "";
+        location.href = "/delivery/main";
+      })
+    } else {
+      console.error("초기화 버튼을 찾을 수 없습니다.");
+    }
 
   // 날짜 값 변환
   const start = new Date(startDate);
