@@ -331,7 +331,6 @@
   text-align: center;
   font-size: 20px;
   font-weight: bold;
-  color: #888888;
   margin: 40px 0;
 }
 
@@ -361,7 +360,7 @@
 /* 진행경매 조회된 내용 없으면 */
 .no-ongoing{
   width: 100%;
-  height: 60%;
+  height: 500px;
   border-bottom: 2px solid #aaaaaa;
   margin: 0 auto;
   display: flex;

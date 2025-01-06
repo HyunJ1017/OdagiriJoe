@@ -105,6 +105,7 @@ public class ImageServiceImpl implements ImageService {
 	}
 	
 	// 작품 불러오기
+	// 작품 불러오기
 	@Override
 	public byte[] getPiece(String filename) {
 		Blob blob = bucket.get("piece/" + filename);
