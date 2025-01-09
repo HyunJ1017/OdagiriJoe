@@ -91,6 +91,7 @@ bidApplyBtn.addEventListener('click', function () {
 // 모달 닫기 (닫기 버튼 클릭)
 closeBtn.addEventListener('click', function () {
   modal.style.display = 'none';
+  resetBidInput();
 });
 
 // // 모달 닫기 (외부 클릭)
@@ -99,6 +100,13 @@ closeBtn.addEventListener('click', function () {
 //     modal.style.display = 'none';
 //   }
 // });
+
+
+// 입력 필드 초기화 함수
+function resetBidInput() {
+  bidAmountInput.value = ''; // 입력 필드 값 초기화
+  bidAmountInput.setAttribute('data-prev-value', ''); // 이전 값도 초기화
+}
 
 
 // 현재 최고 입찰가를 저장할 변수
@@ -145,15 +153,36 @@ document.addEventListener('DOMContentLoaded', function () {
 const socket = new WebSocket("/bid");
 
 
-// 금액 입력 필드에 쉼표 추가
+// 금액 입력 필드에 쉼표 추가 (문자열로 처리)
 bidAmountInput.addEventListener('input', function (e) {
-  const rawValue = e.target.value.replace(/,/g, ''); // 쉼표 제거
-  if (!isNaN(rawValue) && rawValue !== '') {
-    e.target.value = parseInt(rawValue, 10).toLocaleString(); // 쉼표 추가
+  // 입력값에서 쉼표 제거
+  let rawValue = e.target.value.replace(/,/g, '');
+
+  // 숫자로만 구성된 입력값인지 확인
+  if (/^\d*$/.test(rawValue)) {
+    // 유효한 숫자일 경우 쉼표를 추가하여 표시
+    e.target.value = rawValue.replace(/\B(?=(\d{3})+(?!\d))/g, ','); // 정규식으로 쉼표 추가
+
+    // 유효한 숫자를 data-prev-value에 저장
+    e.target.setAttribute('data-prev-value', rawValue);
+
+    // 값이 1조를 초과하는 경우 제한
+    const maxLimit = 1_000_000_000_000; // 1조
+    if (BigInt(rawValue) > maxLimit) {
+      alert('입력 가능한 최대 금액은 1조 원까지입니다.');
+      e.target.value = maxLimit.toLocaleString(); // 최대값으로 설정
+      e.target.setAttribute('data-prev-value', maxLimit.toString());
+    }
   } else {
-    e.target.value = ''; // 유효하지 않은 입력일 경우 초기화
+    // 유효하지 않은 입력일 경우 이전 값 복구
+    const previousValue = e.target.getAttribute('data-prev-value') || '';
+    e.target.value = previousValue.replace(/\B(?=(\d{3})+(?!\d))/g, ','); // 이전 값 복구 후 쉼표 추가
   }
 });
+
+
+
+
 
 // WebSocket 메시지 수신 및 업데이트
 socket.onmessage = function (event) {
@@ -228,10 +257,11 @@ confirmBidBtn.addEventListener('click', function () {
     return; // 현재 최고 입찰가보다 낮거나 같을 경우 로직 중단
   }
 
-  if (bidAmount <= startPrice) {
-    alert(`입찰 금액은 시작가 (${startPrice.toLocaleString()} KRW)보다 높아야 합니다.`);
+  if (bidAmount < startPrice) { 
+    alert(`입찰 금액은 시작가 (${startPrice.toLocaleString()} KRW) 이상이어야 합니다.`);
     return; // 시작가보다 낮을 경우 로직 중단
   }
+  
   
 
 

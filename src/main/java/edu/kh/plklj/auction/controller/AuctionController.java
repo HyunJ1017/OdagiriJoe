@@ -41,8 +41,6 @@ public class AuctionController {
 			model.addAttribute("upCommingList", list.get("upCommingList"));
 			model.addAttribute("currentList", list.get("currentList"));
 			
-			System.out.println(list.get("upCommingList"));
-			
 			return "auction/auctionMain";
 		}
 		
@@ -69,6 +67,7 @@ public class AuctionController {
 		    model.addAttribute("pieceDetail", pieceDetail);
 		    model.addAttribute("memberLogin", memberLogin);
 		    model.addAttribute("artistLogin", artistLogin);
+		    
 
 		    // 상태코드에 따라 페이지 이동
 		    if ("A".equals(pieceStatus)) {
